@@ -1,0 +1,35 @@
+# DataSource config
+ spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/JAVA_FRAMEWORK
+    username: root
+    password: yuhui0705
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      connection-timeout: 30000
+
+# JPA/Hibernate config
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+# Spring Web config
+  thymeleaf:
+    enabled: false
+ server:
+  servlet:
+    context-path: /springboot-exercise
+ 
+
+# Logback config
+ logging:
+  level:
+    com: 
+      givemegym: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%t] %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%t] [%line] %msg%n"
+  file:
+    path: ./
