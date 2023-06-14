@@ -25,6 +25,4 @@ public interface EmployeeService {
 
     /*根據問題類別(四種類別)查問題 比如透過部門找員工*/
     List<Employee> findByEmployeeId(Integer employeeId);
-
-
 }

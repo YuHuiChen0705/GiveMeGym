@@ -1,12 +1,11 @@
 package com.givemegym.emp.vo;
 
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
@@ -15,35 +14,61 @@ import org.springframework.data.annotation.Id;
 
 
 @Entity
-@Table(name = "employee", schema = "no7")
+@Table(name = "EMPLOYEE")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    @Column(name = "EMPLOYEE_ID")
     private int employeeId;
-    
-    @Column(name = "DEPARTMENT_ID")
     private int departmentId;
-    
-    @Column(name = "EMPLOYEE_NAME")
     private String employeeName;
-    
-    @Column(name = "EMPLOYEE_MAIL")
     private String employeeMail;
-    
-    @Column(name = "EMPLOYEE_PASSWORD")
     private String employeePassword;
-    
-    @Column(name = "EMPLOYEE_STATE")
     private String employeeState;
-    
-    
-//    @ManyToOne
-//    @JoinColumn(name = "COURSE_ID")
-//    private Course course;
-    
-    @ManyToOne
-    @JoinColumn(name = "EMPLOYEE_ID")
-    private Employee employee;
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getEmployeeMail() {
+        return employeeMail;
+    }
+
+    public void setEmployeeMail(String employeeMail) {
+        this.employeeMail = employeeMail;
+    }
+
+    public String getEmployeePassword() {
+        return employeePassword;
+    }
+
+    public void setEmployeePassword(String employeePassword) {
+        this.employeePassword = employeePassword;
+    }
+
+    public String getEmployeeState() {
+        return employeeState;
+    }
+
+    public void setEmployeeState(String employeeState) {
+        this.employeeState = employeeState;
+    }
 }

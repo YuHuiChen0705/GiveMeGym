@@ -32,28 +32,28 @@ public class EmployeeController {
 		return "backend/employee/employeeList";
 	}
 	
-	// 導入新增員工的頁面
-    @GetMapping("/addEmployee")
-    public String addPeriod() {
-        return "backend/employee/addEmployee";
-    }
-
-
-    // 新增員工
-    @PostMapping("/saveOrUpdate")
-    public String saveOrUpdate(@Valid Employee employee) {
-    	employeeService.saveOrUpdate(employee);
-        return "redirect:/backend/employee/employeeList";
-    }
+//	// 導入新增員工的頁面
+//    @GetMapping("/addEmployee")
+//    public String addPeriod() {
+//        return "backend/employee/addEmployee";
+//    }
+//
+//
+//    // 新增員工
+//    @PostMapping("/saveOrUpdate")
+//    public String saveOrUpdate(@Valid Employee employee) {
+//    	employeeService.saveOrUpdate(employee);
+//        return "redirect:/backend/employee/employeeList";
+//    }
     
     
-    //
-    @ModelAttribute("employeeListData")
-    protected List<Employee> referenceListData() {
-//		DeptService deptSvc = new DeptService();
-        List<Employee> list = employeeService.findAll();
-        return list;
-    }
+//    //
+//    @ModelAttribute("employeeListData")
+//    protected List<Employee> referenceListData() {
+////		DeptService deptSvc = new DeptService();
+//        List<Employee> list = employeeService.findAll();
+//        return list;
+//    }
     
 //    // 導入修改團課的頁面
 //    @GetMapping("/getOne_For_Update/{periodId}")
