@@ -1,0 +1,63 @@
+2023-06-13 05:44:29.024 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5h30s62ms336µs600ns).
+2023-06-13 09:58:51.180 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h14m27s288ms747µs).
+2023-06-13 14:20:23.609 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m28s417ms257µs900ns).
+2023-06-13 14:25:37.639 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m13s961ms347µs300ns).
+2023-06-13 14:47:03.382 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m25s594ms948µs).
+2023-06-13 16:44:35.934 [INFO] [File Watcher] [211] Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-06-13 16:44:35.976 [INFO] [Thread-5] [173] Stopping service [Tomcat]
+2023-06-13 16:44:35.979 [INFO] [Thread-5] [173] Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-06-13 16:44:35.993 [INFO] [Thread-5] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-13 16:44:35.998 [INFO] [Thread-5] [350] HikariPool-1 - Shutdown initiated...
+2023-06-13 16:44:36.002 [INFO] [Thread-5] [352] HikariPool-1 - Shutdown completed.
+2023-06-13 16:44:36.117 [INFO] [restartedMain] [55] Starting GiveMeGymApplication using Java 17.0.7 on LAPTOP-PATF7J21 with PID 12016 (C:\sts4-workspace\CHA101G7_backend\target\classes started by Tibame_T14 in C:\sts4-workspace\CHA101G7_backend)
+2023-06-13 16:44:36.117 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-06-13 16:44:36.117 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-06-13 16:44:36.315 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-13 16:44:36.329 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interfaces.
+2023-06-13 16:44:36.441 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-06-13 16:44:36.441 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-06-13 16:44:36.442 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.75]
+2023-06-13 16:44:36.528 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-06-13 16:44:36.530 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-06-13 16:44:36.530 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 409 ms
+2023-06-13 16:44:36.562 [INFO] [restartedMain] [110] HikariPool-2 - Starting...
+2023-06-13 16:44:36.571 [INFO] [restartedMain] [123] HikariPool-2 - Start completed.
+2023-06-13 16:44:36.578 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-13 16:44:36.583 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-06-13 16:44:36.606 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-13 16:44:36.607 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-13 16:44:36.799 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-06-13 16:44:36.813 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path ''
+2023-06-13 16:44:36.818 [INFO] [restartedMain] [61] Started GiveMeGymApplication in 0.729 seconds (JVM running for 76445.605)
+2023-06-13 16:44:36.820 [INFO] [restartedMain] [63] Condition evaluation unchanged
+2023-06-13 16:44:48.609 [INFO] [File Watcher] [211] Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-06-13 16:44:48.639 [INFO] [Thread-7] [173] Stopping service [Tomcat]
+2023-06-13 16:44:48.647 [INFO] [Thread-7] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-13 16:44:48.648 [INFO] [Thread-7] [350] HikariPool-2 - Shutdown initiated...
+2023-06-13 16:44:48.651 [INFO] [Thread-7] [352] HikariPool-2 - Shutdown completed.
+2023-06-13 16:44:48.729 [INFO] [restartedMain] [55] Starting GiveMeGymApplication using Java 17.0.7 on LAPTOP-PATF7J21 with PID 12016 (C:\sts4-workspace\CHA101G7_backend\target\classes started by Tibame_T14 in C:\sts4-workspace\CHA101G7_backend)
+2023-06-13 16:44:48.729 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-06-13 16:44:48.729 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-06-13 16:44:48.850 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-13 16:44:48.863 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interfaces.
+2023-06-13 16:44:48.928 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-06-13 16:44:48.929 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-06-13 16:44:48.929 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.75]
+2023-06-13 16:44:48.992 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-06-13 16:44:48.994 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-06-13 16:44:48.994 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 263 ms
+2023-06-13 16:44:49.022 [INFO] [restartedMain] [110] HikariPool-3 - Starting...
+2023-06-13 16:44:49.033 [INFO] [restartedMain] [123] HikariPool-3 - Start completed.
+2023-06-13 16:44:49.039 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-13 16:44:49.042 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-06-13 16:44:49.060 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-13 16:44:49.060 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-13 16:44:49.181 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-06-13 16:44:49.190 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path ''
+2023-06-13 16:44:49.196 [INFO] [restartedMain] [61] Started GiveMeGymApplication in 0.489 seconds (JVM running for 76457.983)
+2023-06-13 16:44:49.197 [INFO] [restartedMain] [63] Condition evaluation unchanged
+2023-06-13 16:44:52.368 [INFO] [RMI TCP Connection(549)-127.0.0.1] [159] Application shutdown requested.
+2023-06-13 16:44:52.377 [INFO] [RMI TCP Connection(549)-127.0.0.1] [173] Stopping service [Tomcat]
+2023-06-13 16:44:52.380 [INFO] [RMI TCP Connection(549)-127.0.0.1] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-13 16:44:52.382 [INFO] [RMI TCP Connection(549)-127.0.0.1] [350] HikariPool-3 - Shutdown initiated...
+2023-06-13 16:44:52.384 [INFO] [RMI TCP Connection(549)-127.0.0.1] [352] HikariPool-3 - Shutdown completed.
