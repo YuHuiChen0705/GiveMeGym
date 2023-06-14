@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>所有部門</title>
+</head>
+<body>
+
+	<table>
+		<tr th:each="department:${departmentList}">
+			<td th:text="${department.departmentId}"></td>
+			<td th:text="${department.departmentName}"></td>
+		</tr>
+	</table>
+
+</body>
+</html>
