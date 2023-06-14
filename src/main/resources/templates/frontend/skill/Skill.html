@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<tr th:each="skill:${skillList}">
+		<!-- 欄位標題 -->
+		<td th:text="${skill.skillId}">技能編號
+		</th>
+		<td th:text="${skill.skillName}">技能名稱
+		</th>
+
+	</tr>
+</body>
+</html>
