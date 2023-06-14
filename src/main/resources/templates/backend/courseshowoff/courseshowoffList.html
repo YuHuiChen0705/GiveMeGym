@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<tr th:each="courseshowoffvo:${courseshowoffList}">
+<td th:text="${courseshowoffvo.CourseShowOffId}"></td>
+<td th:text="${courseshowoffvo.CoursescheduleId}"></td>
+<td th:text="${courseshowoffvo.MemberId}"></td>
+<td th:text="${courseshowoffvo.CourseShowOffDate}"></td>
+<td th:text="${courseshowoffvo.CourseShowOffState}"></td>
+</tr>
+</body>
+</html>
