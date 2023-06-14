@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>新增員工</title>
+
+<head th:insert="~{/back-end/emp/included-fragment}"></head>
+<style type="text/css">
+	
+ h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-row label {
+      margin-right: 10px;
+    }
+
+    .form-row input[type="text"] {
+      margin-right: 10px;
+    }
+
+    .form-row input[type="password"] {
+      margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+
+
+	<form th:action="@{/backend_employee/saveOrUpdate}" method="post"
+		enctype="multipart/form-data" id="form"
+		class=" needs-validation row text-dark" th:object="${employee}"
+		novalidate>
+
+		<div class="form-row">
+			<label for="employeeId">員工編號:</label> <input type="text"
+				id="employeeId" name="employeeId" placeholder="輸入員工編號">
+		</div>
+
+		<div class="form-row">
+			<label for="departmentId">部門編號:</label> <input type="text"
+				id="departmentId" name="departmentId" placeholder="輸入部門編號">
+		</div>
+
+
+
+		<div class="form-row">
+			<label for="employeeName">員工姓名:</label> <input type="text"
+				id="employeeName" name="employeeName" placeholder="輸入員工姓名">
+		</div>
+
+		<div class="form-row">
+			<label for="employeeMail">員工信箱:</label> <input type="text"
+				id="employeeMail" name="employeeMail" placeholder="輸入員工信箱">
+		</div>
+
+		<div class="form-row">
+			<label for="employeePassword">員工密碼:</label> <input type="password"
+				id="employeePassword" name="employeePassword" placeholder="輸入員工密碼">
+		</div>
+
+		<div class="form-row">
+			<label for="employee_state">員工狀態:</label> <select id="employee_state"
+				name="employee_state">
+				<option value="在職" selected>在職</option>
+				<option value="離職">離職</option>
+			</select>
+		</div>
+
+		<div class="form-row">
+			<input type="submit" value="送出" onclick="submitForm(event)">
+		</div>
+
+		<div class="form-row">
+			<button type="button" onclick="clearForm()">清空</button>
+		</div>
+	</form>	
+</body>
+</html>
