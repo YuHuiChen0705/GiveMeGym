@@ -34,14 +34,12 @@ public class Period {
     @NotNull(message = "請設定人數上限")
     @Min(value = 1, message = "人數上限必須大於等於1")
     @Column(name = "PEOPLE_UPPER")
-    @PeopleLimitConstraint
     private Integer peopleUpper;
 
 
     @NotNull(message = "請設定人數下限")
     @Min(value = 1, message = "人數下限必須大於等於1")
     @Column(name = "PEOPLE_LOWER")
-    @PeopleLimitConstraint
     private Integer peopleLower;
 
     @NotNull(message = "請輸入費用")

@@ -1,7 +1,7 @@
 package com.givemegym.courseschedule.controller;
 
 import com.givemegym.coach.service.CoachService;
-import com.givemegym.coach.vo.Coach;
+import com.givemegym.coach.vo.CoachVo;
 import com.givemegym.course.service.CourseService;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseschedule.service.CourseScheduleService;
@@ -98,7 +98,7 @@ public class CourseScheduleBackController {
 
 
     @ModelAttribute("coachListData")
-    protected List<Coach> referenceListData() {
+    protected List<CoachVo> referenceListData() {
 //		DeptService deptSvc = new DeptService();
         return coachService.findAll();
     }

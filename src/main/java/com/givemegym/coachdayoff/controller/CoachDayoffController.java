@@ -45,7 +45,7 @@ public class CoachDayoffController {
 	@GetMapping("/coach-dayoff-records")
     public List<CoachDayoffVo> getCoachDayoffRecordsOrderByTime() {
 		  List<CoachDayoffVo> list = coachDayoffService.getAllCoachDayoffRecordsOrderByTime();
-        
+        return null;
     }
 	}
 }

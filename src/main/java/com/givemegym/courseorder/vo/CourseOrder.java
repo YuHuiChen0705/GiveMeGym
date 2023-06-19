@@ -1,6 +1,6 @@
 package com.givemegym.courseorder.vo;
 
-import com.givemegym.member.MemberVO;
+//import com.givemegym.member.MemberVO;
 import com.givemegym.period.vo.Period;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,8 +39,8 @@ public class CourseOrder {
     @JoinColumn(name = "PERIOD_ID")
     private Period period;
 
-    @ManyToOne()
-    @JoinColumn(name = "MEMBER_ID")
-    private MemberVO memberVO;
+//    @ManyToOne()
+//    @JoinColumn(name = "MEMBER_ID")
+//    private MemberVO memberVO;
 
 }

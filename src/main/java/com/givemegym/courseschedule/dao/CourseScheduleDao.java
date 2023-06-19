@@ -1,15 +1,5 @@
 package com.givemegym.courseschedule.dao;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.givemegym.courseschedule.vo.*;
-
-@Repository
-public interface CourseScheduleDao extends JpaRepository<CourseScheduleVo, Integer>{
-
-}
-=======
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -40,4 +30,3 @@ public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer
     CourseSchedule findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(Date courseScheduleDate, String CourseScheduleTime);
 
 }
->>>>>>> Calara
