@@ -1,0 +1,631 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>通通給我健起來Give Me Gym Center</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css" />
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+<link
+	href="//fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700&display=swap"
+	rel="stylesheet">
+
+<!-- Template CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/style-starter.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/member/css/member.css}" />
+</head>
+
+<body>
+	<!--header-->
+	<header id="site-header" class="fixed-top">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg stroke">
+				<h1>
+					<a class="navbar-brand" href="index.html"> <span
+						class="lnr lnr-bicycle"></span> Give Me Gym
+					</a>
+				</h1>
+				<!-- if logo is image enable this   
+  <a class="navbar-brand" href="#index.html">
+      <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+  </a> -->
+				<button class="navbar-toggler  collapsed bg-gradient" type="button"
+					data-toggle="collapse" data-target="#navbarTogglerDemo02"
+					aria-controls="navbarTogglerDemo02" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon fa icon-expand fa-bars"></span> <span
+						class="navbar-toggler-icon fa icon-close fa-times"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active"><a class="nav-link"
+							href="index.html">首頁<span class="sr-only">(current)</span></a></li>
+						<li class="nav-item @@about__active"><a class="nav-link"
+							href="coach.html">私人教練</a></li>
+						<li class="nav-item @@classes__active"><a class="nav-link"
+							href="classes.html">團課課程</a></li>
+						<li class="nav-item @@contact__active"><a class="nav-link"
+							href="contact.html">線上商城</a></li>
+						<li class="nav-item @@contact__active"><a class="nav-link"
+							href="contact.html">常見問題</a></li>
+						<li class="nav-item @@contact__active"><a class="nav-link"
+							href="contact.html">會員中心</a></li>
+						<!--/search-right-->
+						<div class="search-right">
+							<a href="#search" title="search"><span class="fa fa-search"
+								aria-hidden="true"></span></a>
+							<!-- search popup -->
+							<div id="search" class="pop-overlay">
+								<div class="popup">
+
+									<form action="#" method="GET" class="search-box">
+										<input type="search" placeholder="Enter Keyword" name="search"
+											required="required" autofocus="">
+										<button type="submit" class="btn">
+											<span class="fa fa-search" aria-hidden="true"></span>
+										</button>
+									</form>
+
+								</div>
+								<a class="close" href="#close">×</a>
+							</div>
+							<!-- /search popup -->
+						</div>
+						<!--//search-right-->
+					</ul>
+				</div>
+				<!-- toggle switch for light and dark theme -->
+				<div class="mobile-position">
+					<nav class="navigation">
+						<div class="theme-switch-wrapper">
+							<label class="theme-switch" for="checkbox"> <input
+								type="checkbox" id="checkbox">
+								<div class="mode-container">
+									<i class="gg-sun"></i> <i class="gg-moon"></i>
+								</div>
+							</label>
+						</div>
+					</nav>
+				</div>
+				<!-- //toggle switch for light and dark theme -->
+			</nav>
+		</div>
+	</header>
+	<section class="w3l-breadcrumb">
+		<div class="breadcrumb-bg breadcrumb-bg-contact py-5">
+			<div class="container py-lg-5 py-md-3">
+				<h3 class="title-big text-center">會員中心</h3>
+				<p class="mt-3">你各位一起建起來!</p>
+
+			</div>
+		</div>
+	</section>
+
+	<div class="allform">
+		<div class="form">
+			<div class="tab-group">
+				<button class="tab active2"
+					style="border: none; background-color: antiquewhite; border-radius: 0.5ch;">
+					<a href="#login">登入</a>
+				</button>
+				<button class="tab active1"
+					style="border: none; background-color: antiquewhite; border-radius: 0.5ch;">
+					<a href="#signup">註冊</a>
+				</button>
+			</div>
+			</ul>
+			<div class="tab-content">
+				<div id="signup">
+					<h1>免費註冊</h1>
+					<div class="top-row">
+						<form id="register" th:action="@{/backend_Member/addMemberList}"
+							method="post" enctype="multipart/form-data"
+							class=" needs-validation row text-dark" th:object="${MemberVO}"
+							novalidate onsubmit="return validateRegistrationForm()">
+					</div>
+					<div class="field-wrap1">
+						中文姓名<span class="req">*</span><input type="name" id="memberName"
+							name="memberName" required autocomplete="off" class="input11" />
+					</div>
+					<div class="field-wrap1">
+						電子信箱<span class="req">*</span> <input type="email" id="memberMail"
+							name="memberMail" required autocomplete="off" class="input11" />
+					</div>
+					<div class="field-wrap1">
+						設定密碼<span class="req">*</span><input type="password"
+							id="memberPassword" name="memberPassword" required
+							autocomplete="off" class="input11" />
+					</div>
+					<div class="field-wrap1">
+						手機號碼<span class="req">*</span> <input type="text"
+							id="memberPhoneNumber" name="memberPhoneNumber" required
+							autocomplete="off" class="input11" />
+					</div>
+					<div class="field-wrap">
+						<div id="birthselect2" class="fixTitle" style="float: left">
+							出生日期<span class="req">*</span>
+						</div>
+						<!--選擇年份-->
+						<select name="memberBirthYear" id="memberBirthYear">
+							<option selected disabled value="">選擇年份</option>
+							<!-- 使用 Thymeleaf 迭代選項 -->
+							<option th:each="year : ${birthYears}" th:value="${year}"
+								th:text="${year}"></option>
+						</select>
+						<!--選擇月份-->
+						<select id="memberBirthMonth" name="memberBirthMonth">
+							<option selected disabled value="0">選擇月份</option>
+							<option th:each="month : ${birthMonths}" th:value="${month}"
+								th:text="${month}"></option>
+						</select>
+						<!--選擇日期-->
+						<select id="memberBirthDay" name="memberBirthDay">
+							<option selected disabled value="0">選擇日期</option>
+							<option th:each="day : ${birthDays}" th:value="${day}"
+								th:text="${day}"></option>
+						</select>
+
+					</div>
+
+					<div class="field-wrap">
+						<div id="address2" class="fixTitle" style="float: left">
+							通訊地址<span class="req">*</span>
+						</div>
+						<select id="memberRegion" name="memberRegion">
+							<option selected disabled value="">選擇縣市</option>
+							<option id='臺北市'>臺北市</option>
+							<option id='新北市'>新北市</option>
+							<option id='桃園市'>桃園市</option>
+							<option id='臺中市'>臺中市</option>
+							<option id='臺南市'>臺南市</option>
+							<option id='高雄市'>高雄市</option>
+							<option id='基隆市'>基隆市</option>
+							<option id='新竹市'>新竹市</option>
+							<option id='嘉義市'>嘉義市</option>
+							<option id='新竹縣'>新竹縣</option>
+							<option id='苗栗縣'>苗栗縣</option>
+							<option id='彰化縣'>彰化縣</option>
+							<option id='南投縣'>南投縣</option>
+							<option id='雲林縣'>雲林縣</option>
+							<option id='嘉義縣'>嘉義縣</option>
+							<option id='屏東縣'>屏東縣</option>
+							<option id='宜蘭縣'>宜蘭縣</option>
+							<option id='花蓮縣'>花蓮縣</option>
+							<option id='臺東縣'>臺東縣</option>
+							<option id='澎湖縣'>澎湖縣</option>
+							<option id='金門縣'>金門縣</option>
+							<option id='連江縣'>連江縣</option>
+						</select> <select id="memberDistrict" name="memberDistrict">
+							<option selected disabled value="0">鄉鎮市區</option>
+						</select> <input type="text" id="memberDetail" name="memberDetail" required
+							autocomplete="off" />
+					</div>
+					<div class="error" id="name-error2"></div>
+					<div class="error" id="mail-error2"></div>
+					<div class="error" id="password-error2"></div>
+					<div class="error" id="phonenumber-error2"></div>
+					<div class="error" id="birthselect-error2"></div>
+					<div class="error" id="address-error2"></div>
+					<button type="submit" id="submit2" class="button button-block">確認，下一步</button>
+					</form>
+				</div>
+				<div id="login">
+					<h1>歡迎健起來!</h1>
+					<form action="/" method="post">
+						<div class="field-wrap">
+							<label>電子信箱<span class="req"></span></label> <input type="email"
+								id="mail" required autocomplete="off" />
+						</div>
+						<div class="field-wrap">
+							<label> 輸入密碼<span class="req">*</span>
+							</label> <input type="password" id="password" required autocomplete="off" />
+						</div>
+						<p class="forgot">
+							<a href="forgetpw.html">忘記密碼?</a>
+						</p>
+						<div class="error" id="mail-error"></div>
+						<div class="error" id="password-error"></div>
+						<button class="button button-block" id="submit1" />登入</button>
+					</form>
+				</div>
+			</div>
+			<!-- tab-content -->
+		</div>
+		<!-- /form -->
+	</div>
+	<!-- /所有表格 -->
+	<!-- //contact form -->
+	<!-- footers 20 -->
+	<section class="w3l-footers-20">
+		<div class="footers20">
+			<div class="container">
+				<div class="footers20-content">
+					<div class="d-grid grid-col-4 grids-content">
+						<div class="column">
+							<h4>客服專區</h4>
+							<a href="mailto:mail@example.com">
+								<p>聯絡我們</p>
+								<p class="contact-mail mt-1">
+									<span class="lnr lnr-envelope"></span>service_business@tibame.com
+								</p>
+							</a> <a href="tel:+1-2345-678-11">
+								<p class="contact-phone mt-2">
+									<span class="lnr lnr-phone-handset"></span> +1-2345-678-11
+								</p>
+							</a> <a href="contact.html">
+								<p>常見問題</p>
+							</a>
+						</div>
+						<div class="column">
+							<h4>師資團隊</h4>
+							<a href="coach.html">
+								<p class="coach-list mt-2">
+									<span class="lnr lnr-coach-handset"></span> 教練介紹
+								</p>
+							</a> <a href="classes.html">
+								<p class="classes-list mt-2">
+									<span class="lnr lnr-classes-handset"></span> 團課介紹
+								</p>
+							</a> <a href="classes.html">
+								<p class="classes-list mt-2">
+									<span class="lnr lnr-classes-mounth"></span> 當月課表
+								</p>
+							</a>
+						</div>
+
+						<div class="column">
+							<h4>商城</h4>
+							<a href="優惠活動列表">
+								<p>優惠活動</p>
+							</a>
+
+						</div>
+						<div class="column">
+							<h4>營業時間</h4>
+							<p>We are working on</p>
+							<p class="mt-1">
+								<span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> :
+								7am to 9pm
+							</p>
+							<p class="mt-1">
+								<span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> :
+								10 am to 8 pm
+							</p>
+							<p class="contact-map mt-2">
+								<span class="lnr lnr-map-marker"></span>場館位置
+							</p>
+
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444073!2d121.22244777443302!3d24.957640341363774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1684388144187!5m2!1szh-TW!2stw"
+								width="280" height="200" style="border: 0;" allowfullscreen=""
+								loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+						</div>
+					</div>
+					<div class="d-grid grid-col-3 grids-content1 bottom-border">
+						<div class="columns copyright-grid align-self">
+							<p class="copy-footer-29">© 2023 Workout | Designed by no.7
+								team</p>
+						</div>
+						<div class="columns text-lg-right social-grid">
+							<ul class="social">
+								<li><a href="#url"><span class="fa fa-facebook"
+										aria-hidden="true"></span></a></li>
+								<li><a href="#url"><span class="fa fa-instagram"
+										aria-hidden="true"></span></a></li>
+								<li><a href="#url"><span class="fa fa-twitter"
+										aria-hidden="true"></span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- move top -->
+		<button onclick="topFunction()" id="movetop" title="Go to top">
+			&#10548;</button>
+		<script>
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function () {
+        scrollFunction()
+      };
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("movetop").style.display = "block";
+        } else {
+          document.getElementById("movetop").style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+		<!-- /move top -->
+	</section>
+
+
+	<script th:src="@{/assets/js/jquery-3.3.1.min.js}"></script>
+
+	<script th:src="@{/assets/js/theme-change.js}"></script>
+	<!-- theme switch js (light and dark)-->
+
+	<!-- libhtbox -->
+	<script th:src="@{/assets/js/lightbox-plus-jquery.min.js}"></script>
+
+	<script th:src="@{/assets/js/owl.carousel.js}"></script>
+	<!-- script for banner slider-->
+	<script>
+    $(document).ready(function () {
+      $('.owl-one').owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: false,
+        responsiveClass: true,
+        autoplay: false,
+        autoplayTimeout: 5000,
+        autoplaySpeed: 1000,
+        autoplayHoverPause: false,
+        responsive: {
+          0: {
+            items: 1,
+            nav: false
+          },
+          480: {
+            items: 1,
+            nav: false
+          },
+          667: {
+            items: 1,
+            nav: true
+          },
+          1000: {
+            items: 1,
+            nav: true
+          }
+        }
+      })
+    })
+  </script>
+	<!-- //script -->
+
+	<!-- script for tesimonials carousel slider -->
+	<script>
+    $(document).ready(function () {
+      $(".owl-two").owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: false,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1,
+            nav: false
+          },
+          768: {
+            items: 2,
+            nav: false
+          },
+          1000: {
+            items: 3,
+            nav: false,
+            loop: false
+          }
+        }
+      })
+    })
+  </script>
+	<!-- //script for tesimonials carousel slider -->
+
+	<script>
+    $(document).ready(function () {
+      $('.owl-carousel-posts').owlCarousel({
+        loop: true,
+        margin: 0,
+        responsiveClass: true,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplaySpeed: 1000,
+        autoplayHoverPause: true,
+        responsive: {
+          0: {
+            items: 2,
+            nav: false
+          },
+          480: {
+            items: 3,
+            nav: true,
+            margin: 0
+          },
+          736: {
+            items: 4,
+            nav: true,
+            margin: 0
+          },
+          1000: {
+            items: 5,
+            nav: true,
+            margin: 0
+          }
+        }
+      })
+    })
+  </script>
+	<!-- /slider -->
+
+	<!-- script for teams1-->
+	<script>
+    $(document).ready(function () {
+      $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 0,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1,
+            nav: true
+          },
+          400: {
+            items: 2,
+            nav: true,
+            margin: 20
+          },
+          1000: {
+            items: 4,
+            nav: true,
+            loop: true,
+            margin: 25
+          }
+        }
+      })
+    })
+  </script>
+	<!-- //script for teams1-->
+
+
+	<!-- stats number counter-->
+	<script th:src="@{/assets/js/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.countup.js}"></script>
+	<script>
+    $('.counter').countUp();
+  </script>
+	<!-- //stats number counter -->
+
+	<!-- disable body scroll which navbar is in active -->
+	<script>
+    $(function () {
+      $('.navbar-toggler').click(function () {
+        $('body').toggleClass('noscroll');
+      })
+    });
+  </script>
+	<!-- disable body scroll which navbar is in active -->
+
+	<!--/MENU-JS-->
+	<script>
+    $(window).on("scroll", function () {
+      var scroll = $(window).scrollTop();
+
+      if (scroll >= 80) {
+        $("#site-header").addClass("nav-fixed");
+      } else {
+        $("#site-header").removeClass("nav-fixed");
+      }
+    });
+
+    //Main navigation Active Class Add Remove
+    $(".navbar-toggler").on("click", function () {
+      $("header").toggleClass("active");
+    });
+    $(document).on("ready", function () {
+      if ($(window).width() > 991) {
+        $("header").removeClass("active");
+      }
+      $(window).on("resize", function () {
+        if ($(window).width() > 991) {
+          $("header").removeClass("active");
+        }
+      });
+    });
+  </script>
+	<!--//MENU-JS-->
+
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<script>
+    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
+
+      var $this = $(this),
+        label = $this.prev('label');
+
+      if (e.type === 'keyup') {
+        if ($this.val() === '') {
+          label.removeClass('active highlight');
+        } else {
+          label.addClass('active highlight');
+        }
+      }
+	else if (e.type === 'blur') {
+        if ($this.val() === '') {
+          label.removeClass('active highlight');
+        } else {
+          label.removeClass('highlight');
+        }
+      } else if (e.type === 'focus') {
+
+        if ($this.val() === '') {
+          label.removeClass('highlight');
+        }
+        else if ($this.val() !== '') {
+          label.addClass('highlight');
+        }
+      }
+
+    });
+
+    $('.tab a').on('click', function (e) {
+
+      e.preventDefault();
+
+      $(this).parent().addClass('active1');
+      $(this).parent().siblings().removeClass('active1');
+
+      target = $(this).attr('href');
+
+      $('.tab-content > div').not(target).hide();
+
+      $(target).fadeIn(600);
+
+    });
+   
+
+    const data2 = {
+        '臺北市': ['松山區', '信義區', '大安區', '中山區', '中正區', '大同區', '萬華區', '文山區', '南港區', '內湖區', '士林區', '北投區'],
+        '新北市': ['板橋區', '三重區', '中和區', '永和區', '新莊區', '新店區', '樹林區', '鶯歌區', '三峽區', '淡水區', '汐止區', '瑞芳區', '土城區', '蘆洲區', '五股區', '泰山區', '林口區', '深坑區', '石碇區', '坪林區', '三芝區', '石門區', '八里區', '平溪區', '雙溪區', '貢寮區', '金山區', '萬里區', '烏來區'],
+        '桃園市': ['中壢區', '桃園區', '大溪區', '楊梅區', '蘆竹區', '大園區', '龜山區', '八德區', '龍潭區', '平鎮區', '新屋區', '觀音區', '復興區'],
+        '臺中市': ['中區', '東區', '南區', '西區', '北區', '西屯區', '南屯區', '北屯區', '豐原區', '東勢區', '大甲區', '清水區', '沙鹿區', '梧棲區', '后里區', '神岡區', '潭子區', '大雅區', '新社區', '石岡區', '外埔區', '大安區', '烏日區', '大肚區', '龍井區', '霧峰區', '太平區', '大里區', '和平區'],
+        '臺南市': ['新營區', '鹽水區', '白河區', '柳營區', '後壁區', '東山區', '麻豆區', '下營區', '六甲區', '官田區', '大內區', '佳里區', '學甲區', '西港區', '七股區', '將軍區', '北門區', '新化區', '善化區', '新市區', '安定區', '山上區', '玉井區', '楠西區', '南化區', '左鎮區', '仁德區', '歸仁區', '關廟區', '龍崎區', '永康區', '東區', '南區', '北區', '安南區', '安平區', '中西區'],
+        '高雄市': ['鹽埕區', '鼓山區', '左營區', '楠梓區', '三民區', '新興區', '前金區', '苓雅區', '前鎮區', '旗津區', '小港區', '鳳山區', '林園區', '大寮區', '大樹區', '大社區', '仁武區', '鳥松區', '岡山區', '橋頭區', '燕巢區', '田寮區', '阿蓮區', '路竹區', '湖內區', '茄萣區', '永安區', '彌陀區', '梓官區', '旗山區', '美濃區', '六龜區', '甲仙區', '杉林區', '內門區', '茂林區', '桃源區', '那瑪夏區'],
+        '基隆市': ['中正區', '七堵區', '暖暖區', '仁愛區', '中山區', '安樂區', '信義區'],
+        '新竹市': ['東區', '北區', '香山區'],
+        '嘉義市': ['東區', '西區'],
+        '新竹縣': ['竹北市', '關西鎮', '新埔鎮', '竹東鎮', '湖口鄉', '橫山鄉', '新豐鄉', '芎林鄉', '寶山鄉', '北埔鄉', '峨眉鄉', '尖石鄉', '五峰鄉'],
+        '苗栗縣': ['苗栗市', '頭份市', '苑裡鎮', '通霄鎮', '竹南鎮', '後龍鎮', '卓蘭鎮', '大湖鄉', '公館鄉', '銅鑼鄉', '南庄鄉', '頭屋鄉', '三義鄉', '西湖鄉', '造橋鄉', '三灣鄉', '獅潭鄉', '泰安鄉'],
+        '彰化縣': ['彰化市', '員林市', '鹿港鎮', '和美鎮', '北斗鎮', '溪湖鎮', '田中鎮', '二林鎮', '線西鄉', '伸港鄉', '福興鄉', '秀水鄉', '花壇鄉', '芬園鄉', '大村鄉', '埔鹽鄉', '埔心鄉', '永靖鄉', '社頭鄉', '二水鄉', '田尾鄉', '埤頭鄉', '芳苑鄉', '大城鄉', '竹塘鄉', '溪州鄉'],
+        '南投縣': ['南投市', '埔里鎮', '草屯鎮', '竹山鎮', '集集鎮', '名間鄉', '鹿谷鄉', '中寮鄉', '魚池鄉', '國姓鄉', '水里鄉', '信義鄉', '仁愛鄉'],
+        '雲林縣': ['斗六市', '斗南鎮', '虎尾鎮', '西螺鎮', '土庫鎮', '北港鎮', '古坑鄉', '大埤鄉', '莿桐鄉', '林內鄉', '二崙鄉', '崙背鄉', '麥寮鄉', '東勢鄉', '褒忠鄉', '臺西鄉', '元長鄉', '四湖鄉', '口湖鄉', '水林鄉'],
+        '嘉義縣': ['太保市', '朴子市', '布袋鎮', '大林鎮', '民雄鄉', '溪口鄉', '新港鄉', '六腳鄉', '東石鄉', '義竹鄉', '鹿草鄉', '水上鄉', '中埔鄉', '竹崎鄉', '梅山鄉', '番路鄉', '大埔鄉', '阿里山鄉'],
+        '屏東縣': ['屏東市', '潮州鎮', '東港鎮', '恆春鎮', '萬丹鄉', '長治鄉', '麟洛鄉', '九如鄉', '里港鄉', '鹽埔鄉', '高樹鄉', '萬巒鄉', '內埔鄉', '竹田鄉', '新埤鄉', '枋寮鄉', '新園鄉', '崁頂鄉', '林邊鄉', '南州鄉', '佳冬鄉', '琉球鄉', '車城鄉', '滿州鄉', '枋山鄉', '三地門鄉', '霧臺鄉', '瑪家鄉', '泰武鄉', '來義鄉', '春日鄉', '獅子鄉', '牡丹鄉'],
+        '宜蘭縣': ['宜蘭市', '羅東鎮', '蘇澳鎮', '頭城鎮', '礁溪鄉', '壯圍鄉', '員山鄉', '冬山鄉', '五結鄉', '三星鄉', '大同鄉', '南澳鄉'],
+        '花蓮縣': ['花蓮市', '鳳林鎮', '玉里鎮', '新城鄉', '吉安鄉', '壽豐鄉', '光復鄉', '豐濱鄉', '瑞穗鄉', '富里鄉', '秀林鄉', '萬榮鄉', '卓溪鄉'],
+        '臺東縣': ['臺東市', '成功鎮', '關山鎮', '卑南鄉', '大武鄉', '太麻里鄉', '東河鄉', '長濱鄉', '鹿野鄉', '池上鄉', '綠島鄉', '延平鄉', '海端鄉', '達仁鄉', '金峰鄉', '蘭嶼鄉'],
+        '澎湖縣': ['馬公市', '湖西鄉', '白沙鄉', '西嶼鄉', '望安鄉', '七美鄉'],
+        '金門縣': ['金城鎮', '金湖鎮', '金沙鎮', '金寧鄉', '烈嶼鄉', '烏坵鄉'],
+        '連江縣': ['南竿鄉', '北竿鄉', '莒光鄉', '東引鄉'],
+    };
+    const district = document.querySelector('#memberDistrict');
+    document.querySelector('#memberRegion').addEventListener('change', function (e) {
+        district.innerHTML = '';
+        const districtArr = data2[e.target.value];
+        for (let text of districtArr) {
+            district.insertAdjacentHTML('beforeend', `<option>${text}</option>`);
+        }
+    });
+  </script>
+	<script th:src="@{/member/js/member.js}"></script>
+	
+</body>
+
+</html>
