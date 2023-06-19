@@ -2,10 +2,13 @@ package com.givemegym.period.service;
 
 
 import com.givemegym.course.vo.Course;
+import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface PeriodService {
 
@@ -28,6 +31,11 @@ public interface PeriodService {
     List<Period> findByCourse(Course course);
 
 
+    List<Period> findPeriodsByCourseState(String courseState);
 
+
+    void updateCourseStateToOffByPeriodId(Integer periodId);
+
+//    void addPeriodWithSchedules(Period period, Set<CourseSchedule> schedules);
 }
 

@@ -136,6 +136,11 @@
             height: 100%;
             border: none;
         }
+
+        .error {
+            color: red;
+        }
+
     </style>
 
 </head>
@@ -209,37 +214,25 @@
                     <form th:action="@{/backend_period/saveOrUpdate}" method="post" enctype="multipart/form-data"
                           id="form" class=" needs-validation row text-dark" th:object="${period}" novalidate>
 
-
-                        <div class="col-md-6">
-                            <label class="form-label text-dark">團課類別</label>
-                            <select class="form-select" id="courseCategory" name="courseCategory" required
-                                    onchange="updateCourseOptions(this.value)">
-                                <option selected disabled value="">--團課類別--</option>
-                                <option value="aerobic">有氧課程</option>
-                                <option value="yoga">瑜珈課程</option>
-                                <option value="spinning">飛輪課程</option>
-                                <option value="climbing">攀岩</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇團課類別
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label">團課課程</label>
-                            <select class="form-select" name="course.courseId" id="course" required>
-                                <option selected disabled value="">--請選擇團課課程--</option>
-                                <option th:each="course : ${courseListData}" th:value="${course.courseId}"
-                                        th:text="${course.courseName}"/>
+                            <select class="form-select" th:field="*{course.courseId}" id="course">
+                                <option th:each="course : ${courseListData}"
+                                        th:value="${course.courseId}"
+                                        th:text="${course.courseName}"></option>
                             </select>
+                            <span th:errors="*{course.courseId}"
+                                  class="error" id="course.errors"></span>
                             <div class="invalid-feedback">
-                                請選擇課程
+                                請選擇團課課程
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">人數上限</label>
-                            <input type="text" class="form-control" name="peopleUpper" id="peopleUpper" required>
+                            <input type="text" class="form-control" th:field="*{peopleUpper}" required>
+                            <span th:errors="*{peopleUpper}"
+                                  class="error" id="peopleUpper.errors"></span>
                             <div class="invalid-feedback">
                                 請設定人數上限
                             </div>
@@ -247,29 +240,30 @@
 
                         <div class="col-md-6">
                             <label class="form-label">人數下限</label>
-                            <input type="text" class="form-control" name="peopleLower" id="peopleLower" required>
+                            <input type="text" class="form-control" th:field="*{peopleLower}" required>
+                            <div th:errors="*{peopleLower}" class="error"
+                                 id="peopleLower.errors"></div>
                             <div class="invalid-feedback">
                                 請設定人數下限
                             </div>
+
                         </div>
 
                         <div class="col-md-6">
-                            <label for="start" class="form-label">報名開始日期</label>
-                            <div class="input-group" id='start'>
-                                <input type="date" class="form-control" name="courseOrderBe" id="courseOrderBe"
-                                       required min="2023-06-14">
-                            </div>
+                            <label class="form-label">報名開始日期</label>
+                            <input type="date" class="form-control" th:field="*{courseOrderBe}" required>
+                            <span th:errors="*{courseOrderBe}"
+                                  class="error" id="courseOrderBe.errors"></span>
                             <div class="invalid-feedback">
                                 請設定報名開始日期
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <label for="end" class="form-label">報名截止日期</label>
-                            <div class="input-group" id='end'>
-                                <input type="date" class="form-control" name="courseOrderEn" id="courseOrderEn"
-                                       required>
-                            </div>
+                            <label class="form-label">報名截止日期</label>
+                            <input type="date" class="form-control" th:field="*{courseOrderEn}" required>
+                            <span th:errors="*{courseOrderEn}"
+                                  class="error" id="courseOrderEn.errors"></span>
                             <div class="invalid-feedback">
                                 請設定報名截止日期
                             </div>
@@ -277,35 +271,66 @@
 
                         <div class="col-md-6">
                             <label class="form-label">團課費用</label>
-                            <input type="text" class="form-control" name="coursePrice" id="coursePrice" required>
+                            <input type="text" class="form-control" th:field="*{coursePrice}" required>
+                            <span th:errors="*{coursePrice}" class="error" id="coursePrice.errors"></span>
                             <div class="invalid-feedback">
-                                請輸入團課費用
+                                請設定團課費用
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">團課堂數</label>
-                            <input type="text" class="form-control" name="courseNumber" id="courseNumber" required>
+                            <input type="text" class="form-control" th:field="*{courseNumber}" required>
+                            <span th:errors="*{courseNumber}" class="error" id="courseNumber.errors"></span>
                             <div class="invalid-feedback">
-                                請輸入團課堂數
+                                請設定團課堂數
                             </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">教練</label>
+                            <select class="form-control" th:field="${courseSchedule.coach}"
+                                    required>
+                                <option th:each="coach: ${coachListData}"
+                                        th:value="${coach.coachId}"
+                                        th:text="${coach.name}"></option>
+                            </select>
+                            <span th:errors="${courseSchedule.coach}" class="error"
+                                  id="coach.errors"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">上課日期</label>
+
+                            <input type="date" class="form-control" th:field="${courseSchedule.courseScheduleDate}"
+                                   required>
+
+                            <span th:errors="${courseSchedule.courseScheduleDate}" class="error"
+                                  id="courseScheduleDate.errors"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">上課時段</label>
+                            <select class="form-select" th:field="${courseSchedule.courseScheduleTime}" required>
+                                <option value="早">早</option>
+                                <option value="中">中</option>
+                                <option value="晚">晚</option>
+                            </select>
+                            <span th:errors="${courseSchedule.courseScheduleTime}" class="error"
+                                  id="courseScheduleTime.errors"></span>
                         </div>
                         <hr class="my-4">
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-dark btn-lg" id="check">確認</button>
                         </div>
                         <hr class="my-4">
-
-
                     </form>
-                    <div class="col-12 text-center">
-                        <button type="button" class="btn btn-dark" onclick="fillFormData()">一鍵填寫</button>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
 
 <div class="content">
@@ -350,20 +375,11 @@
         document.getElementById('content').src = 'addemp.html';
     }
 </script>
-
-<script>
-    function updateCourseOptions(selectedCategory) {
-        var courseSelect = document.getElementById('course');
-
-        // 清空團課課程選項
-        courseSelect.innerHTML = '<option selected disabled value="">--請選擇團課課程--</option>';
-    }
-</script>
 <!--Jquery-->
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- 驗證 -->
-<script src="js/addPeriod-vail.js"></script>
+
 
 <!-- BootStrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -385,104 +401,6 @@
             });
         });
     });
-</script>
-
-<!--動態生成課程-->
-<script>
-    function updateCourseOptions() {
-        var selectedCategory = $('#courseCategory').val();
-        var $courseSelect = $('#course');
-
-        // 清空團課課程選項
-        $courseSelect.empty().append('<option selected disabled value="">--請選擇團課課程--</option>');
-
-        switch (selectedCategory) {
-            case 'yoga':
-                $courseSelect.append('<option value="4" >熱瑜珈</option>');
-                $courseSelect.append('<option value="5" >阿斯坦加瑜珈</option>');
-                $courseSelect.append('<option value="6" >和緩瑜珈</option>');
-                $courseSelect.append('<option value="7" >皮拉提斯</option>');
-                break;
-            case 'aerobic':
-                $courseSelect.append('<option value="1" >戰鬥有氧</option>');
-                $courseSelect.append('<option value="2" >Zumba</option>');
-                $courseSelect.append('<option value="3" >艾克斯有氧</option>');
-                break;
-            case 'spinning':
-                $courseSelect.append('<option value="8" >入門飛輪</option>');
-                $courseSelect.append('<option value="9" >肌力雕塑</option>');
-                $courseSelect.append('<option value="10">燃脂耐力</option>');
-                break;
-            default:
-                $courseSelect.append('<option value="11">攀岩</option>');
-                break;
-        }
-    }
-
-    $(document).ready(function () {
-        $('#category').on('change', updateCourseOptions);
-    });
-
-
-    // function fillFormData() {
-    //
-    //     // 填写人數上限
-    //     document.getElementById('peopleUpper').value = '100';
-    //
-    //     // 填写人數下限
-    //     document.getElementById('peopleLower').value = '1';
-    //
-    //
-    //     // 填写團課費用
-    //     document.getElementById('coursePrice').value = '1000';
-    //
-    //     // 填写團課堂數
-    //     document.getElementById('courseNumber').value = '1';
-    //
-    //
-    // }
-
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })();
-
-    var form = document.getElementById("your-form");
-    var peopleUpperInput = document.getElementById("peopleUpper");
-    var peopleLowerInput = document.getElementById("peopleLower");
-    var errorFeedback = document.getElementById("errorFeedback");
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        var peopleUpper = parseInt(peopleUpperInput.value);
-        var peopleLower = parseInt(peopleLowerInput.value);
-
-        if (peopleLower > peopleUpper) {
-            errorFeedback.innerHTML = "下限人數不可高於上限人數";
-            errorFeedback.style.display = "block";
-        } else {
-            errorFeedback.style.display = "none";
-            form.submit();
-        }
-    });
-
-
 </script>
 
 
