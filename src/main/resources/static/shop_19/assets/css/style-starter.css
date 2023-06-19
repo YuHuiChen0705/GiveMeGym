@@ -8484,7 +8484,7 @@ button.bg-dark:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
+  /*position: !important;*/
   position: sticky !important;
 }
 
@@ -8504,14 +8504,6 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sticky-top {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-  }
-}
 
 .sr-only {
   position: absolute;
@@ -11014,7 +11006,7 @@ a.text-dark:focus {
 }
 
 .text-hide {
-  font: 0/0 a;
+
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -11539,33 +11531,7 @@ a.link-style:hover:before {
   margin-left: 10px;
 }
 
-.gg-sun {
-  position: relative;
-  transform: scale(var(--ggs, 1));
-  height: 24px;
-  background: linear-gradient(180deg, currentColor 4px, transparent 0) no-repeat 5px -6px/2px 6px, linear-gradient(180deg, currentColor 4px, transparent 0) no-repeat 5px 14px/2px 6px, linear-gradient(180deg, currentColor 4px, transparent 0) no-repeat -8px 5px/6px 2px, linear-gradient(180deg, currentColor 4px, transparent 0) no-repeat 14px 5px/6px 2px;
-  border-radius: 100px;
-  box-shadow: inset 0 0 0 2px;
-  border: 6px solid transparent;
-}
 
-.gg-moon {
-  overflow: hidden;
-  position: relative;
-  transform: rotate(-135deg) scale(var(--ggs, 1));
-  width: 20px;
-  height: 20px;
-  border: 2px solid;
-  border-bottom: 2px solid transparent;
-}
-
-.gg-moon,
-.gg-moon:after {
-  display: block;
-  box-sizing: border-box;
-  border-radius: 50%;
-  color: #eee;
-}
 
 .nav-fixed .gg-moon,
 .nav-fixed .gg-moon:after {
@@ -11635,8 +11601,8 @@ input:checked+.mode-container i.gg-moon {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("fontawesome-webfont.eot?v=4.7.0");
-  src: url("fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("fontawesome-webfont.woff?v=4.7.0") format("woff"), url("fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+  src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -15969,7 +15935,7 @@ nav ul li a:hover {
 }
 
 .w3l-main-slider .banner-view {
-  background: url(banner2.jpg) no-repeat top;
+  background:  no-repeat top;
   background-size: cover;
   min-height: calc(100vh - 30px);
   position: relative;
@@ -15979,17 +15945,17 @@ nav ul li a:hover {
 }
 
 .w3l-main-slider .banner-top1 {
-  background: url(banner1.jpg) no-repeat center;
+  background:  no-repeat center;
   background-size: cover;
 }
 
 .w3l-main-slider .banner-top2 {
-  background: url(banner3.jpg) no-repeat center;
+  background:  no-repeat center;
   background-size: cover;
 }
 
 .w3l-main-slider .banner-top3 {
-  background: url(banner4.jpg) no-repeat center;
+  background: no-repeat center;
   background-size: cover;
 }
 
@@ -16711,7 +16677,6 @@ ul.social li a span.fa:hover {
 
 .owl-carousel.owl-grab {
   cursor: move;
-  cursor: -webkit-grab;
   cursor: grab;
 }
 
@@ -16795,7 +16760,7 @@ ul.social li a span.fa:hover {
   top: 50%;
   margin-left: -40px;
   margin-top: -40px;
-  background: url(owl.video.play.png) no-repeat;
+  background:  no-repeat;
   cursor: pointer;
   z-index: 1;
   -webkit-backface-visibility: hidden;
@@ -17074,7 +17039,7 @@ body:after {
   width: 32px;
   height: 32px;
   margin: 0 auto;
-  background: url(loading.gif) no-repeat;
+  background:  no-repeat;
 }
 
 .lb-nav {
@@ -17105,7 +17070,7 @@ body:after {
 .lb-nav a.lb-prev {
   width: 5em;
   float: left;
-  background: url(img-sprite.png) 40px 48% no-repeat;
+  background:  40px 48% no-repeat;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   transition: opacity 0.6s;
@@ -17120,7 +17085,7 @@ body:after {
   width: 5em;
   right: 0;
   float: right;
-  background: url(img-sprite.png) -23px 48% no-repeat;
+  background:  -23px 48% no-repeat;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   transition: opacity 0.6s;
@@ -17180,7 +17145,7 @@ body:after {
   width: 30px;
   height: 30px;
   margin-top: 1em;
-  background: url(close.png) top right no-repeat;
+  background: url(../images/close.png) top right no-repeat;
   text-align: right;
   outline: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
@@ -17398,42 +17363,42 @@ a.page-link.page-number:focus {
 }
 
 .w3l-breadcrumb .breadcrumb-bg-about {
-  background: url(banner2.jpg) no-repeat top;
+  background: url(../images/banner2.jpg) no-repeat top;
   background-size: cover;
   position: relative;
   z-index: 1;
 }
 
 .w3l-breadcrumb .breadcrumb-bg-contact {
-  background: url(banner1.jpg) no-repeat top;
+  background: url(../images/banner1.jpg) no-repeat top;
   background-size: cover;
   position: relative;
   z-index: 1;
 }
 
 .w3l-breadcrumb .breadcrumb-bg-classes {
-  background: url(banner5.jpg) no-repeat top;
+  background: url(../images/banner5.jpg) no-repeat top;
   background-size: cover;
   position: relative;
   z-index: 1;
 }
 
 .w3l-breadcrumb .breadcrumb-bg-shop {
-  background: url(index005.jpg) no-repeat top;
+  background: url(../images/index005.jpg) no-repeat top;
   background-size: cover;
   position: relative;
   z-index: 1;
 }
 
 .w3l-breadcrumb .breadcrumb-bg-blog {
-  background: url(banner3.jpg) no-repeat top;
+  background: no-repeat top;
   background-size: cover;
   position: relative;
   z-index: 1;
 }
 
 .w3l-breadcrumb .breadcrumb-bg-error {
-  background: url(banner4.jpg) no-repeat top;
+  background:  no-repeat top;
   background-size: cover;
   position: relative;
   z-index: 1;
@@ -17557,7 +17522,7 @@ h2.pos {
 /*-- 最新消息--*/
 
 .middle {
-  background: url(banner1.jpg) no-repeat top;
+  background:  no-repeat top;
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -17635,7 +17600,7 @@ h2.pos {
 
 
 .coachmiddle {
-  background: url(proclass.png) no-repeat top;
+  background: no-repeat top;
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -17675,7 +17640,7 @@ h2.pos {
 /*-- //首頁團課 3 --*/
 
 .groupmiddle {
-  background: url(groupclass.png) no-repeat top;
+  background:  no-repeat top;
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -17714,7 +17679,7 @@ h2.pos {
 
 /*-- 首頁商城--*/
 .mallmiddle {
-  background: url(../images/mall.jpg) no-repeat top;
+  background: no-repeat top;
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -17752,7 +17717,7 @@ h2.pos {
 
 
 .w3l-team .teams1-content h2 {
-  color: var(--title-color);
+
   font-size: 40px;
   line-height: 50px;
   font-weight: 600;
@@ -17769,7 +17734,7 @@ h2.pos {
 
 .w3l-team p.team-text {
   font-size: 18px;
-  color: var(--text-color);
+
   line-height: 30px;
   max-width: 650px;
 }
@@ -18106,7 +18071,7 @@ p.counter {
 @media only screen and (max-width: 736px) {
   .w3l-classesblock3 h5 {
     font-size: 22px;
-    line-height: 32x;
+
   }
 }
 

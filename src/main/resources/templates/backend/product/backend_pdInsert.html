@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
-    <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/backend/shop_19/assets/css/style-starter.css">
+    <link rel="stylesheet" href="/shop_19/assets/css/style-starter.css">
     <title>員工後台 | 商品管理</title>
     <!-- JQuery連結-->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <!-- CSS連結 -->
-    <link rel="stylesheet" href="/assets/css/dataTable.css">
+<!--    <link rel="stylesheet" href="/assets/css/dataTable.css">-->
     <style>
         body {
             background-color: #fef8f0f9;
@@ -170,178 +170,170 @@
 
 <body>
 
-    <header class="header">
-        <div class="logo">Give Me Gym</div>
-        <div class="user">
-            <div class="name">User Name </div>
-            <a class="btn btn-style btn-primary  mt-4">登出</a>
-        </div>
-    </header>
-
-    <div class="body-Content" style="display: flex;">
-        <div class="sidebar">
-            <h1 id="back-idex">首頁</h1>
-
-            <h2 class="sidebartitle">員工管理</h2>
-            <ul style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#">新增員工</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">查詢員工</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">員工權限</a></li>
-            </ul>
-
-            <h2 class="sidebartitle">會員管理</h2>
-            <ul style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#">新增會員</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">查詢會員</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">會員權限</a></li>
-            </ul>
-
-            <h2 class="sidebartitle">商城管理</h2>
-            <ul style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#">商品管理</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">訂單管理</a></li>
-            </ul>
-
-            <h2 class="sidebartitle">教練管理</h2>
-            <ul style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#">新增教練</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">查詢教練</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">教練排班</a></li>
-            </ul>
-
-            <h2 class="sidebartitle">團課管理</h2>
-            <ul style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#"></a></li>
-                <li class="nav-item"><a class="nav-link" href="#">查詢團課</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">團課排班</a></li>
-            </ul>
-
-            <h2 class="sidebartitle">客服管理</h2>
-            <ul style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#">客戶查詢</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">訂單查詢</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">FAQ管理</a></li>
-            </ul>
-        </div>
-        <!-- 側邊欄的js -->
-        <script>
-            window.addEventListener('DOMContentLoaded', (event) => {
-                const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
-
-                headings.forEach((heading) => {
-                    heading.addEventListener('click', (event) => {
-                        const subMenu = event.target.nextElementSibling;
-                        subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                    });
-                });
-            });
-
-            window.addEventListener('DOMContentLoaded', (event) => {
-                const links = document.querySelectorAll('.nav-link');
-                links.forEach((link) => {
-                    link.addEventListener('click', (event) => {
-                        event.preventDefault();
-                        const url = link.getAttribute('href');
-                        loadContent(url);
-                    });
-                });
-            });
-
-        </script>
-
-        <section style="flex: 1; padding: 0;">
-            <div class="container">
-                <h3 class="text-red mb-4" style="color: #000;">新增商品</h3>
-
-                <!-- insert modal -->
-                <div class="modal-content">
-
-                    <div class="modal-body" style="color: #000; font-weight: 600;">
-                        <form id="add-product-form" th:action="@{/Backend-product/saveOrUpdate}" th:object="${product}" method="post">
-                            <div class="form-group">
-                                <label for="productName">商品名稱</label>
-                                <input type="text" id="productName" name="productName" required>
-                            </div>
-                            <div class="form-group">
-                                <label>商品類別</label>
-                                <select id="category" required name="category.categoryId">
-                                    <option value="all" disabled selected>請選擇</option>
-                                    <option value="1">健身器材</option>
-                                    <option value="2">營養保健</option>
-                                    <option value="3">運動服飾</option>
-                                </select>
-                            </div>
-                            <div class="form-group" style="display: flex; flex-direction: column; width: 600px;">
-                                <label class="images" style="flex:99;">商品圖片</label>
-                                <div>
-                                    <input type="file" class="product-image" name="productImage" accept="image/*">
-                                    <input type="file" class="product-image" name="productImage" accept="image/*">
-                                    <input type="file" class="product-image" name="productImage" accept="image/*">
-                                    <input type="file" class="product-image" name="productImage" accept="image/*">
-                                </div>
-                                <div id="preview-container" style="width: max-content;"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="productDetail" style="display: flex; align-items: center;">商品描述</label>
-                                <textarea id="productDetail" name="productDetail" rows="4" style="width: 600px;" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="productPrice">商品價格</label>
-                                <input type="number" id="productPrice" name="productPrice" min="0" step="1" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="productStatus">上下架狀態</label>
-                                <select id="productStatus" name="productStatus" required>
-                                    <option value="1">上架</option>
-                                    <option value="0">下架</option>
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">放棄</button>
-                                <button type="submit" class="btn btn-primary">新增</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+<header class="header">
+    <div class="logo">Give Me Gym</div>
+    <div class="user">
+        <div class="name">User Name</div>
+        <a class="btn btn-style btn-primary  mt-4">登出</a>
     </div>
+</header>
 
+<div class="body-Content" style="display: flex;">
+    <div class="sidebar">
+        <h1 id="back-idex">首頁</h1>
 
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="#">新增員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">查詢員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">員工權限</a></li>
+        </ul>
 
-    <style>
-        .form-group {
-            margin: 20px 0 20px 0;
-        }
-    </style>
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="#">新增會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">會員權限</a></li>
+        </ul>
 
-    <!-- 新增圖片後的縮圖預覽 -->
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="#">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">訂單管理</a></li>
+        </ul>
+
+        <h2 class="sidebartitle">教練管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="#">新增教練</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">查詢教練</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">教練排班</a></li>
+        </ul>
+
+        <h2 class="sidebartitle">團課管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+            <li class="nav-item"><a class="nav-link" href="#">查詢團課</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">團課排班</a></li>
+        </ul>
+
+        <h2 class="sidebartitle">客服管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="#">客戶查詢</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">訂單查詢</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">FAQ管理</a></li>
+        </ul>
+    </div>
+    <!-- 側邊欄的js -->
     <script>
-        const fileInputs = document.querySelectorAll('.product-image');
-        const previewContainer = document.getElementById('preview-container');
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
-        fileInputs.forEach(function (input) {
-            input.addEventListener('change', function () {
-                showImg(this);
+            headings.forEach((heading) => {
+                heading.addEventListener('click', (event) => {
+                    const subMenu = event.target.nextElementSibling;
+                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+                });
             });
         });
 
-        function showImg(input) {
-            const file = input.files[0];
-            const reader = new FileReader();
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const url = link.getAttribute('href');
+                    loadContent(url);
+                });
+            });
+        });
 
-            reader.onload = function (e) {
-                const preview = document.createElement('img');
-                preview.src = e.target.result;
-                preview.style = "max-width: 100%; max-height: 200px;";
-                previewContainer.appendChild(preview);
-            };
-
-            reader.readAsDataURL(file);
-        }
     </script>
-    
+
+    <section style="flex: 1; padding: 0;">
+        <div class="container">
+            <h3 class="text-red mb-4" style="color: #000;">新增商品</h3>
+
+            <!-- insert modal -->
+            <div class="modal-content">
+                <div class="modal-body" style="color: #000; font-weight: 600;">
+                    <form id="add-product-form" th:action="@{/SaveProduct}" th:object="${product}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="productName">商品名稱</label>
+                            <input type="text" id="productName" name="productName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>商品類別</label>
+                            <select id="category" required name="category.categoryId">
+                                <option disabled selected>請選擇</option>
+                                <option value="1">健身器材</option>
+                                <option value="2">營養保健</option>
+                                <option value="3">運動服飾</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDetail" style="display: flex; align-items: center;">商品描述</label>
+                            <textarea id="productDetail" name="productDetail" rows="4" style="width: 600px;"
+                                      required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">商品價格</label>
+                            <input type="number" id="productPrice" name="productPrice" min="0" step="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productStatus">上下架狀態</label>
+                            <select id="productStatus" name="productStatus" required>
+                                <option value="1">上架</option>
+                                <option value="0">下架</option>
+                            </select>
+                        </div>
+                        <div  class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="window.location.href = '/getAllProduct'">放棄</button>
+                            <button type="submit" class="btn btn-primary">新增</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+<style>
+    .form-group {
+        margin: 20px 0 20px 0;
+    }
+</style>
+
+<!-- 新增圖片後的縮圖預覽 -->
+<script>
+    const fileInputs = document.querySelectorAll('.product-image');
+    const previewContainer = document.getElementById('preview-container');
+
+    fileInputs.forEach(function (input) {
+        input.addEventListener('change', function () {
+            showImg(this);
+        });
+    });
+
+    function showImg(input) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const preview = document.createElement('img');
+            preview.src = e.target.result;
+            preview.style = "max-width: 100%; max-height: 200px;";
+            previewContainer.appendChild(preview);
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
 
 </body>
 
