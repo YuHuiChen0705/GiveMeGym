@@ -31,7 +31,7 @@ public class CoachDayoffController {
 	public String addCoachDayoff (Model model) {
 	    List<CoachDayoffVo> coachList = coachDayoffService.findAll();
 	    model.addAttribute("coachList", coachList);
-	    return "backend/coach/addCoach";
+	    return  "backend/coachDayoff/coachcenter_dayoff";
 	}
 
 
@@ -41,5 +41,11 @@ public class CoachDayoffController {
 	    List<CoachDayoffVo> list = coachDayoffService.findAll();
 	    return list;
 	}
+	
+	@GetMapping("/coach-dayoff-records")
+    public List<CoachDayoffVo> getCoachDayoffRecordsOrderByTime() {
+		  List<CoachDayoffVo> list = coachDayoffService.getAllCoachDayoffRecordsOrderByTime();
+        
+    }
 	}
 }

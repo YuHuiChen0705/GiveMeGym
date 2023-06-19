@@ -12,7 +12,6 @@ public class CoachDayoffServiceImpt {
 	@Autowired
 	private CoachDayoffDao coachDayoffDao;
 
-
 	public boolean isDup(Integer coachDayoffId) {
 		// TODO Auto-generated method stub
 		return false;
@@ -41,6 +40,9 @@ public class CoachDayoffServiceImpt {
 		return null;
 	}
 
+	 public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
+	        return (List<CoachDayoffVo>) coachDayoffDao.findAllOrderByCoachDayoffTime();
+	    }
 
 
 

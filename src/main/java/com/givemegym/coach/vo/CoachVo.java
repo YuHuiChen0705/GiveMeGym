@@ -21,7 +21,7 @@ public class CoachVo implements java.io.Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NonNull
-	@ManyToOne
+
 	@Column(name ="COACH_ID")
 	private Integer coachId;
 	@Column(name ="COACH_NAME")

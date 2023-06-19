@@ -10,8 +10,6 @@ import lombok.NonNull;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +25,7 @@ public class CoachDayoffVo {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NonNull
-	@ManyToOne
+
 	@Column(name ="COACHDAYOFF_ID")
 	private Integer coachDayoffId;
 	@Column(name ="COACH_ID")

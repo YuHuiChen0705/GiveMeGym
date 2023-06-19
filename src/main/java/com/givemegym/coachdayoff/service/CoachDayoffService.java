@@ -24,6 +24,9 @@ public interface CoachDayoffService {
 
     /*根據問題類別(四種類別)查問題*/
     List<CoachDayoffVo> findByCoachId(Integer coachDayoffId);
+    
+    /*根據請假間排練*/
+    List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime();
 
 
 
