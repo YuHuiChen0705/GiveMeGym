@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form th:action="@{/backend_coach/sdd}" method="post" enctype="multipart/form-data"
+                          id="add-product-form"  th:object="${caochVo}" novalidate>
+                        <div class="col-md-6">
+                   <select class="form-select" id="courseCategory" name="courseCategory" required
+                                    onchange="updateCourseOptions(this.value)">
+                            <div class="form-group">
+                                <label for="product-name">姓名</label>
+                                <input type="text" id="coa_Name" name="coa_Name" required>
+                                <label for="product-name">性別</label>
+
+                                <input type="checkbox" class="checked" id="male" name="gender" value="男" required>
+                                <span class="span">男</span>
+                                <input type="checkbox" class="checked" id="female" name="gender" value="女" required>
+                                <span class="span">女</span>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="product-category">教練技能</label>
+                                <div class="row">
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">有氧</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">瑜珈</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">皮拉提斯</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">減脂</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">功能性訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">客製化訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">重量訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">HIIT訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">核心訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span"> 腿部訓練 </span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">腹肌訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">TRX訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">壺鈴訓練</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">飛輪</span>
+                                    </li>
+                                    <li class="col-md-3">
+                                        <input type="checkbox" class="checked">
+                                        <span class="span">攀岩</span>
+                                    </li>
+                                    <div>
+                                    </div>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="form-group" style="display: flex; flex-direction: column;">
+                        <label for="product-name">照片</label>
+                        <div>
+                            <input type="file" id="coa_Pic" name="coa_Pic" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <label for="product-name">教練簡介</label>
+                    <div class="form-group">
+                        <label for="product-description" style="display: flex;
+                    align-items: center;"></label>
+                        <textarea style="width: 600px;" id="coa_Detial" name="coa_Detial" rows="4" style="width: 300px;"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-status">員工狀態</label>
+                        <select id="product-status" name="product-status" required>
+                            <option value="上架">在職</option>
+                            <option value="下架">離職</option>
+                        </select>
+                    </div>
+                    </form>
+
+                </div>
+</body>
+</html>
