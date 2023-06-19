@@ -5,51 +5,45 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.givemegym.coach.dao.CoachDao;
-import com.givemegym.coach.vo.CoachVo;
+import com.givemegym.coachdayoff.dao.CoachDayoffDao;
+import com.givemegym.coachdayoff.vo.CoachDayoffVo;
 
 public class CoachDayoffServiceImpt {
 	@Autowired
-	private CoachDao coachDao;
+	private CoachDayoffDao coachDayoffDao;
 
 
-	public boolean isDup(Integer coachId) {
+	public boolean isDup(Integer coachDayoffId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 
-	public CoachVo saveOrUpdate(CoachVo coachVo) {
+	public CoachDayoffVo saveOrUpdate(CoachDayoffVo coachDayoffVo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
-	public void deleteById(Integer coachId) {
+	public void deleteById(Integer coachDayoffId) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-	public Optional<CoachVo> findById(Integer coachId) {
+	public Optional<CoachDayoffVo> findById(Integer coachDayoffId) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
-	public List<CoachVo> findAll() {
+	public List<CoachDayoffVo> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<CoachVo> findByCoachId(Integer courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public Optional<CoachVo> findById() {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
+
+
 
 	
 }

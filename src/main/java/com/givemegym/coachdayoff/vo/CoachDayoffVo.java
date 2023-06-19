@@ -28,15 +28,15 @@ public class CoachDayoffVo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NonNull
 	@ManyToOne
-	private Integer coachDayoffId;
 	@Column(name ="COACHDAYOFF_ID")
-	private String coachId;
+	private Integer coachDayoffId;
 	@Column(name ="COACH_ID")
-	private String coachDayoffDate;
+	private String coachId;
 	@Column(name ="COACHDAYOFF_DATE")
-	private String coachDayoffTime;
+	private String coachDayoffDate;
 	@Column(name ="COACHDAYOFF_TIME")
-	private String coachGender;
+	private String coachDayoffTime;
+
 
 
 }
