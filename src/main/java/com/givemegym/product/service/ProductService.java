@@ -23,7 +23,7 @@ public interface ProductService {
     List<Product> findAll();
 
     /*根據商品編號查所有照片*/
-    List<String> findByProductId(Integer productId);
+    List<byte[]> findByProductId(Integer productId);
 
     List<Product> findOnProducts();
 

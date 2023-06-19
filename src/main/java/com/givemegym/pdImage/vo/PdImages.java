@@ -26,6 +26,6 @@ public class PdImages {
     private Product product;
 
     @Column(name = "PRODUCTIMAGE")
-    private String productImage;
+    private byte[] productImage;
 }
 

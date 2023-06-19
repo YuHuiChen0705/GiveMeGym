@@ -124,9 +124,7 @@
                             <div class="men-pro-item simpleCart_shelfItem">
                                 <div class="men-thumb-item">
 
-                                    <img th:if="${not #sets.isEmpty(product.pdImages)}"
-                                         th:src="${#lists.toList(product.pdImages)[#lists.size(product.pdImages) - 1].productImage}"
-                                         alt="" class="img-responsive">
+
                                     <img th:unless="${not #sets.isEmpty(product.pdImages)}"
                                          src="/shop_19/images/nopic.jpg" alt="" class="img-responsive">
 

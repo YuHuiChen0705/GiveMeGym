@@ -272,13 +272,14 @@
                                     <input type="hidden" name="productId" th:value="${productId}">
                                     <p style="margin-top: 20px;">原有的照片</p>
                                     <div style="border: 1px solid #533f03;display: inline-flex;">
-                                        <div th:each="imagePath : ${imagePaths}">
-                                            <img th:src="${imagePath}" style="max-width: 100%; max-height: 200px; display: inline-flex">
+                                        <div th:each="resource : ${resources}">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${resource}}"
+                                                 style="max-width: 100%; max-height: 200px; display: inline-flex">
                                         </div>
                                     </div>
                                     <p style="margin-top: 20px;">新選擇的圖片</p>
                                     <div id="preview-container" style="width: max-content; display: inline-flex;
-                                        border: solid 1px; border-color: #533f03" >
+                                        border: 1px solid #533f03;" >
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -331,7 +332,6 @@
                 margin: 20px 0 20px 0;
             }
         </style>
-
         <!-- 新增圖片後的縮圖預覽 -->
 
         <script>

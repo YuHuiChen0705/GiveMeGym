@@ -42,8 +42,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<String> findByProductId(Integer productId) {
-
+    public List<byte[]> findByProductId(Integer productId) {
         return productDAO.findProductImagePathsByProductId(productId);
     }
 

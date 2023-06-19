@@ -14,7 +14,7 @@ public interface ProductDAO extends JpaRepository<Product,Integer> {
     List<Product> findByCategoryId(Integer categoryId);
 
     @Query("SELECT pdImage.productImage FROM Product pd JOIN pd.pdImages pdImage WHERE pd.productId = :productId ORDER BY pdImage.product.productId DESC")
-    List<String> findProductImagePathsByProductId(@Param("productId") Integer productId);
+    List<byte[]> findProductImagePathsByProductId(@Param("productId") Integer productId);
 
     @Query("SELECT p FROM Product p WHERE p.productStatus = 1")
     List<Product> findOnProducts();
