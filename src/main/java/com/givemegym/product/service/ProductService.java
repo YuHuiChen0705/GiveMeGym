@@ -1,4 +1,5 @@
 package com.givemegym.product.service;
+import com.givemegym.pdImage.vo.PdImages;
 import com.givemegym.product.vo.Product;
 
 import java.util.List;
@@ -6,10 +7,11 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    boolean isDup(Integer productId);
+    /*新增或修改問題*/
+    Product save(Product product);
 
     /*新增或修改問題*/
-    Product saveOrUpdate(Product productId);
+    Product update(Product product);
 
     /*刪除 根據ID刪除單一問題*/
     void deleteById(Integer productId);
@@ -20,8 +22,12 @@ public interface ProductService {
     /*查詢所有商品*/
     List<Product> findAll();
 
-    /*根據商品類別(三種類別)查商品*/
-//    List<Product> findByCategoryId(Integer categoryId);
+    /*根據商品編號查所有照片*/
+    List<String> findByProductId(Integer productId);
 
+    List<Product> findOnProducts();
+
+    /*根據商品類別(三種類別)查商品*/
+    List<Product> findByCategoryId(Integer categoryId);
 
 }

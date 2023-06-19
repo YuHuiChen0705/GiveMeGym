@@ -1,11 +1,15 @@
 package com.givemegym.product.vo;
 
 import com.givemegym.category.vo.Category;
+import com.givemegym.pdImage.vo.PdImages;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,9 +25,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID")
     private Integer productId;
+
+
     @ManyToOne
     @JoinColumn (name = "PRODUCT_CATEGORYID")
     private Category category;
+
+
     @Column(name = "PRODUCT_NAME")
     private String productName;
     @Column(name = "PRODUCT_PRICE")
@@ -33,9 +41,17 @@ public class Product {
     @Column(name = "PRODUCT_STATUS")
     private Integer productStatus;
     @Column(name = "PRODUCT_CREATETIME")
-    private Date productCreateTime;
+    @CreationTimestamp
+    private Timestamp productCreateTime;
     @Column(name = "PRODUCT_UPDATETIME")
-    private Date productUpdateTime;
+    @UpdateTimestamp
+    private Timestamp productUpdateTime;
+
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="product")
+    @OrderBy("productImageId asc")
+    private Set<PdImages> pdImages = new  HashSet<>();
+
 
 
 }
