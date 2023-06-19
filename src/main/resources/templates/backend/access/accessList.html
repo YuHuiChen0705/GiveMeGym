@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>所有權限</title>
+</head>
+<body>
+
+	<table>
+		<tr th:each="access:${accessList}">
+			<td th:text="${access.accessId}"></td>
+			<td th:text="${access.accessName}"></td>
+		</tr>
+	</table>
+
+</body>
+</html>
