@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.givemegym.coachdayoff.service.CoachDayoffService;
-import com.givemegym.coachdayoff.vo.CoachDayoffVo;
+
 
 
 public class CoachDayoffController {
