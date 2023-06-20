@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.givemegym.coach.vo.CoachVo;
 import com.givemegym.coachdayoff.service.CoachDayoffService;
 import com.givemegym.coachdayoff.vo.CoachDayoffVo;
 
@@ -45,7 +44,7 @@ public class CoachDayoffController {
 	@GetMapping("/coach-dayoff-records")
     public List<CoachDayoffVo> getCoachDayoffRecordsOrderByTime() {
 		  List<CoachDayoffVo> list = coachDayoffService.getAllCoachDayoffRecordsOrderByTime();
-        
+        return null;
     }
 	}
 }

@@ -1,0 +1,319 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>團體課程</title>
+
+    <!-- 字體樣式 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+    </style>
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" th:href="@{/course_44/assets/css/style-starter.css}">
+
+
+    <!-- bootstrap5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <style>
+        /* 連結底線設定 */
+        a.foot {
+            text-decoration: underline;
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Header-->
+<div th:replace="~{common/header::header}"></div>
+
+
+<!--團課標題-->
+<main>
+    <section class="w3l-breadcrumb">
+        <div class="breadcrumb-bg breadcrumb-bg-classes py-5">
+            <div class="container py-lg-5 py-md-3">
+                <h3 class="title-big text-center">團課課程</h3>
+                <p class="mt-3">線上報名團課</p>
+            </div>
+        </div>
+    </section>
+    <!--/團課標題-->
+
+    <!-- 課程導覽列 -->
+    <nav class="navbar navbar-expand-xl navbar-light bg-light py-4" id="nm">
+        <div class="container">
+            <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto ">
+                    <li class="nav-item px-3 dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            有氧課程
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">戰鬥有氧</a></li>
+                            <li><a class="dropdown-item" href="#">Zumba</a></li>
+                            <li><a class="dropdown-item" href="#r1">艾克斯有氧</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-3 dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            瑜珈課程
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#r2">熱瑜珈</a></li>
+                            <li><a class="dropdown-item" href="#r3">阿斯坦加瑜珈</a></li>
+                            <li><a class="dropdown-item" href="#r4">和緩瑜珈</a></li>
+                            <li><a class="dropdown-item" href="#r5">皮拉提斯</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-3 dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            飛輪課程
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#r6">入門飛輪</a></li>
+                            <li><a class="dropdown-item" href="#r7">燃脂耐力</a></li>
+                            <li><a class="dropdown-item" href="#r8">肌力雕塑</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-3 ">
+                        <a class="nav-link" href="#r9">攀岩類別</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#r10">查看課表</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--/課程導覽列 -->
+
+    <section class="container">
+        <div data-bs-spy="scroll" data-bs-offset="0" class="container-fluid" data-bs-target="#nm" tabindex="0">
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[0].courseName}"></h2>
+                        <p th:text="${courseList[0].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${1} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/image/body-combat1.jpg') center;background-size:cover;min-height:300px;"></div>
+
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[1].courseName}" id="r1"></h2>
+                        <p th:text="${courseList[1].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${2} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/image/zumba1.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[2].courseName}" id="r2"></h2>
+                        <p th:text="${courseList[2].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${3} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/image/hiphop.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[3].courseName}" id="r3"></h2>
+                        <p th:text="${courseList[3].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${4} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/image/hotYoga.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[4].courseName}" id="r4"></h2>
+                        <p th:text="${courseList[4].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${5} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/image/atlyoga.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[5].courseName}" id="r5"></h2>
+                        <p th:text="${courseList[5].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${6} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/assets/images/banner1.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[6].courseName}" id="r6"></h2>
+                        <p th:text="${courseList[6].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${7} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/assets/images/pilates3.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[7].courseName}" id="r7"></h2>
+                        <p th:text="${courseList[7].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${8} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/assets/images/sprinning3.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[8].courseName}" id="r8"></h2>
+                        <p th:text="${courseList[8].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${9} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/assets/images/Spinning1.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[9].courseName}" id="r9"></h2>
+                        <p th:text="${courseList[9].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${10} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/assets/images/Spinning2.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+
+
+            <div class="row align-items-strech">
+                <div class="col-lg-6">
+                    <div class="text-center px-2 py-5 p-lg-5">
+                        <h2 class="py-3" th:text="${courseList[10].courseName}" id="r10"></h2>
+                        <p th:text="${courseList[10].courseIntroduction}"></p>
+                        <button type="button" class="btn btn-dark"
+                                th:onclick="'window.location.href=\'/frontend_period/detail/' + ${11} + '\''">
+                            查詢時段
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2"
+                     style="background:url('/course_44/assets/images/boler1.jpg') center;background-size:cover;min-height:300px;">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer================================================== -->
+<div th:replace="~{common/footer::footer}"></div>
+
+<!-- BootStrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+        crossorigin="anonymous"></script>
+
+<!-- Jquery-->
+<script th:src="@{/course_44/assets/js/jquery-3.3.1.min.js}"></script>
+
+<!-- libhtbox -->
+<script th:src="@{/course_44/assets/js/lightbox-plus-jquery.min.js}"></script>
+<script th:src="@{/course_44/assets/js/owl.carousel.js}"></script>
+
+<!-- 導覽列及按鈕-->
+<script th:src="@{/course_44/js/nav.js}"></script>
+
+</body>
+
+</html>

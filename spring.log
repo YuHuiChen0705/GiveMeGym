@@ -1,0 +1,24 @@
+2023-06-19 21:37:25.623 [INFO] [restartedMain] [55] Starting GiveMeGymApplication using Java 17.0.7 on LAPTOP-0B6P7P45 with PID 17632 (C:\CHA101-intellij-workspace\CHA101G7_backend\target\classes started by 陳郁蕙 in C:\CHA101-intellij-workspace\CHA101G7_backend)
+2023-06-19 21:37:25.624 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.12, Spring v5.3.27
+2023-06-19 21:37:25.625 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-06-19 21:37:25.674 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-19 21:37:25.675 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-19 21:37:26.270 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-19 21:37:26.373 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 95 ms. Found 16 JPA repository interfaces.
+2023-06-19 21:37:27.022 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-06-19 21:37:27.033 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-06-19 21:37:27.034 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.75]
+2023-06-19 21:37:27.238 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-06-19 21:37:27.247 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-06-19 21:37:27.247 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 1560 ms
+2023-06-19 21:37:27.355 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-06-19 21:37:27.602 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-06-19 21:37:27.645 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-19 21:37:27.675 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-06-19 21:37:27.814 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-06-19 21:37:27.892 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-06-19 21:37:28.676 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-19 21:37:28.685 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-19 21:37:29.926 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-06-19 21:37:29.966 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path ''
+2023-06-19 21:37:29.977 [INFO] [restartedMain] [61] Started GiveMeGymApplication in 4.654 seconds (JVM running for 5.146)

@@ -28,12 +28,11 @@
 
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
 </head>
+
 <style>
     body {
-        background-color: #000;
+        background-color: #fef8f0f9;
         color: #fff;
         font-family: Arial, sans-serif;
     }
@@ -45,8 +44,11 @@
     }
 
     .logo {
-        font-size: 24px;
+        font-size: 36px;
         font-weight: bold;
+        color: #ff0000;
+        padding: 0px 10px;
+
     }
 
     .user {
@@ -56,18 +58,32 @@
 
     .user .name {
         margin-right: 10px;
+        color: #5f5d5d;
     }
 
     .sidebar {
-        width: 200px;
-        background-color: #333;
-        padding: 20px;
+        width: 130px;
+        background-color: #5f5d5d;
+        opacity: 0.8;
+        padding: 10px 15px;
+        margin: 0px 20px;
+        float: left;
+    }
+
+    .sidebar h1 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fef8f0f9;
+        cursor: pointer;
+        text-align: left;
     }
 
     .sidebar h2 {
         font-size: 18px;
         font-weight: bold;
         margin-bottom: 10px;
+        color: #fef8f0f9;
         cursor: pointer;
         text-align: left;
     }
@@ -109,21 +125,33 @@
         margin-bottom: 5px;
     }
 
-    table {
-        table-layout: fixed;
+    .btn-style {
+        padding: 10px 32px;
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 600;
+        transition: 0.3s ease-in;
+        border-radius: 6px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #ff0000;
+        border-color: #ff0000;
+    }
+
+    .m-4 {
+        margin: 1.5rem !important;
+    }
+
+    .content {
+        margin-left: 320px;
+    }
+
+    .content iframe {
         width: 100%;
-    }
-
-    table td {
-        width: 14.28%;
-        /* 每個欄位佔表格的 1/7 寬度 */
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .truncate {
-        max-width: 0;
+        height: 100%;
+        border: none;
     }
 </style>
 <script>
@@ -205,35 +233,31 @@
                 <div class="card-body">
                     <div class="table-responsive table mt-2" id="dataTable" role="grid"
                          aria-describedby="dataTable_info">
-                        <table id="myTable" class="table table-striped table-hover style=" width:100%
-                        ">
-                        <thead>
-                        <tr>
-                            <!-- 欄位標題 -->
-                            <th>編號</th>
-                            <th>會員姓名</th>
-                            <th>訂單建立日期</th>
-                            <th>訂單狀態</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- 動態生成表格內容 -->
-                        <tr th:each="courseOrder:${courseOrderList}">
-                            <th>編號</th>
-                            <th>會員姓名</th>
-                            <th>訂單建立日期</th>
-                            <th>訂單狀態</th>
-                        </tr>
-                        </tbody>
+                        <table id="myTable" class="table table-striped table-hover" style="width:100%">
+                            <thead>
+                            <tr>
+                                <!-- 欄位標題 -->
+                                <th>編號</th>
+                                <th>會員姓名</th>
+                                <th>訂單建立日期</th>
+                                <th>訂單狀態</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 動態生成表格內容 -->
+                            <tr th:each="courseOrder:${courseOrderByPeriod}">
+                                <td th:text="${courseOrder.courseOrderId}">編號</td>
+                                <td>
+                                    <span th:text="${courseOrder.memberVO.memberName}"></span>
+                                </td>
+                                <td th:text="${courseOrder.courseOrderDate}">編號</td>
+                                <td th:text="${courseOrder.courseOrderState}">編號</td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a href="Mcourse.html" class="btn btn-dark btn-lg">返回</a>
-                </div>
             </div>
-
-
         </div>
     </section>
 </div>
@@ -422,6 +446,7 @@
 
         });
     }); </script>
+
 
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

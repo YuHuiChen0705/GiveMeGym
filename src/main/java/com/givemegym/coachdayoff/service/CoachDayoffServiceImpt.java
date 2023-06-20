@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.givemegym.coachdayoff.dao.CoachDayoffDao;
 import com.givemegym.coachdayoff.vo.CoachDayoffVo;
+import org.springframework.stereotype.Service;
 
-public class CoachDayoffServiceImpt {
+@Service
+public class CoachDayoffServiceImpt implements CoachDayoffService {
 	@Autowired
 	private CoachDayoffDao coachDayoffDao;
 
@@ -40,9 +42,19 @@ public class CoachDayoffServiceImpt {
 		return null;
 	}
 
-	 public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
-	        return (List<CoachDayoffVo>) coachDayoffDao.findAllOrderByCoachDayoffTime();
-	    }
+	@Override
+	public List<CoachDayoffVo> findByCoachId(Integer coachDayoffId) {
+		return null;
+	}
+
+	@Override
+	public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
+		return null;
+	}
+
+//	 public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
+//	        return (List<CoachDayoffVo>) coachDayoffDao.findAllOrderByCoachDayoffTime();
+//	    }
 
 
 
