@@ -2,60 +2,60 @@ package com.givemegym.coach.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
+import com.givemegym.skill.service.SkillService;
+import com.givemegym.skill.vo.Skill;
 
 @Controller
-@RequestMapping("/frontend_coach")
+@RequestMapping("/coach")
 public class CoachController {
 
+	private CoachService theCoachService;
+	private SkillService theSkillService;
+	
 	@Autowired
-	private CoachService coachService;
-
-	@GetMapping("/listAll")
-	public String findAllCoach(Model model) {
-		List<Coach> coachList = coachService.findAll();
-		model.addAttribute("coachList", coachList);
-		return "frontend/coach/coach";
+	public CoachController(CoachService theCoachService, SkillService theSkillService) {
+		this.theCoachService = theCoachService;
+		this.theSkillService = theSkillService;
 	}
 
-	// 導入新增教練時段的頁面
-	@GetMapping("/coach")
-	public String addCoach() {
-		return "frontend/coach/addcoach";
+	// add mapping for "/list"
+	@GetMapping("/list")
+	public String listCoach(Model theModel) {
+		
+		// get coaches from db
+		List<Coach> theCoaches = theCoachService.findAll();
+		
+		// add to the spring model
+		theModel.addAttribute("coaches", theCoaches);
+		
+		return "frontend/coach";
 	}
+	
+	@GetMapping("/detail/{coachId}")
+	public String theCoach(@PathVariable(value = "coachId") int coachId, Model theModel) {
+		
+		// 調用教練的Controller，讀取教練的資料
+		Coach theCoach = theCoachService.findById(coachId);
 
-	// 導入修改教練的頁面
-//	@GetMapping("/getOne_For_Update/{periodId}")
-//	public String toUpdate(@PathVariable Integer periodId, ModelMap model) {
-//		Optional<Period> findPeriod = CoachService.findById(periodId);
-//		model.addAttribute("Period", findPeriod.orElseThrow());
-//		return "frontend/coach/coach";// 查詢完成後轉交修改教練時段的頁面
-//	}
+		// 取得該教練所有的技能
+		List<Skill> allSkills = theSkillService.findAlltheSkills(coachId);
 
-	// 新增教練時段
-	@PostMapping("/saveOrUpdate")
-	public String saveOrUpdate(@Valid @ModelAttribute("coach") Coach coach) {
-		coachService.saveOrUpdate(coach);
-		return "redirect:/frontend_coach/addcoach";
+		// 將教練資料收到物件裡面
+		theModel.addAttribute("theCoach", theCoach);
+		
+		// 將技能資料收到物件裡面
+		theModel.addAttribute("allSkills", allSkills);
+		
+		return "frontend/coach/coach_detail";
 	}
-
-//	動態生成	
-//		  @ModelAttribute("coachListData")
-//		    protected List<Coach> coachListData() {
-////				DeptService deptSvc = new DeptService();
-//		        List<Coach> list = CoachService.findAll();
-//		        return list;
-//		    }
-//	}
 }

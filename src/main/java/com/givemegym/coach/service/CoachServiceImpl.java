@@ -1,9 +1,6 @@
 package com.givemegym.coach.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,42 +8,43 @@ import org.springframework.stereotype.Service;
 import com.givemegym.coach.dao.CoachDAO;
 import com.givemegym.coach.vo.Coach;
 
+
 @Service
-@Transactional
 public class CoachServiceImpl implements CoachService {
 
+	private CoachDAO coachRepo;
+	
 	@Autowired
-	private CoachDAO coachDao;
-
-	@Override
-	public boolean isDup(Integer coachId) {
-		return false;
-	}
-
-//	@Override
-	public Coach saveOrUpdate(Coach coach) {
-
-		return coachDao.save(coach);
-	}
-
-	@Override
-	public void deleteById(Integer coachId) {
-		coachDao.deleteById(coachId);
-	}
-
-	@Override
-	public Optional<Coach> findById(Integer coachId) {
-		return coachDao.findById(coachId);
+	public CoachServiceImpl(CoachDAO coachRepo) {
+		this.coachRepo = coachRepo;
 	}
 
 	@Override
 	public List<Coach> findAll() {
-		return coachDao.findAll();
+		return coachRepo.findAll();
 	}
 
 	@Override
-	public List<Coach> findByCoachId(Integer coachId) {
-	    return coachDao.findByCoachId(coachId);
+	public Coach findById(int theId) {
+		Optional<Coach> result = coachRepo.findById(theId);
+		Coach theCoach = null;
+
+		if (result.isPresent()) {
+			theCoach = result.get();
+		} else {
+			// we can't find the coach
+			throw new RuntimeException("找不到該教練的ID - " + theId);
+		}
+		return theCoach;
 	}
 
+	@Override
+	public void save(Coach theCoach) {
+		coachRepo.save(theCoach);
+	}
+
+	@Override
+	public void deleteById(int theId) {
+		coachRepo.deleteById(theId);
+	}
 }

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.givemegym.skill.vo.Skill;
 
 @Repository
-public interface CoachSkillDAO extends JpaRepository<Skill, Integer> {
+public interface CoachSkillRepository extends JpaRepository<Skill, Integer> {
 
 }

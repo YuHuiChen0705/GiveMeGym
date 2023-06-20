@@ -1,103 +1,83 @@
 package com.givemegym.coach.vo;
 
-import java.util.Arrays;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 
 @Entity
 @Table(name = "coach")
-
 public class Coach {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "COACH_ID")
 	private int coachId;
-
+	
 	@Column(name = "COACH_NAME")
-	private String name;
-
+	private String coachName;
+	
 	@Column(name = "COACH_DETAIL")
-	private String detail;
-
-	@Lob
+	private String coachDetail;
+	
 	@Column(name = "COACH_PIC", columnDefinition = "LONGBLOB")
-	private byte[] thePic;
-
+	private byte[] coachPic;
+	
 	@Column(name = "COACH_GENDER")
-	private String gender;
-
+	private String coachGender;
+	
 	public Coach() {
 	}
 
-	public Coach(int cId, String name, String detail, byte[] thePic, String gender) {
-		this.coachId = cId;
-		this.name = name;
-		this.detail = detail;
-		this.thePic = thePic;
-		this.gender = gender;
+	public Coach(int coachId, String coachName, String coachDetail,
+			byte[] coachPic, String coachGender) {
+		this.coachId = coachId;
+		this.coachName = coachName;
+		this.coachDetail = coachDetail;
+		this.coachPic = coachPic;
+		this.coachGender = coachGender;
 	}
 
-	public int getcId() {
+	public int getCoachId() {
 		return coachId;
 	}
 
-	public void setcId(int cId) {
-		this.coachId = cId;
+	public void setCoachId(int coachId) {
+		this.coachId = coachId;
 	}
 
-	public String getName() {
-		return name;
+	public String getCoachName() {
+		return coachName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCoachName(String coachName) {
+		this.coachName = coachName;
 	}
 
-	public String getDetail() {
-		return detail;
+	public String getCoachDetail() {
+		return coachDetail;
 	}
 
-	public void setDetail(String detail) {
-		this.detail = detail;
+	public void setCoachDetail(String coachDetail) {
+		this.coachDetail = coachDetail;
 	}
 
-	public byte[] getThePic() {
-		return thePic;
+	public byte[] getCoachPic() {
+		return coachPic;
 	}
 
-	public void setThePic(byte[] thePic) {
-		this.thePic = thePic;
+	public void setCoachPic(byte[] coachPic) {
+		this.coachPic = coachPic;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getCoachGender() {
+		return coachGender;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setCoachGender(String coachGender) {
+		this.coachGender = coachGender;
 	}
 }
-
-//	@Override
-//	public String toString() {
-//		return "Coach [cId=" + cId + ", name=" + name + ", detail=" + detail + ", thePic=" + Arrays.toString(thePic)
-//				+ ", gender=" + gender + "]\n";
-//	}
-//}

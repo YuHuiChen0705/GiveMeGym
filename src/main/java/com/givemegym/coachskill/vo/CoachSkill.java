@@ -1,49 +1,65 @@
-package com.givemegym.coachskill.vo;
-
-import java.util.Arrays;
-
-
+package com.givemegym.coachSkill.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+import com.givemegym.coach.vo.Coach;
+import com.givemegym.skill.vo.Skill;
 
 @Entity
-@Table(name = "skill")
-
+@Table(name = "coachskill")
 public class CoachSkill {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int skillId;
-    private String skillName;
-    
-    public int getSkillId() {
-        return skillId;
-    }
-    
-    public void setSkillId(int skillId) {
-        this.skillId = skillId;
-    }
-    
-    public String getSkillName() {
-        return skillName;
-    }
-    
-    public void setSkillName(String skillName) {
-        this.skillName = skillName;
-    }
+	@Column(name = "COACHSKILL_ID")
+	private int coachSkillId;
+
+	@ManyToOne
+	@JoinColumn(name = "COACH_ID", referencedColumnName="COACH_ID")
+	private Coach coach;
+	
+	@OneToOne
+	@JoinColumn(name = "SKILL_ID", referencedColumnName="SKILL_ID")
+	private Skill skill;
+	
+	public CoachSkill() {
+	}
+
+	public CoachSkill(int coachSkillId, Coach coach, Skill skill) {
+		this.coachSkillId = coachSkillId;
+		this.coach = coach;
+		this.skill = skill;
+	}
+
+	public int getCoachSkillId() {
+		return coachSkillId;
+	}
+
+	public void setCoachSkillId(int coachSkillId) {
+		this.coachSkillId = coachSkillId;
+	}
+
+	public Coach getCoach() {
+		return coach;
+	}
+
+	public void setCoach(Coach coach) {
+		this.coach = coach;
+	}
+
+	public Skill getSkill() {
+		return skill;
+	}
+
+	public void setSkill(Skill skill) {
+		this.skill = skill;
+	}
 }
