@@ -7,10 +7,15 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +23,7 @@ import com.givemegym.mem.service.MemberService;
 import com.givemegym.mem.vo.MemberVO;
 
 @Controller
+@ComponentScan
 @RequestMapping("/fornt_Member")
 public class MemberController {
 
@@ -64,20 +70,36 @@ public class MemberController {
 		return "redirect:/backend_Member/listAllMember";
 	}
 
-//	@PostMapping("/login")
+	@GetMapping("/login")
+	public String loginMember(Model model) {
+		model.addAttribute("memberVO", new MemberVO());
+		return "frontend/member/login";
+	}
+
+	@PostMapping("/loginSummit")
+	public String login(@ModelAttribute MemberVO loginRequest, HttpSession session) {
+	    MemberVO result = memberService.login(loginRequest.getMemberMail(), loginRequest.getMemberPassword());
+	    if (result != null) {
+	        session.setAttribute("memberVO", result);
+	        System.out.println("memberId: " + result.getMemberId());
+	        return "redirect:/frontend/member/memberData"; // 返回重定向視圖
+	    } else {
+	        System.out.println("查無此資料");
+	        return "0"; // 返回登入頁面視圖
+	    }
+	}
+
+//	@GetMapping("/login")
 //	public Integer login(@RequestParam String memberMail, @RequestParam String memberPassword, HttpSession session) {
 //		MemberVO result = memberService.login(memberMail, memberPassword);
 //		if (result != null) {
 //			session.setAttribute("memberVO", result);
 //			System.out.println("memberId" + session.getAttribute("memberVO"));
-//			String successMessage = "登入成功！歡迎回來，" + result.getMemberName() + "！";
-//			model.addAttribute("successMessage", successMessage);
 //			return result.getMemberId();
 //		} else {
 //			System.out.println("查無此資料");
-//			String errorMessage = "查無此資料";
-//	        model.addAttribute("errorMessage", errorMessage);
 //			return 0;
+//
 //		}
 //	}
 }
