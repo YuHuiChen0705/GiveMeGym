@@ -90,8 +90,10 @@
 
 <div class="product-details">
     <div class="image-container">
-        <img th:each="imagePath : ${imagePaths}" th:src="${imagePath}" alt="商品圖片" class="active shop">
-
+        <img th:if="${not #sets.isEmpty(product.pdImages)}" th:each="image : ${imagePaths}"
+             th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="商品圖片" class="active shop">
+        <img th:unless="${not #sets.isEmpty(product.pdImages)}"
+             src="/shop_19/images/nopic.jpg" alt="" class="img-responsive">
         <button class="prev-button"> <</button>
         <button class="next-button"> ></button>
     </div>

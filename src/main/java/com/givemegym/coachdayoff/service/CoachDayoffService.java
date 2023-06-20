@@ -3,7 +3,6 @@ package com.givemegym.coachdayoff.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.givemegym.coach.vo.CoachVo;
 import com.givemegym.coachdayoff.vo.CoachDayoffVo;
 
 public interface CoachDayoffService {

@@ -1,7 +1,7 @@
 package com.givemegym.period.controller;
 
 import com.givemegym.coach.service.CoachService;
-import com.givemegym.coach.vo.CoachVo;
+import com.givemegym.coach.vo.Coach;
 import com.givemegym.course.service.CourseService;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseschedule.service.CourseScheduleService;
@@ -66,7 +66,7 @@ public class PeriodControllerB {
         model.addAttribute("period", period);
         CourseSchedule courseSchedule = new CourseSchedule();
         model.addAttribute("courseSchedule", courseSchedule);
-        CoachVo coach = new CoachVo();
+        Coach coach = new Coach();
         model.addAttribute("coach", coach);
         // 轉交新增團課的頁面
         return "backend/period/addPeriod";
@@ -135,7 +135,7 @@ public class PeriodControllerB {
 
 
     @ModelAttribute("coachListData")
-    protected List<CoachVo> referenceCoachListData() {
+    protected List<Coach> referenceCoachListData() {
 //		DeptService deptSvc = new DeptService();
         return coachService.findAll();
     }

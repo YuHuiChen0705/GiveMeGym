@@ -117,10 +117,10 @@ public class ProductControllerBackend {
         Optional<Product> product = productService.findById(productId);
         model.addAttribute("product", product.orElseThrow());
 
-        List<byte[]> imagePaths = productService.findByProductId(productId);
-        int size = imagePaths.size();
-        imagePaths = size > 2 ? imagePaths.subList(size - 3, size) : imagePaths;
-        model.addAttribute("imagePaths", imagePaths);
+
+        getImageList(productId);
+        model.addAttribute("imagePaths", getImageList(productId));
+
 
         return "frontend/product/shop_single";
     }
@@ -134,8 +134,7 @@ public class ProductControllerBackend {
 
 
     // 取得圖片的List
-    @GetMapping("/image/{productId}")
-    public List<String> getImageList(Integer productId){
+    public List<String> getImageList(Integer productId) {
         // 拿到資料庫中所有該商品的圖片List
         List<byte[]> imagePaths = productService.findByProductId(productId);
         // 把List長度改成拿最後的三張  不到三張則不改長度
@@ -149,6 +148,19 @@ public class ProductControllerBackend {
             resources.add(base64Image);
         }
         return resources;
+    }
+
+    @GetMapping("/image/{productId}")
+    public ResponseEntity<Resource> getOneImage(@PathVariable Integer productId) {
+        Product product = productService.findById(productId).get();
+        List<PdImages> images = product.getPdImages().stream().toList();
+        PdImages image = images.get(images.size() - 1);
+        byte[] imageByte = image.getProductImage();
+        ByteArrayResource resource = new ByteArrayResource(imageByte);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_GIF) // or another appropriate media type
+                .body(resource);
     }
 }
 
