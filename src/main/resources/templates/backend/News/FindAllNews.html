@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<head>
+    
+</head>
+
+<body>
+
+    <body>
+<div class = "container">
+    <div class="row">
+        <h1>List News</h1>
+    </div>
+    <table class = "table table-striped table-bordered">
+        <thead class = "table-dark">
+        <tr>
+            <th>News ID</th>
+            <th>News IMG</th>
+            <th>News UpdateTime</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="news:${news}">
+            <td th:text="${news.newsId}"></td>
+            <td th:text="${news.newsImg}"></td>
+            <td th:text="${news.newsTime}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</body>
+</html>
