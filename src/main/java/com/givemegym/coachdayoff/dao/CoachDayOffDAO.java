@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.givemegym.coach.vo.Coach;
 
 @Repository
-public interface CoachDayOffDAO extends JpaRepository<Coach, Integer> {
+public interface CoachDayoffDao extends JpaRepository<Coach, Integer> {
 	List<Coach> findByCoachId(int coachId);
 }
