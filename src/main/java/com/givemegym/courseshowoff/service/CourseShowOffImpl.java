@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.givemegym.courseshowoff.dao.CourseShowOffDao;
-import com.givemegym.courseshowoff.vo.CourseShowOffVo;
+import com.givemegym.courseshowoff.dao.CourseShowOffRepository;
+import com.givemegym.courseshowoff.vo.CourseShowOff;
 
 
 
@@ -17,7 +17,7 @@ import com.givemegym.courseshowoff.vo.CourseShowOffVo;
 public class CourseShowOffImpl implements CourseShowOffService{
 
 	@Autowired
-	private CourseShowOffDao courseshowoffDao;
+	private CourseShowOffRepository courseshowoffDao;
 	
 	
 	
@@ -28,7 +28,7 @@ public class CourseShowOffImpl implements CourseShowOffService{
 	}
 
 	@Override
-	public CourseShowOffVo saveOrUpdate(CourseShowOffVo courseshowoffvo) {
+	public CourseShowOff saveOrUpdate(CourseShowOff courseshowoffvo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,19 +40,19 @@ public class CourseShowOffImpl implements CourseShowOffService{
 	}
 
 	@Override
-	public Optional<CourseShowOffVo> findById(Integer CourseShowOffId) {
+	public Optional<CourseShowOff> findById(Integer CourseShowOffId) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
 	@Override
-	public List<CourseShowOffVo> findAll() {
+	public List<CourseShowOff> findAll() {
 		// TODO Auto-generated method stub
 		return courseshowoffDao.findAll();
 	}
 
 	@Override
-	public List<CourseShowOffVo> findByCourseShowOffId(Integer CourseShowOffId) {
+	public List<CourseShowOff> findByCourseShowOffId(Integer CourseShowOffId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
