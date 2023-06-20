@@ -1,4 +1,4 @@
-package com.givemegym.coach.dao;
+package com.givemegym.coachdayoff.dao;
 
 import java.util.List;
 
@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.givemegym.coach.vo.Coach;
 
 @Repository
-public interface CoachDAO extends JpaRepository<Coach, Integer>{
-
-	public List<Coach> findAll();
-
+public interface CoachDayOffDAO extends JpaRepository<Coach, Integer> {
+	List<Coach> findByCoachId(int coachId);
 }

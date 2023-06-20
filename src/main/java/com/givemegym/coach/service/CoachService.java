@@ -7,26 +7,17 @@ import com.givemegym.coach.vo.CoachVo;
 
 import java.util.List;
 
-	public interface CoachService {
+import java.util.*;
+import com.givemegym.coach.vo.Coach;
 
-	boolean isDup(Integer coachId);
+public interface CoachService {
 
-    /*新增或修改問題*/
-	CoachVo saveOrUpdate(CoachVo coachVo);
+	public List<Coach> findAll();
 
-    /*刪除 根據ID刪除單一問題*/
-    void deleteById(Integer coachId);
+	public Coach findById(int theId);
 
-    /*查詢 根據ID查單一問題 Optional避免空值例外*/
-    Optional<CoachVo> findById(Integer coachId);
+	public void save(Coach theEmployee);
 
-    /*查詢所有問題*/
-    List<CoachVo> findAll();
-
-    /*根據問題類別(四種類別)查問題*/
-    List<CoachVo> findByCoachId(Integer courseId);
-
-
-
-	}
+	public void deleteById(int theId);
+}
 
