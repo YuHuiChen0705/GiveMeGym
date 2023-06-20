@@ -53,10 +53,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO login(String memberMail, String memberPassword) {
-		MemberVO loginMail = memberDao.findByMemberMail(memberMail);
-		MemberVO loginPassword = memberDao.findByMemberPassword(memberPassword);
-		if (loginMail != null && loginPassword.equals(loginMail.getMemberPassword())) {
-			return loginMail;
+		MemberVO loginMember = memberDao.findByMemberMail(memberMail);
+		if (loginMember != null && loginMember.getMemberPassword().equals(memberPassword)) {
+			return loginMember;
 		} else {
 			return null;
 //			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

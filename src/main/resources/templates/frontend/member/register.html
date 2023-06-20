@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -9,7 +9,7 @@
 
 <title>通通給我健起來Give Me Gym Center</title>
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css" />
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"/>
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
@@ -116,7 +116,7 @@
 			<div class="tab-group">
 				<button class="tab active2"
 					style="border: none; background-color: antiquewhite; border-radius: 0.5ch;">
-					<a href="#login">登入</a>
+					<a href="login.html">登入</a>
 				</button>
 				<button class="tab active1"
 					style="border: none; background-color: antiquewhite; border-radius: 0.5ch;">
@@ -210,6 +210,7 @@
 						</select> <input type="text" id="memberDetail" name="memberDetail" required
 							autocomplete="off" />
 					</div>
+					<a href="login.html">已經有會員帳號?</a>
 					<div class="error" id="name-error2"></div>
 					<div class="error" id="mail-error2"></div>
 					<div class="error" id="password-error2"></div>
@@ -221,7 +222,7 @@
 				</div>
 				<div id="login">
 					<h1>歡迎健起來!</h1>
-					<form action="/" method="post">
+					<form action="/login.html" method="post">
 						<div class="field-wrap">
 							<label>電子信箱<span class="req"></span></label> <input type="email"
 								id="mail" required autocomplete="off" />
@@ -235,7 +236,7 @@
 						</p>
 						<div class="error" id="mail-error"></div>
 						<div class="error" id="password-error"></div>
-						<button class="button button-block" id="submit1" />登入</button>
+						<button class="button button-block" id="submit1">登入</button>
 					</form>
 				</div>
 			</div>
@@ -625,7 +626,7 @@
     });
   </script>
 	<script th:src="@{/member/js/member.js}"></script>
-	
+	<script th:src="@{/member/js/login.js}"></script>
 </body>
 
 </html>
