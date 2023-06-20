@@ -1,4 +1,4 @@
-package com.givemegym.coachSkill.vo;
+package com.givemegym.coachskill.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,13 +23,13 @@ public class CoachSkill {
 	private int coachSkillId;
 
 	@ManyToOne
-	@JoinColumn(name = "COACH_ID", referencedColumnName="COACH_ID")
+	@JoinColumn(name = "COACH_ID", referencedColumnName = "COACH_ID")
 	private Coach coach;
-	
+
 	@OneToOne
-	@JoinColumn(name = "SKILL_ID", referencedColumnName="SKILL_ID")
+	@JoinColumn(name = "SKILL_ID", referencedColumnName = "SKILL_ID")
 	private Skill skill;
-	
+
 	public CoachSkill() {
 	}
 

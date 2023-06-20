@@ -12,7 +12,7 @@ import com.givemegym.skill.vo.Skill;
 public class SkillServiceImpl implements SkillService {
 
 	SkillDAO theSkillRepository;
-	
+
 	@Autowired
 	public SkillServiceImpl(SkillDAO theSkillRepository) {
 		this.theSkillRepository = theSkillRepository;

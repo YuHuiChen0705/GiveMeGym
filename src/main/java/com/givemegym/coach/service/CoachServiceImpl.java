@@ -1,6 +1,7 @@
 package com.givemegym.coach.service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,25 +9,24 @@ import org.springframework.stereotype.Service;
 import com.givemegym.coach.dao.CoachDAO;
 import com.givemegym.coach.vo.Coach;
 
-
 @Service
 public class CoachServiceImpl implements CoachService {
 
-	private CoachDAO coachRepo;
-	
+	private CoachDAO coachDAO;
+
 	@Autowired
-	public CoachServiceImpl(CoachDAO coachRepo) {
-		this.coachRepo = coachRepo;
+	public CoachServiceImpl(CoachDAO coachDAO) {
+		this.coachDAO = coachDAO;
 	}
 
 	@Override
 	public List<Coach> findAll() {
-		return coachRepo.findAll();
+		return coachDAO.findAll();
 	}
 
 	@Override
 	public Coach findById(int theId) {
-		Optional<Coach> result = coachRepo.findById(theId);
+		Optional<Coach> result = coachDAO.findById(theId);
 		Coach theCoach = null;
 
 		if (result.isPresent()) {
@@ -40,11 +40,11 @@ public class CoachServiceImpl implements CoachService {
 
 	@Override
 	public void save(Coach theCoach) {
-		coachRepo.save(theCoach);
+		coachDAO.save(theCoach);
 	}
 
 	@Override
 	public void deleteById(int theId) {
-		coachRepo.deleteById(theId);
+		coachDAO.deleteById(theId);
 	}
 }
