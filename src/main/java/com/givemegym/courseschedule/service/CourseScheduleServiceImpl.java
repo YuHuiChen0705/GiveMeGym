@@ -38,17 +38,8 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
 
     @Override
     public CourseSchedule saveOrUpdate(CourseSchedule courseschedule) {
+		return courseschedule;
 
-        // 檢查Period物件是否處於detached狀態
-        if (courseschedule.getPeriod() != null && entityManager.contains(courseschedule.getPeriod())) {
-            // Period物件處於managed狀態，直接執行persist
-            return coursescheduleDao.save(courseschedule);
-        } else {
-            // Period物件處於detached狀態，將其轉換為managed狀態再執行persist
-            Period managedPeriod = entityManager.merge(courseschedule.getPeriod());
-            courseschedule.setPeriod(managedPeriod);
-            return coursescheduleDao.save(courseschedule);
-        }
     }
 
     @Override

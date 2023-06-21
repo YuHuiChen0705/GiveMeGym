@@ -41,14 +41,14 @@ public class CoachDayoffController {
         return "redirect:getAlldayofflist";
     }
 
-    // 透過教練查詢請假紀錄
-    @GetMapping("/findBy/coachId/dayofflist")
-    @ResponseBody
-    public String findByCoachId(@RequestParam("coachId") String coachId, Model model) {
-        List<CoachDayoffVo> dayoffList = coachDayoffService.findByCoachId(coachId);
-        model.addAttribute("dayoffList", dayoffList);
-        return "backend/coachDayoff/coachcenter_dayoff :: #dayoffListDiv";
-    }
+//    // 透過教練查詢請假紀錄
+//    @GetMapping("/findBy/+{CoachId}+")
+//    @ResponseBody
+//    public String findByCoachId(@RequestParam("coachId") String coachId, Model model) {
+//        List<CoachDayoffVo> dayoffList = coachDayoffService.findByCoachId(coachId);
+//        model.addAttribute("dayoffList", dayoffList);
+//        return "backend/coachDayoff/coachcenter_dayoff :: #dayoffListDiv";
+//    }
 //    //從資料庫取得現有教練
 //    @GetMapping("/getcoachlist")
 //    public String getcoachList(Model model) {
