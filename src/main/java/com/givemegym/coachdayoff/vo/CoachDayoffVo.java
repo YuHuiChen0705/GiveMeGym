@@ -4,9 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import lombok.NonNull;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,20 +17,62 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "coach",schema="no7")
+@Table(name = "coachdayoff",schema="no7")
 public class CoachDayoffVo {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@NonNull
-
 	@Column(name ="COACHDAYOFF_ID")
 	private Integer coachDayoffId;
+	
 	@Column(name ="COACH_ID")
 	private String coachId;
+	
+	public String getCoachId() {
+		return coachId;
+	}
+
+	public void setCoachId(String coachId) {
+		this.coachId = coachId;
+	}
+
 	@Column(name ="COACHDAYOFF_DATE")
 	private String coachDayoffDate;
+	
+	
+	
+	public Integer getCoachDayoffId() {
+		return coachDayoffId;
+	}
+
+	public void setCoachDayoffId(Integer coachDayoffId) {
+		this.coachDayoffId = coachDayoffId;
+	}
+
+	public String getCoachDayoffDate() {
+		return coachDayoffDate;
+	}
+
+	public void setCoachDayoffDate(String coachDayoffDate) {
+		this.coachDayoffDate = coachDayoffDate;
+	}
+
+	public String getCoachDayoffTime() {
+		return coachDayoffTime;
+	}
+
+	public void setCoachDayoffTime(String coachDayoffTime) {
+		this.coachDayoffTime = coachDayoffTime;
+	}
+
 	@Column(name ="COACHDAYOFF_TIME")
 	private String coachDayoffTime;
+
+	public void put(String string, String timeValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

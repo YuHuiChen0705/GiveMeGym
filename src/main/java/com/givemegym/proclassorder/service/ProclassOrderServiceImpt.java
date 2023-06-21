@@ -1,5 +1,5 @@
 package com.givemegym.proclassorder.service;
 
-public class ProclassOrderServiceImpt {
+public class ProclassOrderServiceImpt implements ProclassOrderService {
 
 }

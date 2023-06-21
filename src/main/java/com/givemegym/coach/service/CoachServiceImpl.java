@@ -2,6 +2,7 @@ package com.givemegym.coach.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,11 @@ public class CoachServiceImpl implements CoachService {
 	@Override
 	public void deleteById(int theId) {
 		coachDAO.deleteById(theId);
+	}
+
+
+	public List<String> getAllCoachNames() {
+		 List<Coach> coaches = coachDAO.findAll();
+	        return coaches.stream().map(Coach::getCoachName).collect(Collectors.toList());
 	}
 }
