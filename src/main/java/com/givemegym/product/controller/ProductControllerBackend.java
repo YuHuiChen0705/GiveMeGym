@@ -6,24 +6,16 @@ import com.givemegym.product.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -52,6 +44,20 @@ public class ProductControllerBackend {
         return "redirect:/getAllProduct";
     }
 
+
+    // 導入修改商品的頁面
+    @GetMapping("/updateProduct/{productId}")
+    public String toUpdate(@PathVariable Integer productId, ModelMap model) throws IOException {
+        Optional<Product> findProduct = productService.findById(productId);
+        model.addAttribute("product", findProduct.orElseThrow());
+
+        List<String> resources = getImageList(productId);
+        model.addAttribute("resources", resources);
+
+        return "backend/product/backend_pdUpdate";
+    }
+
+    // 修改商品 + 新增商品圖片
     @PostMapping("/UpdateProduct")
     public String updateProduct(@Valid Product product,
                                 @RequestParam("productImage") List<MultipartFile> productImages) {
@@ -87,17 +93,7 @@ public class ProductControllerBackend {
         return "redirect:/getAllProduct";
     }
 
-    // 導入修改商品的頁面
-    @GetMapping("/updateProduct/{productId}")
-    public String toUpdate(@PathVariable Integer productId, ModelMap model) throws IOException {
-        Optional<Product> findProduct = productService.findById(productId);
-        model.addAttribute("product", findProduct.orElseThrow());
 
-        List<String> resources = getImageList(productId);
-        model.addAttribute("resources", resources);
-
-        return "backend/product/backend_pdUpdate";
-    }
 
 
 //    =====================前台功能=============================

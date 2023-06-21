@@ -1,6 +1,7 @@
 package com.givemegym.product.vo;
 
 import com.givemegym.category.vo.Category;
+import com.givemegym.orderDetail.vo.OrderDetail;
 import com.givemegym.pdImage.vo.PdImages;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,6 +53,7 @@ public class Product {
     @OrderBy("productImageId asc")
     private Set<PdImages> pdImages = new  HashSet<>();
 
-
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="product")
+    private Set<OrderDetail> orderDetails = new HashSet<>();
 
 }
