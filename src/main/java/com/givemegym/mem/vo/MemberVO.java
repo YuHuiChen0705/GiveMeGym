@@ -67,7 +67,6 @@ public class MemberVO {
 	@Column(name = "MEMBER_BIRTHMONTH")
 	private String memberBirthMonth;
 	
-	
 	@NotNull
 	@Column(name = "MEMBER_BIRTHDAY")
 	private String memberBirthDay;

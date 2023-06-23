@@ -66,11 +66,6 @@ var birthselectError2 = document.getElementById("birthselect-error2");
 var addressError2 = document.getElementById("address-error2");
 var submit2 = document.getElementById("submit2");
 
-//submit2.addEventListener("click", function(event) {
-//	event.preventDefault(); // 阻止提交的行為
-//	validateRegistrationForm(); // 調用注册頁面表單驗證函數
-//});
-
 submit2.addEventListener("click", function(event) {
 	if (!validateRegistrationForm()) {
 		event.preventDefault(); // 阻止表单提交的默认行为
@@ -225,7 +220,7 @@ submit2.addEventListener("click", function(event) {
 		} else {
 			addressError2.innerHTML = "";
 		};
-		alert("已寄送驗證信至您的信箱");
+		alert("註冊成功");
 		return true;
 
 	};

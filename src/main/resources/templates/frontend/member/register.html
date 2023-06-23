@@ -128,7 +128,7 @@
 				<div id="signup">
 					<h1>免費註冊</h1>
 					<div class="top-row">
-						<form id="register" th:action="@{/backend_Member/addMemberList}"
+						<form id="register" th:action="@{/front_Member/loginMemer}"
 							method="post" enctype="multipart/form-data"
 							class=" needs-validation row text-dark" th:object="${MemberVO}"
 							novalidate onsubmit="return validateRegistrationForm()">
@@ -210,7 +210,7 @@
 						</select> <input type="text" id="memberDetail" name="memberDetail" required
 							autocomplete="off" />
 					</div>
-					<a href="login.html">已經有會員帳號?</a>
+					<a href="login">已經有會員帳號?</a>
 					<div class="error" id="name-error2"></div>
 					<div class="error" id="mail-error2"></div>
 					<div class="error" id="password-error2"></div>
@@ -626,7 +626,7 @@
     });
   </script>
 	<script th:src="@{/member/js/member.js}"></script>
-	<script th:src="@{/member/js/login.js}"></script>
+<!-- 	<script th:src="@{/member/js/login.js}"></script> -->
 </body>
 
 </html>

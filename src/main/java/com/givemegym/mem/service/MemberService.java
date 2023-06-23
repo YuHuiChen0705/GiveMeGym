@@ -1,7 +1,6 @@
 package com.givemegym.mem.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.givemegym.mem.vo.MemberVO;
 
@@ -17,18 +16,26 @@ public interface MemberService {
 	void deleteById(Integer memberId);
 
 	/* 查詢 根據ID查單一問題 Optional避免空值例外 */
-	Optional<MemberVO> findById(Integer memberId);
+//	Optional<MemberVO> findById(Integer memberId);
 
 	/* 查詢所有問題 */
 	List<MemberVO> findAll();
 
 	/* 根據問題類別(四種類別)查問題 */
-	List<MemberVO> findByMemberId(Integer memberId);
+//	public List<MemberVO> findByMemberId(Integer memberId);
 
 	// 會員註冊功能
 //	MemberVO register(MemberVO member);
 
 	// 會員登入功能
 	public MemberVO login(String memberMail, String memberPassword);
+
+	MemberVO findByMemberId(Integer memberId);
+
+	void removeStatus(Integer  memberId);
+
+	void recoverStatus(Integer memberId);
+
+	void saveMemberViolations(Integer memberId ,Integer memberViolations);
 
 }

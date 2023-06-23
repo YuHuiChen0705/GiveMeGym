@@ -178,31 +178,35 @@ table td {
 }
 </style>
 <style>
-.quantity {
+.memberViolations {
 	height: 30px;
 	width: 35px;
 }
 
-button {
+.button {
 	color: #fff;
 	background-color: #ff0000;
 	border-color: #ff0000;
 	border-radius: 5px;
 }
 
-button:hover {
+.button:hover {
 	background-color: orange;
 }
 
-button.active {
+.button.active {
 	background-color: orange;
 }
 
-button:focus {
+.button:focus {
 	background-color: orange;
 	outline-color: transparent;
 	outline-style: solid;
 	box-shadow: 0 0 0 1px #a4bd07;
+}
+
+.form-group {
+	margin: 20px 0 20px 0;
 }
 </style>
 <script>
@@ -297,7 +301,8 @@ button:focus {
 										<th class="titleStatus" style="font-weight: 600;">狀態</th>
 										<th class="titleTimes" style="font-weight: 600;">違規次數</th>
 										<th class="titleFixTimes" style="font-weight: 600;">修改違規次數</th>
-										<th class="titleFixStatus" style="font-weight: 600;">修改狀態</th>
+										<th class="titleFixStatus" style="font-weight: 600;">停權</th>
+										<th class="titleFixStatus" style="font-weight: 600;">復權</th>
 										<th class="titleFixStatus" style="font-weight: 600;">儲存</th>
 									</tr>
 								</thead>
@@ -306,23 +311,34 @@ button:focus {
 									<tr th:each="memberVO:${memberList}">
 										<td class="idTd" th:text="${memberVO.memberId}"></td>
 										<td class="nameTd" th:text="${memberVO.memberName}"></td>
-										<td class="statusTd" th:text="${memberVO.memberState}"></td>
+										<td class="memberState" id="memberState" name="memberState"	th:text="${memberVO.memberState}"></td>
 										<td class="timesTd" th:text="${memberVO.memberViolations}"></td>
-										<td class="increase" id="parentElement"><input
-											type="text" id="quantity" value="0" class="quantity" readonly />
-											<input type="button" value="+" id="add" class="add" /> <input
-											type="button" value="-" id="reduce" class="reduce" /></td>
+										<td class="increase" id="parentElement">
+										<input type="text" id="memberViolations" class="memberViolations" th:value=0> 
+										<input type="button" value="+" id="add" class="add" /> 
+										<input type="button" value="-" id="reduce" class="reduce" />
+										</td>
 										<td class="shutdown">
-											<button type="button" class="shutdown"
-												onclick="onRemoveClick(3)">停權</button>
-											<button type="button" class="recover"
-												onclick="onRecoverClick(3)">復權</button>
+											<form
+												th:action="@{/backend_Member/listAllMemberStatus/remove}"
+												method="post">
+												<input type="submit" class="button" value="停權"> <input
+													type="hidden" name="memberId"
+													th:value="${memberVO.memberId}">
+											</form>
+										</td>
+										<td>
+											<form th:action="@{/backend_Member/listAllMemberStatus/recover}"method="post">
+												<input type="submit" class="button" value="復權"> 
+												<input type="hidden" name="memberId" th:value="${memberVO.memberId}">
+											</form>
 										</td>
 										<td class="save">
-											<button type="button" class="save" onclick="onSaveClick(3)">儲存</button>
+											<form th:action="@{/backend_Member/listAllMemberStatus/saveTimes}" method="post">
+												<input type="submit" class="button" id="savebtn" value="儲存"> 
+											</form>
 										</td>
 									</tr>
-
 								</tbody>
 							</table>
 						</div>
@@ -333,13 +349,6 @@ button:focus {
 
 
 	</div>
-
-
-	<style>
-.form-group {
-	margin: 20px 0 20px 0;
-}
-</style>
 	<script>
         $(document).ready(function () {
             $('#myTable').DataTable({
@@ -427,6 +436,33 @@ button:focus {
 
 	<!-- JS -->
 	<script>
+	  var memberViolationsValue = document.getElementById('memberViolations').value;
+	  console.log(memberViolationsValue); // 輸出元素的值
+	</script>
+// 	function onSaveClick(memberViolations) {
+// 		  var quantity = $('#memberViolations').val(); // 獲取數量值
+
+// 		  // 使用 AJAX 發送 POST 請求到後端
+// 		  $.ajax({
+// 		    url: '/listAllMemberStatus',
+// 		    type: 'POST',
+// 		    data: {
+// 		      memberViolations: memberViolations,
+// 		      quantity: quantity
+// 		    },
+// 		    success: function(response) {
+// 		      console.log('數據保存成功');
+// 		    },
+// 		    error: function(xhr, status, error) {
+// 		      console.log('數據保存失敗');
+// 		    }
+// 		  });
+// 		}
+
+	var memberViolationsValue = document.getElementById("memberViolations").value;
+	console.log(memberViolationsValue);
+	</script>
+	<script>
 	window.onload = function() {
 		  var parentElements = document.getElementsByClassName('increase');
 
@@ -434,7 +470,7 @@ button:focus {
 		    var parentElement = parentElements[i];
 		    var addButton = parentElement.querySelector('.add');
 		    var reduceButton = parentElement.querySelector('.reduce');
-		    var input = parentElement.querySelector('.quantity');
+		    var input = parentElement.querySelector('.memberViolations');
 
 		    addButton.addEventListener('click', createAddButtonClickHandler(input, reduceButton, addButton));
 		    reduceButton.addEventListener('click', createReduceButtonClickHandler(input, addButton, reduceButton));
