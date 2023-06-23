@@ -1,7 +1,7 @@
 package com.givemegym.order.controller;
 
 import com.givemegym.order.service.OrderService;
-import com.givemegym.order.vo.DetailDTO;
+import com.givemegym.shopCart.vo.DetailDTO;
 import com.givemegym.order.vo.Order;
 import com.givemegym.orderDetail.service.OrderDetailService;
 import com.givemegym.orderDetail.vo.OrderDetail;

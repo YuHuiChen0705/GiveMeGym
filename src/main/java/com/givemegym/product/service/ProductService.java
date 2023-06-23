@@ -1,6 +1,7 @@
 package com.givemegym.product.service;
 import com.givemegym.pdImage.vo.PdImages;
 import com.givemegym.product.vo.Product;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ public interface ProductService {
     Product save(Product product);
 
     /*新增或修改問題*/
-    Product update(Product product);
+    Product update(Product product,List<MultipartFile> productImages);
 
     /*刪除 根據ID刪除單一問題*/
     void deleteById(Integer productId);
