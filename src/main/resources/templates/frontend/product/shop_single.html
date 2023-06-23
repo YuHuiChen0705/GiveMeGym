@@ -98,8 +98,9 @@
         <button class="next-button"> ></button>
     </div>
     <div class="product-options">
-        <h2 class="product-name" th:text="${product.productName}"></h2>
-        <p style="margin-bottom: 20px" class="product-category" th:text="'商品編號：'+${product.productId}"></p>
+        <h2 id="productName" th:text="${product.productName}"></h2>
+        <p style="margin-bottom: 20px" th:text="'商品編號：'+${product.productId}"></p>
+        <input type="hidden" id="productId" th:value="${product.productId}" style="display: none;">
         <p style="margin: 20px 0px 20px 0px" class="product-category"
            th:text="'商品類別：'+${product.category.categoryName}"></p>
         <div style="margin: 20px 0px 20px 0px">
@@ -112,7 +113,8 @@
         </div>
         <div class="info-product-price">
             <label for="quantity">價錢:</label>
-            <span class="item_price" th:text="'$'+${product.productPrice}"></span>
+            <span  th:text="'$'+${product.productPrice}"></span>
+            <input type="hidden" id="price" th:value="${product.productPrice}" style="display: none;">
         </div>
         <div class="btn-container">
             <button class="add-to-cart">加入購物車</button>
@@ -121,6 +123,7 @@
     </div>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
     // 綁定「加入購物車」按鈕的點擊事件
@@ -133,28 +136,32 @@
     function addToCart(event) {
         alert("加入");
         // 獲取商品資訊
-        const productOptions = this.parentNode;
-        const productName = productOptions.querySelector('.product-name').textContent;
-        const productQuantity = productOptions.querySelector('#quantity').value;
-        const productPrice = productOptions.querySelector('.item_price').textContent;
+        const productId = document.getElementById("productId").value;
+        const productName = document.getElementById("productName").textContent;
+        const quantity = document.getElementById("quantity").value;
+        const price = document.getElementById("price").value;
 
-        // 計算商品總價格
-        const itemTotal = parseInt(productPrice.replace('$', '')) * productQuantity;
+        var cartItem = {
+            productId: productId,
+            quantity: quantity,
+            productName: productName,
+            price: price
+        };
 
-        // 建立新的商品列元素
-        const newItem = document.createElement('tr');
-        newItem.innerHTML = `
-            <td><img src="./images/pd025.jpg" alt="商品圖片" class="shopCart"></td>
-            <td>${productName}</td>
-            <td>${productQuantity}</td>
-            <td>${productPrice}</td>
-            <td class="item-total">$${itemTotal}</td>
-            <td><button class="remove-button">移除</button></td>
-            `;
+        jQuery.ajax({
+            url: "/addOneToCart",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(cartItem),
+            success: function() {
+                //有空再換sweet alert啦
+                alert("商品已添加到購物車！");
+            },
+            error: function() {
+                alert("添加商品到購物車失敗！");
+            }
+        });
 
-        // 將商品列添加到購物車列表
-        const cartItems = document.getElementById('cart-items');
-        cartItems.appendChild(newItem);
     }
 
 </script>
@@ -295,7 +302,7 @@
 </script>
 
 
-<script src="/shop_19/assets/js/jquery-3.3.1.min.js"></script>
+
 
 
 <script src="/shop_19/assets/js/owl.carousel.js"></script>

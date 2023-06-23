@@ -6,24 +6,16 @@ import com.givemegym.product.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -48,44 +40,10 @@ public class ProductControllerBackend {
     // 新增商品
     @PostMapping("/SaveProduct")
     public String saveProduct(@Valid Product product) {
-        productService.update(product);
+        productService.save(product);
         return "redirect:/getAllProduct";
     }
 
-    @PostMapping("/UpdateProduct")
-    public String updateProduct(@Valid Product product,
-                                @RequestParam("productImage") List<MultipartFile> productImages) {
-        if (productImages != null && !productImages.isEmpty()) {
-            // 建立存放商城圖片的set
-            Set<PdImages> images = product.getPdImages();
-            if (images == null) {
-                images = new HashSet<>();
-            }
-            // 迭代讀取使用者上傳的圖片  處理並保存圖片
-            for (MultipartFile productImage : productImages) {
-                if (!productImage.isEmpty()) {
-                    try {
-
-                        // 取得圖片byte[]
-                        byte[] image = productImage.getBytes();
-                        // 建立新的 PdImages 物件
-                        PdImages pdImage = new PdImages();
-                        pdImage.setProduct(product);
-                        // 存圖片的byte[]在資料庫裡
-                        pdImage.setProductImage(image);
-                        // 將圖片存在商品圖片集合裡
-                        images.add(pdImage);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            // 修改商品(同時也新增圖片)
-        }
-        productService.update(product);
-        return "redirect:/getAllProduct";
-    }
 
     // 導入修改商品的頁面
     @GetMapping("/updateProduct/{productId}")
@@ -98,6 +56,16 @@ public class ProductControllerBackend {
 
         return "backend/product/backend_pdUpdate";
     }
+
+    // 修改商品 + 新增商品圖片
+    @PostMapping("/UpdateProduct")
+    public String updateProduct(@Valid Product product,
+                                @RequestParam("productImage") List<MultipartFile> productImages) {
+        productService.update(product,productImages);
+        return "redirect:/getAllProduct";
+    }
+
+
 
 
 //    =====================前台功能=============================
@@ -117,10 +85,7 @@ public class ProductControllerBackend {
         Optional<Product> product = productService.findById(productId);
         model.addAttribute("product", product.orElseThrow());
 
-
-        getImageList(productId);
         model.addAttribute("imagePaths", getImageList(productId));
-
 
         return "frontend/product/shop_single";
     }
@@ -152,6 +117,7 @@ public class ProductControllerBackend {
 
     @GetMapping("/image/{productId}")
     public ResponseEntity<Resource> getOneImage(@PathVariable Integer productId) {
+        // 取得商品最後一張圖片(單張)，可用在商城首頁和購物車
         Product product = productService.findById(productId).get();
         List<PdImages> images = product.getPdImages().stream().toList();
         PdImages image = images.get(images.size() - 1);

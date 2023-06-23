@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PdImageService {
 
-    /*新增或修改問題*/
+    /*新增或修改*/
     PdImages saveOrUpdate(PdImages pdImages);
 
 
