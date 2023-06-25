@@ -112,8 +112,8 @@
             <input type="number" id="quantity" min="1" max="5" value="1">
         </div>
         <div class="info-product-price">
-            <label for="quantity">價錢:</label>
-            <span  th:text="'$'+${product.productPrice}"></span>
+            <label>價錢:</label>
+            <span th:text="'$'+${product.productPrice}"></span>
             <input type="hidden" id="price" th:value="${product.productPrice}" style="display: none;">
         </div>
         <div class="btn-container">
@@ -126,20 +126,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
+    const quantityInput = document.getElementById("quantity");
+    quantityInput.addEventListener("change", function () {
+        var value = parseInt(quantityInput.value);
+        if (value < 1) {
+            quantityInput.value = "1";
+        } else if (value > 5) {
+            quantityInput.value = "5";
+            alert("單項商品購買數量不得超過5")
+        }
+    });
+
     // 綁定「加入購物車」按鈕的點擊事件
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', addToCart);
     });
 
+
     // 加入購物車的處理函式
     function addToCart(event) {
-        alert("加入");
         // 獲取商品資訊
         const productId = document.getElementById("productId").value;
         const productName = document.getElementById("productName").textContent;
-        const quantity = document.getElementById("quantity").value;
         const price = document.getElementById("price").value;
+        const quantity = document.getElementById("quantity").value;
 
         var cartItem = {
             productId: productId,
@@ -153,11 +164,16 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(cartItem),
-            success: function() {
+            success: function (response) {
                 //有空再換sweet alert啦
-                alert("商品已添加到購物車！");
+                if (response != "未登入") {
+                    alert("商品已添加到購物車！");
+                } else {
+                    alert("尚未登入會員，請登入");
+                    window.location.href = '/front_Member/login';
+                }
             },
-            error: function() {
+            error: function () {
                 alert("添加商品到購物車失敗！");
             }
         });
@@ -300,9 +316,6 @@
     nextButton.addEventListener('click', nextImage);
     prevButton.addEventListener('click', prevImage);
 </script>
-
-
-
 
 
 <script src="/shop_19/assets/js/owl.carousel.js"></script>

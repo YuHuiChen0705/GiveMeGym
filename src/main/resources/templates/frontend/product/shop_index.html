@@ -291,7 +291,12 @@
             data: JSON.stringify(cartItem),
             success: function(response) {
                 //有空再換sweet alert啦
-                alert("商品已添加到購物車！"+response);
+                if(response!="未登入"){
+                    alert("商品已添加到購物車！");
+                }else{
+                    alert("尚未登入會員，請登入");
+                    window.location.href = '/front_Member/login';
+                }
             },
             error: function() {
                 alert("添加商品到購物車失敗！");
