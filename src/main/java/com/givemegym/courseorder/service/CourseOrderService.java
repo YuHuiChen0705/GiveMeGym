@@ -26,6 +26,8 @@ public interface CourseOrderService {
 
     /*查詢所有訂單*/
     List<CourseOrder> findAll();
-
+    
+ //   /*查詢一個教練有多少訂單/
+ List<CourseOrder> findByCoachId(Integer coachId);
 
 }

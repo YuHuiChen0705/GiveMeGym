@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,18 +28,24 @@ public class CoachDayoffController {
     private CoachService coachService;
     
     // 列舉所有請假資訊
-    @GetMapping("/getAlldayofflist")
-    public String getAllDayoffList(Model model) {
-        List<CoachDayoffVo> dayoffList = coachDayoffService.findAll();
+//    @GetMapping("/getAlldayofflist")
+//    public String getAllDayoffList(Model model) {
+//        List<CoachDayoffVo> dayoffList = coachDayoffService.findAll();
+//        model.addAttribute("dayoffList", dayoffList);
+//        return "backend/coachDayoff/coachcenter_dayoff";
+//    }
+    //根據教練列舉所有請假
+    @GetMapping("/getAlldayofflist/{coachId}")
+    public String findByCoachId(@PathVariable Integer coachId, Model model) {
+        List<CoachDayoffVo> dayoffList= coachDayoffService.findByCoachId(coachId);
         model.addAttribute("dayoffList", dayoffList);
         return "backend/coachDayoff/coachcenter_dayoff";
     }
-
     // 從表單獲得請假資訊,導入資料庫
     @PostMapping("/savedayofflist")
     public String saveCoachDayoff(@Valid CoachDayoffVo coachDayoffVo) {
         coachDayoffService.update(coachDayoffVo);
-        return "redirect:getAlldayofflist";
+        return "redirect:coachschList/{coachid}";
     }
 
 //    // 透過教練查詢請假紀錄

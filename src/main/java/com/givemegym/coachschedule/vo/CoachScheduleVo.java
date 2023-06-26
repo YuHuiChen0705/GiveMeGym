@@ -18,9 +18,9 @@ public class CoachScheduleVo implements java.io.Serializable{
 	@Column(name ="COACHSCHEDULE_ID")
 	  private int coachScheduleId;
 	@Column(name ="COACH_ID")
-	    private int coachId;
+	    private Integer coachId;
 	@Column(name ="COACHSCHEDULE_DATE")
-	    private Date coachScheduleDate;
+	    private String coachScheduleDate;
 	@Column(name ="COACHSCHEDULE_TIME")
 	    private String coachScheduleTime;
 	@Column(name ="COACHSCHEDULE_TYPE")

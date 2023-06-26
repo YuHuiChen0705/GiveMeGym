@@ -48,4 +48,10 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     public List<CourseOrder> findAll() {
         return courseOrderDao.findAll();
     }
+
+	@Override
+	public List<CourseOrder> findByCoachId(Integer coachId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

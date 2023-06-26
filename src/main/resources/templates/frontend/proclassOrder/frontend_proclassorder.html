@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我要預約</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #fef8f0f9;
+            color: #5f5d5d;
+            font-family: Arial, sans-serif;
+        }
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale-all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h3>教練課程預約</h3>
+
+    <div id="calendar"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Day Off Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>請選擇課程</p>
+                    <div class="form-group">
+                        <select class="form-control" id="proclassId">
+                            <option value="1">有氧</option>
+                            <option value="2">Zumba</option>
+                            <option value="3">瑜珈</option>
+                            <option value="4">皮拉提斯</option>
+                            <option value="5">減脂</option>
+                            <option value="6">功能性訓練</option>
+                            <option value="7">客製化訓練</option>
+                            <option value="8">重量訓練</option>
+                            <option value="9">HIIT訓練</option>
+                            <option value="10">核心訓練</option>
+                            <option value="11">腿部訓練</option>
+                            <option value="12">腹肌訓練</option>
+                            <option value="13">TRX訓練</option>
+                            <option value="14">壺鈴訓練</option>
+                            <option value="15">飛輪</option>
+                            <option value="16">攀岩</option>
+                        </select>
+                        <label for="start">休假日期:</label> <input
+								type="date" id="proclassDate" name="coachDayoffDate" min="2023-01-01"
+								max="2023-12-31" required>
+                    </div>
+                    <p>請選擇欲預約的時段</p>
+                    <div class="form-group">
+                        <select class="form-control" id="proclassTime">
+                            <option value="0">早上（09:00-12:00）</option>
+                            <option value="1">中午（13:30-16:30）</option>
+                            <option value="2">晚上（18:30-21:30）</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+<!--                 關閉視窗 -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+<!--                     提交表單 -->
+                    <button type="button" class="btn btn-primary" id="confirmRequestBtn">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                events: [
+                    {
+                        title: '有氧',
+                        start: '2023-06-01 09:00:00',
+                        end: '2023-06-01 12:00:00'
+                    },
+                ],
+
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    var formattedDate = moment(start).format('YYYY-MM-DD');
+                    $('#selectedDate').val(formattedDate);
+                    $('#confirmationModal').modal('show');
+                }
+            });
+
+            $('#disableDropdown').on('change', function () {
+                var isDisabled = $(this).is(':checked');
+                $('#reasonDropdown').prop('disabled', isDisabled);
+            });
+        });
+        
+        document.getElementById("confirmRequestBtn").addEventListener("click", function() {
+            // 獲取選取的課程和時段
+            var proclassId = document.getElementById("proclassId").value;
+            var proclassTime = document.getElementById("proclassTime").value;
+            var proclassDate=document.getElementById("proclassDate").value;
+            
+            // 建立要傳送的資料物件
+            var data = {
+            		proclassId: proclassId,
+            		proclassTime: proclassTime,
+            		proclassDate:proclassDate
+            };
+            
+            // 使用 AJAX 將資料送至後端
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/addproclassorder", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+            	window.location.href = "rontend/proclassOrder/mebproClassorder/{memberId}";
+            }
+        });
+    </script>
+</body>
+
+</html>

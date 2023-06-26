@@ -13,4 +13,7 @@ public interface CoachService {
 	public void save(Coach theEmployee);
 
 	public void deleteById(int theId);
+	public List<String> getAllCoachNames() ;
+
+	
 }

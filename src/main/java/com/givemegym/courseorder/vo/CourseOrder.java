@@ -15,28 +15,26 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 @Entity
-@Table(name = "COURSE_ORDER")
+@Table(name = "proclassorder",schema = "no7")
 public class CourseOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COURSE_ORDER_ID")
+    @Column(name = "PROCLASSORDER_ID")
     private Integer courseOrderId;
 
-    @Column(name = "COURSE_ORDER_DATE")
+    @Column(name = "PROCLASS_ID")
     private Date courseOrderDate;
 
-    @Column(name = "COURSE_ORDER_STATE")
+    @Column(name = "MEMBER_ID")
     private String courseOrderState;
 
-    @Column(name = "COURSE_ORDER_TOTAL_PRICE")
+    @Column(name = "PROCLASS_ATTEND")
     private Integer courseOrderTotalPrice;
 
     @ManyToOne()
-    @JoinColumn(name = "PERIOD_ID")
+    @JoinColumn(name ="PROCLASS_TIME")
     private Period period;
 
 //    @ManyToOne()

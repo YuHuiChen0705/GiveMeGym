@@ -29,13 +29,6 @@ public class CoachDayoffServiceImpt implements CoachDayoffService {
 	    public void update(CoachDayoffVo coachDayoffVo) {
 	        coachDayoffDao.save(coachDayoffVo);
 	    }
-	    
-		@Override
-		public boolean isDup(Integer coachDayoffId) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
 
 		@Override
 		public void deleteById(Integer coachDayoffId) {
@@ -50,28 +43,20 @@ public class CoachDayoffServiceImpt implements CoachDayoffService {
 			return coachDayoffDao.findAll();
 		}
 
+//
+//		@Override
+//		public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
 
 		@Override
-		public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
+		public List<CoachDayoffVo> findByCoachId(Integer coachId) {
 			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<CoachDayoffVo> findByCoachId(String coachId) {
-			// TODO Auto-generated method stub
-			return coachDayoffDao.findByCoachId(null);
+			return coachDayoffDao.findByCoachId(coachId);
 		
 		}
-
-
-
-
-
 		}
-
-
-
 
 
 //	 public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {

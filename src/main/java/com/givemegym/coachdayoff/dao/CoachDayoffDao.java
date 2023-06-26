@@ -12,10 +12,10 @@ import com.givemegym.coachdayoff.vo.CoachDayoffVo;
 @Repository
 public interface CoachDayoffDao extends JpaRepository<CoachDayoffVo, Integer> {
 	@Query("SELECT cd FROM CoachDayoffVo cd WHERE cd.coachId = :coachId")
-	List<CoachDayoffVo> findByCoachId(@Param("coachId") String coachId);
+	List<CoachDayoffVo> findByCoachId(@Param("coachId") Integer coachId);
 
-	@Query("SELECT cd FROM CoachDayoffVo cd ORDER BY cd.coachDayoffDate, cd.coachDayoffTime")
-	List<CoachDayoffVo> findAllOrderByDateAndTime();
+//	@Query("SELECT cd FROM CoachDayoff cd ORDER BY cd.coachDayoffDate, cd.coachDayoffTime")
+//	List<CoachDayoffVo> findAllOrderByDateAndTime();
 
 
 

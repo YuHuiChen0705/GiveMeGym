@@ -39,12 +39,12 @@ public class ProductControllerBackend {
         return "backend/product/backend_pdList";
     }
 
-    // 導入新增商品時段的頁面
-    @GetMapping("/addProduct")
-    public String addProduct() {
-        return "backend/product/backend_pdInsert";
+//從表單獲得請假資訊,導入資料庫
+    @PostMapping("/SaveProduct")
+    public String saveProduct(@Valid Product product) {
+        productService.update(product);
+        return "redirect:/getAllProduct";
     }
-
     // 新增商品
     @PostMapping("/SaveProduct")
     public String saveProduct(@Valid Product product) {

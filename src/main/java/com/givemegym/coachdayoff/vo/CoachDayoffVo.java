@@ -1,10 +1,12 @@
 package com.givemegym.coachdayoff.vo;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -26,13 +28,13 @@ public class CoachDayoffVo {
 	private Integer coachDayoffId;
 	
 	@Column(name ="COACH_ID")
-	private String coachId;
+	private Integer coachId;
 	
-	public String getCoachId() {
+	public Integer getCoachId() {
 		return coachId;
 	}
 
-	public void setCoachId(String coachId) {
+	public void setCoachId(Integer coachId) {
 		this.coachId = coachId;
 	}
 
