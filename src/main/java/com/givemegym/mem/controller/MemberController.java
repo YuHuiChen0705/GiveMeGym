@@ -104,4 +104,27 @@ public class MemberController {
 		// 返回視圖
 		return "frontend/member/memberData";
 	}
+	
+	
+	// 會員資料，用thymeleaf呈現，並修改
+		@RequestMapping("/memberDataModify")
+		public String getMemberData2(HttpSession session, Model model) {
+			// 從 Session 中獲取 memberId
+			Integer memberId = (Integer)session.getAttribute("memberId");
+			MemberVO memberData = memberService.findByMemberId(memberId);
+			// 將會員資料存儲在模型中
+			model.addAttribute("memberData", memberData);
+			// 返回視圖
+			return "frontend/member/modifyMemberData";
+		}
+		@RequestMapping("/memberDataModify/summit")
+		public String modifyMemberData(HttpSession session, Model model) {
+			
+			
+			
+			
+			return "frontend/member/memberData";			
+		}
+		
+		
 }

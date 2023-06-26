@@ -132,13 +132,13 @@ submit2.addEventListener("click", function(event) {
 		};
 
 		// 驗證密碼
-		if (passwordValue2.length < 6 || passwordValue2.length > 15) {
+		if (passwordValue2.length < 6 || passwordValue2.length > 10) {
 			Swal.fire({
 				text: "密碼長度需6~15個字元。",
 				icon: "error",
 				confirmButtonText: "確定",
 			});
-			passwordError2.innerHTML = "密碼長度需6~15個字元。";
+			passwordError2.innerHTML = "密碼長度需6~10個字元。";
 			return false;
 		} else if (!passwordValue2.match(/^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{6,20}$/)) {
 			passwordError2.innerHTML = "密碼必須包含數字和英文。";
