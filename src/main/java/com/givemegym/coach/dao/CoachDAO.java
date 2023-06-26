@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.givemegym.coach.vo.Coach;
 
 @Repository
-public interface CoachDAO extends JpaRepository<Coach, Integer> {
+public interface CoachDAO extends JpaRepository<Coach, Integer>{
 
 	public List<Coach> findAll();
 
