@@ -186,7 +186,7 @@ table td {
 .button {
 	color: #fff;
 	background-color: #ff0000;
-	border-color: #ff0000;
+	border-color: #fff;
 	border-radius: 5px;
 }
 
@@ -205,6 +205,27 @@ table td {
 	box-shadow: 0 0 0 1px #a4bd07;
 }
 
+.savebtn {
+	color: #fff;
+	background-color: #ff0000;
+	border-color:  #fff;
+	border-radius: 5px;
+}
+
+.savebtn:hover {
+	background-color: orange;
+}
+
+.savebtn.active {
+	background-color: orange;
+}
+
+.savebtn:focus {
+	background-color: orange;
+	outline-color: transparent;
+	outline-style: solid;
+	box-shadow: 0 0 0 1px #a4bd07;
+}
 .form-group {
 	margin: 20px 0 20px 0;
 }
@@ -308,16 +329,17 @@ table td {
 								</thead>
 								<tbody>
 									<!-- 資料內容 -->
-									<tr th:each="memberVO:${memberList}">
-										<td class="idTd" th:text="${memberVO.memberId}"></td>
+									<tr class="list" id="list" th:each="memberVO:${memberList}">
+										<td class="idTd" id="idTd" th:text="${memberVO.memberId}"></td>
 										<td class="nameTd" th:text="${memberVO.memberName}"></td>
-										<td class="memberState" id="memberState" name="memberState"	th:text="${memberVO.memberState}"></td>
+										<td class="memberState" id="memberState" name="memberState"
+											th:text="${memberVO.memberState}"></td>
 										<td class="timesTd" th:text="${memberVO.memberViolations}"></td>
-										<td class="increase" id="parentElement">
-										<input type="text" id="memberViolations" class="memberViolations" th:value=0> 
-										<input type="button" value="+" id="add" class="add" /> 
-										<input type="button" value="-" id="reduce" class="reduce" />
-										</td>
+										<td class="increase" id="parentElement"><input
+											type="text" id="memberViolations" class="memberViolations"
+											th:value=0> <input type="button" value="+" id="add"
+											class="add"> <input type="button" value="-"
+											id="reduce" class="reduce"></td>
 										<td class="shutdown">
 											<form
 												th:action="@{/backend_Member/listAllMemberStatus/remove}"
@@ -328,15 +350,16 @@ table td {
 											</form>
 										</td>
 										<td>
-											<form th:action="@{/backend_Member/listAllMemberStatus/recover}"method="post">
-												<input type="submit" class="button" value="復權"> 
-												<input type="hidden" name="memberId" th:value="${memberVO.memberId}">
+											<form
+												th:action="@{/backend_Member/listAllMemberStatus/recover}"
+												method="post">
+												<input type="submit" class="button" value="復權"> <input
+													type="hidden" name="memberId"
+													th:value="${memberVO.memberId}">
 											</form>
 										</td>
-										<td class="save">
-											<form th:action="@{/backend_Member/listAllMemberStatus/saveTimes}" method="post">
-												<input type="submit" class="button" id="savebtn" value="儲存"> 
-											</form>
+<!-- 										 onclick="onSaveClick()" -->
+										<td class="save" id="save"><input type="button"value="儲存" class="savebtn" id="savebtn">
 										</td>
 									</tr>
 								</tbody>
@@ -432,38 +455,52 @@ table td {
                 }
 
             });
-        }); </script>
+        }); 
+        
+     </script>
 
 	<!-- JS -->
 	<script>
-	  var memberViolationsValue = document.getElementById('memberViolations').value;
-	  console.log(memberViolationsValue); // 輸出元素的值
-	</script>
-// 	function onSaveClick(memberViolations) {
-// 		  var quantity = $('#memberViolations').val(); // 獲取數量值
-
-// 		  // 使用 AJAX 發送 POST 請求到後端
-// 		  $.ajax({
-// 		    url: '/listAllMemberStatus',
-// 		    type: 'POST',
-// 		    data: {
-// 		      memberViolations: memberViolations,
-// 		      quantity: quantity
-// 		    },
-// 		    success: function(response) {
-// 		      console.log('數據保存成功');
-// 		    },
-// 		    error: function(xhr, status, error) {
-// 		      console.log('數據保存失敗');
-// 		    }
-// 		  });
-// 		}
-
-	var memberViolationsValue = document.getElementById("memberViolations").value;
-	console.log(memberViolationsValue);
+	
+  function onSaveClick(memberId,memberViolations){
+	  console.log("memberId: " + memberId);
+	  console.log("memberViolations:"+memberViolations);
+    // 使用 AJAX 發送 POST 請求到後端
+    $.ajax({
+      url: '/backend_Member/listAllMemberStatus/saveTimes',
+      type: 'POST',
+      data: {
+    	memberId:memberId,
+        memberViolations: memberViolations,
+      },
+      success: function(response) {
+    	 alert("資料更新成功");
+    	 //重新刷新
+    	 window.location.href = window.location.href;
+        console.log('數據保存成功');
+    	  },
+      error: function(xhr, status, error) {
+        console.log('數據保存失敗');
+    	  }
+    	});
+  	}
 	</script>
 	<script>
 	window.onload = function() {
+		
+		var saveButtons = document.getElementsByClassName('savebtn');
+		  for (var i = 0; i < saveButtons.length; i++) {
+			console.log(i);
+		    saveButtons[i].addEventListener('click', function() {
+		    	 console.log('起飛囉');
+		      var parentElement = this.closest('.list');
+		      var memberId = parentElement.querySelector('.idTd').innerText;
+		      var memberViolations = parentElement.querySelector('.memberViolations').value;
+		      console.log('要降落啦~');
+		      onSaveClick(memberId, memberViolations);
+		    });
+		  }
+		
 		  var parentElements = document.getElementsByClassName('increase');
 
 		  for (var i = 0; i < parentElements.length; i++) {
@@ -471,11 +508,10 @@ table td {
 		    var addButton = parentElement.querySelector('.add');
 		    var reduceButton = parentElement.querySelector('.reduce');
 		    var input = parentElement.querySelector('.memberViolations');
-
 		    addButton.addEventListener('click', createAddButtonClickHandler(input, reduceButton, addButton));
 		    reduceButton.addEventListener('click', createReduceButtonClickHandler(input, addButton, reduceButton));
 		  }
-		}
+		
 
 		function createAddButtonClickHandler(input, reduceButton, addButton) {
 		  return function() {
@@ -502,7 +538,7 @@ table td {
 		    }
 		  };
 		}
-
+	}
 
     </script>
 </body>
