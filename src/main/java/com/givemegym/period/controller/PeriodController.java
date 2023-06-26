@@ -1,7 +1,7 @@
 package com.givemegym.period.controller;
 
-import com.givemegym.coach_B.service.CoachServiceB;
-import com.givemegym.coach_B.vo.Coach;
+import com.givemegym.coach.service.CoachService;
+import com.givemegym.coach.vo.Coach;
 import com.givemegym.course.service.CourseService;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseorder.service.CourseOrderService;
@@ -12,27 +12,18 @@ import com.givemegym.period.PeriodForm;
 import com.givemegym.period.service.PeriodService;
 import com.givemegym.period.vo.Period;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Transactional
 @Controller
-@RequestMapping("/backend_period")
-public class PeriodControllerB {
+public class PeriodController {
 
     @Autowired
     private PeriodService periodService;
@@ -44,15 +35,14 @@ public class PeriodControllerB {
     private CourseScheduleService courseScheduleService;
 
     @Autowired
-    private CoachServiceB coachServiceB;
+    private CoachService coachService;
 
     @Autowired
     private CourseOrderService courseOrderService;
-    @PersistenceContext
-    private EntityManager entityManager;
 
+    //==================================後台=========================================//
     // 查詢報名時段列表
-    @GetMapping("/listAll")
+    @GetMapping("/backend_period/listAll")
     public String findAllPeriod(Model model) {
         List<Period> periodList = periodService.findAll();
         model.addAttribute("periodList", periodList);
@@ -65,7 +55,7 @@ public class PeriodControllerB {
 
 
     // 執行新增導入新增團課時段的頁面
-    @GetMapping("/addPeriod")
+    @GetMapping("/backend_period/addPeriod")
     public String toAdd(ModelMap model) {
         Period period = new Period();
         model.addAttribute("period", period);
@@ -82,9 +72,9 @@ public class PeriodControllerB {
     }
 
     // 新增報名時段
-    @PostMapping("/save")
+    @PostMapping("/backend_period/save")
     public String save(
-            @ModelAttribute  PeriodForm form, BindingResult result) {
+            @ModelAttribute("form") @Valid PeriodForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "backend/period/addPeriod";
@@ -96,20 +86,9 @@ public class PeriodControllerB {
         List<CourseSchedule> courseSchedules = form.getCourseSchedules();
         for (CourseSchedule schedule : courseSchedules) {
             schedule.setPeriod(period);
+            schedule.setCourseScheduleState("已成立");
         }
         courseScheduleService.saveAll(form.getCourseSchedules());
-
-
-        for (CourseSchedule schedule : courseSchedules) {
-            System.out.println("Course Schedule:");
-            Coach coach = schedule.getCoach();
-            System.out.println("Coach: " + coach);
-            Date date = schedule.getCourseScheduleDate();
-            System.out.println("Date: " + date);
-            String time = schedule.getCourseScheduleTime();
-            System.out.println("Time: " + time);
-        }
-
         return "redirect:/backend_period/listAll";
     }
 
@@ -117,7 +96,7 @@ public class PeriodControllerB {
 
 
     // 導入修改團課的頁面
-    @GetMapping("/updatePeriod/{periodId}")
+    @GetMapping("/backend_period/updatePeriod/{periodId}")
     public String toUpdate(@PathVariable Integer periodId, ModelMap model) {
         Optional<Period> findPeriod = periodService.findById(periodId);
         model.addAttribute("Period", findPeriod.orElseThrow());
@@ -129,7 +108,7 @@ public class PeriodControllerB {
     }
 
     // 修改報名時段
-    @PostMapping("/update")
+    @PostMapping("/backend_period/update")
     public String updatePeriod(@Valid Period period, BindingResult periodResult) {
         // 驗證報名時段的结果
         if (periodResult.hasErrors()) {
@@ -152,17 +131,6 @@ public class PeriodControllerB {
         return "redirect:/backend_period/listAll";
     }
 
-
-    //日期
-    @InitBinder
-    public void initBinder(WebDataBinder binder, WebRequest request) {
-        // java.sql.Date
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        CustomDateEditor ce = new CustomDateEditor(dateFormat, true);
-        binder.registerCustomEditor(java.util.Date.class, ce);
-    }
-
     @ModelAttribute("courseListData")
     protected List<Course> referenceListData() {
         return courseService.findAll();
@@ -171,14 +139,36 @@ public class PeriodControllerB {
 
     @ModelAttribute("coachListData")
     protected List<Coach> referenceCoachListData() {
-        return coachServiceB.findAll();
+        return coachService.findAll();
     }
 
 
     @ResponseBody
     @GetMapping("/getCoachList'")
     protected List<Coach> CoachListData() {
-        return coachServiceB.findAll();
+        return coachService.findAll();
+    }
+
+
+    //==================================前台=========================================//
+    // 前端頁面點選課程會列出該課程的所有時段
+    @GetMapping("/frontend_period/detail/{course}")
+    public String showDetail(@PathVariable Course course, Model model) {
+        List<Period> findAllCourse = periodService.findByCourse(course);
+        List<Period> findCourse = new ArrayList<Period>();
+
+        for (Period period : findAllCourse) {
+            if (Objects.equals(period.getCourseState(), "上架")) {
+                findCourse.add(period);
+            }
+        }
+
+        model.addAttribute("findCourse", findCourse);
+        model.addAttribute("courseSchedules", findCourse.stream()
+                .map(Period::getSchedules)
+                .collect(Collectors.toList()));
+
+        return "frontend/period/periodDetail";
     }
 
 

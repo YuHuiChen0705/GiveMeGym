@@ -4,6 +4,7 @@ package com.givemegym.faqs.controller;
 import com.givemegym.faqs.service.FaqService;
 import com.givemegym.faqs.vo.Faq;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -81,6 +82,14 @@ public class FaqController {
         List<Faq> faqList = faqService.findAll();
         model.addAttribute("faqList", faqList);
         return "frontend/faq/faqList";
+    }
+
+
+    @DeleteMapping("/backend_faq/faqs/{faqId}")
+    @ResponseBody
+    public ResponseEntity<Faq> deleteFaqById(@PathVariable Integer faqId) {
+        faqService.delete(faqId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 

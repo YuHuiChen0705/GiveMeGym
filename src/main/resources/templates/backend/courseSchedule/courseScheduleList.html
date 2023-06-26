@@ -243,15 +243,24 @@
                                 <th>教練</th>
                                 <th>上課日期</th>
                                 <th>上課時段</th>
+                                <th>狀態</th>
+                                <th>修改</th>
                             </tr>
                             </thead>
                             <tbody>
                             <!-- 動態生成表格內容 -->
                             <tr th:each="courseSchedule:${courseScheduleByPeriod}">
                                 <td th:text="${courseSchedule.courseScheduleId}"></td>
-                                <td th:text="${courseSchedule.coach.name}"></td>
+                                <td th:text="${courseSchedule.coach.coachName}"></td>
                                 <td th:text="${courseSchedule.courseScheduleDate}"></td>
                                 <td th:text="${courseSchedule.courseScheduleTime}"></td>
+                                <td th:text="${courseSchedule.courseScheduleState}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-dark"
+                                            th:onclick="'window.location.href=\'/backend_courseSchedule/update/' + ${courseSchedule.courseScheduleId} + '\''">
+                                        修改
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

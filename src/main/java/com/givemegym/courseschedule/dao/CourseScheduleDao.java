@@ -32,5 +32,6 @@ public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer
     void updateCourseScheduleStateToOnByPeriod(Period period);
 
 
+    CourseSchedule findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(Date courseScheduleDate, String CourseScheduleTime);
 
 }

@@ -2,14 +2,10 @@ package com.givemegym.courseorder.service;
 
 import com.givemegym.courseorder.dao.CourseOrderDao;
 import com.givemegym.courseorder.vo.CourseOrder;
-import com.givemegym.member_B.vo.Member;
+import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.dao.PeriodDao;
 import com.givemegym.period.vo.Period;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +25,6 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     @Autowired
     PeriodDao periodDao;
 
-    @Autowired
-    JavaMailSender mailSender;
 
 
     @Override
@@ -62,7 +56,7 @@ public class CourseOrderServiceImpl implements CourseOrderService {
 
     // 會員下單
     @Override
-    public void saveOrder(Integer periodId, Member member) {
+    public void saveOrder(Integer periodId, MemberVO member) {
 
         Period period = periodDao.findById(periodId).get();
         CourseOrder order = new CourseOrder();
@@ -75,27 +69,33 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     @Override
-    public List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, Member member) {
+    public List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member) {
         return null;
     }
 
-    // 寄信
     @Override
     public void sendNotifyEmail(String recipient, String subject, String message) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom("chloe830715@gmail.com");
-            messageHelper.setTo(recipient);
-            messageHelper.setSubject(subject);
-            messageHelper.setText(message, true);
-        };
-        try {
-            mailSender.send(messagePreparator);
-            System.out.println("sent");
-        } catch (MailException e) {
-            System.out.println(e);
-        }
+
     }
+
+
+//    // 寄信
+//    @Override
+//    public void sendNotifyEmail(String recipient, String subject, String message) {
+//        MimeMessagePreparator messagePreparator = mimeMessage -> {
+//            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+//            messageHelper.setFrom("chloe830715@gmail.com");
+//            messageHelper.setTo(recipient);
+//            messageHelper.setSubject(subject);
+//            messageHelper.setText(message, true);
+//        };
+//        try {
+//            mailSender.send(messagePreparator);
+//            System.out.println("sent");
+//        } catch (MailException e) {
+//            System.out.println(e);
+//        }
+//    }
 
     @Override
     public void updateCourseOrderStateToOffByPeriod(Period period) {

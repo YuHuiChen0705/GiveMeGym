@@ -1,7 +1,7 @@
 package com.givemegym.courseorder.dao;
 
 import com.givemegym.courseorder.vo.CourseOrder;
-import com.givemegym.member_B.vo.Member;
+import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.vo.Period;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -31,7 +31,7 @@ public interface CourseOrderDao extends JpaRepository<CourseOrder, Integer> {
     @Query("SELECT co FROM CourseOrder co WHERE co.member.memberId = :memberId")
     List<CourseOrder> findByMemberId(@Param("memberId") Integer memberId);
 
-    List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, Member member);
+    List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member);
 
     Set<CourseOrder> findByCourseOrderStateAndPeriod(String courseOrderState,Period period);
 

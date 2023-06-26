@@ -2,7 +2,7 @@ package com.givemegym.courseorder.service;
 
 
 import com.givemegym.courseorder.vo.CourseOrder;
-import com.givemegym.member_B.vo.Member;
+import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.vo.Period;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,10 +29,10 @@ public interface CourseOrderService {
     List<CourseOrder> findAll();
 
     /*會員下單*/
-    void saveOrder(Integer period, Member member);
+    void saveOrder(Integer period, MemberVO member);
 
     /*會員查詢訂單狀態*/
-    List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, Member member);
+    List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member);
 
     // 寄信
     public void sendNotifyEmail(String recipient, String subject, String message);

@@ -7,7 +7,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.givemegym.coach.vo.CoachVo;
+import com.givemegym.coach.vo.Coach;
 import com.givemegym.period.vo.Period;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "Courseschedule", schema = "no7")
+@Table(name = "Course_schedule", schema = "no7")
 public class CourseSchedule {
 
     @Id
@@ -36,7 +36,7 @@ public class CourseSchedule {
     // 關聯1方(教練)
     @ManyToOne()
     @JoinColumn(name = "COACH_ID")
-    private CoachVo coach;
+    private Coach coach;
 
     @NotNull(message = "請輸入上課日期")
     @Future(message = "別活在過去")

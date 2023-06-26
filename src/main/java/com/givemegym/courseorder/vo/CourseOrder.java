@@ -1,14 +1,12 @@
 package com.givemegym.courseorder.vo;
 
-import com.givemegym.member_B.vo.Member;
+import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.vo.Period;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -41,5 +39,5 @@ public class CourseOrder {
 
     @ManyToOne()
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;
+    private MemberVO member;
 }
