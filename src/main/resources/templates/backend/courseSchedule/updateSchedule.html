@@ -203,127 +203,83 @@
                 <div class="bg-white shadow border-top border-dark border-3 p-3 p-sm-5 rounded">
 
                     <div class="text-center mb-5">
-                        <h4 class="rounded-pill border border-5 text-dark">修改報名資訊</h4>
+                        <h4 class="rounded-pill border border-5 text-dark">修改上課時段</h4>
                     </div>
                     <!--修改團課表單-->
-                    <form th:action="@{/backend_period/update}" method="post"
+                    <form th:action="@{/backend_courseSchedule/update}" method="post"
                           enctype="multipart/form-data" id="form" class="needs-validation row text-dark"
                           novalidate>
+                            <!--隱藏團課上課時段ID-->
+                            <input type="hidden" id="courseScheduleId" name="courseScheduleId"
+                                   th:value="${CourseSchedule.courseScheduleId}"/>
 
-                        <div class="col-md-6">
-                            <label class="form-label text-dark">團課類別</label>
-                            <select class="form-select" id="courseCategory" name="courseCategory" required
-                                    onchange="updateCourseOptions(this.value)">
-                                <option value="AEROBICS" th:selected="${Period.course.courseCategory eq 'AEROBICS'}">
-                                    有氧課程
-                                </option>
-                                <option value="YOGA" th:selected="${Period.course.courseCategory eq 'YOGA'}">
-                                    瑜珈課程
-                                </option>
-                                <option value="SPINNING" th:selected="${Period.course.courseCategory eq 'SPINNING'}">
-                                    飛輪課程
-                                </option>
-                                <option value="ROCKCLIMBLING"
-                                        th:selected="${Period.course.courseCategory eq 'ROCKCLIMBLING'}">
-                                    攀岩
-                                </option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇團課類別
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <label class="form-label">團課課程</label>
-                            <select class="form-select" name="course.courseId" id="course" required>
-                                <option th:each="course : ${courseList}"
-                                        th:value="${course.courseId}"
-                                        th:text="${course.courseName}"
-                                        th:selected="${course.courseId eq Period.course.courseId}"></option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇課程
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">人數上限</label>
-                            <input type="text" class="form-control" name="peopleUpper" id="peopleUpper"
-                                   th:value="${Period.peopleUpper}" required>
-                            <div class="invalid-feedback">
-                                請設定人數上限
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">人數下限</label>
-                            <input type="text" class="form-control" name="peopleLower" id="peopleLower"
-                                   th:value="${Period.peopleLower}" required>
-                            <div class="invalid-feedback">
-                                請設定人數下限
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="start" class="form-label">報名開始日期</label>
-                            <div class="input-group" id='start'>
-                                <input type="date" name="courseOrderBe" id="courseOrderBe" class="form-control"
-                                       th:value="${Period.courseOrderBe}"
-                                       required>
-                            </div>
-                            <div class="invalid-feedback">
-                                請設定報名開始日期
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="end" class="form-label">報名截止日期</label>
-                            <div class="input-group" id='end'>
-                                <input type="date" name="courseOrderEn" id="courseOrderEn" class="form-control"
-                                       th:value="${Period.courseOrderEn} " required>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="hidden" name="period.periodId" id="course"
+                                           class="form-control"
+                                           th:value="${CourseSchedule.period.periodId}">
+                                </div>
                             </div>
 
-                            <div class="invalid-feedback">
-                                請設定報名截止日期
+                            <div class="col-md-12">
+                                <label class="form-label">教練</label>
+                                <select class="form-control" name="coach" id="coach"
+                                        required>
+                                    <option th:each="coach: ${coachListData}"
+                                            th:value="${coach.coachId}"
+                                            th:text="${coach.coachName}"
+                                            th:selected="${coach.coachId eq CourseSchedule.coach.coachId}">
+                                    </option>
+                                </select>
                             </div>
 
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">團課費用</label>
-                            <input type="text" class="form-control" name="coursePrice" id="coursePrice"
-                                   th:value="${Period.coursePrice}" required>
-                            <div class=" invalid-feedback">
-                                請輸入團課費用
+                            <div class="col-md-12">
+                                <label class="form-label">上課日期</label>
+                                <div class="input-group">
+                                    <input type="date" name="courseScheduleDate" id="courseScheduleDate"
+                                           class="form-control"
+                                           th:value="${CourseSchedule.courseScheduleDate}" required>
+                                </div>
+                                <div class="invalid-feedback">
+                                    請設定上課日期
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">團課堂數</label>
-                            <input type="text" class="form-control" name="courseNumber" id="courseNumber"
-                                   th:value="${Period.courseNumber}" required>
-                            <div class=" invalid-feedback">
-                                請輸入團課堂數
+                            <div class="col-md-12">
+                                <label for="courseScheduleTime" class="form-label">上課日期</label>
+                                <select class="form-select" name="courseScheduleTime" id="courseScheduleTime" required>
+                                    <option value="早" th:selected="${CourseSchedule.courseScheduleTime eq '早'}">早
+                                    </option>
+                                    <option value="中" th:selected="${CourseSchedule.courseScheduleTime eq '中'}">中
+                                    </option>
+                                    <option value="晚" th:selected="${CourseSchedule.courseScheduleTime eq '晚'}">晚
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    請設定上課時段
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label">狀態</label>
-                            <select class="form-select" name="courseState" id="courseState" required>
-                                <option value="上架" th:selected="${Period.courseState eq '上架'}">上架</option>
-                                <option value="下架" th:selected="${Period.courseState eq '下架'}">下架</option>
-                            </select>
-                        </div>
+                            <div class="col-md-6">
+                                <label class="form-label">狀態</label>
+                                <select class="form-select" name="courseScheduleState" id="courseScheduleState"
+                                        required>
+                                    <option value="已成立"
+                                            th:selected="${CourseSchedule.courseScheduleState eq '已成立'}">已成立
+                                    </option>
+                                    <option value="已取消"
+                                            th:selected="${CourseSchedule.courseScheduleState eq '已取消'}">已取消
+                                    </option>
+                                </select>
+                            </div>
+
                         <hr class="my-4">
                         <div class="col-12 text-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="window.location.href = '/backend_period/listAll'">放棄
+                            <button type="button" class="btn btn-dark"
+                                    th:onclick="'window.location.href=\'/backend_courseSchedule/findByPeriod/' + ${CourseSchedule.period.periodId} + '\''">
+                                放棄
                             </button>
                             <button type="submit" class="btn btn-primary">儲存</button>
-                        </div>
-                        <div>
-                            <input type="hidden" id="periodId" name="periodId" th:value="${Period.periodId}"/>
                         </div>
                     </form>
                 </div>

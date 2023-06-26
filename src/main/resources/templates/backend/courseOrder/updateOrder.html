@@ -135,6 +135,19 @@
             height: 100%;
             border: none;
         }
+
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status-container {
+            display: flex;
+            align-items: center;
+        }
+
+
     </style>
 
 </head>
@@ -203,127 +216,61 @@
                 <div class="bg-white shadow border-top border-dark border-3 p-3 p-sm-5 rounded">
 
                     <div class="text-center mb-5">
-                        <h4 class="rounded-pill border border-5 text-dark">修改報名資訊</h4>
+                        <h4 class="rounded-pill border border-5 text-dark">修改訂單</h4>
                     </div>
                     <!--修改團課表單-->
-                    <form th:action="@{/backend_period/update}" method="post"
+                    <form th:action="@{/backend_courseOrder/saveOrUpdate}" method="post"
                           enctype="multipart/form-data" id="form" class="needs-validation row text-dark"
                           novalidate>
 
-                        <div class="col-md-6">
-                            <label class="form-label text-dark">團課類別</label>
-                            <select class="form-select" id="courseCategory" name="courseCategory" required
-                                    onchange="updateCourseOptions(this.value)">
-                                <option value="AEROBICS" th:selected="${Period.course.courseCategory eq 'AEROBICS'}">
-                                    有氧課程
-                                </option>
-                                <option value="YOGA" th:selected="${Period.course.courseCategory eq 'YOGA'}">
-                                    瑜珈課程
-                                </option>
-                                <option value="SPINNING" th:selected="${Period.course.courseCategory eq 'SPINNING'}">
-                                    飛輪課程
-                                </option>
-                                <option value="ROCKCLIMBLING"
-                                        th:selected="${Period.course.courseCategory eq 'ROCKCLIMBLING'}">
-                                    攀岩
-                                </option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇團課類別
-                            </div>
-                        </div>
+                        <section class="center-content">
+                            <ul class="text-align">
+                                <!--會員編號 隱藏-->
+                                <input type="hidden" name="member.memberId" th:value="${courseOrder.member.memberId}">
+                                <li class="fa fa-calendar-alt"
+                                    th:text="${'會員姓名:'+courseOrder.member.memberName}"></li>
+                                <!--團課訂單編號 隱藏-->
+                                <input type="hidden" name="courseOrderId" th:value="${courseOrder.courseOrderId}">
+                                <li class="fa fa-calendar-alt" th:text="${'訂單編號:'+courseOrder.courseOrderId}"></li>
+                                <!--團課時段 隱藏-->
+                                <input type="hidden" name="period.periodId" th:value="${courseOrder.period.periodId}">
+                                <!--訂單價格 隱藏-->
+                                <input type="hidden" name="courseOrderTotalPrice"
+                                       th:value="${courseOrder.courseOrderTotalPrice}">
+                                <li class="fa fa-calendar-alt"
+                                    th:text="${'訂單價格:'+courseOrder.courseOrderTotalPrice}"></li>
+                                <!--訂單時間 隱藏-->
+                                <input type="hidden" name="courseOrderDate"
+                                       th:value="${courseOrder.courseOrderDate}">
+                                <li class="fa fa-calendar-alt"
+                                    th:text="${'訂單時間:'+courseOrder.courseOrderDate}"></li>
 
 
-                        <div class="col-md-6">
-                            <label class="form-label">團課課程</label>
-                            <select class="form-select" name="course.courseId" id="course" required>
-                                <option th:each="course : ${courseList}"
-                                        th:value="${course.courseId}"
-                                        th:text="${course.courseName}"
-                                        th:selected="${course.courseId eq Period.course.courseId}"></option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇課程
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">人數上限</label>
-                            <input type="text" class="form-control" name="peopleUpper" id="peopleUpper"
-                                   th:value="${Period.peopleUpper}" required>
-                            <div class="invalid-feedback">
-                                請設定人數上限
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">人數下限</label>
-                            <input type="text" class="form-control" name="peopleLower" id="peopleLower"
-                                   th:value="${Period.peopleLower}" required>
-                            <div class="invalid-feedback">
-                                請設定人數下限
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="start" class="form-label">報名開始日期</label>
-                            <div class="input-group" id='start'>
-                                <input type="date" name="courseOrderBe" id="courseOrderBe" class="form-control"
-                                       th:value="${Period.courseOrderBe}"
-                                       required>
-                            </div>
-                            <div class="invalid-feedback">
-                                請設定報名開始日期
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="end" class="form-label">報名截止日期</label>
-                            <div class="input-group" id='end'>
-                                <input type="date" name="courseOrderEn" id="courseOrderEn" class="form-control"
-                                       th:value="${Period.courseOrderEn} " required>
-                            </div>
-
-                            <div class="invalid-feedback">
-                                請設定報名截止日期
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">團課費用</label>
-                            <input type="text" class="form-control" name="coursePrice" id="coursePrice"
-                                   th:value="${Period.coursePrice}" required>
-                            <div class=" invalid-feedback">
-                                請輸入團課費用
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">團課堂數</label>
-                            <input type="text" class="form-control" name="courseNumber" id="courseNumber"
-                                   th:value="${Period.courseNumber}" required>
-                            <div class=" invalid-feedback">
-                                請輸入團課堂數
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">狀態</label>
-                            <select class="form-select" name="courseState" id="courseState" required>
-                                <option value="上架" th:selected="${Period.courseState eq '上架'}">上架</option>
-                                <option value="下架" th:selected="${Period.courseState eq '下架'}">下架</option>
-                            </select>
-                        </div>
+                                <div class="status-container">
+                                    <li class="fa fa-calendar-alt" for="courseOrderState">狀態:</li>
+                                    <div class="select-wrapper">
+                                        <select name="courseOrderState" id="courseOrderState">
+                                            <option value="已成立"
+                                                    th:selected="${courseOrder.courseOrderState eq '已成立'}">已成立
+                                            </option>
+                                            <option value="已取消"
+                                                    th:selected="${courseOrder.courseOrderState eq '已取消'}">已取消
+                                            </option>
+                                            <option value="已退款"
+                                                    th:selected="${courseOrder.courseOrderState eq '已退款'}">已退款
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </ul>
+                        </section>
                         <hr class="my-4">
                         <div class="col-12 text-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="window.location.href = '/backend_period/listAll'">放棄
+                            <button type="button" class="btn btn-dark"
+                                    th:onclick="'window.location.href=\'/backend_courseOrder/findByPeriod/' + ${courseOrder.period.periodId} + '\''">
+                                放棄
                             </button>
                             <button type="submit" class="btn btn-primary">儲存</button>
-                        </div>
-                        <div>
-                            <input type="hidden" id="periodId" name="periodId" th:value="${Period.periodId}"/>
                         </div>
                     </form>
                 </div>
@@ -375,14 +322,6 @@
     }
 </script>
 
-<script>
-    function updateCourseOptions(selectedCategory) {
-        var courseSelect = document.getElementById('course');
-
-        // 清空團課課程選項
-        courseSelect.innerHTML = '<option selected disabled value="">--請選擇團課課程--</option>';
-    }
-</script>
 <!--Jquery-->
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
@@ -411,44 +350,6 @@
     });
 </script>
 
-<!--動態生成課程-->
-<script>
-    function updateCourseOptions() {
-        var selectedCategory = $('#courseCategory').val();
-        var $courseSelect = $('#course');
-
-        // 清空團課課程選項
-        $courseSelect.empty().append('<option selected disabled value="">--請選擇團課課程--</option>');
-
-        switch (selectedCategory) {
-            case 'YOGA':
-                $courseSelect.append('<option value="4" >熱瑜珈</option>');
-                $courseSelect.append('<option value="5" >阿斯坦加瑜珈</option>');
-                $courseSelect.append('<option value="6" >和緩瑜珈</option>');
-                $courseSelect.append('<option value="7" >皮拉提斯</option>');
-                break;
-            case 'AEROBIC':
-                $courseSelect.append('<option value="1" >戰鬥有氧</option>');
-                $courseSelect.append('<option value="2" >Zumba</option>');
-                $courseSelect.append('<option value="3" >艾克斯有氧</option>');
-                break;
-            case 'SPINNING':
-                $courseSelect.append('<option value="8" >入門飛輪</option>');
-                $courseSelect.append('<option value="9" >肌力雕塑</option>');
-                $courseSelect.append('<option value="10">燃脂耐力</option>');
-                break;
-            default:
-                $courseSelect.append('<option value="11">攀岩</option>');
-                break;
-        }
-    }
-
-    $(document).ready(function () {
-        $('#category').on('change', updateCourseOptions);
-    });
-
-
-</script>
 
 </body>
 

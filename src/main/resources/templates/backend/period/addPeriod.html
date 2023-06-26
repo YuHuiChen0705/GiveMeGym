@@ -211,17 +211,17 @@
                         <h4 class="rounded-pill border border-5 text-dark">新增團課</h4>
                     </div>
 
-                    <form th:action="@{/backend_period/saveOrUpdate}" method="post" enctype="multipart/form-data"
-                          id="form" class=" needs-validation row text-dark" th:object="${period}" novalidate>
+                    <form th:action="@{/backend_period/save}" method="post" enctype="multipart/form-data"
+                          id="form" class=" needs-validation row text-dark" novalidate>
 
                         <div class="col-md-12">
                             <label class="form-label">團課課程</label>
-                            <select class="form-select" th:field="*{course.courseId}" id="course">
+                            <select class="form-select" th:field="*{form.period.course.courseId}" id="course">
                                 <option th:each="course : ${courseListData}"
                                         th:value="${course.courseId}"
                                         th:text="${course.courseName}"></option>
                             </select>
-                            <span th:errors="*{course.courseId}"
+                            <span th:errors="*{form.period.course.courseId}"
                                   class="error" id="course.errors"></span>
                             <div class="invalid-feedback">
                                 請選擇團課課程
@@ -230,8 +230,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">人數上限</label>
-                            <input type="text" class="form-control" th:field="*{peopleUpper}" required>
-                            <span th:errors="*{peopleUpper}"
+                            <input type="text" class="form-control" th:field="*{form.period.peopleUpper}" required>
+                            <span th:errors="*{form.period.peopleUpper}"
                                   class="error" id="peopleUpper.errors"></span>
                             <div class="invalid-feedback">
                                 請設定人數上限
@@ -240,8 +240,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">人數下限</label>
-                            <input type="text" class="form-control" th:field="*{peopleLower}" required>
-                            <div th:errors="*{peopleLower}" class="error"
+                            <input type="text" class="form-control" th:field="*{form.period.peopleLower}" required>
+                            <div th:errors="*{form.period.peopleLower}" class="error"
                                  id="peopleLower.errors"></div>
                             <div class="invalid-feedback">
                                 請設定人數下限
@@ -251,8 +251,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">報名開始日期</label>
-                            <input type="date" class="form-control" th:field="*{courseOrderBe}" required>
-                            <span th:errors="*{courseOrderBe}"
+                            <input type="date" class="form-control" th:field="*{form.period.courseOrderBe}" required>
+                            <span th:errors="*{form.period.courseOrderBe}"
                                   class="error" id="courseOrderBe.errors"></span>
                             <div class="invalid-feedback">
                                 請設定報名開始日期
@@ -261,8 +261,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">報名截止日期</label>
-                            <input type="date" class="form-control" th:field="*{courseOrderEn}" required>
-                            <span th:errors="*{courseOrderEn}"
+                            <input type="date" class="form-control" th:field="*{form.period.courseOrderEn}" required>
+                            <span th:errors="*{form.period.courseOrderEn}"
                                   class="error" id="courseOrderEn.errors"></span>
                             <div class="invalid-feedback">
                                 請設定報名截止日期
@@ -271,8 +271,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">團課費用</label>
-                            <input type="text" class="form-control" th:field="*{coursePrice}" required>
-                            <span th:errors="*{coursePrice}" class="error" id="coursePrice.errors"></span>
+                            <input type="text" class="form-control" th:field="*{form.period.coursePrice}" required>
+                            <span th:errors="*{form.period.coursePrice}" class="error" id="coursePrice.errors"></span>
                             <div class="invalid-feedback">
                                 請設定團課費用
                             </div>
@@ -280,8 +280,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">團課堂數</label>
-                            <input type="text" class="form-control" th:field="*{courseNumber}" required>
-                            <span th:errors="*{courseNumber}" class="error" id="courseNumber.errors"></span>
+                            <input type="text" class="form-control" th:field="*{form.period.courseNumber}" required>
+                            <span th:errors="*{form.period.courseNumber}" class="error" id="courseNumber.errors"></span>
                             <div class="invalid-feedback">
                                 請設定團課堂數
                             </div>
@@ -289,34 +289,34 @@
 
                         <div class="col-md-6">
                             <label class="form-label">教練</label>
-                            <select class="form-control" th:field="${courseSchedule.coach}"
+                            <select class="form-control" th:field="${form.courseSchedules[0].coach}"
                                     required>
                                 <option th:each="coach: ${coachListData}"
                                         th:value="${coach.coachId}"
-                                        th:text="${coach.name}"></option>
+                                        th:text="${coach.coachName}"></option>
                             </select>
-                            <span th:errors="${courseSchedule.coach}" class="error"
+                            <span th:errors="${form.courseSchedules[0].coach}" class="error"
                                   id="coach.errors"></span>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">上課日期</label>
 
-                            <input type="date" class="form-control" th:field="${courseSchedule.courseScheduleDate}"
+                            <input type="date" class="form-control" th:field="${form.courseSchedules[0].courseScheduleDate}"
                                    required>
 
-                            <span th:errors="${courseSchedule.courseScheduleDate}" class="error"
+                            <span th:errors="${form.courseSchedules[0].courseScheduleDate}" class="error"
                                   id="courseScheduleDate.errors"></span>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">上課時段</label>
-                            <select class="form-select" th:field="${courseSchedule.courseScheduleTime}" required>
+                            <select class="form-select" th:field="${form.courseSchedules[0].courseScheduleTime}" required>
                                 <option value="早">早</option>
                                 <option value="中">中</option>
                                 <option value="晚">晚</option>
                             </select>
-                            <span th:errors="${courseSchedule.courseScheduleTime}" class="error"
+                            <span th:errors="${form.courseSchedules[0].courseScheduleTime}" class="error"
                                   id="courseScheduleTime.errors"></span>
                         </div>
                         <hr class="my-4">

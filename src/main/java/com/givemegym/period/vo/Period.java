@@ -1,5 +1,8 @@
 package com.givemegym.period.vo;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseorder.vo.CourseOrder;
 import com.givemegym.courseschedule.vo.CourseSchedule;
@@ -11,9 +14,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @ToString
 @Getter
@@ -24,6 +25,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "period", schema = "no7")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "periodId")
 public class Period {
 
     @Id
@@ -61,21 +63,25 @@ public class Period {
     private Course course;
 
     @NotNull(message = "請輸入報名開始日期")
-    @Future(message = "別活在過去")
+//    @Future(message = "別活在過去")
     @Column(name = "COURSE_ORDER_BE")
     private Date courseOrderBe;
 
     @NotNull(message = "請輸入報名截止日期")
-    @Future(message = "別活在過去")
+//    @Future(message = "別活在過去")
     @Column(name = "COURSE_ORDER_EN")
     private Date courseOrderEn;
 
 
     // 關聯多方(上課時段)
     // mappedBy = " " 為映射對象
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "period")
+//    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "period")
+//    @OrderBy("courseScheduleId asc")
+//    private Set<CourseSchedule> schedules = new HashSet<CourseSchedule>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "period")
     @OrderBy("courseScheduleId asc")
-    private Set<CourseSchedule> schedules = new HashSet<CourseSchedule>();
+    private Set<CourseSchedule> schedules = new HashSet<>();
 
     // 關聯多方(團課訂單)
     // mappedBy = " " 為映射對象
@@ -96,4 +102,6 @@ public class Period {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 }

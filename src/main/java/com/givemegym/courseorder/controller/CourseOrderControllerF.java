@@ -1,21 +1,30 @@
 package com.givemegym.courseorder.controller;
 
+import com.givemegym.coach_B.vo.Coach;
 import com.givemegym.courseorder.service.CourseOrderService;
 import com.givemegym.courseorder.vo.CourseOrder;
+import com.givemegym.courseschedule.vo.CourseSchedule;
+import com.givemegym.faqs.vo.Faq;
+import com.givemegym.member_B.vo.Member;
 import com.givemegym.period.service.PeriodService;
 import com.givemegym.period.vo.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
-@RequestMapping("/backend_courseOrder")
+@RequestMapping("/frontend_courseOrder")
 public class CourseOrderControllerF {
 
     @Autowired
@@ -24,69 +33,45 @@ public class CourseOrderControllerF {
     @Autowired
     private PeriodService periodService;
 
-    //    // 列表訂單
+    //下單頁面
+    @GetMapping("/addOrders/{periodId}")
+    public String toAdd(@PathVariable Integer periodId, ModelMap model) {
+        Optional<Period> period = periodService.findById(periodId);
+        model.addAttribute("period", period);
+        return "frontend/courseOrder/addCourseOrder";
+    }
+
+
+    // 會員下單某時段的課程
+//    @PostMapping("/addCourseOrder/{periodId}")
+//    public String orderSave(@PathVariable Integer periodId, HttpServletRequest request) {
+//        Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+//        courseOrderService.saveOrder(periodId,loginMember);
+//         return "redirect:/frontend_courseOrder/addOrders/" + periodId;
+//    }
+
+    // 會員下單某時段的課程(先寫死)
+    @PostMapping("/addOrder/{periodId}")
+    public String orderSave(@PathVariable Integer periodId, @ModelAttribute("member") Member member) {
+
+        member.setMemberId(2);
+        courseOrderService.saveOrder(periodId, member);
+        return "redirect:/frontend_courseOrder/addOrders/" + periodId;
+    }
+
+    // 會員團課課表(渲染頁面)
 //    @GetMapping("/listAll")
-//    public String findAllCourseOrder(Model model) {
-//        List<CourseOrder> courseOrderList = courseOrderService.findAll();
-//        model.addAttribute("courseOrderList", courseOrderList);
-//        return "backend/courseorder/courseOrderList";
+//    public String findAllOrder() {
+//        return "frontend/courseOrder/courseOrderDetail";
 //    }
-//
-    // 導入新增團課訂單的頁面
-    @GetMapping("/add")
-    public String toAdd() {
-        return "前台新增團課訂單的頁面";
+
+    @GetMapping("/orderList/{memberId}")
+    public String orderListAll(@PathVariable Integer memberId,ModelMap model){
+        List<CourseOrder> orders = courseOrderService.findByMemberId(memberId);
+        model.addAttribute("orders",orders);
+        return "frontend/order/shop_order_detail";
     }
-//
-//
-//    // 導入修改團課訂單的頁面
-//    @GetMapping("/update/{courseOrderId}")
-//    public String toUpdate(@PathVariable Integer courseOrderId, ModelMap model) {
-//        Optional<CourseOrder> findCourseOrder = courseOrderService.findById(courseOrderId);
-//        model.addAttribute("CourseOrder", findCourseOrder.orElseThrow());
-//        // 查詢完成後轉交修改團課訂單的頁面
-//        return "前台修改團課訂單的頁面";
-//    }
-//
-//    // 新增或修改團課訂單
-//    @PostMapping("/saveOrUpdate")
-//    public String saveOrUpdate(@Valid CourseOrder courseOrder) {
-//        courseOrderService.saveOrUpdate(courseOrder);
-//        return "redirect:/backend_courseOrder/listAll";
-//    }
-//
-//
-    //查看一報名時段有幾筆訂單
-//    @GetMapping(path = "/findCourseOrder/{periodId}")
-//    public String findCourseOrderByPeriodId(@PathVariable("periodId") Integer periodId, Model model){
-//        model.addAttribute("memberList", memberService.getAllMembers());
-//        List<CourseOrder> courseOrderList = courseOrderService.findByPeriodId(periodId);
-//        model.addAttribute("courseOrderList",courseOrderList);
-//        List<Member> members = orderService.getMembersByPeriodId(id);
-//        model.addAttribute("members", members);
-//        return "members_list"; // 返回Thymeleaf模板的视图名
-//        return "backend_courseOrder/orderdetail";
-//    }
-
-
-    @GetMapping("/findByPeriod/{period}")
-    public String findCourseOrderByPeriod(@PathVariable Period period, Model model) {
-        List<CourseOrder> courseOrderByPeriod = courseOrderService.findCourseOrderByPeriod(period);
-        model.addAttribute("courseOrderByPeriod", courseOrderByPeriod);
-        model.addAttribute("courseOrderCounts", courseOrderByPeriod.size());
-        return "backend/courseOrder/courseOrderList";
-    }
-
-
-//    // 根據PK查詢一筆時段
-//    @GetMapping("/findOne/{periodId}")
-//    public String findPeriodById(@PathVariable Integer periodId, Model model) {
-//        List<Period> periodList = new ArrayList<Period>();
-//        Optional<Period> findPeriod = periodService.findById(periodId);
-//        periodList.add(findPeriod.orElseThrow());
-//        model.addAttribute("period", periodList);
-//        return "backend/period/periodList";
-//    }
 
 
 }
+

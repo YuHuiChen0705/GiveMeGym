@@ -241,17 +241,33 @@
                                 <th>會員姓名</th>
                                 <th>訂單建立日期</th>
                                 <th>訂單狀態</th>
+                                <th>訂單價格</th>
+                                <th>修改</th>
+                                <th>查詢該會員其他訂單</th>
                             </tr>
                             </thead>
                             <tbody>
                             <!-- 動態生成表格內容 -->
                             <tr th:each="courseOrder:${courseOrderByPeriod}">
-                                <td th:text="${courseOrder.courseOrderId}">編號</td>
+                                <td th:text="${courseOrder.courseOrderId}"></td>
                                 <td>
-                                    <span th:text="${courseOrder.memberVO.memberName}"></span>
+                                    <span th:text="${courseOrder.member.memberName}"></span>
                                 </td>
-                                <td th:text="${courseOrder.courseOrderDate}">編號</td>
-                                <td th:text="${courseOrder.courseOrderState}">編號</td>
+                                <td th:text="${courseOrder.courseOrderDate}"></td>
+                                <td th:text="${courseOrder.courseOrderState}"></td>
+                                <td th:text="${courseOrder.courseOrderTotalPrice}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-dark"
+                                            th:onclick="'window.location.href=\'/backend_courseOrder/update/' + ${courseOrder.courseOrderId} + '\''">
+                                        修改
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-dark"
+                                            th:onclick="'window.location.href=\'/backend_courseOrder/update/' + ${courseOrder.courseOrderId} + '\''">
+                                        查詢
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

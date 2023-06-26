@@ -206,7 +206,7 @@
                         <h4 class="rounded-pill border border-5 text-dark">修改報名資訊</h4>
                     </div>
                     <!--修改團課表單-->
-                    <form th:action="@{/backend_period/update}" method="post"
+                    <form th:action="@{/backend_period/saveOrUpdate}" method="post"
                           enctype="multipart/form-data" id="form" class="needs-validation row text-dark"
                           novalidate>
 
@@ -315,12 +315,41 @@
                                 <option value="下架" th:selected="${Period.courseState eq '下架'}">下架</option>
                             </select>
                         </div>
+
+                        <hr class="my-4">
+
+                        <div class="text-center mb-5">
+                            <h4 class="rounded-pill border border-5 text-dark">修改上課時段</h4>
+                        </div>
+
+                        <div th:each="schedule : ${courseSchedule}">
+                            <div class="col-md-6">
+                                <label for="end" class="form-label">上課日期</label>
+                                <div class="input-group">
+                                    <input type="date" name="courseScheduleDate" id="courseScheduleDate"
+                                           class="form-control"
+                                           th:value="${schedule.courseScheduleDate}" required>
+                                </div>
+                                <div class="invalid-feedback">
+                                    請設定報名截止日期
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="courseScheduleTime" class="form-label">上課日期</label>
+                                <select class="form-select" name="courseScheduleTime" id="courseScheduleTime" required>
+                                    <option value="早" th:selected="${schedule.courseScheduleTime eq '早'}">早</option>
+                                    <option value="中" th:selected="${schedule.courseScheduleTime eq '中'}">中</option>
+                                    <option value="晚" th:selected="${schedule.courseScheduleTime eq '晚'}">晚</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    請設定上課時段
+                                </div>
+                            </div>
+                        </div>
                         <hr class="my-4">
                         <div class="col-12 text-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="window.location.href = '/backend_period/listAll'">放棄
-                            </button>
-                            <button type="submit" class="btn btn-primary">儲存</button>
+                            <button type="submit" class="btn btn-dark btn-lg" id="check">確認</button>
                         </div>
                         <div>
                             <input type="hidden" id="periodId" name="periodId" th:value="${Period.periodId}"/>

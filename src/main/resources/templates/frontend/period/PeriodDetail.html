@@ -88,7 +88,6 @@
             <div class="card-body">
                 <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                     <table id="myTable" class="table table-striped table-hover style=width:100%">
-                        <!-- 欄位標題 -->
                         <tr>
                             <th class="align-middle">報名開始時間</th>
                             <th class="align-middle">報名截止時間</th>
@@ -99,8 +98,6 @@
                             <th class="align-middle">上課日期及時段</th>
                             <th class="align-middle">報名</th>
                         </tr>
-
-                        <!-- 動態生成表格內容 -->
                         <tr th:each="period : ${findCourse}">
                             <td th:text="${period.courseOrderBe}"></td>
                             <td th:text="${period.courseOrderEn}"></td>
@@ -115,7 +112,12 @@
                                     <span th:unless="${status.last}">, </span>
                                 </span>
                             </td>
-                            <td><a href="courseForm.html" class="btn btn-dark">我要報名</a></td>
+                            <td>
+                                <button type="button" class="btn btn-dark"
+                                        th:onclick="'window.location.href=\'/frontend_courseOrder/addOrders/' + ${period.periodId} + '\''">
+                                    查詢
+                                </button>
+                            </td>
                         </tr>
                     </table>
                 </div>

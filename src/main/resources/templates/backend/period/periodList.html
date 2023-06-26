@@ -235,6 +235,7 @@
         <button>登出</button>
     </div>
 </header>
+
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
         <h2>首頁</h2>
@@ -286,10 +287,12 @@
             <h3 class="text-white mb-4">團課管理</h3>
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <button type="button" class="btn btn-dark" onclick="navigateToAddPeriod()">
+                    <button type="button" class="btn btn-dark"
+                            onclick="window.location.href = '/backend_period/addPeriod'">
                         新增團課
                     </button>
                 </div>
+
 
                 <div class="card-body">
                     <div class="table-responsive table mt-2" id="dataTable" role="grid"
@@ -323,7 +326,7 @@
                                 <td th:text="${period.courseNumber}"></td>
                                 <td th:text="${period.peopleUpper + '人'}"></td>
                                 <td th:text="${period.peopleLower + '人'}"></td>
-                                <td th:text="${period.orders.size() + '人'}"></td>
+                                <td th:text="${period.orders.size()}"></td>
                                 <td th:text="${period.courseOrderBe}"></td>
                                 <td th:text="${period.courseOrderEn}"></td>
                                 <td th:text="${period.coursePrice}"></td>
@@ -347,7 +350,6 @@
                                     </button>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -562,12 +564,6 @@
                 window.location.href = 'Mcourse.html';
             });
     })
-</script>
-
-<script>
-    function navigateToAddPeriod() {
-        window.location.href = "/backend_period/addPeriod";
-    }
 </script>
 
 
