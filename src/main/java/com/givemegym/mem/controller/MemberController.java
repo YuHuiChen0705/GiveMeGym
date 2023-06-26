@@ -105,20 +105,3 @@ public class MemberController {
 		return "frontend/member/memberData";
 	}
 }
-//	@RequestMapping("/memberData")
-//	public MemberVO getMemberData(HttpSession session) {
-//		// 從 Session 中獲取 memberId
-//		Integer memberId = (Integer) session.getAttribute("memberId");
-//		MemberVO memberData = memberService.findByMemberId(memberId);
-//		return memberData;
-//	}
-//
-//}
-//	@PostMapping("/memberData/{memberId}")
-//	@ResponseBody
-//	public MemberVO memberData(@PathVariable("memberId") Integer memberId) {
-//		// 根據memberId查詢會員數據
-//		MemberVO memberData = memberService.findByMemberId(memberId);
-//		return memberData;
-//	}
-//}

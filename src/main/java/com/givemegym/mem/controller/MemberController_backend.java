@@ -79,15 +79,13 @@ public class MemberController_backend {
 		model.addAttribute("memberList", memberList);
 		return "backend/member/statusMember.html";
 	}
-	
-	
 
 	// 儲存違規次數
 	@PostMapping("/listAllMemberStatus/saveTimes")
-	public String saveMemberViolations(Integer memberId,Integer memberViolations, ModelMap model) {
-		memberService.saveMemberViolations(memberId,memberViolations);
+	public String saveMemberViolations(Integer memberId, Integer memberViolations, ModelMap model) {
+		memberService.saveMemberViolations(memberId, memberViolations);
 		model.addAttribute("memberId", memberId);
-		model.addAttribute("memberViolations",memberViolations);
+		model.addAttribute("memberViolations", memberViolations);
 		System.out.println(memberViolations);
 		System.out.println(memberId);
 		return "redirect:/backend_Member/listAllMemberStatus";
