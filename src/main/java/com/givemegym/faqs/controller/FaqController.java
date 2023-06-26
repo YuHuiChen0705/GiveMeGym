@@ -35,8 +35,7 @@ public class FaqController {
     @ResponseBody
     @PostMapping("/backend_faq/listAll")
     public List<Faq> findAllFaqs() {
-        List<Faq> faqs = faqService.findAll();
-        return faqs;
+        return faqService.findAll();
     }
 
     // 新增常見問題
