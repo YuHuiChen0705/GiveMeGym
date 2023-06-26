@@ -15,10 +15,10 @@ public class Skill {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SKILL_ID")
 	private int skillId;
-
+	
 	@Column(name = "SKILL_NAME")
 	private String skillName;
-
+	
 	public Skill() {
 	}
 

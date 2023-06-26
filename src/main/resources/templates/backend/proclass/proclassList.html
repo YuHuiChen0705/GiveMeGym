@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
+	<!-- Sweet alert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
     <style>
         body {
             background-color: #fef8f0f9;
@@ -165,7 +167,7 @@
             outline-style: solid;
         }
     </style>
-    <script>
+    <script th:inline="javascript">
         window.addEventListener('DOMContentLoaded', (event) => {
             const headings = document.querySelectorAll('.sidebar h2');
 
@@ -176,6 +178,31 @@
                 });
             });
         });
+
+		function showAlert(){
+			event.preventDefault();
+			Swal.fire({
+				  title: '確定刪除?',
+				  text: "課程刪除後不可復原!",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '是, 請刪除!',
+				  cancelButtonText: '取消'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    Swal.fire(
+				      '已刪除!',
+				      '一對一課程已刪除',
+				      'success'
+				    )
+				    return true;
+// 				    windows.location.href='/proclass/removeClass(proclassId=' + theId + ')'; 
+				} 
+					else { return false;}
+				})
+		}
     </script>
 </head>
 
@@ -211,11 +238,12 @@
                     <li><a href="#">訂單管理</a></li>
                 </ul>
 
-                <h2>教練管理</h2>
-                <ul>
-                    <li><a href="#">新增教練</a></li>
-                    <li><a href="#">查詢教練</a></li>
+                <h2 class="sidebartitle">教練管理</h2>
+                <ul style="display: none;">
+                    <li><a href="/templates/backend/coach/addcoach.html">教練管理</a></li>
                     <li><a href="#">教練班表</a></li>
+                    <li><a href="/templates/backend/proclass/proclass.html">一對一課程管理</a></li>
+                    <li><a href="/templates/backend/skill/addskill.html">技能管理</a></li>
                 </ul>
 
                 <h2>團課管理</h2>
@@ -258,7 +286,7 @@
                                         <!-- 欄位標題 -->
                                         <th class="align-middle">技能名稱</th>
                                         <th class="align-middle">一對一課程名稱</th>
-                                        <th class="align-middle">修改</th>
+                                        <th class="align-middle">操作功能</th>
                                     </tr>
 
 
@@ -268,13 +296,11 @@
                                     <tr th:each="tempProclass : ${allClasses}">
                                         <td class="align-middle" th:text="${tempProclass.skillId.skillName}"/>
                                         <td class="align-middle" th:text="${tempProclass.proclassName}"/>
-                                        <!-- <td>
-                                            <button class="btn btn-primary btn-sm edit-button">請假</button>
-                                        </td> -->
-                                        <td>
-                                            <button class="btn btn-success btn-sm">修改</button>
-                                        </td>
-                                    </tr>
+										<td><a th:href="@{/proclass/removeClass(proclassId=${tempProclass.proclassId})}"
+												th:onclick="if (!(confirm('確認刪除該筆資料?'))) return false">
+											<button class="btn btn-success btn-sm">刪除</button></a>
+										</td>
+									</tr>
 
                                     <!-- 可以繼續加入更多的課程資訊 -->
 
@@ -296,131 +322,31 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" style="color: #000; font-weight: 600;">
-                        <form id="add-product-form">
-                            <div class="form-group">
-                                <label for="product-name">課程名稱</label>
-                                <input type="text" id="coa_Name" name="coa_Name" required>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label for="product-category">教練技能</label>
-                                <div class="row">
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">有氧</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">Zumba</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">瑜珈</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">皮拉提斯</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">減脂</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">功能性訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">客製化訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">重量訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">HIIT訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">核心訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span"> 腿部訓練 </span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">腹肌訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">TRX訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">壺鈴訓練</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">飛輪</span>
-                                    </li>
-                                    <li class="col-md-3">
-                                        <input type="checkbox" class="checked">
-                                        <span class="span">攀岩</span>
-                                    </li>
-                                    <div>
-                                    </div>
-                        </form>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">放棄</button>
-                    <button type="submit" class="btn btn-primary" id="upload">新增</button>
-                </div>
-            </div>
+						<form id="add-product-form" th:action="@{/proclass/addProclass}" th:object="${newProclass}" method="post">
+							<div class="form-group">
+								<label for="product-name">課程名稱</label> <input type="text" id="coa_Name" name="coa_Name"
+									th:field="*{proclassName}" required>
+							</div>
+							<br>
+							<div class="form-group">
+								<label for="product-category">教練技能</label>
+								<div class="row">
+									<ul class="col-md-3" th:each="theSkill : ${skillList}">
+										<input type="radio" class="" th:value="${theSkill.skillId}" th:field="*{skillId}"/>
+										<span class="span" th:text="${theSkill.skillName}"/>
+									</ul>
+									<div></div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">放棄</button>
+								<button type="submit" class="btn btn-primary" id="upload">新增</button>
+							</div>
+						</form>
+					</div>
         </div>
     </div>
-    <script>  $(document).ready(function () {
-            // 當表單提交時
-            $('#add-product-form').submit(function (event) {
-                // 取消預設提交行為
-                event.preventDefault();
-
-                // 從表單中取得教練資訊
-                var coa_Name = $('#coa_Name').val();
-                var coa_Detial = $('#coa_Detial').val();
-                var coa_Gender = $('input[name="gender"]:checked').val();
-                var coa_Pic = $(document).ready(function () {
-                    $('#coa_Pic').change(function () {
-                        var fileInput = $(this)[0];
-
-                        if (fileInput.files && fileInput.files[0]) {
-                            var file = fileInput.files[0];
-
-                            var reader = new FileReader();
-                            reader.onload = function (e) {
-                                var imageData = e.target.result;
-                                // 例如：$('#preview-image').attr('src', imageData);
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                });
-
-                // 清除表單中的數值
-                $('#coa_Name').val('');
-                $('#coa_Detial').val('');
-                $('input[name="gender"]').prop('checked', false);
-                $('#coa_Pic').val('');
-
-                // 在列表中加入新教練
-                var row = '<tr><td>' + 教練編號 + '</td><td>' + 教練名稱 + '</td><td>' + 教練簡介 + '</td><td>' + 性別 + '</td></tr>';
-                $('#myTable tbody').append(row);
-            });
-        });
-
+    <script>  
         $(document).ready(function () {
             $('#myTable').DataTable({
                 "language": {
