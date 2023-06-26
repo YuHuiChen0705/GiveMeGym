@@ -39,8 +39,8 @@ submit1.addEventListener("click", function(event) {
 		}
 
 		// 验证密码
-		if (passwordValue.length < 6 || passwordValue.length > 20) {
-			passwordError.innerHTML = "密碼長度必須介於6~15個字元。";
+		if (passwordValue.length < 6 || passwordValue.length > 10) {
+			passwordError.innerHTML = "密碼長度必須介於6~10個字元。";
 			Swal.fire({
 				text: "密碼長度必須介於6~15個字元。",
 				icon: "error",
