@@ -19,9 +19,9 @@
 
 <!-- Template CSS -->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/assets/css/style-starter.css}">
+	th:href="@{/member_28/assets/css/style-starter.css}">
 <link rel="stylesheet" type="text/css"
-	th:href="@{/member/css/member.css}" />
+	th:href="@{/member_28/css/member.css}" />
 </head>
 
 <body>
@@ -128,7 +128,7 @@
 				<div id="signup">
 					<h1>免費註冊</h1>
 					<div class="top-row">
-						<form id="register" th:action="@{/backend_Member/addMemberList}"
+						<form id="register" th:action="@{/front_Member/loginMemer}"
 							method="post" enctype="multipart/form-data"
 							class=" needs-validation row text-dark" th:object="${MemberVO}"
 							novalidate onsubmit="return validateRegistrationForm()">
@@ -210,7 +210,7 @@
 						</select> <input type="text" id="memberDetail" name="memberDetail" required
 							autocomplete="off" />
 					</div>
-					<a href="login.html">已經有會員帳號?</a>
+					<a href="login">已經有會員帳號?</a>
 					<div class="error" id="name-error2"></div>
 					<div class="error" id="mail-error2"></div>
 					<div class="error" id="password-error2"></div>
@@ -359,15 +359,15 @@
 	</section>
 
 
-	<script th:src="@{/assets/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/member_28/assets/js/jquery-3.3.1.min.js}"></script>
 
-	<script th:src="@{/assets/js/theme-change.js}"></script>
+	<script th:src="@{/member_28/assets/js/theme-change.js}"></script>
 	<!-- theme switch js (light and dark)-->
 
 	<!-- libhtbox -->
-	<script th:src="@{/assets/js/lightbox-plus-jquery.min.js}"></script>
+	<script th:src="@{/member_28/assets/js/lightbox-plus-jquery.min.js}"></script>
 
-	<script th:src="@{/assets/js/owl.carousel.js}"></script>
+	<script th:src="@{/member_28/assets/js/owl.carousel.js}"></script>
 	<!-- script for banner slider-->
 	<script>
     $(document).ready(function () {
@@ -498,8 +498,8 @@
 
 
 	<!-- stats number counter-->
-	<script th:src="@{/assets/js/jquery.waypoints.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.countup.js}"></script>
+	<script th:src="@{/member_28/assets/js/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/member_28/assets/js/jquery.countup.js}"></script>
 	<script>
     $('.counter').countUp();
   </script>
@@ -544,7 +544,7 @@
   </script>
 	<!--//MENU-JS-->
 
-	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<script th:src="@{/member_28/assets/js/bootstrap.min.js}"></script>
 	<script>
     $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 
@@ -625,8 +625,8 @@
         }
     });
   </script>
-	<script th:src="@{/member/js/member.js}"></script>
-	<script th:src="@{/member/js/login.js}"></script>
+	<script th:src="@{/member_28/js/member.js}"></script>
+<!-- 	<script th:src="@{/member/js/login.js}"></script> -->
 </body>
 
 </html>

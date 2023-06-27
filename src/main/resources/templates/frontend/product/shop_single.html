@@ -98,8 +98,9 @@
         <button class="next-button"> ></button>
     </div>
     <div class="product-options">
-        <h2 class="product-name" th:text="${product.productName}"></h2>
-        <p style="margin-bottom: 20px" class="product-category" th:text="'商品編號：'+${product.productId}"></p>
+        <h2 id="productName" th:text="${product.productName}"></h2>
+        <p style="margin-bottom: 20px" th:text="'商品編號：'+${product.productId}"></p>
+        <input type="hidden" id="productId" th:value="${product.productId}" style="display: none;">
         <p style="margin: 20px 0px 20px 0px" class="product-category"
            th:text="'商品類別：'+${product.category.categoryName}"></p>
         <div style="margin: 20px 0px 20px 0px">
@@ -111,8 +112,9 @@
             <input type="number" id="quantity" min="1" max="5" value="1">
         </div>
         <div class="info-product-price">
-            <label for="quantity">價錢:</label>
-            <span class="item_price" th:text="'$'+${product.productPrice}"></span>
+            <label>價錢:</label>
+            <span th:text="'$'+${product.productPrice}"></span>
+            <input type="hidden" id="price" th:value="${product.productPrice}" style="display: none;">
         </div>
         <div class="btn-container">
             <button class="add-to-cart">加入購物車</button>
@@ -121,40 +123,61 @@
     </div>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
+    const quantityInput = document.getElementById("quantity");
+    quantityInput.addEventListener("change", function () {
+        var value = parseInt(quantityInput.value);
+        if (value < 1) {
+            quantityInput.value = "1";
+        } else if (value > 5) {
+            quantityInput.value = "5";
+            alert("單項商品購買數量不得超過5")
+        }
+    });
+
     // 綁定「加入購物車」按鈕的點擊事件
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', addToCart);
     });
 
+
     // 加入購物車的處理函式
     function addToCart(event) {
-        alert("加入");
         // 獲取商品資訊
-        const productOptions = this.parentNode;
-        const productName = productOptions.querySelector('.product-name').textContent;
-        const productQuantity = productOptions.querySelector('#quantity').value;
-        const productPrice = productOptions.querySelector('.item_price').textContent;
+        const productId = document.getElementById("productId").value;
+        const productName = document.getElementById("productName").textContent;
+        const price = document.getElementById("price").value;
+        const quantity = document.getElementById("quantity").value;
 
-        // 計算商品總價格
-        const itemTotal = parseInt(productPrice.replace('$', '')) * productQuantity;
+        var cartItem = {
+            productId: productId,
+            quantity: quantity,
+            productName: productName,
+            price: price
+        };
 
-        // 建立新的商品列元素
-        const newItem = document.createElement('tr');
-        newItem.innerHTML = `
-            <td><img src="./images/pd025.jpg" alt="商品圖片" class="shopCart"></td>
-            <td>${productName}</td>
-            <td>${productQuantity}</td>
-            <td>${productPrice}</td>
-            <td class="item-total">$${itemTotal}</td>
-            <td><button class="remove-button">移除</button></td>
-            `;
+        jQuery.ajax({
+            url: "/addOneToCart",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(cartItem),
+            success: function (response) {
+                //有空再換sweet alert啦
+                if (response != "未登入") {
+                    alert("商品已添加到購物車！");
+                } else {
+                    alert("尚未登入會員，請登入");
+                    window.location.href = '/front_Member/login';
+                }
+            },
+            error: function () {
+                alert("添加商品到購物車失敗！");
+            }
+        });
 
-        // 將商品列添加到購物車列表
-        const cartItems = document.getElementById('cart-items');
-        cartItems.appendChild(newItem);
     }
 
 </script>
@@ -293,9 +316,6 @@
     nextButton.addEventListener('click', nextImage);
     prevButton.addEventListener('click', prevImage);
 </script>
-
-
-<script src="/shop_19/assets/js/jquery-3.3.1.min.js"></script>
 
 
 <script src="/shop_19/assets/js/owl.carousel.js"></script>

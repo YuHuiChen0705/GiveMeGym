@@ -26,9 +26,11 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="/shop_19/assets/css/style-starter.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
+
 <!--header-->
 <header id="site-header" class="fixed-top">
     <div class="container">
@@ -121,6 +123,7 @@
                 <div class="product-sec1">
 
                         <div class="col-md-4 product-men" th:each="product, index:${productList.stream().toArray()}">
+                            <input type="hidden" class="addToCartId" name="productId" th:value="${product.productId}"/>
                             <div class="men-pro-item simpleCart_shelfItem">
                                 <div class="men-thumb-item">
 
@@ -266,10 +269,42 @@
 </section>
 
 
-<script src="/shop_19/assets/js/jquery-3.3.1.min.js"></script>
+
 
 <script src="/shop_19/assets/js/owl.carousel.js"></script>
 <!-- script for banner slider-->
+
+<!--======按下加入購物車會發出請求傳一個DTO到後端，存到Redis的購物車陣列=========-->
+<script>
+    jQuery(".cart_btn").click(function addToCart() {
+
+        var productId = jQuery(this).closest(".product-men").find(".addToCartId").val(); // 商品ID
+
+        var cartItem = {
+            productId: productId,
+            quantity: 1,
+        };
+        jQuery.ajax({
+            url: "/addOneToCart",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(cartItem),
+            success: function(response) {
+                //有空再換sweet alert啦
+                if(response!="未登入"){
+                    alert("商品已添加到購物車！");
+                }else{
+                    alert("尚未登入會員，請登入");
+                    window.location.href = '/front_Member/login';
+                }
+            },
+            error: function() {
+                alert("添加商品到購物車失敗！");
+            }
+        });
+    });
+
+</script>
 
 <!--<script>-->
 <!--    const category = document.getElementById("category-filter");-->
@@ -284,8 +319,8 @@
 <!--</script>-->
 
 <script>
-    $(document).ready(function () {
-        $('.owl-one').owlCarousel({
+    jQuery(document).ready(function () {
+        jQuery('.owl-one').owlCarousel({
             loop: true,
             margin: 0,
             nav: false,
@@ -319,8 +354,8 @@
 
 <!-- script for tesimonials carousel slider -->
 <script>
-    $(document).ready(function () {
-        $(".owl-two").owlCarousel({
+    jQuery(document).ready(function () {
+        jQuery(".owl-two").owlCarousel({
             loop: true,
             margin: 20,
             nav: false,
@@ -346,8 +381,8 @@
 <!-- //script for tesimonials carousel slider -->
 
 <script>
-    $(document).ready(function () {
-        $('.owl-carousel-posts').owlCarousel({
+    jQuery(document).ready(function () {
+        jQuery('.owl-carousel-posts').owlCarousel({
             loop: true,
             margin: 0,
             responsiveClass: true,
@@ -383,8 +418,8 @@
 
 <!-- script for teams1-->
 <script>
-    $(document).ready(function () {
-        $('.owl-carousel').owlCarousel({
+    jQuery(document).ready(function () {
+        jQuery('.owl-carousel').owlCarousel({
             loop: true,
             margin: 0,
             responsiveClass: true,
@@ -413,7 +448,7 @@
 
 <!-- disable body scroll which navbar is in active -->
 <script>
-    $(function () {
+    jQuery(function () {
         $('.navbar-toggler').click(function () {
             $('body').toggleClass('noscroll');
         })
@@ -423,7 +458,7 @@
 
 <!--/MENU-JS-->
 <script>
-    $(window).on("scroll", function () {
+    jQuery(window).on("scroll", function () {
         var scroll = $(window).scrollTop();
 
         if (scroll >= 80) {
@@ -434,14 +469,14 @@
     });
 
     //Main navigation Active Class Add Remove
-    $(".navbar-toggler").on("click", function () {
+    jQuery(".navbar-toggler").on("click", function () {
         $("header").toggleClass("active");
     });
-    $(document).on("ready", function () {
+    jQuery(document).on("ready", function () {
         if ($(window).width() > 991) {
             $("header").removeClass("active");
         }
-        $(window).on("resize", function () {
+        jQuery(window).on("resize", function () {
             if ($(window).width() > 991) {
                 $("header").removeClass("active");
             }

@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.stereotype.Component;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,8 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "member", schema = "no7")
+@Table(name = "MEMBER", schema = "no7")
+@Component
 public class MemberVO {
 
 	@Id
@@ -66,7 +69,6 @@ public class MemberVO {
 	@NotNull
 	@Column(name = "MEMBER_BIRTHMONTH")
 	private String memberBirthMonth;
-	
 	
 	@NotNull
 	@Column(name = "MEMBER_BIRTHDAY")

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,32 @@ public class MemberController_backend {
 		List<MemberVO> memberList = memberService.findAll();
 		model.addAttribute("memberList", memberList);
 		return "backend/member/statusMember.html";
+	}
+
+	// 儲存違規次數
+	@PostMapping("/listAllMemberStatus/saveTimes")
+	public String saveMemberViolations(Integer memberId, Integer memberViolations, ModelMap model) {
+		memberService.saveMemberViolations(memberId, memberViolations);
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("memberViolations", memberViolations);
+		System.out.println(memberViolations);
+		System.out.println(memberId);
+		return "redirect:/backend_Member/listAllMemberStatus";
+	}
+
+	// 停權功能
+	@PostMapping("/listAllMemberStatus/remove")
+	public String removeStatus(Integer memberId, ModelMap model) {
+		memberService.removeStatus(memberId);
+		model.addAttribute("memberId", memberId);
+		return "redirect:/backend_Member/listAllMemberStatus";
+	}
+
+	// 復權功能
+	@PostMapping("/listAllMemberStatus/recover")
+	public String recoverStatus(Integer memberId) {
+		memberService.recoverStatus(memberId);
+		return "redirect:/backend_Member/listAllMemberStatus";
 	}
 
 }

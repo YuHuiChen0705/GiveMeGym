@@ -178,31 +178,56 @@ table td {
 }
 </style>
 <style>
-.quantity {
+.memberViolations {
 	height: 30px;
 	width: 35px;
 }
 
-button {
+.button {
 	color: #fff;
 	background-color: #ff0000;
-	border-color: #ff0000;
+	border-color: #fff;
 	border-radius: 5px;
 }
 
-button:hover {
+.button:hover {
 	background-color: orange;
 }
 
-button.active {
+.button.active {
 	background-color: orange;
 }
 
-button:focus {
+.button:focus {
 	background-color: orange;
 	outline-color: transparent;
 	outline-style: solid;
 	box-shadow: 0 0 0 1px #a4bd07;
+}
+
+.savebtn {
+	color: #fff;
+	background-color: #ff0000;
+	border-color:  #fff;
+	border-radius: 5px;
+}
+
+.savebtn:hover {
+	background-color: orange;
+}
+
+.savebtn.active {
+	background-color: orange;
+}
+
+.savebtn:focus {
+	background-color: orange;
+	outline-color: transparent;
+	outline-style: solid;
+	box-shadow: 0 0 0 1px #a4bd07;
+}
+.form-group {
+	margin: 20px 0 20px 0;
 }
 </style>
 <script>
@@ -297,32 +322,46 @@ button:focus {
 										<th class="titleStatus" style="font-weight: 600;">狀態</th>
 										<th class="titleTimes" style="font-weight: 600;">違規次數</th>
 										<th class="titleFixTimes" style="font-weight: 600;">修改違規次數</th>
-										<th class="titleFixStatus" style="font-weight: 600;">修改狀態</th>
+										<th class="titleFixStatus" style="font-weight: 600;">停權</th>
+										<th class="titleFixStatus" style="font-weight: 600;">復權</th>
 										<th class="titleFixStatus" style="font-weight: 600;">儲存</th>
 									</tr>
 								</thead>
 								<tbody>
 									<!-- 資料內容 -->
-									<tr th:each="memberVO:${memberList}">
-										<td class="idTd" th:text="${memberVO.memberId}"></td>
+									<tr class="list" id="list" th:each="memberVO:${memberList}">
+										<td class="idTd" id="idTd" th:text="${memberVO.memberId}"></td>
 										<td class="nameTd" th:text="${memberVO.memberName}"></td>
-										<td class="statusTd" th:text="${memberVO.memberState}"></td>
+										<td class="memberState" id="memberState" name="memberState"
+											th:text="${memberVO.memberState}"></td>
 										<td class="timesTd" th:text="${memberVO.memberViolations}"></td>
 										<td class="increase" id="parentElement"><input
-											type="text" id="quantity" value="0" class="quantity" readonly />
-											<input type="button" value="+" id="add" class="add" /> <input
-											type="button" value="-" id="reduce" class="reduce" /></td>
+											type="text" id="memberViolations" class="memberViolations"
+											th:value=0> <input type="button" value="+" id="add"
+											class="add"> <input type="button" value="-"
+											id="reduce" class="reduce"></td>
 										<td class="shutdown">
-											<button type="button" class="shutdown"
-												onclick="onRemoveClick(3)">停權</button>
-											<button type="button" class="recover"
-												onclick="onRecoverClick(3)">復權</button>
+											<form
+												th:action="@{/backend_Member/listAllMemberStatus/remove}"
+												method="post">
+												<input type="submit" class="button" value="停權"> <input
+													type="hidden" name="memberId"
+													th:value="${memberVO.memberId}">
+											</form>
 										</td>
-										<td class="save">
-											<button type="button" class="save" onclick="onSaveClick(3)">儲存</button>
+										<td>
+											<form
+												th:action="@{/backend_Member/listAllMemberStatus/recover}"
+												method="post">
+												<input type="submit" class="button" value="復權"> <input
+													type="hidden" name="memberId"
+													th:value="${memberVO.memberId}">
+											</form>
+										</td>
+<!-- 										 onclick="onSaveClick()" -->
+										<td class="save" id="save"><input type="button"value="儲存" class="savebtn" id="savebtn">
 										</td>
 									</tr>
-
 								</tbody>
 							</table>
 						</div>
@@ -333,13 +372,6 @@ button:focus {
 
 
 	</div>
-
-
-	<style>
-.form-group {
-	margin: 20px 0 20px 0;
-}
-</style>
 	<script>
         $(document).ready(function () {
             $('#myTable').DataTable({
@@ -423,23 +455,63 @@ button:focus {
                 }
 
             });
-        }); </script>
+        }); 
+        
+     </script>
 
 	<!-- JS -->
 	<script>
+	
+  function onSaveClick(memberId,memberViolations){
+	  console.log("memberId: " + memberId);
+	  console.log("memberViolations:"+memberViolations);
+    // 使用 AJAX 發送 POST 請求到後端
+    $.ajax({
+      url: '/backend_Member/listAllMemberStatus/saveTimes',
+      type: 'POST',
+      data: {
+    	memberId:memberId,
+        memberViolations: memberViolations,
+      },
+      success: function(response) {
+    	 alert("資料更新成功");
+    	 //重新刷新
+    	 window.location.href = window.location.href;
+        console.log('數據保存成功');
+    	  },
+      error: function(xhr, status, error) {
+        console.log('數據保存失敗');
+    	  }
+    	});
+  	}
+	</script>
+	<script>
 	window.onload = function() {
+		
+		var saveButtons = document.getElementsByClassName('savebtn');
+		  for (var i = 0; i < saveButtons.length; i++) {
+			console.log(i);
+		    saveButtons[i].addEventListener('click', function() {
+		    	 console.log('起飛囉');
+		      var parentElement = this.closest('.list');
+		      var memberId = parentElement.querySelector('.idTd').innerText;
+		      var memberViolations = parentElement.querySelector('.memberViolations').value;
+		      console.log('要降落啦~');
+		      onSaveClick(memberId, memberViolations);
+		    });
+		  }
+		
 		  var parentElements = document.getElementsByClassName('increase');
 
 		  for (var i = 0; i < parentElements.length; i++) {
 		    var parentElement = parentElements[i];
 		    var addButton = parentElement.querySelector('.add');
 		    var reduceButton = parentElement.querySelector('.reduce');
-		    var input = parentElement.querySelector('.quantity');
-
+		    var input = parentElement.querySelector('.memberViolations');
 		    addButton.addEventListener('click', createAddButtonClickHandler(input, reduceButton, addButton));
 		    reduceButton.addEventListener('click', createReduceButtonClickHandler(input, addButton, reduceButton));
 		  }
-		}
+		
 
 		function createAddButtonClickHandler(input, reduceButton, addButton) {
 		  return function() {
@@ -466,7 +538,7 @@ button:focus {
 		    }
 		  };
 		}
-
+	}
 
     </script>
 </body>

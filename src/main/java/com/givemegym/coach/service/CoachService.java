@@ -1,7 +1,6 @@
 package com.givemegym.coach.service;
 
-import java.util.List;
-
+import java.util.*;
 import com.givemegym.coach.vo.Coach;
 
 public interface CoachService {
@@ -10,7 +9,7 @@ public interface CoachService {
 
 	public Coach findById(int theId);
 
-	public void save(Coach theEmployee);
+	public void save(Coach theCoach);
 
 	public void deleteById(int theId);
 	public List<String> getAllCoachNames() ;

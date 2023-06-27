@@ -1,7 +1,6 @@
 package com.givemegym.mem.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,16 +39,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/* 根據問題類別(四種類別)查問題 */
-	@Override
-	public List<MemberVO> findByMemberId(Integer memberId) {
-		return memberDao.findByMemberId(memberId);
-	}
+//	@Override
+//	public List<MemberVO> findByMemberId(Integer memberId) {
+//		return  (List<MemberVO>) memberDao.findByMemberId(memberId);
+//	}
 
 	/* 查詢 根據ID查單一問題 Optional避免空值例外 */
-	@Override
-	public Optional<MemberVO> findById(Integer memberId) {
-		return memberDao.findById(memberId);
-	}
+//	@Override
+//	public Optional<MemberVO> findById(Integer memberId) {
+//		return memberDao.findById(memberId);
+//	}
 
 	@Override
 	public MemberVO login(String memberMail, String memberPassword) {
@@ -59,7 +58,29 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			return null;
 //			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-
 		}
 	}
+
+	@Override
+	public MemberVO findByMemberId(Integer memberId) {
+		MemberVO member = memberDao.findByMemberId(memberId);
+		return member;
+	}
+
+	@Override
+	public void removeStatus(Integer memberId) {
+		memberDao.removeStatus(memberId);
+	}
+
+	@Override
+	public void recoverStatus(Integer memberId) {
+		memberDao.recoverStatus(memberId);
+	}
+
+//	@Override
+	public void saveMemberViolations(Integer memberId, Integer memberViolations) {
+		memberDao.saveMemberViolations(memberId, memberViolations);
+
+	}
+
 }

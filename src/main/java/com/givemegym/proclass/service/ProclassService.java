@@ -7,8 +7,6 @@ public interface ProclassService {
 
 	public List<Proclass> getAllProclasses();
 	
-	public Proclass findById(int theId);
-	
 	public void save(Proclass theEmployee);
 	
 	public void deleteById(int theId);

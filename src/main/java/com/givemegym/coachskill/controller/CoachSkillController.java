@@ -1,4 +1,5 @@
-package com.givemegym.coachskill.controller;
+package com.givemegym.coachSkill.controller;
+
 
 import com.givemegym.coachskill.vo.CoachSkillVo;
 import com.givemegym.coachskill.service.CoachSkillService;
