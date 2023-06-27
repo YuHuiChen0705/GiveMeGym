@@ -1,7 +1,5 @@
-package com.givemegym.emp.service;
-
+package com.givemegym.employee.service;
 import java.util.List;
-
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -9,8 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.givemegym.emp.dao.EmployeeDao;
-import com.givemegym.emp.vo.Employee;
+import com.givemegym.employee.dao.EmployeeDao;
+import com.givemegym.employee.vo.Employee;
+
+
 
 @Service
 @Transactional

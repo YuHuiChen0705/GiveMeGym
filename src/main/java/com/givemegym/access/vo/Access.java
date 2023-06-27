@@ -1,5 +1,4 @@
-package com.givemegym.emp.vo;
-
+package com.givemegym.access.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,30 +13,25 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "EMPLOYEEACCESS")
-public class EmployeeAccess {
+@Table(name = "ACCESS")
+public class Access {
 	@Id
-	private int employeeId;
     private int accessId;
-    
-    
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
+    private String accessName;
 
     public int getAccessId() {
-        return accessId;
+        return this.accessId;
     }
 
     public void setAccessId(int accessId) {
         this.accessId = accessId;
     }
 
-    
+    public String getAccessName() {
+        return this.accessName;
+    }
+
+    public void setAccessName(String accessName) {
+        this.accessName = accessName;
+    }
 }
-
-

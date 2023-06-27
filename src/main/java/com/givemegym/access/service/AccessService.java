@@ -1,9 +1,10 @@
-package com.givemegym.emp.service;
+package com.givemegym.access.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.givemegym.emp.vo.Access;
+import com.givemegym.access.vo.Access;
+
 
 public interface AccessService {
 	
@@ -11,7 +12,7 @@ public interface AccessService {
 	boolean isDup(Integer accessId);
 
     /*新增或修改問題*/
-    Access saveOrUpdate(Access access);
+	Access saveOrUpdate(Access access);
 
     /*刪除 根據ID刪除單一問題*/
     void deleteById(Integer access);
