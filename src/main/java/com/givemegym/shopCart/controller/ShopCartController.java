@@ -123,6 +123,7 @@ public class ShopCartController {
     public String cartToCheckout() {
         return "frontend/order/shop_checkout";
     }
+
     @Transactional
     @PostMapping("/checkoutOrder")
     public ResponseEntity<String> checkoutOrder(@RequestBody Order order, HttpSession session) {
@@ -135,16 +136,20 @@ public class ShopCartController {
             order.setStatus(1);
 
             Set<OrderDetail> orderDetail = order.getDetails();
-            for (DetailDTO item : cart) {
-                OrderDetail detail = new OrderDetail();
+            if (cart != null) {
+                for (DetailDTO item : cart) {
+                    OrderDetail detail = new OrderDetail();
 
-                Product product = entityManager.merge(productService.findById(item.getProductId()).get());
-                detail.setOrder(order);
-                detail.setProduct(product);
-                detail.setQuantity(item.getQuantity());
-                detail.setPrice(item.getPrice());
+                    Product product = entityManager.merge(productService.findById(item.getProductId()).get());
+                    detail.setOrder(order);
+                    detail.setProduct(product);
+                    detail.setQuantity(item.getQuantity());
+                    detail.setPrice(item.getPrice());
 
-                orderDetail.add(detail);
+                    orderDetail.add(detail);
+                }
+            }else{
+                return new ResponseEntity<>("訂單處理失敗", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
             orderService.save(order);
@@ -152,5 +157,14 @@ public class ShopCartController {
             return new ResponseEntity<>("訂單處理成功", HttpStatus.OK);
         }
         return new ResponseEntity<>("訂單處理失敗", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("/cleanShopCart")
+    public String cleanShopCart(HttpSession session) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        if (memberId != null)
+            shopCartService.cleanAllCart(memberId);
+
+        return "redirect:/shopAllProduct";
     }
 }

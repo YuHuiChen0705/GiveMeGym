@@ -122,9 +122,6 @@ public class ShopCartServiceImpl implements ShopCartService {
                 jedis.close();
             }
         }
-        if (response.isEmpty()) {
-            return null;
-        }
 
         return response;
     }
@@ -200,7 +197,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public void removeOneItem(Integer productId,Integer memberId) {
+    public void removeOneItem(Integer productId, Integer memberId) {
         // 拿到前端的購物項 先轉成JSON物件
         Gson gson = new Gson();
 
@@ -248,5 +245,19 @@ public class ShopCartServiceImpl implements ShopCartService {
     @Override
     public void cleanAllCart(Integer memberId) {
         // 找出會員的購物車，把JsonArray裡的物件清空
+        Jedis jedis = null;
+        try {
+            // 取得Jedis連線
+            jedis = new Jedis("localhost", 6379);
+
+            // 一個會員只有一台購物車，先看購物車存不存在
+            jedis.del("memberId:" + memberId);
+
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
     }
 }

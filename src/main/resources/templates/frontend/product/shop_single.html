@@ -166,7 +166,7 @@
             data: JSON.stringify(cartItem),
             success: function (response) {
                 //有空再換sweet alert啦
-                if (response != "未登入") {
+                if (response) {
                     alert("商品已添加到購物車！");
                 } else {
                     alert("尚未登入會員，請登入");

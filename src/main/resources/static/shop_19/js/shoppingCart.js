@@ -5,11 +5,10 @@ function getShopCart() {
         success: function (response) {
             // 在此從後端取得處理成功回應的購物車資料  List<DetailDTO> list
             console.log(response);
-            if (response != null) {
+            const tableBody = document.getElementById("tableBody");
+            let html = "";
+            if (response) {
                 // 迭代取出物件  變成
-                const tableBody = document.getElementById("tableBody");
-                let html = "";
-
                 response.forEach(item => {
                     html += `<tr>
                                     <td>${item.productId}</td>
@@ -25,14 +24,23 @@ function getShopCart() {
 
                 eventButton();
             } else {
-                alert("尚未登入會員，請登入");
-                window.location.href = '/front_Member/login';
+                html += `<tr><td colspan="6">尚無商品，快去購物吧</td></tr>`;
+                tableBody.innerHTML = html;
             }
         }
         ,
         error: function (xhr, status, error) {
-            // 在此處理錯誤
-            console.error(error);
+            if (xhr.status === 404) {
+                // 處理 404 錯誤，表示找不到資源
+                console.error("找不到資源");
+            } else if (xhr.status === 400) {
+                // 處理 400 錯誤，表示未登入會員
+                alert("尚未登入會員，請登入");
+                window.location.href = '/front_Member/login';
+            } else {
+                // 處理其他錯誤
+                console.error(error);
+            }
         }
     });
 }
@@ -47,7 +55,7 @@ function eventButton() {
 
     // 移除商品
     function removeItem(event) {
-        if(confirm("確定移除商品?")){
+        if (confirm("確定移除商品?")) {
             const currentItem = event.target.closest('tr');
             currentItem.remove();
             console.log("remove")
@@ -142,11 +150,29 @@ function eventButton() {
     }
 
 
+    const cleanUpButton = document.querySelector('#cleanShopCart');
+    cleanUpButton.addEventListener("click", cleanShopCart);
+
+    function cleanShopCart() {
+        if (confirm("要清空購物車嗎?")) {
+            $.ajax({
+                url: '/cleanShopCart',
+                type: 'GET',
+                success: function (response) {
+                    window.location.href = response;
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+    }
 }
-const checkoutButton = document.querySelector('.checkout-button');
+
+const checkoutButton = document.querySelector('#checkout-button');
 // 監聽確認下單按鈕點擊事件
 checkoutButton.addEventListener('click', () => {
     if (confirm("確認結帳?")) {
-        window.location.href= "/CartToCheckout";
+        window.location.href = "/CartToCheckout";
     }
 });
