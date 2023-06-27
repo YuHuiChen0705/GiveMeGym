@@ -2,7 +2,6 @@ package com.givemegym.coachschedule.vo;
 
 import lombok.*;
 import javax.persistence.*;
-import java.sql.*;
 @Getter
 @Setter
 @AllArgsConstructor

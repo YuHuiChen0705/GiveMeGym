@@ -10,22 +10,22 @@ import org.springframework.stereotype.Repository;
 import com.givemegym.proclassorder.vo.ProclassOrderVo;
 @Repository
 public interface ProclassOrderDao extends JpaRepository<ProclassOrderVo, Integer> {
-	@Query("SELECT cd FROM ProclassOrderVo cd WHERE cd.memberId = :memberId")
+	
+	@Query("SELECT cd FROM ProclassOrderVo cd  WHERE cd.memberId = :memberId")
 	List<ProclassOrderVo> findByMemberId(@Param("memberId") Integer memberId);
 	
+
+@Query(value = "INSERT INTO ProclassOrderVo (proclassOrder) VALUES (:proclassOrder)", nativeQuery = true)
+   void addProclassOrder(@Param("proclassOrder") ProclassOrderVo proclassOrder);
+
+//	 @Query(value = "DELETE FROM ProclassOrderVo WHERE proClassOrderId = :proClassOrderId", nativeQuery = true)
+//	   void cancelProclassOrder(@Param("proClassOrderId") Integer proClassOrderId);
+
+
+	@Query("SELECT cd FROM ProclassOrderVo cd WHERE cd.coachId = :coachId")
+	List<ProclassOrderVo> findByCoachId(@Param("coachId") Integer coachId);
 	
-	@Query(value = "INSERT INTO ProclassOrderVo (proclassOrder) VALUES (:proclassOrder)", nativeQuery = true)
-	   void addProclassOrder(@Param("proclassOrder") ProclassOrderVo proclassOrder);
-
-
-	 @Query(value = "DELETE FROM ProclassOrderVo WHERE proClassOrderId = :proClassOrderId", nativeQuery = true)
-	   void cancelProclassOrder(@Param("proClassOrderId") Integer proClassOrderId);
-
-
-//	@Query("FROM ProclassOrderVo cd WHERE cd.coachId = :coachId")
-//	List<ProclassOrderVo> findByCoachId(@Param("coachId") Integer memberId);
-	
-	@Query(value = "SELECT * FROM ProclassOrder WHERE coach_Id = :coachId", nativeQuery = true)
-	List<Object[]> findByCoachId(@Param("coachId") Integer coachId);
+//@Query(value = "SELECT * FROM ProclassOrder WHERE coach_Id = :coachId", nativeQuery = true)
+//	List<Object[]> findByCoachId(@Param("coachId") Integer coachId);
 	
 }

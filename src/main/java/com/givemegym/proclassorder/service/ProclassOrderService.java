@@ -11,5 +11,5 @@ public interface ProclassOrderService {
 
 	void cancelProclassOrder(Integer proClassOrderId);
 
-	List<Object[]> findByCoachId(Integer coachId);
+	List<ProclassOrderVo> findByCoachId(Integer coachId);
 }

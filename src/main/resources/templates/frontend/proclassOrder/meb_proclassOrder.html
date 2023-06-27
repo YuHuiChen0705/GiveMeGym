@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -29,8 +28,6 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 
-<!-- CSS連結 -->
-<link rel="stylesheet" href="/assets/css/dataTable.css">
 
 <!-- bootstrap5 CSS -->
 <link
@@ -48,7 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template CSS -->
-<link rel="stylesheet" href="assets/css/style-starter.css">
+<link rel="stylesheet" href="/coach_16/assets/css/style-starter.css">
 <style>
 .container1 {
 	display: flex;
@@ -63,8 +60,14 @@ aside {
 	height: 200px;
 }
 
+#calendar {
+	width: 98%;
+	height: 1050px;
+	padding-left: 220px;
+}
+
 .header2 {
-	width: 950px;
+	width: 1000px;
 	/* 設定 header2 寬度為 70% */
 	left: 85px;
 	position: relative;
@@ -78,6 +81,111 @@ aside {
 	color: #151413f9;
 	cursor: pointer;
 	text-align: center;
+}
+
+#calendar a {
+	color: #dc3545;
+	text-decoration: none;
+}
+
+#calendar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+#calendar li {
+	display: block;
+	float: left;
+	width: 14.342%;
+	padding: 5px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	margin-right: -1px;
+	margin-bottom: -1px;
+}
+
+#calendar ul.weekdays {
+	height: 40px;
+	background: #dc3545;
+}
+
+#calendar ul.weekdays li {
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 20px;
+	border: none !important;
+	padding: 10px 6px;
+	color: #fff;
+	font-size: 13px;
+}
+
+#calendar .days li {
+	height: 150px;
+}
+
+#calendar .days li:hover {
+	background: #d3d3d3;
+}
+
+#calendar .date {
+	text-align: center;
+	margin-bottom: 3px;
+	padding: 3px;
+	background: #dc3545;
+	color: #fff;
+	width: 20px;
+	border-radius: 40%;
+	float: right;
+}
+
+#calendar .event {
+	clear: both;
+	display: block;
+	font-size: 13px;
+	border-radius: 4px;
+	padding: 5px;
+	margin-top: 40px;
+	margin-bottom: 5px;
+	line-height: 14px;
+	background: #e4f2f2;
+	border: 1px solid #b5dbdc;
+	color: #009aaf;
+	text-decoration: none;
+}
+
+#calendar .event-desc {
+	color: #666;
+	margin: 3px 0 7px 0;
+	text-decoration: none;
+}
+
+#calendar .other-month {
+	background: #f5f5f5;
+	color: #666;
+}
+
+div .date {
+	display: block;
+	width: 30px;
+	height: 30px;
+}
+
+@media ( max-width : 768px) {
+	#calendar .weekdays, #calendar .other-month {
+		display: none;
+	}
+	#calendar li {
+		height: auto !important;
+		border: 1px solid #ededed;
+		width: 100%;
+		padding: 10px;
+		margin-bottom: -1px;
+	}
+	#calendar .date {
+		float: none;
+	}
 }
 </style>
 <script
@@ -97,7 +205,7 @@ aside {
 
 <body>
 	<!--header-->
-	<header id="site-header" class="fixed-top">
+	<header id="site-header" class="fixed-top ">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg stroke">
 				<h1>
@@ -219,30 +327,30 @@ aside {
 							<p class="text-primary m-0 fw-bold">私人課程訂單</p>
 						</div>
 					</div>
+
 					<div class="card-body py-2">
-						<div class="table-responsive table mt-2" id="dataTable"
-							role="grid" aria-describedby="dataTable_info">
-							<table id="myTable"
-								class="table table-striped table-hover style="width:80%">
-								<thead>
+						<div class="container mr-md-n1 pl-md-2" id="dataTable" role="grid"
+							aria-describedby="dataTable_info">
+							<table id="myTable" class="table table-striped table-hover"
+								style="width: 100%">
+								<thead class="text-center">
 									<tr>
 										<!-- 欄位標題 -->
 										<th class="align-middle">訂單編號</th>
 										<th class="align-middle">課程名稱</th>
 										<th class="align-middle">教練</th>
-										<th class="align-middle">課程時間</th>
+										<th class="align-middle">課程</th>
 										<th class="align-middle">上課時段</th>
 										<th class="align-middle">出缺席</th>
 										<th class="align-middle">訂單狀態</th>
 										<th class="align-middle">修改</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="text-center">
 									<!-- 填入表格內容 -->
-
-									<tr th:each="proclassOrderVo : ${proclassOrderList}">
-										<td th:text="${proclassOrderVo.proClassOrderId}"></td>
-										<td><span th:switch="${proclassOrderVo.proclassId}"><span
+									<tr th:each="ProclassOrderVo : ${mebproClassorder}">
+										<td th:text="${ProclassOrderVo.proClassOrderId}"></td>
+										<td><span th:switch="${ProclassOrderVo.proClassId}"><span
 												th:case="1">有氧</span> <span th:case="2">Zumba</span> <span
 												th:case="3">瑜珈</span><span th:case="4">皮拉提斯</span><span
 												th:case="5">減脂</span><span th:case="6">功能性訓練</span><span
@@ -251,29 +359,28 @@ aside {
 												th:case="11">腿部訓練</span><span th:case="12">腹肌訓練</span><span
 												th:case="13">TRX訓練</span><span th:case="14">壺鈴訓練</span><span
 												th:case="15">飛輪</span><span th:case="16">攀岩</span> </span></td>
-										<td><span th:switch="${proclassOrderVo.coachId}"><span
+										<td><span th:switch="${ProclassOrderVo.coachId}"><span
 												th:case="1">李昊天</span> <span th:case="2"> 許雅婷</span> <span
 												th:case="3">劉梓涵</span><span th:case="4">李雅琪</span><span
 												th:case="5">王子軒</span><span th:case="6">陳宇軒</span><span
 												th:case="7">王建宏</span></span></td>
-														<td> <span th:text="${#dates.format(proclassOrderVo.proClassDate, 'yyyy-MM-dd')}"></span></td>
-										<td><span th:switch="${proclassOrderVo.proClassTime}">
+										<td><span
+											th:text="${#dates.format(ProclassOrderVo.proClassDate, 'yyyy-MM-dd')}"></span>
+										</td>
+										<td><span th:switch="${ProclassOrderVo.proClassTime}">
 												<span th:case="0">早</span> <span th:case="1">中</span> <span
 												th:case="2">晚</span>
-										</span> </td>
-										<td><span th:switch="${proclassOrderVo.proClassAttend}"><span
+										</span></td>
+										<td><span th:switch="${ProclassOrderVo.proClassAttend}"><span
 												th:case="0">出席</span><span th:case="1">缺席</span> <span
 												th:case="NULL"></span></span></td>
-										<td><span th:switch="${proclassOrderVo. proClassOrderState}"><span
+										<td><span
+											th:switch="${ProclassOrderVo.proClassOrderState}"><span
 												th:case="0">完成報名</span><span th:case="1">取消報名</span><span
 												th:case="2">課程結束</span> </span></td>
-									</tr>
-									<!-- <td>
-                                            <button class="btn btn-primary btn-sm edit-button">請假</button>
-                                        </td> -->
-									<td>
-										<button class="btn btn-success btn-sm">刪除</button>
-									</td>
+										<td>
+											<button class="btn btn-success btn-sm">刪除</button>
+										</td>
 									</tr>
 									<!-- 可以繼續加入更多的課程資訊 -->
 								</tbody>
@@ -281,8 +388,10 @@ aside {
 						</div>
 					</div>
 				</div>
+				</section>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- 月曆查詢 -->
 	<div id="calendar"></div>
@@ -418,8 +527,29 @@ aside {
 		<button onclick="topFunction()" id="movetop" title="Go to top">
 			&#10548;</button>
 		<script>
-           
-        </script>
+			$(window).on("scroll", function() {
+				var scroll = $(window).scrollTop();
+
+				if (scroll >= 80) {
+					$("#site-header").addClass("nav-fixed");
+				} else {
+					$("#site-header").removeClass("nav-fixed");
+				}
+			});
+			$(".navbar-toggler").on("click", function() {
+				$("header").toggleClass("active");
+			});
+			$(document).on("ready", function() {
+				if ($(window).width() > 991) {
+					$("header").removeClass("active");
+				}
+				$(window).on("resize", function() {
+					if ($(window).width() > 991) {
+						$("header").removeClass("active");
+					}
+				});
+			});
+		</script>
 		<!-- /move top -->
 	</section>
 
@@ -435,9 +565,9 @@ aside {
 	<script src="assets/js/owl.carousel.js"></script>
 	<!-- script for banner slider-->
 	<script>
-     
-    </script>
-	
+		
+	</script>
+
 
 	<script src="assets/js/bootstrap.min.js"></script>
 

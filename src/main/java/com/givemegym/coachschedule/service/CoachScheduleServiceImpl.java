@@ -14,43 +14,8 @@ public class CoachScheduleServiceImpl implements CoachScheduleService {
 	private CoachScheduleDao coachSchedulDao;
 
 	@Override
-	public boolean isDup(Integer coachScheduleId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public CoachScheduleVo saveOrUpdate(CoachScheduleVo CoachSchedulVo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteById(Integer coachScheduleId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public Optional<CoachScheduleVo> findById(Integer coachSchedulId) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
-
-	@Override
-	public List<CoachScheduleVo> findAll() {
-		return null;
-	}
-
-
-	
-	public Optional<CoachScheduleVo> findById() {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
-
-	@Override
 	public List<CoachScheduleVo> findByCoachId(Integer coachSchedulId) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

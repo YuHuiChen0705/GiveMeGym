@@ -18,21 +18,22 @@ public class ProclassOrderServiceImpt implements ProclassOrderService {
 
 	    @Override
 	    public void addProclassOrder(ProclassOrderVo proclassOrder) {
-	        proclassOrderDao.addProclassOrder(proclassOrder);
+//	        proclassOrderDao.addProclassOrder(proclassOrder);
 	    }
 
 	    @Override
 	    public List<ProclassOrderVo> findByMemberId(Integer memberId) {
-	        return proclassOrderDao.findByMemberId(memberId);
+			
+         return proclassOrderDao.findByMemberId(memberId);
 	    }
 
 	    @Override
 	    public void cancelProclassOrder(Integer proClassOrderId) {
-	        proclassOrderDao.cancelProclassOrder(proClassOrderId);
+//	        proclassOrderDao.cancelProclassOrder(proClassOrderId);
 	    }
 
 	    @Override
-	    public List<Object[]> findByCoachId(Integer coachId) {
+	    public List<ProclassOrderVo> findByCoachId(Integer coachId) {
 	        return proclassOrderDao.findByCoachId(coachId);
 	    }
 }
