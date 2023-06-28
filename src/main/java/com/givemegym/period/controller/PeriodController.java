@@ -1,15 +1,10 @@
 package com.givemegym.period.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.givemegym.coachSchedule_B.service.CoachScheduleService_B;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
-import com.givemegym.coachSchedule_B.vo.CoachSchedule;
 import com.givemegym.course.service.CourseService;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseorder.service.CourseOrderService;
-import com.givemegym.courseschedule.CourseScheduleItem;
-import com.givemegym.courseschedule.CourseScheduleRequest;
 import com.givemegym.courseschedule.service.CourseScheduleService;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.PeriodForm;
@@ -23,11 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.sql.Date;
 
 @Controller
 public class PeriodController {
@@ -47,8 +39,6 @@ public class PeriodController {
     @Autowired
     private CourseOrderService courseOrderService;
 
-    @Autowired
-    private CoachScheduleService_B coachScheduleService;
 
     //==================================後台=========================================//
     // 查詢報名時段列表
