@@ -334,8 +334,9 @@
                             <option value="2" th:selected="${order.status == 2}">已退款</option>
                             <option value="3" th:selected="${order.status == 3}">已完成</option>
                             </select>
-
                             <button type="submit" class="btn btn-primary" style="margin: 0 30px 0 0 ">確認修改</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="window.location.href = '/getAllOrder'">回訂單列表</button>
                         </form>
 
                     </div>

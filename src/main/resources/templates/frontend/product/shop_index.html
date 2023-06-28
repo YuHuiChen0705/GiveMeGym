@@ -35,7 +35,7 @@
 <header id="site-header" class="fixed-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg stroke">
-            <h1> <a class="navbar-brand" href="/GiveMeGym/index">
+            <h1><a class="navbar-brand" href="/GiveMeGym/index">
                 <span class="lnr lnr-bicycle"></span> Give Me Gym
             </a></h1>
             <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
@@ -90,10 +90,10 @@
         <!-- 側邊欄內容 -->
         <h2>篩選條件</h2>
         <select id="category-filter">
-            <option value="0" style="text-align: center;" >全部分類</option>
-            <option value="1" style="text-align: center;" >分類1</option>
-            <option value="2" style="text-align: center;" >分類2</option>
-            <option value="3" style="text-align: center;" >分類3</option>
+            <option value="0" style="text-align: center;">全部分類</option>
+            <option value="1" style="text-align: center;">健身器具</option>
+            <option value="2" style="text-align: center;">營養保健</option>
+            <option value="3" style="text-align: center;">運動服飾</option>
             <!-- 其他分類選項 -->
         </select>
         <h2>排序</h2>
@@ -107,40 +107,41 @@
         <div class="agileinfo-ads-display col-md-9">
             <div class="wrapper">
                 <!-- section product -->
-                <div class="product-sec1">
+                <div class="product-sec1" id="product-container">
 
-                        <div class="col-md-4 product-men" th:each="product, index:${productList.stream().toArray()}">
-                            <input type="hidden" class="addToCartId" name="productId" th:value="${product.productId}"/>
-                            <div class="men-pro-item simpleCart_shelfItem">
-                                <div class="men-thumb-item">
+                    <div class="col-md-4 product-men" th:each="product, index:${productList.stream().toArray()}">
+                        <input type="hidden" class="addToCartId" name="productId" th:value="${product.productId}"/>
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item">
 
-                                    <img th:if="${not #sets.isEmpty(product.pdImages)}" th:src="@{/image/{productId}(productId=${product.productId})}"
-                                         class="img-responsive">
-                                    <img th:unless="${not #sets.isEmpty(product.pdImages)}"
-                                         src="/shop_19/images/nopic.jpg" alt="" class="img-responsive">
+                                <img th:if="${not #sets.isEmpty(product.pdImages)}"
+                                     th:src="@{/image/{productId}(productId=${product.productId})}"
+                                     class="img-responsive">
+                                <img th:unless="${not #sets.isEmpty(product.pdImages)}"
+                                     src="/shop_19/images/nopic.jpg" alt="" class="img-responsive">
 
-                                    <div class="men-cart-pro">
-                                        <div class="inner-men-cart-pro">
-                                            <a th:onclick="'window.location.href=\'/shopSingleProduct/' + ${product.productId} + '\''"
-                                               class="link-product-add-cart">瀏覽商品</a>
-                                        </div>
-                                    </div>
-                                    <span class="product-new-top">熱銷</span>
-                                </div>
-                                <div class="item-info-product ">
-                                    <h4>
+                                <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
                                         <a th:onclick="'window.location.href=\'/shopSingleProduct/' + ${product.productId} + '\''"
-                                           th:text="${product.productName}"></a>
-                                    </h4>
-                                    <div class="info-product-price">
-                                        <span class="item_price" th:text="'$'+${product.productPrice}"></span>
+                                           class="link-product-add-cart">瀏覽商品</a>
                                     </div>
-                                    <div>
-                                        <button type="button" name="submit" class="cart_btn">加入購物車</button>
-                                    </div>
+                                </div>
+                                <span class="product-new-top">熱銷</span>
+                            </div>
+                            <div class="item-info-product ">
+                                <h4>
+                                    <a th:onclick="'window.location.href=\'/shopSingleProduct/' + ${product.productId} + '\''"
+                                       th:text="${product.productName}"></a>
+                                </h4>
+                                <div class="info-product-price">
+                                    <span class="item_price" th:text="'$'+${product.productPrice}"></span>
+                                </div>
+                                <div>
+                                    <button type="button" name="submit" class="cart_btn">加入購物車</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <div class="clearfix"></div>
                 </div>
@@ -305,16 +306,16 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(cartItem),
-            success: function(response) {
+            success: function (response) {
                 //有空再換sweet alert啦
-                if(response){
+                if (response) {
                     alert("商品已添加到購物車！");
-                }else{
+                } else {
                     alert("尚未登入會員，請登入");
                     window.location.href = '/front_Member/login';
                 }
             },
-            error: function() {
+            error: function () {
                 alert("添加商品到購物車失敗！");
             }
         });
@@ -322,17 +323,13 @@
 
 </script>
 
-<!--<script>-->
-<!--    const category = document.getElementById("category-filter");-->
-<!--    category.addEventListener("change",function (){-->
-<!--        if(category.value===0) {-->
-<!--            -->
-<!--        }else if(category.value===1){-->
-<!--            -->
-<!--        }else if(category.value===2){-->
-<!--            -->
-<!--        }   });-->
-<!--</script>-->
+<script>
+    const category = document.getElementById("category-filter");
+    category.addEventListener("change", function () {
+        console.log(category.value);
+        window.location.href = "/shopCategoryProduct/" + category.value;
+    });
+</script>
 
 <script>
     jQuery(document).ready(function () {

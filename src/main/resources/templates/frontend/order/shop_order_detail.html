@@ -81,10 +81,10 @@
                 <h3 class="agileits-sear-head">會員專區</h3>
                 <ul>
                     <li>
-                        <a class="btn-outline-secondary" href="">個人資料</a>
+                        <a class="btn-outline-secondary" href="/front_Member/memberData">個人資料</a>
                     </li>
                     <li>
-                        <a class="btn-outline-secondary" href="">資料修改</a>
+                        <a class="btn-outline-secondary" href="/front_Member/memberDataModify">資料修改</a>
                     </li>
                     <li>
                         <a class="btn-outline-secondary" href="">密碼修改</a>
@@ -108,7 +108,7 @@
                 <h3 class="agileits-sear-head">商城專區</h3>
                 <ul>
                     <li>
-                        <a class="btn-outline-secondary" href="">商城訂單查詢</a>
+                        <a class="btn-outline-secondary" href="/memberOrderList">商城訂單查詢</a>
                     </li>
                 </ul>
             </div>
@@ -134,13 +134,22 @@
                     <tbody class="shop-order" id="shopOrder">
                     <tr class="shop-order" th:each="order:${orders}">
                         <td class="shop-order orderId" th:text="${order.id}" style="text-align: center"></td>
-                        <td class="shop-order"  style="text-align: center"
+                        <td class="shop-order" style="text-align: center"
                             th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td class="shop-order" style="text-align: center" th:text="'$'+${order.totalPrice}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="${order.status}">已完成</td>
+                        <td class="shop-order" style="text-align: center">
+                              <span th:switch="${order.status}">
+                                <span th:case="0">已取消</span>
+                                <span th:case="1">已成立</span>
+                                <span th:case="2">已退款</span>
+                                <span th:case="3">已完成</span>
+                                <span th:case="*" th:text="'狀態'"></span> <!-- 默認情況下不匹配任何選項，可以自定義默認值 -->
+                              </span>
+                        </td>
                         <td class="shop-order" style="text-align: center">
                             <button type="button" class="btn_modal viewDetails"
-                                    th:onclick="'viewDetails(\'' + ${order.id} + '\')'">查看</button>
+                                    th:onclick="'viewDetails(\'' + ${order.id} + '\')'">查看
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -401,12 +410,12 @@
 
 <script th:inline="javascript">
     function viewDetails(orderId) {
-        $.get('/orders/' + orderId + '/details', function(orderDetails) {
+        $.get('/orders/' + orderId + '/details', function (orderDetails) {
             // 清空表格内容
             $('#productDetailsTable tbody').empty();
 
             // 迭代处理订单详情列表
-            $.each(orderDetails, function(index, detail) {
+            $.each(orderDetails, function (index, detail) {
                 // 创建新的行
                 var row = $('<tr>');
 
@@ -420,11 +429,11 @@
                 // 将新行添加到表格
                 row.appendTo('#productDetailsTable tbody');
             });
-        }).fail(function(error) {
+        }).fail(function (error) {
             console.error('Error:', error);
         });
 
-        $.get('/orders/' + orderId , function(order) {
+        $.get('/orders/' + orderId, function (order) {
             // 清空表格内容
             $('#orderDetailsTable tbody').empty();
 
@@ -438,7 +447,7 @@
             var row = document.createElement('tr');
 
             // Iterate through the keyOrder array and add the corresponding values as cells in the row
-            keyOrder.forEach(function(key) {
+            keyOrder.forEach(function (key) {
                 var value = order[key];
 
                 var cell = document.createElement('td');
@@ -451,7 +460,7 @@
             tbody.appendChild(row);
 
 
-        }).fail(function(error) {
+        }).fail(function (error) {
             console.error('Error:', error);
         });
 
