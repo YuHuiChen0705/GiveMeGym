@@ -1,4 +1,4 @@
-package com.givemegym.coachSkill.dao;
+package com.givemegym.coachskill.dao;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

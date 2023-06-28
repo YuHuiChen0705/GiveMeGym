@@ -22,8 +22,8 @@ $(document).ready(function() {
 					alert("登入成功");
 					// 登入成功後，將會員 ID 存儲到 session
 					sessionStorage.setItem("memberId", memberId)
-					// 登入成功，執行相應的操作
-					window.location.href = '/front_Employee/memberData';
+					// 登入成功，進入後台首頁
+					window.location.href = '/GiveMeGym/backend/index';
 				} else {
 					// 登入成功，執行相應的操作
 					alert("登入失敗，請確認信箱與密碼是否正確");

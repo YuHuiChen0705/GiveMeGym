@@ -11,7 +11,11 @@ public interface MemberService {
 
 	/* 新增或修改問題 */
 	MemberVO saveOrUpdate(MemberVO MemberVO);
-
+	
+	public MemberVO modifyMemberData(Integer memberId, MemberVO MemberVO);
+	
+	public MemberVO modifyPassword(String memberMail,String memberPassword,String newPassword);
+	
 	/* 刪除 根據ID刪除單一問題 */
 	void deleteById(Integer memberId);
 
@@ -37,5 +41,7 @@ public interface MemberService {
 	void recoverStatus(Integer memberId);
 
 	void saveMemberViolations(Integer memberId ,Integer memberViolations);
+
+
 
 }
