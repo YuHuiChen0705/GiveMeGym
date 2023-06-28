@@ -73,12 +73,7 @@ public class ShopCartController {
     @GetMapping("/shopCartByMember")
     public List<DetailDTO> findShopCart(HttpSession session) {
         Integer memberId = (Integer) session.getAttribute("memberId");
-        if (memberId != null) {
-            return shopCartService.findAllItem(memberId);
-        } else {
-            System.out.println("沒找到Id");
-            return null;
-        }
+        return shopCartService.findAllItem(memberId);
     }
 
     @ResponseBody
@@ -148,7 +143,7 @@ public class ShopCartController {
 
                     orderDetail.add(detail);
                 }
-            }else{
+            } else {
                 return new ResponseEntity<>("訂單處理失敗", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
@@ -159,12 +154,13 @@ public class ShopCartController {
         return new ResponseEntity<>("訂單處理失敗", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ResponseBody
     @GetMapping("/cleanShopCart")
     public String cleanShopCart(HttpSession session) {
         Integer memberId = (Integer) session.getAttribute("memberId");
-        if (memberId != null)
+        if (memberId != null){
             shopCartService.cleanAllCart(memberId);
-
-        return "redirect:/shopAllProduct";
+        }
+        return "/shopAllProduct";
     }
 }

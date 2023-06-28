@@ -7,7 +7,7 @@ function getShopCart() {
             console.log(response);
             const tableBody = document.getElementById("tableBody");
             let html = "";
-            if (response) {
+            if (response && response.length > 0) {
                 // 迭代取出物件  變成
                 response.forEach(item => {
                     html += `<tr>
@@ -155,10 +155,12 @@ function eventButton() {
 
     function cleanShopCart() {
         if (confirm("要清空購物車嗎?")) {
+            console.log("準備呼叫AJAX")
             $.ajax({
                 url: '/cleanShopCart',
                 type: 'GET',
                 success: function (response) {
+                    console.log("呼叫AJAX成功")
                     window.location.href = response;
                 },
                 error: function (xhr, status, error) {
