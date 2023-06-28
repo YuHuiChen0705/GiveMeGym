@@ -1,4 +1,4 @@
-package com.givemegym.coachSkill.service;
+package com.givemegym.coachskill.service;
 
 public interface CoachSkillService {
 }

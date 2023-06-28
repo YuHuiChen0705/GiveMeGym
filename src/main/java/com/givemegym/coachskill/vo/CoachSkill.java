@@ -1,4 +1,4 @@
-package com.givemegym.coachSkill.vo;
+package com.givemegym.coachskill.vo;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

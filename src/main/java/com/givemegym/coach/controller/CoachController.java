@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
-import com.givemegym.coachSkill.vo.CoachSkill;
+import com.givemegym.coachskill.vo.CoachSkill;
 import com.givemegym.skill.service.SkillService;
 import com.givemegym.skill.vo.Skill;
 
