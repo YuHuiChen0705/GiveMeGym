@@ -2,44 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Workout - Sports Category Responsive Website Template | Classes : W3layouts</title>
-    <!-- JQuery連結-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <title>通通給我健起來Give Me Gym Center</title>
+
     <!-- 字體樣式 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-    </style>
+
     <!-- Template CSS -->
     <link rel="stylesheet" th:href="@{/course_44/assets/css/style-starter.css}">
+
+    <!-- bootstrap5 CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/course_44/css/bootStrap5.css}">
+
 
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- bootstrap5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <style>
-        /* 連結底線設定 */
-        a.foot {
-            text-decoration: underline;
-            color: black;
-        }
-
-        table {
-            text-align: center;
-        }
-    </style>
 </head>
+
 
 <body>
 <!--header-->
@@ -55,6 +42,7 @@
                 <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
                 <span class="navbar-toggler-icon fa icon-close fa-times"></span>
             </button>
+
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto">
@@ -92,13 +80,15 @@
 <!--團課標題-->
 <main>
     <section class="w3l-breadcrumb">
-        <div class="breadcrumb-bg breadcrumb-bg-classes py-5">
+        <div class="breadcrumb-bg breadcrumb-bg-classes py-5" style="background-image: url('/course_44/image/banner5.jpg');">
             <div class="container py-lg-5 py-md-3">
                 <h3 class="title-big text-center">團課課程</h3>
                 <p class="mt-3">線上報名團課</p>
             </div>
         </div>
     </section>
+
+
 
     <nav class="navbar navbar-expand-xl navbar-light bg-light py-4" id="nm">
         <div class="container py-lg-5 py-md-3">
@@ -143,21 +133,21 @@
                             <th class="align-middle">報名</th>
                         </tr>
                         <tr th:each="period : ${findCourse}">
-                            <td th:text="${period.courseOrderBe}"></td>
-                            <td th:text="${period.courseOrderEn}"></td>
-                            <td th:text="${period.peopleUpper}"></td>
-                            <td th:text="${period.peopleLower}"></td>
-                            <td th:text="${period.orders.size()}"></td>
-                            <td th:text="${period.coursePrice}"></td>
-                            <td th:text="${period.courseNumber}"></td>
-                            <td>
+                            <td class="align-middle text-center" th:text="${period.courseOrderBe}"></td>
+                            <td class="align-middle text-center" th:text="${period.courseOrderEn}"></td>
+                            <td class="align-middle text-center" th:text="${period.peopleUpper}"></td>
+                            <td class="align-middle text-center" th:text="${period.peopleLower}"></td>
+                            <td class="align-middle text-center" th:text="${period.orders.size()}"></td>
+                            <td class="align-middle text-center" th:text="${period.coursePrice}"></td>
+                            <td class="align-middle text-center" th:text="${period.courseNumber}"></td>
+                            <td class="align-middle text-center">
                                 <span th:each="schedule, status : ${period.schedules}">
                                     <span th:text="${schedule.courseScheduleDate}"></span>
                                     <span th:text="${schedule.courseScheduleTime}">, </span>
                                     <span th:unless="${status.last}">, </span>
                                 </span>
                             </td>
-                            <td>
+                            <td class="align-middle text-center">
                                 <button type="button" class="btn btn-dark"
                                         th:if="${session.memberId == null}"
                                         onclick="alert('尚未登入會員，請登入'); window.location.href = '/front_Member/login';">
@@ -312,6 +302,10 @@
         }
     </script>
     <!-- /move top -->
+
+    <!-- 導覽列及按鈕-->
+    <script th:src="@{/course_44/js/nav.js}"></script>
+
 </section>
 
 </body>
