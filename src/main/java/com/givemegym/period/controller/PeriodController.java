@@ -1,10 +1,13 @@
 package com.givemegym.period.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
 import com.givemegym.course.service.CourseService;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseorder.service.CourseOrderService;
+import com.givemegym.courseschedule.CourseScheduleItem;
+import com.givemegym.courseschedule.CourseScheduleRequest;
 import com.givemegym.courseschedule.service.CourseScheduleService;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.PeriodForm;
@@ -18,8 +21,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.sql.Date;
 
 @Controller
 public class PeriodController {
@@ -70,11 +75,8 @@ public class PeriodController {
     // 新增報名時段
     @PostMapping("/backend_period/save")
     public String save(
-            @ModelAttribute("form") @Valid PeriodForm form, BindingResult result) {
+            @ModelAttribute("form") @Valid PeriodForm form) {
 
-        if (result.hasErrors()) {
-            return "backend/period/addPeriod";
-        }
 
         Period period = form.getPeriod();
         periodService.save(period);
@@ -112,24 +114,28 @@ public class PeriodController {
 //                String courseScheduleTime = item.getCourseScheduleTime();
 //                System.out.println(courseScheduleTime);
 //
-//                List<CourseSchedule> courseSchedules = courseScheduleService.findSchedules(courseDate, courseScheduleTime, coachId);
+//                List<CourseSchedule> courseSchedules = courseScheduleService.findSchedules(courseDate,courseScheduleTime,coachId);
+//                System.out.println(courseSchedules);
 //
 //                for (CourseSchedule exCourseSchedule : courseSchedules) {
-//                    LocalDate exCourseScheduleDate = exCourseSchedule.getCourseScheduleDate().toLocalDate();
+//                    Date exCourseScheduleDate = exCourseSchedule.getCourseScheduleDate();
+//                    System.out.println(exCourseScheduleDate);
 //                    String exCourseScheduleTime = exCourseSchedule.getCourseScheduleTime();
-//
-//                    if (exCourseScheduleDate.isEqual(courseDate) && exCourseScheduleTime.equals(courseScheduleTime)) {
-//                        return true;
+//                    System.out.println(exCourseScheduleTime);
+//                    if (exCourseScheduleDate.equals(courseDate) && exCourseScheduleTime.equals(courseScheduleTime)) {
+//                        return true; // 存在冲突，无法新增
 //                    }
 //                }
 //            }
 //
-//            return false;
+//            return false; // 无冲突，可以新增
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            return false;
 //        }
 //    }
+
+
 
 
     // 導入修改團課的頁面
