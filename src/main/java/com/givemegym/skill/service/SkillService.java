@@ -7,4 +7,10 @@ import com.givemegym.skill.vo.Skill;
 public interface SkillService {
 
 	public List<Skill> findAlltheSkills(int coachId);
+	
+	public List<Skill> showTheSkillList();
+	
+	public void save(Skill theSkill);
+	
+	public void deleteById(int theId);
 }

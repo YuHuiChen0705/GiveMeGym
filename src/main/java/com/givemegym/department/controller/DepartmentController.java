@@ -1,4 +1,4 @@
-package com.givemegym.emp.controller;
+package com.givemegym.department.controller;
 
 import java.util.List;
 
@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.givemegym.emp.service.DepartmentService;
-import com.givemegym.emp.vo.Department;
+import com.givemegym.department.service.DepartmentService;
+import com.givemegym.department.vo.Department;
+
+
 
 @Controller
 @RequestMapping("/backend_department")

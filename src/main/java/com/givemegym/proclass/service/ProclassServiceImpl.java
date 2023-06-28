@@ -24,21 +24,12 @@ public class ProclassServiceImpl implements ProclassService {
 	}
 
 	@Override
-	public Proclass findById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void save(Proclass theEmployee) {
-		// TODO Auto-generated method stub
-		
+	public void save(Proclass theProclass) {
+		proclassDao.save(theProclass);
 	}
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
-		
+		proclassDao.deleteById(theId);
 	}
-
 }

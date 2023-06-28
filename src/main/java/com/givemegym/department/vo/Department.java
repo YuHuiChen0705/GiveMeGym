@@ -1,4 +1,4 @@
-package com.givemegym.emp.vo;
+package com.givemegym.department.vo;
 
 
 import lombok.AllArgsConstructor;

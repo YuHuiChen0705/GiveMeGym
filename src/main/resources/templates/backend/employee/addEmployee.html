@@ -1,87 +1,334 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
+
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>新增員工</title>
+<link rel="stylesheet" href="assets/css/style-starter.css">
 
-<head th:insert="~{/back-end/emp/included-fragment}"></head>
-<style type="text/css">
-	
- h1 {
-      text-align: center;
-      margin-top: 50px;
-    }
+<!-- bootstrap5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
-    .form-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<head>
+    <title>員工後台</title>
+    <style>
+        body {
+            background-color: #fef8f0f9;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
 
-    .form-row label {
-      margin-right: 10px;
-    }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
 
-    .form-row input[type="text"] {
-      margin-right: 10px;
-    }
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff0000;
+            padding: 0px 10px;
 
-    .form-row input[type="password"] {
-      margin-right: 10px;
-    }
-</style>
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+        }
+
+        .user .name {
+            margin-right: 10px;
+            color: #5f5d5d;
+        }
+
+        .sidebar {
+            width: 130px;
+            background-color: #5f5d5d;
+            opacity: 0.8;
+            padding: 10px 15px;
+            margin: 0px 20px;
+            float: left;
+        }
+
+        .sidebar h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fef8f0f9;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fef8f0f9;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .sidebar li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar li a:hover {
+            color: #aaa;
+        }
+
+        .submenu {
+            margin-left: 10px;
+        }
+
+        .submenu ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            background-color: #fff;
+            color: #000;
+            display: none;
+        }
+
+        .submenu li {
+            margin-bottom: 5px;
+        }
+
+        .btn-style {
+            padding: 10px 32px;
+            font-size: 16px;
+            line-height: 26px;
+            font-weight: 600;
+            transition: 0.3s ease-in;
+            border-radius: 6px;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .m-4 {
+            margin: 1.5rem !important;
+        }
+
+        .content {
+            margin-left: 320px;
+        }
+
+        .content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .error {
+            color: red;
+        }
+
+    </style>
+
 </head>
+
 <body>
+<header class="header">
+    <div class="logo">Give Me Gym</div>
+    <div class="user">
+        <div class="name">User Name</div>
+        <a class="btn btn-style btn-primary  mt-4">登出</a>
+    </div>
+</header>
+
+<div class="body-Content" style="display: flex;">
+    <div class="sidebar">
+        <h1>首頁</h1>
+
+        <h2>員工管理</h2>
+        <ul>
+            <li class="nav-item @@about__active"><a class="nav-link" href="addemp.html">新增員工</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢員工</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">員工權限</a></li>
+        </ul>
+
+        <h2>會員管理</h2>
+        <ul>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增會員</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢會員</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">會員權限</a></li>
+        </ul>
+
+        <h2>商城管理</h2>
+        <ul>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">商品管理</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">訂單管理</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">庫存管理</a></li>
+        </ul>
+
+        <h2>教練管理</h2>
+        <ul>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">教練名單</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增教練</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">班表查看</a></li>
+        </ul>
+
+        <h2>團課管理</h2>
+        <ul>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增團課</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢團課</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">團課排班</a></li>
+        </ul>
+
+        <h2>客服管理</h2>
+        <ul>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">客戶查詢</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">訂單查詢</a></li>
+            <li class="nav-item @@about__active"><a class="nav-link" href="#">FAQ管理</a></li>
+        </ul>
+    </div>
 
 
-	<form th:action="@{/backend_employee/saveOrUpdate}" method="post"
-		enctype="multipart/form-data" id="form"
-		class=" needs-validation row text-dark" th:object="${employee}"
-		novalidate>
+    <div class="container py-5">
+        <div class="row">
+            <h3 class="text-dark mb-4 text-center">員工管理</h3>
+            <div class="col-lg-10 col-sm-10 m-auto">
+                <div class="bg-white shadow border-top border-dark border-3 p-3 p-sm-5 rounded">
+                    <div class="text-center mb-5">
+                        <h4 class="rounded-pill border border-5 text-dark">新增員工</h4>
+                    </div> 
+                  
+                   <form th:action="@{/backend_employee/saveOrUpdate}" method="post" enctype="multipart/form-data"
+                          id="form" class=" needs-validation row text-dark" th:object="${employee}" novalidate>
+						<div class="form-group">
+						<label>員工部門</label>
+							<!--這裡的name是department.id，因為傳入的參數為id-->
+						<select class="form-control" name="department.departmentId">
+							<option  value="1">人事部門</option>
+							<option  value="2">營運部門</option>
+							<option  value="3">客服部門</option>
+							<option  value="4">教練部門</option>
+						</select>
+						</div>  
+											
+						<div class="form-group">
+						<label>員工姓名</label>
+							<input type="text" name="employeeName" class="form-control" placeholder="請輸入姓名">
+						</div>
+		
+						<div class="form-group">
+						<label>員工信箱</label>
+						<input type="email" name="employeeMail" class="form-control" placeholder="email:123@gmgc.com">
+						</div>
+						
+						<div class="form-group">
+						<label>員工密碼</label>
+							<input type="password" name="employeePassword" class="form-control" placeholder="">
+						</div>
+						
+						<div class="form-group">
+						<label>員工狀態</label><br/>
+						<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="employeeState" value="0">
+						<label class="form-check-label">在職</label>
+						</div>
+						<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="employeeState" value="1">
+						<label class="form-check-label">離職</label>
+						</div>
+						</div>
+						<button type="submit" class="btn btn-primary">新增</button>
+					</form> 
+					 	
+					
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="content">
+    <iframe id="content" src=""></iframe>
+</div>
 
-		<div class="form-row">
-			<label for="employeeId">員工編號:</label> <input type="text"
-				id="employeeId" name="employeeId" placeholder="輸入員工編號">
-		</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2');
 
-		<div class="form-row">
-			<label for="departmentId">部門編號:</label> <input type="text"
-				id="departmentId" name="departmentId" placeholder="輸入部門編號">
-		</div>
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    });
+
+    function loadContent(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById("content").innerHTML = xhr.responseText;
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const url = link.getAttribute('href');
+                loadContent(url);
+            });
+        });
+    });
+
+    function loadAddEmpPage() {
+        document.getElementById('content').src = 'addemp.html';
+    }
+</script>
+<!--Jquery-->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- 驗證 -->
 
 
+<!-- BootStrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+        crossorigin="anonymous"></script>
 
-		<div class="form-row">
-			<label for="employeeName">員工姓名:</label> <input type="text"
-				id="employeeName" name="employeeName" placeholder="輸入員工姓名">
-		</div>
+<!-- 後台 -->
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2');
 
-		<div class="form-row">
-			<label for="employeeMail">員工信箱:</label> <input type="text"
-				id="employeeMail" name="employeeMail" placeholder="輸入員工信箱">
-		</div>
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    });
+</script>
 
-		<div class="form-row">
-			<label for="employeePassword">員工密碼:</label> <input type="password"
-				id="employeePassword" name="employeePassword" placeholder="輸入員工密碼">
-		</div>
 
-		<div class="form-row">
-			<label for="employee_state">員工狀態:</label> <select id="employee_state"
-				name="employee_state">
-				<option value="在職" selected>在職</option>
-				<option value="離職">離職</option>
-			</select>
-		</div>
-
-		<div class="form-row">
-			<input type="submit" value="送出" onclick="submitForm(event)">
-		</div>
-
-		<div class="form-row">
-			<button type="button" onclick="clearForm()">清空</button>
-		</div>
-	</form>	
 </body>
+
 </html>

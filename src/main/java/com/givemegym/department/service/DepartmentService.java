@@ -1,9 +1,11 @@
-package com.givemegym.emp.service;
+package com.givemegym.department.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.givemegym.emp.vo.Department;
+import com.givemegym.department.vo.Department;
+
+
 
 public interface DepartmentService {
 	

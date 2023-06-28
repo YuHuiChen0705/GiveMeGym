@@ -1,10 +1,10 @@
-package com.givemegym.emp.service;
+package com.givemegym.employee.service;
 
 import java.util.List;
 
 import java.util.Optional;
 
-import com.givemegym.emp.vo.Employee;
+import com.givemegym.employee.vo.Employee;
 
 public interface EmployeeService {
 	
@@ -24,5 +24,7 @@ public interface EmployeeService {
     List<Employee> findAll();
 
     /*根據問題類別(四種類別)查問題 比如透過部門找員工*/
-    List<Employee> findByEmployeeId(Integer employeeId);
+    List<Employee> findByEmployeeId(Integer departmentId);
+    
+    
 }
