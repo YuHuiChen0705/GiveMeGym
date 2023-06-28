@@ -2,15 +2,21 @@ package com.givemegym.courseorder.controller;
 
 import com.givemegym.courseorder.service.CourseOrderService;
 import com.givemegym.courseorder.vo.CourseOrder;
+import com.givemegym.mem.service.MemberService;
 import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.service.PeriodService;
 import com.givemegym.period.vo.Period;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +27,9 @@ public class CourseOrderController {
 
     @Autowired
     private CourseOrderService courseOrderService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private PeriodService periodService;
@@ -57,52 +66,75 @@ public class CourseOrderController {
 
 
     //查看該會員有的訂單(想用燈箱)
-    @ResponseBody
     @GetMapping("/backend_courseOrder/orders/{memberId}")
-    public List<CourseOrder> memberOrder(@PathVariable Integer memberId) {
-        return courseOrderService.findByMemberId(memberId);
+    public String memberOrder(@PathVariable Integer memberId, Model model) {
+        List<CourseOrder> orderByMember = courseOrderService.findByMemberId(memberId);
+        model.addAttribute("orderByMember", orderByMember);
+        return "backend/courseOrder/courseOrderMemberList";
     }
 
 
     //    =============================前台================================
 
-    //下單頁面
+    //會員下單頁面
     @GetMapping("/frontend_courseOrder/addOrders/{periodId}")
-    public String toAdd(@PathVariable Integer periodId, ModelMap model) {
+    public String toAdd(@PathVariable Integer periodId, ModelMap model, HttpSession session) {
         Optional<Period> period = periodService.findById(periodId);
         model.addAttribute("period", period);
+
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        MemberVO memberVO = memberService.findByMemberId(memberId);
+        model.addAttribute("memberVO", memberVO);
+
+        List<CourseOrder> courseOrders = courseOrderService.findByMemberId(memberId);
+        model.addAttribute("courseOrders", courseOrders);
         return "frontend/courseOrder/addCourseOrder";
     }
 
 
     // 會員下單某時段的課程
-//    @PostMapping("/addOrder/{periodId}")
-//    public String orderSave(@PathVariable Integer periodId, HttpServletRequest request) {
-//        Member loginMember = (Member) request.getSession().getAttribute("loginMember");
-//        courseOrderService.saveOrder(periodId,loginMember);
-//         return "redirect:/frontend_courseOrder/addOrders/" + periodId;
-//    }
-
-    // 會員下單某時段的課程(先寫死)
     @PostMapping("/frontend_courseOrder/addOrder/{periodId}")
-    public String orderSave(@PathVariable Integer periodId, @ModelAttribute("member") MemberVO member) {
-
-        member.setMemberId(2);
-        courseOrderService.saveOrder(periodId, member);
-        return "redirect:/frontend_course/listAll";
+    public String orderSave(@PathVariable Integer periodId, HttpSession session) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        MemberVO memberVO = memberService.findByMemberId(memberId);
+        courseOrderService.saveOrder(periodId, memberVO);
+        return "redirect:/frontend_courseOrder/orderList/" + memberId;
     }
 
-    // 會員團課課表(渲染頁面)
-//    @GetMapping("/listAll")
-//    public String findAllOrder() {
-//        return "frontend/courseOrder/courseOrderDetail";
-//    }
 
+    //ajax (jquery)檢查訂單否重複，並回傳JSON物件給前端，顯示PERIOD
+    @PostMapping("/frontend_courseOrder/checkOrder")
+    @ResponseBody
+    public Object checkCourseOrder(@RequestBody Period period, HttpSession session) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        MemberVO memberVO = memberService.findByMemberId(memberId);
+        Period periods = periodService.findById(period.getPeriodId()).orElse(null);
+        CourseOrder exCourseOrder = courseOrderService.findCourseOrderByMemberAndPeriod(memberVO, period);
+
+        return exCourseOrder != null ? exCourseOrder.getCourseOrderId() : false;
+    }
+
+
+    // 會員查看團課課表
+    @GetMapping("/frontend_courseOrder/orderList")
+    public String orderList() {
+        return "frontend/courseOrder/courseOrderDetail";
+    }
+
+
+    @ResponseBody
+    @GetMapping("/memberId")
+    public Integer getMemberId(HttpSession session) {
+        return (Integer) session.getAttribute("memberId");
+    }
+
+
+    // 會員查看團課課表
+    @ResponseBody
     @GetMapping("/frontend_courseOrder/orderList/{memberId}")
-    public String orderListAll(@PathVariable Integer memberId, ModelMap model) {
-        List<CourseOrder> orders = courseOrderService.findByMemberId(memberId);
-        model.addAttribute("orders", orders);
-        return null;
+    public List<CourseOrder> orderListAll(@PathVariable Integer memberId) {
+        return courseOrderService.findByMemberId(memberId);
     }
+
 
 }

@@ -1,31 +1,47 @@
 $(document).ready(function () {
 
-    var events = []; // 存储订单数据的数组
-    var memberId = 2;
-    // 从后端获取数据
     $.ajax({
-        url: '/frontend_courseOrder/orderList/' + memberId,
+        url: '/memberId',
         method: 'GET',
         success: function (data) {
-            // 将数据转换为适合的格式并存储在 events 数组中
-            events = data.map(function (order) {
-                return {
-                    title: order.period.courseName + ' (' + order.period.coach + ')',
-                    start: order.courseOrderBe,
-                    end: order.courseOrderEn,
-                    allDay: false
-                };
-            });
-
-            // 更新日历的事件源
-            $('#calendar').fullCalendar('removeEventSources');
-            $('#calendar').fullCalendar('addEventSource', events);
-            $('#calendar').fullCalendar('rerenderEvents');
+            var memberId = data;
+            getOrderList(memberId); // 调用函数获取订单列表
         },
         error: function (error) {
             console.log('Error:', error);
         }
-    })
+    });
+
+    function getOrderList(memberId) {
+        $.ajax({
+            url: '/frontend_courseOrder/orderList/' + memberId,
+            method: 'GET',
+            success: function (data) {
+                // 在这里处理订单列表数据
+                console.log('Order List:', data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+});
+
+
+$(document).ready(function () {
+
+
+    $.ajax({
+        url: '/frontend_courseOrder/orderList/' + memberId,
+        method: 'GET',
+        success: function (data) {
+            // 在数据加载成功后，初始化日历
+            initializeCalendar();
+        },
+        error: function (error) {
+            console.log('Error:', error);
+        }
+    });
 
 
     // 初始化日曆

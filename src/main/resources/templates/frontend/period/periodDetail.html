@@ -93,6 +93,7 @@
                             <th class="align-middle">報名截止時間</th>
                             <th class="align-middle">報名人數上限</th>
                             <th class="align-middle">報名人數下限</th>
+                            <th class="align-middle">目前已報名人數</th>
                             <th class="align-middle">價格</th>
                             <th class="align-middle">堂數</th>
                             <th class="align-middle">上課日期及時段</th>
@@ -103,6 +104,7 @@
                             <td th:text="${period.courseOrderEn}"></td>
                             <td th:text="${period.peopleUpper}"></td>
                             <td th:text="${period.peopleLower}"></td>
+                            <td th:text="${period.orders.size()}"></td>
                             <td th:text="${period.coursePrice}"></td>
                             <td th:text="${period.courseNumber}"></td>
                             <td>
@@ -114,6 +116,12 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-dark"
+                                        th:if="${session.memberId == null}"
+                                        onclick="alert('尚未登入會員，請登入'); window.location.href = '/front_Member/login';">
+                                    我要報名
+                                </button>
+                                <button type="button" class="btn btn-dark"
+                                        th:if="${session.memberId != null}"
                                         th:onclick="'window.location.href=\'/frontend_courseOrder/addOrders/' + ${period.periodId} + '\''">
                                     我要報名
                                 </button>

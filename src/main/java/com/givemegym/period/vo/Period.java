@@ -63,12 +63,10 @@ public class Period {
     private Course course;
 
     @NotNull(message = "請輸入報名開始日期")
-//    @Future(message = "別活在過去")
     @Column(name = "COURSE_ORDER_BE")
     private Date courseOrderBe;
 
     @NotNull(message = "請輸入報名截止日期")
-//    @Future(message = "別活在過去")
     @Column(name = "COURSE_ORDER_EN")
     private Date courseOrderEn;
 

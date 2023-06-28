@@ -1,11 +1,15 @@
 package com.givemegym.period.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.givemegym.coachSchedule_B.service.CoachScheduleService_B;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
+import com.givemegym.coachSchedule_B.vo.CoachSchedule;
 import com.givemegym.course.service.CourseService;
 import com.givemegym.course.vo.Course;
 import com.givemegym.courseorder.service.CourseOrderService;
-import com.givemegym.courseorder.vo.CourseOrder;
+import com.givemegym.courseschedule.CourseScheduleItem;
+import com.givemegym.courseschedule.CourseScheduleRequest;
 import com.givemegym.courseschedule.service.CourseScheduleService;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.PeriodForm;
@@ -19,8 +23,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.sql.Date;
 
 @Controller
 public class PeriodController {
@@ -40,16 +47,15 @@ public class PeriodController {
     @Autowired
     private CourseOrderService courseOrderService;
 
+    @Autowired
+    private CoachScheduleService_B coachScheduleService;
+
     //==================================後台=========================================//
     // 查詢報名時段列表
     @GetMapping("/backend_period/listAll")
     public String findAllPeriod(Model model) {
         List<Period> periodList = periodService.findAll();
         model.addAttribute("periodList", periodList);
-        for (Period period : periodList) {
-            Set<CourseOrder> orderList = courseOrderService.findByCourseOrderStateAndPeriod("已成立", period);
-            period.setOrders(orderList);
-        }
         return "backend/period/periodList";
     }
 
@@ -92,7 +98,48 @@ public class PeriodController {
         return "redirect:/backend_period/listAll";
     }
 
-    ;
+    //ajax (jquery)檢查教練的班表，並回傳JSON物件給前端，顯示此時段無法排
+//    @PostMapping("/frontend_period/checkSchedule")
+//    @ResponseBody
+//    public boolean checkSchedule(@RequestBody String courseSchedule) {
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            CourseScheduleRequest courseScheduleRequestDTO = objectMapper.readValue(courseSchedule, CourseScheduleRequest.class);
+//
+//            List<CourseScheduleItem> courseScheduleList = courseScheduleRequestDTO.getCourseSchedule();
+//            if (courseScheduleList != null && !courseScheduleList.isEmpty()) {
+//                CourseScheduleItem item = courseScheduleList.get(0);
+//                String coach = item.getCoach();
+//                int coachId = Integer.parseInt(item.getCoach());
+//                System.out.println(coachId);
+//
+//                String courseScheduleDate = item.getCourseScheduleDate();
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                java.util.Date utilDate = sdf.parse(courseScheduleDate);
+//                java.sql.Date courseDate = new java.sql.Date(utilDate.getTime());
+//                System.out.println(courseDate);
+//
+//                String courseScheduleTime = item.getCourseScheduleTime();
+//                System.out.println(courseScheduleTime);
+//
+//                List<CourseSchedule> courseSchedules = courseScheduleService.findSchedules(courseDate, courseScheduleTime, coachId);
+//
+//                for (CourseSchedule exCourseSchedule : courseSchedules) {
+//                    LocalDate exCourseScheduleDate = exCourseSchedule.getCourseScheduleDate().toLocalDate();
+//                    String exCourseScheduleTime = exCourseSchedule.getCourseScheduleTime();
+//
+//                    if (exCourseScheduleDate.isEqual(courseDate) && exCourseScheduleTime.equals(courseScheduleTime)) {
+//                        return true;
+//                    }
+//                }
+//            }
+//
+//            return false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
 
     // 導入修改團課的頁面
@@ -121,11 +168,13 @@ public class PeriodController {
         if (Objects.equals(period.getCourseState(), "下架")) {
             // 則將上課時段改為"已取消"
             courseScheduleService.updateCourseScheduleStateToOffByPeriod(period);
+            // 將訂單改成"已取消"
             courseOrderService.updateCourseOrderStateToOffByPeriod(period);
 
         } else {
             // 則將上課時段改為"已成立"
             courseScheduleService.updateCourseScheduleStateToOnByPeriod(period);
+            // 將訂單改成"已成立"
             courseOrderService.updateCourseOrderStateToOnByPeriod(period);
         }
         return "redirect:/backend_period/listAll";
@@ -162,9 +211,15 @@ public class PeriodController {
                 findCourse.add(period);
             }
         }
+//        Java8的寫法
+//        List<Period> findCourse = findAllCourse.stream()
+//                .filter(period -> Objects.equals(period.getCourseState(), "上架"))
+//                .collect(Collectors.toList());
 
         model.addAttribute("findCourse", findCourse);
+//      使用JAVA8的Stream()
         model.addAttribute("courseSchedules", findCourse.stream()
+//      將findCourse列表中每個Period的schedules屬性提取出来，::稱之為方法參考-對方法呼叫的方法
                 .map(Period::getSchedules)
                 .collect(Collectors.toList()));
 

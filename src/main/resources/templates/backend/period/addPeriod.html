@@ -281,7 +281,7 @@
                         <div class="col-md-6" name="coachContainer">
                             <label class="form-label">教練</label>
                             <select class="form-control" th:field="${form.courseSchedules[0].coach}"
-                                    required>
+                                    id="coach1" required>
                                 <option th:each="coach: ${coachListData}"
                                         th:value="${coach.coachId}"
                                         th:text="${coach.coachName}"></option>
@@ -293,7 +293,7 @@
                         <div class="col-md-6" name="coachContainer">
                             <label class="form-label">教練</label>
                             <select class="form-control" th:field="${form.courseSchedules[1].coach}"
-                                    required>
+                                    id="coach2" required>
                                 <option th:each="coach: ${coachListData}"
                                         th:value="${coach.coachId}"
                                         th:text="${coach.coachName}"></option>
@@ -305,7 +305,7 @@
                         <div class="col-md-6" name="coachContainer">
                             <label class="form-label">教練</label>
                             <select class="form-control" th:field="${form.courseSchedules[2].coach}"
-                                    required>
+                                    id="coach3" required>
                                 <option th:each="coach: ${coachListData}"
                                         th:value="${coach.coachId}"
                                         th:text="${coach.coachName}"></option>
@@ -317,7 +317,7 @@
                         <div class="col-md-6" name="coachContainer">
                             <label class="form-label">教練</label>
                             <select class="form-control" th:field="${form.courseSchedules[3].coach}"
-                                    required>
+                                    id="coach4" required>
                                 <option th:each="coach: ${coachListData}"
                                         th:value="${coach.coachId}"
                                         th:text="${coach.coachName}"></option>
@@ -366,7 +366,7 @@
                         <div class="col-md-6" name="timeContainer">
                             <label class="form-label">上課時段</label>
                             <select class="form-select" th:field="${form.courseSchedules[0].courseScheduleTime}"
-                                    required>
+                                    id="courseScheduleTime1" required>
                                 <option value="早">早</option>
                                 <option value="中">中</option>
                                 <option value="晚">晚</option>
@@ -378,7 +378,7 @@
                         <div class="col-md-6" name="timeContainer">
                             <label class="form-label">上課時段</label>
                             <select class="form-select" th:field="${form.courseSchedules[1].courseScheduleTime}"
-                                    required>
+                                    id="courseScheduleTime2" required>
                                 <option value="早">早</option>
                                 <option value="中">中</option>
                                 <option value="晚">晚</option>
@@ -390,7 +390,7 @@
                         <div class="col-md-6" name="timeContainer">
                             <label class="form-label">上課時段</label>
                             <select class="form-select" th:field="${form.courseSchedules[2].courseScheduleTime}"
-                                    required>
+                                    id="courseScheduleTime3" required>
                                 <option value="早">早</option>
                                 <option value="中">中</option>
                                 <option value="晚">晚</option>
@@ -402,7 +402,7 @@
                         <div class="col-md-6" name="timeContainer">
                             <label class="form-label">上課時段</label>
                             <select class="form-select" th:field="${form.courseSchedules[3].courseScheduleTime}"
-                                    required>
+                                    id="courseScheduleTime4" required>
                                 <option value="早">早</option>
                                 <option value="中">中</option>
                                 <option value="晚">晚</option>
@@ -413,7 +413,9 @@
                         </div>
                         <hr class="my-4">
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-dark btn-lg" id="check">確認</button>
+                            <button type="submit" class="btn btn-dark btn-lg" id="check" onclick="getCourseSchedule()">
+                                確認
+                            </button>
                         </div>
                         <hr class="my-4">
                     </form>
@@ -605,6 +607,68 @@
     });
 </script>
 
+
+<script>
+
+    $(document).ready(function () {
+        $("#check").click(function () {
+            check();
+        });
+    });
+
+    function getCourseSchedule() {
+        const courseSchedules = [];
+
+        const coach1 = document.querySelector('select[id="coach1"]');
+        const coach1Value = coach1.value;
+        console.log(coach1Value);
+
+        const date1 = document.querySelector('input[id="C_date3"]');
+        const date1Value = date1.value;
+        const time1 = document.querySelector('select[id="courseScheduleTime1"]');
+        const time1Value = time1.value;
+        const schedule1 = {
+            coach: coach1Value,
+            courseScheduleDate: date1Value,
+            courseScheduleTime: time1Value
+        };
+
+        courseSchedules.push(schedule1);
+        console.log(schedule1)
+
+        // const coach2 = document.querySelector('select[id="coach2"]');
+        // const coach2Value = coach2.value;
+        //
+        // const schedule2 = {
+        //     coach: "coach2Value",
+        //     courseScheduleDate: "Date 1",
+        //     courseScheduleTime: "Time 1"
+        // };
+        // courseSchedules.push(schedule1);
+
+        $.ajax({
+            url: "/frontend_period/checkSchedule",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({courseSchedule: courseSchedules}),
+            success: function (response) {
+                console.log(response);
+                if (response === true) {
+                    alert("已有時段 " + response);
+                } else {
+                    alert("新增成功");
+                    $("#form").submit();
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+</script>
 
 </body>
 

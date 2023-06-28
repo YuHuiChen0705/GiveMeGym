@@ -40,4 +40,6 @@ public class CourseOrder {
     @ManyToOne()
     @JoinColumn(name = "MEMBER_ID")
     private MemberVO member;
+
+
 }

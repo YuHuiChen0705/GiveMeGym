@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -24,7 +21,6 @@ public class CourseOrderServiceImpl implements CourseOrderService {
 
     @Autowired
     PeriodDao periodDao;
-
 
 
     @Override
@@ -64,14 +60,10 @@ public class CourseOrderServiceImpl implements CourseOrderService {
         order.setMember(member);
         order.setCourseOrderTotalPrice(period.getCoursePrice());
         order.setCourseOrderDate(new Date());
-        order.setCourseOrderState("已付款");
+        order.setCourseOrderState("已成立");
         courseOrderDao.save(order);
     }
 
-    @Override
-    public List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member) {
-        return null;
-    }
 
     @Override
     public void sendNotifyEmail(String recipient, String subject, String message) {
@@ -110,8 +102,31 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     @Override
-    public Set<CourseOrder> findByCourseOrderStateAndPeriod(String courseOrderState, Period period) {
+    public List<CourseOrder> findByCourseOrderStateAndPeriod(String courseOrderState, Period period) {
         return courseOrderDao.findByCourseOrderStateAndPeriod(courseOrderState, period);
+    }
+
+    @Override
+    public CourseOrder findCourseOrderByMemberAndPeriod(MemberVO member, Period period) {
+        return courseOrderDao.findCourseOrderByMemberAndPeriod(member, period);
+    }
+
+
+    @Override
+    public Set<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member) {
+//        Set<CourseOrder> orders = courseOrderDao.findByCourseOrderStateAndMember(CourseOrderState, member);
+//
+//        // 創建新的集合用來裝上課時段
+//        Set<CourseSchedule> courseSchedules = new HashSet<>();
+//        for (CourseOrder order : orders) {
+//            Period period = order.getPeriod();
+//            if (period != null) {
+//                Set<CourseSchedule> schedules = period.getSchedules();
+//                // 上課時段加到集合中
+//                courseSchedules.addAll(schedules);
+//            }
+//        }
+        return courseOrderDao.findByCourseOrderStateAndMember(CourseOrderState, member);
     }
 
 

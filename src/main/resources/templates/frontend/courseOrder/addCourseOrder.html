@@ -40,7 +40,51 @@
 
 <body>
 <!-- Header================================================== -->
-<div th:replace="~{common/header::header}"></div>
+<!--header-->
+<header id="site-header" class="fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg stroke">
+            <h1><a class="navbar-brand" href="/GiveMeGym/index">
+                <span class="lnr lnr-bicycle"></span> Give Me Gym
+            </a></h1>
+            <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+                    data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/GiveMeGym/index">首頁<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item @@about__active">
+                        <a class="nav-link" href="/coach/list">私人教練</a>
+                    </li>
+                    <li class="nav-item @@classes__active">
+                        <a class="nav-link" href="/frontend_course/listAll">團課課程</a>
+                    </li>
+                    <li class="nav-item @@contact__active">
+                        <a class="nav-link" href="/shopAllProduct">線上商城</a>
+                    </li>
+                    <li class="nav-item @@contact__active">
+                        <a class="nav-link" href="/frontend_faq/listAll">常見問題</a>
+                    </li>
+                    <li class="nav-item @@contact__active">
+                        <a class="nav-link" id="memberCenterLink" href="/front_Member/memberData">會員中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shopCart" id="toShopCart">
+                            <span class="lnr lnr-cart"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!--/header-->
 
 <main>
     <section class="w3l-breadcrumb">
@@ -57,64 +101,108 @@
             <div class="row">
                 <div class="col-lg-8 col-sm-10 m-auto">
                     <div class="bg-white shadow border-top border-warning border-3 p-3 p-sm-5 rounded">
-                        <form th:action="@{'/frontend_courseOrder/addCourseOrder/' + ${periodId}}" method="post"
+                        <form th:action="@{'/frontend_courseOrder/addOrder/' + ${periodId}}" method="post"
                               enctype="multipart/form-data"
-                              id="form" class=" needs-validation row text-dark"  novalidate>
+                              id="form" class=" needs-validation row text-dark" novalidate>
                             <div class="text-center mb-5">
                                 <h2 style="font-weight: bold">訂單確認</h2>
                             </div>
-<!--                            <div class="col-md-6">-->
-<!--                                <input type="text" name="member.memberId" th:value="${courseOrder.member.memberId}">-->
-<!--                            </div>-->
                             <div>
-                                <div class="col-md-6">
-                                    <input type="hidden" id="period" name="period.periodId"
-                                           th:value="${period.get().periodId}">
-                                    <li class="fa fa-calendar-alt"
-                                        th:text="${'團課名稱:'+period.get().course.courseName}"></li>
+                                <div class="table-responsive table mt-2 text-center d-flex justify-content-center"
+                                     role="grid">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>會員姓名</th>
+                                            <th>上課時段</th>
+                                            <th>團課名稱</th>
+                                            <th>團課價格</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <input th:remove="tag" th:text="${memberVO.memberName}" id="member"
+                                                       name="member.memberId">
+                                            </td>
+
+                                            <td>
+                                             <span th:each="schedule : ${period.get().schedules}">
+                                                 <span th:text="${schedule.courseScheduleDate}"></span>
+                                                 <span th:text="${schedule.courseScheduleTime}">, </span>
+                                             </span>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" id="period" name="period.periodId"
+                                                       th:value="${period.get().periodId}"
+                                                       th:text="${period.get().course.courseName}">
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="courseOrder.courseOrderTotalPrice"
+                                                       id="courseOrderTotalPrice"
+                                                       th:value="${period.get().coursePrice}"
+                                                       th:text="${period.get().coursePrice}">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="hidden" name="courseOrder.courseOrderTotalPrice"
-                                           th:value="${period.get().coursePrice}">
-                                    <li class="fa fa-calendar-alt"
-                                        th:text="${'團課價格$:'+period.get().coursePrice}"></li>
-                                </div>
+
                             </div>
                             <hr class="my-4">
-                            <div class="row gy-3">
-                                <div class="col-md-6">
-                                    <label for="cc-name" class="form-label">Name on card</label>
-                                    <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                                    <small class="text-muted">Full name as displayed on card</small>
-                                    <div class="invalid-feedback">
-                                        Name on card is required
+                            <div class="payment-method">
+                                <div class="payment-accordion">
+                                    <div class="card">
+                                        <div class="card-header" id="#payment-1">
+                                            <h5 class="panel-title mb-2">
+                                                <label>
+                                                    <input type="radio" name="payment-method" value="transfer" checked>
+                                                    轉帳匯款
+                                                </label>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body mb-2 mt-2">
+                                            <p>請匯入：公司名稱：通通給我健起來股份有限公司，帳號：8888888888</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="cc-number" class="form-label">Credit card number</label>
-                                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        Credit card number is required
+                                    <div class="card">
+                                        <div class="card-header" id="#payment-2">
+                                            <h5 class="panel-title mb-2">
+                                                <label>
+                                                    <input type="radio" name="payment-method" value="creditcard">
+                                                    信用卡付款
+                                                </label>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body mb-2 mt-2">
+                                            <p>持卡人：</p>
+
+                                            <input type="text" name="expiration" id="expiration">
+                                            <p>末三碼驗證：</p>
+                                            <input type="text" name="cvv" id="cvv">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="cc-expiration" class="form-label">Expiration</label>
-                                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        Expiration date required
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="cc-cvv" class="form-label">CVV</label>
-                                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                                    <div class="invalid-feedback">
-                                        Security code required
+                                    <div class="card">
+                                        <div class="card-header" id="#payment-3">
+                                            <h5 class="panel-title mb-2">
+                                                <label>
+                                                    <input type="radio" name="payment-method" value="instore">
+                                                    到店後繳費給工作人員
+                                                </label>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body mb-2 mt-2">
+                                            <p>請到店後繳費給工作人員</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <hr class="my-4">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-warning btn-lg" id="check">確認</button>
+                                <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-dark" id="check">送出
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -137,14 +225,71 @@
         crossorigin="anonymous"></script>
 
 <!-- Jquery-->
-<script th:src="@{/course_44/assets/js/jquery-3.3.1.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 
 <!-- libhtbox -->
-<script th:src="@{/course_44/assets/js/lightbox-plus-jquery.min.js}"></script>
+<!--<script th:src="@{/course_44/assets/js/lightbox-plus-jquery.min.js}"></script>-->
 <script th:src="@{/course_44/assets/js/owl.carousel.js}"></script>
 
 <!-- 導覽列及按鈕-->
 <script th:src="@{/course_44/js/nav.js}"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#check").click(function () {
+            check();
+        });
+    });
+
+    function check() {
+        var periodId = document.getElementById("period").value;
+
+        $.ajax({
+            type: "post",
+            url: "/frontend_courseOrder/checkOrder",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({"periodId": periodId}),
+            success: function (response) {
+                console.log(response);
+                if (response !== false) {
+                    alert("已有重複的訂單 " + response);
+                } else {
+                    alert("下單成功");
+                    $("#form").submit();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // function check() {
+    //     var periodId = document.getElementById("period").value;
+    //
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/frontend_courseOrder/checkOrder",
+    //         dataType: "json",
+    //         contentType: "application/json;charset=utf-8",
+    //         data: JSON.stringify({"periodId": periodId}),
+    //         success: function (response) {
+    //             console.log(response);
+    //             console.log(response);
+    //             alert("已有重複的訂單 " + response.courseOrderId);
+    //         },
+    //         error: function (response) {
+    //             alert("下單成功");
+    //             $("#form").submit();
+    //         }
+    //     });
+    // }
+
+</script>
+
 
 </body>
 

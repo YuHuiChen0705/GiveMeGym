@@ -33,14 +33,5 @@ public class CourseControllerF {
     }
 
 
-    // 根據PK查詢一筆團課
-//    @GetMapping("/findOne/{courseId}")
-//    public String findCourseById(@PathVariable Integer courseId, Model model) {
-//        Optional<Course> findCourse = courseService.findById(courseId);
-//        Course course = findCourse.orElseThrow();
-//        model.addAttribute("course", course);
-//        return "frontend/period/periodDetail"; // 返回课程详情页面的视图名称
-//    }
-
 
 }

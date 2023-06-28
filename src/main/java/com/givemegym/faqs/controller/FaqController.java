@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +30,10 @@ public class FaqController {
 
     // 取得常見問題列表(渲染頁面)
     @GetMapping("/backend_faq/listAll")
-    public String findAllFaq() {
+    public String findAllFaq(Model model) {
+        List<Faq> faqList = faqService.findAll();
+        model.addAttribute("faqList",faqList);
         return "backend/faq/Mfaq";
-    }
-
-    @ResponseBody
-    @PostMapping("/backend_faq/listAll")
-    public List<Faq> findAllFaqs() {
-        return faqService.findAll();
     }
 
     // 新增常見問題

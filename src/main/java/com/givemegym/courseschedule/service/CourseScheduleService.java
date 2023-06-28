@@ -1,6 +1,7 @@
 package com.givemegym.courseschedule.service;
 
 
+import com.givemegym.coach.vo.Coach;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +42,6 @@ public interface CourseScheduleService {
     //  當報名時段為XXX時即更新上課狀態為'已成立'
     void updateCourseScheduleStateToOnByPeriod(Period period);
 
-    CourseSchedule findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(Date courseScheduleDate, String CourseScheduleTime);
+    List<CourseSchedule> findSchedules(Date courseScheduleDate, String CourseScheduleTime, int coachId);
 }
 

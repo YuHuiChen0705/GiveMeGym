@@ -31,9 +31,13 @@ public interface CourseOrderDao extends JpaRepository<CourseOrder, Integer> {
     @Query("SELECT co FROM CourseOrder co WHERE co.member.memberId = :memberId")
     List<CourseOrder> findByMemberId(@Param("memberId") Integer memberId);
 
-    List<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member);
+    Set<CourseOrder> findByCourseOrderStateAndMember(String CourseOrderState, MemberVO member);
 
-    Set<CourseOrder> findByCourseOrderStateAndPeriod(String courseOrderState,Period period);
+    List<CourseOrder> findByCourseOrderStateAndPeriod(String courseOrderState, Period period);
+
+    @Query("SELECT co FROM CourseOrder co WHERE co.member = :member AND co.period = :period")
+    CourseOrder findCourseOrderByMemberAndPeriod(@Param("member") MemberVO member, @Param("period") Period period);
+
 
 
 }

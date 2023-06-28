@@ -1,5 +1,6 @@
 package com.givemegym.courseschedule.dao;
 
+import com.givemegym.coach.vo.Coach;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,6 +33,7 @@ public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer
     void updateCourseScheduleStateToOnByPeriod(Period period);
 
 
-    CourseSchedule findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(Date courseScheduleDate, String CourseScheduleTime);
+    @Query("SELECT cs FROM CourseSchedule cs WHERE cs.courseScheduleDate = :courseScheduleDate AND cs.courseScheduleTime = :courseScheduleTime AND cs.coach.coachId = :coachId")
+    List<CourseSchedule> findCourseScheduleByCourseScheduleDateAndCourseScheduleTimeAndCoachId(Date courseScheduleDate, String courseScheduleTime, int coachId);
 
 }
