@@ -49,16 +49,12 @@ public class ShopCartController {
     public String addOneToCart(@RequestBody DetailDTO detailDTO, HttpSession session) {
         Integer memberId = (Integer) session.getAttribute("memberId");
 
-        if (memberId != null) {
-            Product product = productService.findById(detailDTO.getProductId()).get();
-            detailDTO.setPrice(product.getProductPrice());
-            detailDTO.setProductName(product.getProductName());
+        Product product = productService.findById(detailDTO.getProductId()).get();
+        detailDTO.setPrice(product.getProductPrice());
+        detailDTO.setProductName(product.getProductName());
 
-            // 將一筆購物項目(訂單明細DTO)和會員ID放進購物車
-            return shopCartService.addOneToCart(detailDTO, memberId);
-        } else {
-            return "未登入";
-        }
+        // 將一筆購物項目(訂單明細DTO)和會員ID放進購物車
+        return shopCartService.addOneToCart(detailDTO, memberId);
     }
 
 
@@ -73,12 +69,7 @@ public class ShopCartController {
     @GetMapping("/shopCartByMember")
     public List<DetailDTO> findShopCart(HttpSession session) {
         Integer memberId = (Integer) session.getAttribute("memberId");
-        if (memberId != null) {
-            return shopCartService.findAllItem(memberId);
-        } else {
-            System.out.println("沒找到Id");
-            return null;
-        }
+        return shopCartService.findAllItem(memberId);
     }
 
     @ResponseBody
@@ -123,6 +114,7 @@ public class ShopCartController {
     public String cartToCheckout() {
         return "frontend/order/shop_checkout";
     }
+
     @Transactional
     @PostMapping("/checkoutOrder")
     public ResponseEntity<String> checkoutOrder(@RequestBody Order order, HttpSession session) {
@@ -135,16 +127,20 @@ public class ShopCartController {
             order.setStatus(1);
 
             Set<OrderDetail> orderDetail = order.getDetails();
-            for (DetailDTO item : cart) {
-                OrderDetail detail = new OrderDetail();
+            if (cart != null) {
+                for (DetailDTO item : cart) {
+                    OrderDetail detail = new OrderDetail();
 
-                Product product = entityManager.merge(productService.findById(item.getProductId()).get());
-                detail.setOrder(order);
-                detail.setProduct(product);
-                detail.setQuantity(item.getQuantity());
-                detail.setPrice(item.getPrice());
+                    Product product = entityManager.merge(productService.findById(item.getProductId()).get());
+                    detail.setOrder(order);
+                    detail.setProduct(product);
+                    detail.setQuantity(item.getQuantity());
+                    detail.setPrice(item.getPrice());
 
-                orderDetail.add(detail);
+                    orderDetail.add(detail);
+                }
+            } else {
+                return new ResponseEntity<>("訂單處理失敗", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
             orderService.save(order);
@@ -152,5 +148,15 @@ public class ShopCartController {
             return new ResponseEntity<>("訂單處理成功", HttpStatus.OK);
         }
         return new ResponseEntity<>("訂單處理失敗", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ResponseBody
+    @GetMapping("/cleanShopCart")
+    public String cleanShopCart(HttpSession session) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        if (memberId != null) {
+            shopCartService.cleanAllCart(memberId);
+        }
+        return "/shopAllProduct";
     }
 }

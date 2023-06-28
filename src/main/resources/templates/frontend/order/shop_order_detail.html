@@ -22,7 +22,7 @@
 <header id="site-header" class="fixed-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg stroke">
-            <h1><a class="navbar-brand" href="index.html">
+            <h1><a class="navbar-brand" href="/GiveMeGym/index">
                 <span class="lnr lnr-bicycle"></span> Give Me Gym
             </a></h1>
             <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
@@ -35,48 +35,34 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">首頁<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/GiveMeGym/index">首頁<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item @@about__active">
-                        <a class="nav-link" href="coach.html">私人教練</a>
+                        <a class="nav-link" href="/coach/list">私人教練</a>
                     </li>
                     <li class="nav-item @@classes__active">
-                        <a class="nav-link" href="classes.html">團課課程</a>
+                        <a class="nav-link" href="/frontend_course/listAll">團課課程</a>
                     </li>
                     <li class="nav-item @@contact__active">
-                        <a class="nav-link" href="contact.html">線上商城</a>
+                        <a class="nav-link" href="/shopAllProduct">線上商城</a>
                     </li>
                     <li class="nav-item @@contact__active">
-                        <a class="nav-link" href="contact.html">常見問題</a>
+                        <a class="nav-link" href="/frontend_faq/listAll">常見問題</a>
                     </li>
                     <li class="nav-item @@contact__active">
-                        <a class="nav-link" href="contact.html">會員中心</a>
+                        <a class="nav-link" id="memberCenterLink" href="/front_Member/memberData">會員中心</a>
                     </li>
-                    <!--/search-right-->
-                    <div class="search-right">
-                        <a href="#search" title="search"><span class="fa fa-search" aria-hidden="true"></span></a>
-                        <!-- search popup -->
-                        <div id="search" class="pop-overlay">
-                            <div class="popup">
-
-                                <form action="#" method="GET" class="search-box">
-                                    <input type="search" placeholder="Enter Keyword" name="search"
-                                           required="required" autofocus="">
-                                    <button type="submit" class="btn"><span class="fa fa-search"
-                                                                            aria-hidden="true"></span></button>
-                                </form>
-
-                            </div>
-                            <a class="close" href="#close">×</a>
-                        </div>
-                        <!-- /search popup -->
-                    </div>
-                    <!--//search-right-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shopCart" id="toShopCart">
+                            <span class="lnr lnr-cart"></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </div>
 </header>
+<!--/header-->
 
 <section class="w3l-breadcrumb">
     <div class="breadcrumb-bg breadcrumb-bg-shop py-5">
@@ -95,10 +81,10 @@
                 <h3 class="agileits-sear-head">會員專區</h3>
                 <ul>
                     <li>
-                        <a class="btn-outline-secondary" href="">個人資料</a>
+                        <a class="btn-outline-secondary" href="/front_Member/memberData">個人資料</a>
                     </li>
                     <li>
-                        <a class="btn-outline-secondary" href="">資料修改</a>
+                        <a class="btn-outline-secondary" href="/front_Member/memberDataModify">資料修改</a>
                     </li>
                     <li>
                         <a class="btn-outline-secondary" href="">密碼修改</a>
@@ -122,7 +108,7 @@
                 <h3 class="agileits-sear-head">商城專區</h3>
                 <ul>
                     <li>
-                        <a class="btn-outline-secondary" href="">商城訂單查詢</a>
+                        <a class="btn-outline-secondary" href="/memberOrderList">商城訂單查詢</a>
                     </li>
                 </ul>
             </div>
@@ -136,6 +122,7 @@
             <div class="table-container">
                 <table class="shop-order-table">
                     <thead class="shop-order">
+
                     <tr class="shop-order">
                         <th class="shop-order-th" style="text-align: center">訂單編號</th>
                         <th class="shop-order-th" style="text-align: center">訂單成立時間</th>
@@ -144,19 +131,29 @@
                         <th class="shop-order-th" style="text-align: center">訂單詳情</th>
                     </tr>
                     </thead>
-                    <tbody class="shop-order">
+                    <tbody class="shop-order" id="shopOrder">
                     <tr class="shop-order" th:each="order:${orders}">
-                        <td class="shop-order" th:text="${order.id}" id="orderId"></td>
-                        <td class="shop-order" th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}">
-                            5
+                        <td class="shop-order orderId" th:text="${order.id}" style="text-align: center"></td>
+                        <td class="shop-order" style="text-align: center"
+                            th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td class="shop-order" style="text-align: center" th:text="'$'+${order.totalPrice}"></td>
+                        <td class="shop-order" style="text-align: center">
+                              <span th:switch="${order.status}">
+                                <span th:case="0">已取消</span>
+                                <span th:case="1">已成立</span>
+                                <span th:case="2">已退款</span>
+                                <span th:case="3">已完成</span>
+                                <span th:case="*" th:text="'狀態'"></span> <!-- 默認情況下不匹配任何選項，可以自定義默認值 -->
+                              </span>
                         </td>
-                        <td class="shop-order" th:text="'$'+${order.totalPrice}"></td>
-                        <td class="shop-order" th:text="${order.status}">已完成</td>
-                        <td class="shop-order">
-                            <button type="button" class="btn_modal" id="viewDetails">查看</button>
+                        <td class="shop-order" style="text-align: center">
+                            <button type="button" class="btn_modal viewDetails"
+                                    th:onclick="'viewDetails(\'' + ${order.id} + '\')'">查看
+                            </button>
                         </td>
                     </tr>
                     </tbody>
+
                 </table>
             </div>
         </section>
@@ -177,11 +174,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <!-- 由AJAX動態新增  -->
+
                         </tbody>
                     </table>
 
-                    <table id="orderDetailsTable"  style="margin: 20px 0 20px 0">
+                    <table id="orderDetailsTable" style="margin: 20px 0 20px 0">
                         <thead>
                         <tr>
                             <th>收件人</th>
@@ -191,14 +188,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="order:${orders}">
-                            <td th:text="${order.name}"></td>
-                            <td th:text="${order.phone}"></td>
-                            <td th:text="${order.address}"></td>
-                            <td th:text="${order.note} != null ? ${order.note} : '無備註資料'"></td>
 
-                            <p th:text="'總價:'+${order.totalPrice}" style="text-align: right; margin: 20px 0 20px 0"></p>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -209,9 +199,10 @@
 </div>
 
 <style>
-    td{
+    td {
         text-align: unset;
     }
+
     .btn_modal {
         background-color: #ff0000;
         cursor: pointer;
@@ -278,7 +269,6 @@
     }
 </style>
 
-
 <!-- footers 20 -->
 <section class="w3l-footers-20">
     <div class="footers20">
@@ -287,48 +277,47 @@
                 <div class="d-grid grid-col-4 grids-content">
                     <div class="column">
                         <h4>客服專區</h4>
-                        <a href="mailto:mail@example.com">
+                        <a>
                             <p>聯絡我們</p>
                             <p class="contact-mail mt-1"><span
                                     class="lnr lnr-envelope"></span>service_business@tibame.com</p>
                         </a>
                         <a href="tel:+1-2345-678-11">
-                            <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span> +1-2345-678-11
+                            <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span>
+                                +1-2345-678-11
                             </p>
                         </a>
-                        <a href="contact.html">
+                        <a href="/frontend_faq/listAll">
                             <p> 常見問題</p>
                         </a>
                     </div>
                     <div class="column">
                         <h4>師資團隊</h4>
-                        <a href="coach.html">
+                        <a href="/coach/list">
                             <p class="coach-list mt-2"><span class="lnr lnr-coach-handset"></span> 教練介紹
                             </p>
                         </a>
-                        <a href="classes.html">
+                        <a href="/frontend_course/listAll">
                             <p class="classes-list mt-2"><span class="lnr lnr-classes-handset"></span> 團課介紹
-                            </p>
-                        </a>
-                        <a href="classes.html">
-                            <p class="classes-list mt-2"><span class="lnr lnr-classes-mounth"></span> 當月課表
                             </p>
                         </a>
                     </div>
 
                     <div class="column">
                         <h4>商城</h4>
-                        <a href="優惠活動列表">
-                            <p>優惠活動</p>
+                        <a href="/shopAllProduct">
+                            <p>瀏覽商品</p>
                         </a>
 
                     </div>
                     <div class="column">
                         <h4>營業時間</h4>
                         <p>We are working on</p>
-                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> : 7am to 9pm
+                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> : 7am
+                            to 9pm
                         </p>
-                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> : 10 am to 8
+                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> : 10
+                            am to 8
                             pm
                         </p>
                         <p class="contact-map mt-2"><span class="lnr lnr-map-marker"></span>場館位置</p>
@@ -346,9 +335,12 @@
                     </div>
                     <div class="columns text-lg-right social-grid">
                         <ul class="social">
-                            <li><a href="#url"><span class="fa fa-facebook" aria-hidden="true"></span></a></li>
-                            <li><a href="#url"><span class="fa fa-instagram" aria-hidden="true"></span></a></li>
-                            <li><a href="#url"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
+                            <li><span class="fa fa-facebook" aria-hidden="true"></span></a>
+                            </li>
+                            <li><span class="fa fa-instagram" aria-hidden="true"></span></a>
+                            </li>
+                            <li><span class="fa fa-twitter" aria-hidden="true"></span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -359,6 +351,37 @@
     <button onclick="topFunction()" id="movetop" title="Go to top">
         &#10548;
     </button>
+    <script>
+        $(document).ready(function () {
+            $('#memberCenterLink').click(function (event) {
+                event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+                // 檢查Session中是否有值
+                if (sessionStorage.getItem('memberId')) {
+                    // 如果有值，執行頁面跳轉
+                    window.location.href = $(this).attr('href');
+                } else {
+                    // 如果沒有值，執行其他操作或顯示警告訊息
+                    alert('請先登入會員');
+                    window.location.href = '/front_Member/login';
+                }
+            });
+
+            $('#toShopCart').click(function (event) {
+                event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+                // 檢查Session中是否有值
+                if (sessionStorage.getItem('memberId')) {
+                    // 如果有值，執行頁面跳轉
+                    window.location.href = $(this).attr('href');
+                } else {
+                    // 如果沒有值，執行其他操作或顯示警告訊息
+                    alert('請先登入會員');
+                    window.location.href = '/front_Member/login';
+                }
+            });
+        });
+    </script>
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
@@ -385,7 +408,65 @@
 
 <script src="/shop_19/assets/js/jquery-3.3.1.min.js"></script>
 
+<script th:inline="javascript">
+    function viewDetails(orderId) {
+        $.get('/orders/' + orderId + '/details', function (orderDetails) {
+            // 清空表格内容
+            $('#productDetailsTable tbody').empty();
 
+            // 迭代处理订单详情列表
+            $.each(orderDetails, function (index, detail) {
+                // 创建新的行
+                var row = $('<tr>');
+
+                // 创建并添加每个单元格
+                $('<td>').text(detail.productId).appendTo(row);
+                $('<td>').text(detail.productName).appendTo(row);
+                $('<td>').text(detail.quantity).appendTo(row);
+                $('<td>').text(detail.price).appendTo(row);
+                $('<td>').text(detail.quantity * detail.price).appendTo(row);
+
+                // 将新行添加到表格
+                row.appendTo('#productDetailsTable tbody');
+            });
+        }).fail(function (error) {
+            console.error('Error:', error);
+        });
+
+        $.get('/orders/' + orderId, function (order) {
+            // 清空表格内容
+            $('#orderDetailsTable tbody').empty();
+
+            var tbody = document.querySelector('#orderDetailsTable tbody');
+            tbody.innerHTML = '';
+
+            // Define the order of keys
+            var keyOrder = ['name', 'phone', 'address', 'note'];
+
+            // Create a new row
+            var row = document.createElement('tr');
+
+            // Iterate through the keyOrder array and add the corresponding values as cells in the row
+            keyOrder.forEach(function (key) {
+                var value = order[key];
+
+                var cell = document.createElement('td');
+                cell.textContent = value;
+
+                row.appendChild(cell);
+            });
+
+            // Append the row to the table body
+            tbody.appendChild(row);
+
+
+        }).fail(function (error) {
+            console.error('Error:', error);
+        });
+
+
+    }
+</script>
 <!-- libhtbox -->
 <script src="/shop_19/assets/js/lightbox-plus-jquery.min.js"></script>
 
@@ -593,9 +674,10 @@
 
 <script>
     $(document).ready(function () {
+
         $('#viewDetails').click(function () {
             var orderId = $('#orderId').text();
-
+            console.log(orderId);
             $.ajax({
                 url: '/orders/' + orderId + '/details',
                 type: 'GET',
@@ -612,7 +694,7 @@
                             '<td>' + priceSum + '</td>' +
                             '</tr>';
 
-                        tableBody.append(row);
+                        tableBody.innerHTML = row;
                     });
                 },
                 error: function () {

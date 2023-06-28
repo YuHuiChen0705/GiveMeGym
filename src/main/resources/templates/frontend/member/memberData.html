@@ -27,12 +27,13 @@ html {
 }
 
 .allform {
+
 	display: flex;
 	flex-direction: column-reverse;
 	justify-content: flex-end;
 	vertical-align: middle;
 	height: auto;
-	width: 1150px;
+/* 	width: 1150px; */
 	background: white;
 }
 
@@ -56,17 +57,12 @@ a :hover {
 }
 
 .form {
-	background: white;
-	display: flex;
-	flex-direction: column-reverse;
-	justify-content: flex-end;
-	text-align: left;
-	/* background: rgba(#13232f, .9); */
-	padding: 40px;
-	width: 1000px;
-	margin: 0px 150px 0px 150px;
-	border-radius: 4px;
-	box-shadow: 12px 20px 30px 8px rgba(0, 0, 0, 0.2);
+ background-color: #ffffff;
+  max-width: 1250px;
+  margin: 0 100px;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
 }
 
 .tab-group {
@@ -104,7 +100,7 @@ h1 {
 	text-align: center;
 	color: orangered;
 	font-weight: 500;
-	margin: 0 0 40px;
+ 	margin-bottom: 35px; 
 }
 
 label {
@@ -273,6 +269,8 @@ label.highlight {
 			</div>
 		</div>
 	</section>
+	
+	<section>
 	<aside>
 		<div class="side-bar ">
 			<div class="left-side">
@@ -280,7 +278,7 @@ label.highlight {
 				<ul>
 					<li><a class="btn-outline-secondary" href="">個人資料</a></li>
 					<li><a class="btn-outline-secondary" href="memberDataModify">資料修改</a></li>
-					<li><a class="btn-outline-secondary" href="">密碼修改</a></li>
+					<li><a class="btn-outline-secondary" href="modifyPassword">密碼修改</a></li>
 				</ul>
 			</div>
 			<br>
@@ -300,12 +298,12 @@ label.highlight {
 					<li><a class="btn-outline-secondary" href="">商品訂單</a></li>
 				</ul>
 			</div>
+			</div>
 	</aside>
 	<article>
 		<div class="allform">
 			<div class="form">
 				<div class="tab-group"></div>
-				</ul>
 				<div class="tab-content">
 					<div id="memberData">
 						<form>
@@ -353,6 +351,7 @@ label.highlight {
 		<!-- /所有表格 -->
 		<!-- //contact form -->
 	</article>
+	</section>
 	<!-- footers 20 -->
 	<section class="w3l-footers-20">
 		<div class="footers20">

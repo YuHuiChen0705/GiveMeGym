@@ -1,4 +1,3 @@
-
 package com.givemegym.coachskill.dao;
 
 
@@ -9,6 +8,5 @@ import com.givemegym.skill.vo.Skill;
 
 @Repository
 public interface CoachSkillDAO extends JpaRepository<Skill, Integer> {
-
 
 }

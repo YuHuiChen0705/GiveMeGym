@@ -1,221 +1,133 @@
-@charset "UTF-8";
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
-
-html {
-    overflow-y: scroll;
-}
-
-.allform {
-    vertical-align: middle;
-    height: 80%;
-    /* width: fit-content; */
-    background: #e8e5e2;
-}
-
+/* 全局樣式 */
 body {
-    background: #e8e5e2;
-    font-family: 'Titillium Web', sans-serif;
-}
-
-a {
-    text-decoration: none;
-    color: orangered;
-    transition: .5s ease;
-}
-
-a:hover {
-    color: darken(orange, 5%);
-}
-
-.form {
-    background: #fff;
-    padding: 40px;
-    max-width: 600px;
-    margin: 40px auto;
-    border-radius: 4px;
-    box-shadow: 12px 20px 30px 8px rgba(0, 0, 0, 0.2);
-}
-
-.tab-group {
-    box-sizing: content-box;
-    letter-spacing: 1cm;
-    text-align: center;
-    height: fit-content;
-    font-size: 30px;
-    list-style: none;
-    padding: 0;
-    margin: 0 0 40px 0;
-}
-
-.tab-group .tab a {
-    border-radius: 0.5ch;
-    color: orangered;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: 1cm;
-    font-size: 36px;
-}
-
-.tab-group .active1 > a {
-    background: orangered;
-    color: white;
-    box-shadow: #464f4d;
-}
-
-.tab-content > div:last-child {
-    display: none;
+  font-family: Arial, sans-serif;
+  background-color:	#FFEBCD;
+/*   padding: 20px; */
 }
 
 h1 {
-    text-align: center;
-    color: orangered;
-    font-weight: 300;
-    margin: 0 0 40px;
+  text-align: center;
+  margin-bottom: 10px;
+   color: #ff4500;
+   font-weight:bold;
 }
 
-label {
-    position: absolute;
-    transform: translateY(6px);
-    left: 13px;
-    color: lightgray;
-    transition: all 0.25s ease;
-    pointer-events: none;
-    font-size: 22px;
-}
-
-label .req {
-    margin: 2px;
-    color: red;
-}
-
-label.active {
-    transform: translateY(50px);
-    left: 2px;
-    font-size: 14px;
-}
-
-label.highlight {
-    color: gray;
-}
-
-input,
-textarea {
-    font-size: 22px;
-    display: block;
-    width: 99%;
-    height: 100%;
-    padding: 5px 10px;
-    background: none;
-    background-image: none;
-    border: 2px solid #a0b3b0;
-    color: #464f4d;
-    border-radius: 0;
-    transition: border-color .25s ease, box-shadow .25s ease;
-}
-
-input:focus {
-    outline: 0;
-    border-color: orangered;
-}
-
-textarea {
-    border: 2px solid #a0b3b0;
-    resize: vertical;
-}
-
-.field-wrap {
-    position: relative;
-    margin-bottom: 40px;
-}
-
-#birthselect {
-    font-size: larger;
-}
-
-#year,
-#month,
-#day,
-#region,
-#district {
-    font-size: 22px;
-    width: 32%;
-    height: 100%;
-    padding: 5px 10px;
-    background: none;
-    background-image: none;
-    border: 1px solid #a0b3b0;
-    color: #464f4d;
-    resize: vertical;
-    position: relative;
-    margin-bottom: 40px;
-}
-
-#region {
-    width: 50%;
-}
-
-#district {
-    width: 49%;
-}
-
-#address {
-    font-size: larger;
-}
-
-.req {
-    color: red;
-}
-
-.top-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.top-row > div {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-}
-
-.top-row > div:last-child {
-    margin: 0;
+a {
+  color: #FFA500;
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-size:10px;
 }
 
 .error {
-    color: red;
-    margin-bottom: 10px;
+  color: red;
+  margin-top: 5px;
+}
+.allform{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border-radius: 15px;
+}
+/* 表單樣式 */
+.form {
+  background-color: #ffffff;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.tab-group{
+	 margin-bottom: 30px;
+}
+
+.field-wrap {
+	color: #696969;
+  margin-bottom: 20px;
+   font-weight: bold;
+}
+
+.field-wrap label {
+  color: #696969;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.field-wrap input[type="text"],
+.field-wrap input[type="email"],
+.field-wrap input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.field-wrap select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.field-wrap input[type="name"]:focus,
+.field-wrap input[type="email"]:focus,
+.field-wrap input[type="password"]:focus,
+.field-wrap select:focus {
+  outline: none;
+  border-color: #6b9ce8;
+}
+.field-wrap .select-container {
+  display: flex;
+  align-items: center;
+}
+
+.field-wrap .select-container select {
+	 margin-bottom: 8px;
+ 	 margin-left: 10px;
+}
+
+.field-wrap .req {
+  color: #ff0000;
+}
+
+#birthselect2,#address2{
+	margin-top: 8px;
+}
+
+#memberDetail{
+	margin-top: 15px;
+	margin-left: 83px;
+	width:80%;
 }
 
 .button {
-    border: 0;
-    outline: none;
-    border-radius: 0;
-    padding: 10px 0;
-    font-size: 25px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    background: orangered;
-    color: white;
-    transition: all 0.5s ease;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color:#ff4500;
+  color: #ffffff;
+  border: none;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.button:hover,
-.button:focus {
-    background: darken(orange, 5%);
+.button:hover {
+  background-color: #FFA500;
 }
 
-.button-block {
-    display: block;
-    width: 100%;
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.forgot {
-    margin-top: -20px;
-    text-align: right;
+/* 响應式設計 */
+@media (max-width: 600px) {
+  .form {
+    max-width: 400px;
+  }
 }

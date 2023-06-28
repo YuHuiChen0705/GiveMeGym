@@ -16,124 +16,9 @@
 <!-- Template CSS -->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/member_28/assets/css/style-starter.css}">
-<!-- <link rel="stylesheet" href="assets/css/member.css"> -->
+<link rel="stylesheet" th:href="@{/member_28/css/member.css}">
 <style>
-.form {
-	background: rgba(#13232f, .9);
-	padding: 40px;
-	max-width: 450px;
-	margin: 40px auto;
-	border-radius: 4px;
-	background-color: whitesmoke;
-	box-shadow: 12px 20px 30px 8px rgba(0, 0, 0, 0.2);
-}
 
-.tab-group {
-	box-sizing: content-box;
-	/* letter-spacing: 1cm; */
-	text-align: center;
-	height: fit-content;
-	font-size: 30px;
-	list-style: none;
-	/* padding: 20px; */
-	margin: 40px 40px 40px 40px;
-}
-
-.tab a {
-	border-radius: 0.5ch;
-	color: orangered;
-	font-style: normal;
-	font-weight: 600;
-	letter-spacing: 1cm, 0cm;
-	font-size: 36px;
-	margin: 40px 40px 40px 40px;
-}
-
-.mailtip {
-	font-size: medium;
-	text-indent: 0cm;
-}
-
-input, textarea {
-	font-size: 22px;
-	display: block;
-	width: 99%;
-	height: 100%;
-	padding: 5px 10px;
-	background: none;
-	background-image: none;
-	border: 2px solid #a0b3b0;
-	color: #464f4d;
-	border-radius: 0;
-	transition: border-color .25s ease, box-shadow .25s ease;
-}
-
-input, textarea:focus {
-	outline: 0;
-	border-color: orange;
-}
-
-.allform {
-	padding: 1%;
-	background-color: #fef8f0f9;
-	width: 60%;
-	margin: 0px auto;
-}
-
-textarea {
-	border: 2px solid #a0b3b0;
-	resize: vertical;
-}
-
-.field-wrap {
-	position: relative;
-	margin-bottom: 40px;
-}
-
-.req {
-	color: red;
-}
-
-.top-row:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-.top-row:after>div {
-	float: left;
-	width: 48%;
-	margin-right: 4%;
-}
-
-.top-row:after>div last-child {
-	margin: 0;
-}
-
-.error {
-	color: red;
-	margin-bottom: 10px;
-}
-
-.button {
-	border: 0;
-	outline: none;
-	border-radius: 0;
-	padding: 10px 0;
-	font-size: 25px;
-	font: weight 600px;;
-	text-transform: uppercase;
-	letter-spacing: .1em;
-	background: orangered;
-	color: white;
-	transition: all.5s ease;
-	/* -webkit-appearance: none; */
-}
-
-.button-block {
-	display: block;
-	width: 100%;
-}
 </style>
 </head>
 
@@ -227,13 +112,11 @@ textarea {
 	<div class="allform">
 		<div class="form">
 			<div class="tab-group">
-				<button class="tab active2" style="border: none">
-					<a href="#login">員工登入</a>
-				</button>
+				<h1>員工登入</h1>
 			</div>
 			<form id="login-form" action="/loginSummit" method="post">
 				<div class="field-wrap">
-					<label for="mailtip" class="mailtip">電子信箱</label><span class="req">*</span>
+					<label>電子信箱<span class="req">*</span></label>
 					<input type="email" id="mail" class="mail" placeholder="請輸入公司信箱"
 						required autocomplete="off" />
 				</div>
@@ -615,9 +498,9 @@ textarea {
             }
             // 驗證密碼    
             let passwordValue = password.value.trim();
-            if (passwordValue.length < 6 || passwordValue.length > 15) {
-                alert("密碼長度必須介於6到20個字元。");
-                passwordError.innerHTML = "密碼長度必須介於6到20個字元。";
+            if (passwordValue.length < 6 || passwordValue.length > 10) {
+                alert("密碼長度必須介於6到10個字元。");
+                passwordError.innerHTML = "密碼長度必須介於6到10個字元。";
                 password.value = "";
                 event.preventDefault();
             }  else {
