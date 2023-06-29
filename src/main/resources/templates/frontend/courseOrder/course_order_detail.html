@@ -133,15 +133,18 @@
                     </tr>
                     </thead>
                     <tbody class="shop-order" id="shopOrder">
-                    <tr class="shop-order" th:each="courseOrder:${orders}">
+                    <tr class="shop-order" th:each="courseOrder, orderIndex : ${orders}">
                         <td class="shop-order orderId" th:text="${courseOrder.courseOrderId}" style="text-align: center"></td>
                         <td class="shop-order" style="text-align: center" th:text="${courseOrder.courseOrderDate}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="'$'+${courseOrder.courseOrderTotalPrice}"></td>
+                        <td class="shop-order" style="text-align: center" th:text="'$' + ${courseOrder.courseOrderTotalPrice}"></td>
                         <td class="shop-order" style="text-align: center" th:text="${courseOrder.courseOrderState}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="${courseName}"></td>
+                        <td class="shop-order" style="text-align: center" th:text="${courseOrder.period.course.courseName}"></td>
                         <td class="shop-order" style="text-align: center">
                             <ul>
-                                <li th:each="timeSlot : ${timeSlots}" th:text="${timeSlot}"></li>
+                                <li th:each="timeSlots : ${timeSlotsList[orderIndex.index]}">
+                                    <span th:text="${timeSlots}"></span>
+                                    <span th:unless="${timeSlots == timeSlotsList[orderIndex.index][#arrays.length(timeSlotsList[orderIndex.index])-1]}">, </span>
+                                </li>
                             </ul>
                         </td>
                     </tr>

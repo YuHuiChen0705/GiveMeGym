@@ -135,6 +135,9 @@ public class CourseOrderController {
         List<CourseOrder> orders = courseOrderService.findByMemberId(memberId);
         model.addAttribute("orders", orders);
 
+        List<List<String>> timeSlotsList = new ArrayList<>();
+        List<String> courseNameList = new ArrayList<>();
+
         for (CourseOrder order : orders) {
             Set<CourseSchedule> schedules = order.getPeriod().getSchedules();
 
@@ -144,11 +147,14 @@ public class CourseOrderController {
 
             String courseName = order.getPeriod().getCourse().getCourseName();
 
-            model.addAttribute("timeSlots", timeSlots);
-            model.addAttribute("courseName", courseName);
+            timeSlotsList.add(timeSlots);
+            courseNameList.add(courseName);
         }
+
+        model.addAttribute("timeSlotsList", timeSlotsList);
+        model.addAttribute("courseNameList", courseNameList);
+
         return "frontend/courseOrder/course_order_detail";
     }
-
 
 }
