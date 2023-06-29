@@ -2,10 +2,13 @@ package com.givemegym.courseorder.controller;
 
 import com.givemegym.courseorder.service.CourseOrderService;
 import com.givemegym.courseorder.vo.CourseOrder;
+import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.mem.service.MemberService;
 import com.givemegym.mem.vo.MemberVO;
+import com.givemegym.orderDetail.vo.OrderDetail;
 import com.givemegym.period.service.PeriodService;
 import com.givemegym.period.vo.Period;
+import com.givemegym.shopCart.vo.DetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,8 +21,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -65,12 +71,20 @@ public class CourseOrderController {
     }
 
 
+    //查看該會員有的訂單(不是燈箱)
+//    @GetMapping("/backend_courseOrder/orders/{memberId}")
+//    public String memberOrder(@PathVariable Integer memberId, Model model) {
+//        List<CourseOrder> orderByMember = courseOrderService.findByMemberId(memberId);
+//        model.addAttribute("orderByMember", orderByMember);
+//        return "backend/courseOrder/courseOrderMemberList";
+//    }
+
     //查看該會員有的訂單(想用燈箱)
+    @ResponseBody
     @GetMapping("/backend_courseOrder/orders/{memberId}")
-    public String memberOrder(@PathVariable Integer memberId, Model model) {
+    public List<CourseOrder> memberOrder(@PathVariable Integer memberId) {
         List<CourseOrder> orderByMember = courseOrderService.findByMemberId(memberId);
-        model.addAttribute("orderByMember", orderByMember);
-        return "backend/courseOrder/courseOrderMemberList";
+        return orderByMember;
     }
 
 
@@ -116,24 +130,24 @@ public class CourseOrderController {
 
 
     // 會員查看團課課表
-    @GetMapping("/frontend_courseOrder/orderList")
-    public String orderList() {
-        return "frontend/courseOrder/courseOrderDetail";
-    }
-
-
-    @ResponseBody
-    @GetMapping("/memberId")
-    public Integer getMemberId(HttpSession session) {
-        return (Integer) session.getAttribute("memberId");
-    }
-
-
-    // 會員查看團課課表
-    @ResponseBody
     @GetMapping("/frontend_courseOrder/orderList/{memberId}")
-    public List<CourseOrder> orderListAll(@PathVariable Integer memberId) {
-        return courseOrderService.findByMemberId(memberId);
+    public String orderListAll(@PathVariable Integer memberId, Model model) {
+        List<CourseOrder> orders = courseOrderService.findByMemberId(memberId);
+        model.addAttribute("orders", orders);
+
+        for (CourseOrder order : orders) {
+            Set<CourseSchedule> schedules = order.getPeriod().getSchedules();
+
+            List<String> timeSlots = schedules.stream()
+                    .map(schedule -> schedule.getCourseScheduleDate() + " " + schedule.getCourseScheduleTime())
+                    .collect(Collectors.toList());
+
+            String courseName = order.getPeriod().getCourse().getCourseName();
+
+            model.addAttribute("timeSlots", timeSlots);
+            model.addAttribute("courseName", courseName);
+        }
+        return "frontend/courseOrder/course_order_detail";
     }
 
 

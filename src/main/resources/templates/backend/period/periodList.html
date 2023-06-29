@@ -238,48 +238,31 @@
 
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h2>首頁</h2>
+        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-        <h2>員工管理</h2>
-        <ul>
-            <li><a href="#">新增員工</a></li>
-            <li><a href="#">查詢員工</a></li>
-            <li><a href="#">員工權限</a></li>
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
         </ul>
 
-        <h2>會員管理</h2>
-        <ul>
-            <li><a href="#">新增會員</a></li>
-            <li><a href="#">查詢會員</a></li>
-            <li><a href="#">會員權限</a></li>
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
         </ul>
 
-        <h2>商城管理</h2>
-        <ul>
-            <li><a href="#">商品管理</a></li>
-            <li><a href="#">訂單管理</a></li>
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
         </ul>
 
-        <h2>教練管理</h2>
-        <ul>
-            <li><a href="#">新增教練</a></li>
-            <li><a href="#">查詢教練</a></li>
-            <li><a href="#">教練排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/coach/adm/list">教練管理</a></h2>
 
-        <h2>團課管理</h2>
-        <ul>
-            <li><a href="#">新增團課</a></li>
-            <li><a href="#">查詢團課</a></li>
-            <li><a href="#">團課排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-        <h2>客服管理</h2>
-        <ul>
-            <li><a href="#">客戶查詢</a></li>
-            <li><a href="#">訂單查詢</a></li>
-            <li><a href="#">FAQ管理</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
     </div>
 
     <section class="py-5" style="flex: 1;">
@@ -317,40 +300,43 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- 動態生成表格內容 -->
-                            <tr th:each="period:${periodList}">
-                                <td th:text="${period.periodId}"></td>
+                            <tr th:each="periodOrder : ${periodOrderList}">
+                                <td th:text="${periodOrder.period.periodId}"></td>
                                 <td>
-                                    <span th:text="${period.course.courseName}"></span>
+                                    <span th:text="${periodOrder.period.course.courseName}"></span>
                                 </td>
-                                <td th:text="${period.courseNumber}"></td>
-                                <td th:text="${period.peopleUpper + '人'}"></td>
-                                <td th:text="${period.peopleLower + '人'}"></td>
-                                <td th:text="${period.orders.size()}"></td>
-                                <td th:text="${period.courseOrderBe}"></td>
-                                <td th:text="${period.courseOrderEn}"></td>
-                                <td th:text="${period.coursePrice}"></td>
-                                <td th:text="${period.courseState}"></td>
+                                <td th:text="${periodOrder.period.courseNumber}"></td>
+                                <td th:text="${periodOrder.period.peopleUpper + '人'}"></td>
+                                <td th:text="${periodOrder.period.peopleLower + '人'}"></td>
+                                <td>
+                                    <span th:text="${#lists.size(periodOrder.orderList)}"></span>
+                                </td>
+
+                                <td th:text="${periodOrder.period.courseOrderBe}"></td>
+                                <td th:text="${periodOrder.period.courseOrderEn}"></td>
+                                <td th:text="${periodOrder.period.coursePrice}"></td>
+                                <td th:text="${periodOrder.period.courseState}"></td>
                                 <td>
                                     <button type="button" class="btn btn-dark"
-                                            th:onclick="'window.location.href=\'/backend_period/updatePeriod/' + ${period.periodId} + '\''">
+                                            th:onclick="'window.location.href=\'/backend_period/updatePeriod/' + ${periodOrder.period.periodId} + '\''">
                                         修改
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-dark"
-                                            th:onclick="'window.location.href=\'/backend_courseSchedule/findByPeriod/' + ${period.periodId} + '\''">
+                                    <button type="button" class="btn btn-primary"
+                                            th:onclick="'window.location.href=\'/backend_courseSchedule/findByPeriod/' + ${periodOrder.period.periodId} + '\''">
                                         查詢
                                     </button>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-dark"
-                                            th:onclick="'window.location.href=\'/backend_courseOrder/findByPeriod/' + ${period.periodId} + '\''">
+                                            th:onclick="'window.location.href=\'/backend_courseOrder/findByPeriod/' + ${periodOrder.period.periodId} + '\''">
                                         查詢
                                     </button>
                                 </td>
                             </tr>
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -372,19 +358,16 @@
 
 
 <script>
-    $('[name="done"]').click(function () {
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
-        Swal.fire({
-            title: 'Success!',
-            text: 'Your form has been submitted successfully.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        })
-            .then(function () {
-                // 按下確認按鈕後回到首頁
-                window.location.href = 'Mcourse.html';
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
             });
-    })
+        });
+    });
 </script>
 
 

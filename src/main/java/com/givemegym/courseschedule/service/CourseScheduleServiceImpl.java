@@ -4,10 +4,7 @@ package com.givemegym.courseschedule.service;
 import java.sql.Date;
 import java.util.*;
 
-import com.givemegym.coach.vo.Coach;
-import com.givemegym.courseorder.vo.CourseOrder;
 import com.givemegym.courseschedule.vo.CourseSchedule;
-import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.service.PeriodService;
 import com.givemegym.period.vo.Period;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +50,19 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
 
     @Override
     public void saveAll(List<CourseSchedule> courseSchedules) {
+//        for (CourseSchedule courseSchedule : courseSchedules) {
+//////            // 檢查Period物件是否處於detached狀態
+//////            if (courseSchedule.getPeriod() != null && entityManager.contains(courseSchedule.getPeriod())) {
+//////                courseSchedule.setCourseScheduleState("已成立");
+//////            } else {
+//////                // Period物件處於detached狀態，將其轉換為managed狀態再執行persist
+//////                Period managedPeriod = entityManager.merge(courseSchedule.getPeriod());
+//////                courseSchedule.setPeriod(managedPeriod);
+//////                courseSchedule.setCourseScheduleState("已成立");
+//////            }
+//        }
+
+
         coursescheduleDao.saveAll(courseSchedules);
     }
 
@@ -111,8 +121,5 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
     public List<CourseSchedule> findSchedules(Date courseScheduleDate, String courseScheduleTime, int coachId) {
         return coursescheduleDao.findCourseScheduleByCourseScheduleDateAndCourseScheduleTimeAndCoachId(courseScheduleDate, courseScheduleTime,coachId);
     }
-
-
-
 }
 

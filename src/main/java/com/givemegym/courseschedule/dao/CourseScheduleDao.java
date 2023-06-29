@@ -1,6 +1,5 @@
 package com.givemegym.courseschedule.dao;
 
-import com.givemegym.coach.vo.Coach;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
 import org.springframework.data.jpa.repository.JpaRepository;

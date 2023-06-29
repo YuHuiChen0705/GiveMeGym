@@ -1,4 +1,4 @@
-package com.givemegym.period;
+package com.givemegym.period.dto;
 
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,9 @@ public class PeriodForm {
     }
 
     public void addCourseSchedule(CourseSchedule courseSchedule) {
-        this.courseSchedules.add(courseSchedule);
+        if (courseSchedules == null) {
+            courseSchedules = new ArrayList<>();
+        }
+        courseSchedules.add(courseSchedule);
     }
-
 }

@@ -1,7 +1,6 @@
 package com.givemegym.courseschedule.service;
 
 
-import com.givemegym.coach.vo.Coach;
 import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
 import org.springframework.web.multipart.MultipartFile;

@@ -3,7 +3,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!--<link rel="stylesheet" href="assets/css/style-starter.css">-->
+<link rel="stylesheet" href="assets/css/style-starter.css">
 
 <!-- bootstrap5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -150,55 +150,36 @@
     <div class="logo">Give Me Gym</div>
     <div class="user">
         <div class="name">User Name</div>
-        <a class="btn btn-style btn-primary  mt-4">登出</a>
+        <button>登出</button>
     </div>
 </header>
-
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h1>首頁</h1>
+        <h1 id="back-idex"><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-        <h2>員工管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="addemp.html">新增員工</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢員工</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">員工權限</a></li>
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
         </ul>
 
-        <h2>會員管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增會員</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢會員</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">會員權限</a></li>
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
         </ul>
 
-        <h2>商城管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">商品管理</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">訂單管理</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">庫存管理</a></li>
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
         </ul>
 
-        <h2>教練管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">教練名單</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增教練</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">班表查看</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/coach/adm/list">教練管理</a></h2>
 
-        <h2>團課管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增團課</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢團課</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">團課排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-        <h2>客服管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">客戶查詢</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">訂單查詢</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">FAQ管理</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
     </div>
 
 
@@ -210,8 +191,10 @@
                     <div class="text-center mb-5">
                         <h4 class="rounded-pill border border-5 text-dark">新增團課</h4>
                     </div>
+
                     <form th:action="@{/backend_period/save}" method="post" enctype="multipart/form-data"
                           id="form" class=" needs-validation row text-dark" novalidate>
+
                         <div class="col-md-12">
                             <label class="form-label">團課課程</label>
                             <select class="form-select" th:field="*{form.period.course.courseId}" id="course">
@@ -279,43 +262,7 @@
                         <div class="col-md-6" name="coachContainer">
                             <label class="form-label">教練</label>
                             <select class="form-control" th:field="${form.courseSchedules[0].coach}"
-                                   required>
-                                <option th:each="coach: ${coachListData}"
-                                        th:value="${coach.coachId}"
-                                        th:text="${coach.coachName}"></option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇教練
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="coachContainer">
-                            <label class="form-label">教練</label>
-                            <select class="form-control" th:field="${form.courseSchedules[1].coach}"
-                                    required>
-                                <option th:each="coach: ${coachListData}"
-                                        th:value="${coach.coachId}"
-                                        th:text="${coach.coachName}"></option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇教練
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="coachContainer">
-                            <label class="form-label">教練</label>
-                            <select class="form-control" th:field="${form.courseSchedules[2].coach}"
-                                     required>
-                                <option th:each="coach: ${coachListData}"
-                                        th:value="${coach.coachId}"
-                                        th:text="${coach.coachName}"></option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇教練
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="coachContainer">
-                            <label class="form-label">教練</label>
-                            <select class="form-control" th:field="${form.courseSchedules[3].coach}"
-                                     required>
+                                    id="coach1" required>
                                 <option th:each="coach: ${coachListData}"
                                         th:value="${coach.coachId}"
                                         th:text="${coach.coachName}"></option>
@@ -329,34 +276,7 @@
 
                             <input class="form-control"
                                    th:field="${form.courseSchedules[0].courseScheduleDate}"
-                                   name="C_date3" id="C_date3" type="text" required>
-                            <div class="invalid-feedback">
-                                請選擇上課日期
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="dateContainer">
-                            <label class="form-label">上課日期</label>
-                            <input class="form-control"
-                                   th:field="${form.courseSchedules[1].courseScheduleDate}"
-                                   name="D_date4" id="D_date4" type="text" required>
-                            <div class="invalid-feedback">
-                                請選擇上課日期
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="dateContainer">
-                            <label class="form-label">上課日期</label>
-                            <input class="form-control"
-                                   th:field="${form.courseSchedules[2].courseScheduleDate}"
-                                   name="D_date5" id="D_date5" type="text" required>
-                            <div class="invalid-feedback">
-                                請選擇上課日期
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="dateContainer">
-                            <label class="form-label">上課日期</label>
-                            <input class="form-control"
-                                   th:field="${form.courseSchedules[3].courseScheduleDate}"
-                                   name="D_date6" id="D_date6" type="text" required>
+                                   name="D_date3" id="D_date3" type="text" required>
                             <div class="invalid-feedback">
                                 請選擇上課日期
                             </div>
@@ -364,43 +284,7 @@
                         <div class="col-md-6" name="timeContainer">
                             <label class="form-label">上課時段</label>
                             <select class="form-select" th:field="${form.courseSchedules[0].courseScheduleTime}"
-                                   required>
-                                <option value="早">早</option>
-                                <option value="中">中</option>
-                                <option value="晚">晚</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇上課時段
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="timeContainer">
-                            <label class="form-label">上課時段</label>
-                            <select class="form-select" th:field="${form.courseSchedules[1].courseScheduleTime}"
-                                     required>
-                                <option value="早">早</option>
-                                <option value="中">中</option>
-                                <option value="晚">晚</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇上課時段
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="timeContainer">
-                            <label class="form-label">上課時段</label>
-                            <select class="form-select" th:field="${form.courseSchedules[2].courseScheduleTime}"
-                                     required>
-                                <option value="早">早</option>
-                                <option value="中">中</option>
-                                <option value="晚">晚</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇上課時段
-                            </div>
-                        </div>
-                        <div class="col-md-6" name="timeContainer">
-                            <label class="form-label">上課時段</label>
-                            <select class="form-select" th:field="${form.courseSchedules[3].courseScheduleTime}"
-                                    required>
+                                    id="courseScheduleTime1" required>
                                 <option value="早">早</option>
                                 <option value="中">中</option>
                                 <option value="晚">晚</option>
@@ -410,9 +294,112 @@
                             </div>
                         </div>
                         <hr class="my-4">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-dark" id="check">送出</button>
+                        <div class="col-md-6" name="coachContainer">
+                            <label class="form-label">教練</label>
+                            <select class="form-control" th:field="${form.courseSchedules[1].coach}"
+                                    id="coach2" required>
+                                <option th:each="coach: ${coachListData}"
+                                        th:value="${coach.coachId}"
+                                        th:text="${coach.coachName}"></option>
+                            </select>
+                            <div class="invalid-feedback">
+                                請選擇教練
+                            </div>
+                        </div>
 
+                        <div class="col-md-6" name="dateContainer">
+                            <label class="form-label">上課日期</label>
+                            <input class="form-control"
+                                   th:field="${form.courseSchedules[1].courseScheduleDate}"
+                                   name="D_date4" id="D_date4" type="text" required>
+                            <div class="invalid-feedback">
+                                請選擇上課日期
+                            </div>
+                        </div>
+                        <div class="col-md-6" name="timeContainer">
+                            <label class="form-label">上課時段</label>
+                            <select class="form-select" th:field="${form.courseSchedules[1].courseScheduleTime}"
+                                    id="courseScheduleTime2" required>
+                                <option value="早">早</option>
+                                <option value="中">中</option>
+                                <option value="晚">晚</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                請選擇上課時段
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <!--                        <div class="col-md-6" name="coachContainer">-->
+                        <!--                            <label class="form-label">教練</label>-->
+                        <!--                            <select class="form-control" th:field="${form.courseSchedules[2].coach}"-->
+                        <!--                                    id="coach3" required>-->
+                        <!--                                <option th:each="coach: ${coachListData}"-->
+                        <!--                                        th:value="${coach.coachId}"-->
+                        <!--                                        th:text="${coach.coachName}"></option>-->
+                        <!--                            </select>-->
+                        <!--                            <div class="invalid-feedback">-->
+                        <!--                                請選擇教練-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-md-6" name="dateContainer">-->
+                        <!--                            <label class="form-label">上課日期</label>-->
+                        <!--                            <input class="form-control"-->
+                        <!--                                   th:field="${form.courseSchedules[2].courseScheduleDate}"-->
+                        <!--                                   name="D_date5" id="D_date5" type="text" required>-->
+                        <!--                            <div class="invalid-feedback">-->
+                        <!--                                請選擇上課日期-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-md-6" name="timeContainer">-->
+                        <!--                            <label class="form-label">上課時段</label>-->
+                        <!--                            <select class="form-select" th:field="${form.courseSchedules[2].courseScheduleTime}"-->
+                        <!--                                    id="courseScheduleTime3" required>-->
+                        <!--                                <option value="早">早</option>-->
+                        <!--                                <option value="中">中</option>-->
+                        <!--                                <option value="晚">晚</option>-->
+                        <!--                            </select>-->
+                        <!--                            <div class="invalid-feedback">-->
+                        <!--                                請選擇上課時段-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <hr class="my-4">-->
+                        <!--                        <div class="col-md-6" name="coachContainer">-->
+                        <!--                            <label class="form-label">教練</label>-->
+                        <!--                            <select class="form-control" th:field="${form.courseSchedules[3].coach}"-->
+                        <!--                                    id="coach4" required>-->
+                        <!--                                <option th:each="coach: ${coachListData}"-->
+                        <!--                                        th:value="${coach.coachId}"-->
+                        <!--                                        th:text="${coach.coachName}"></option>-->
+                        <!--                            </select>-->
+                        <!--                            <div class="invalid-feedback">-->
+                        <!--                                請選擇教練-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-md-6" name="dateContainer">-->
+                        <!--                            <label class="form-label">上課日期</label>-->
+                        <!--                            <input class="form-control"-->
+                        <!--                                   th:field="${form.courseSchedules[3].courseScheduleDate}"-->
+                        <!--                                   name="D_date6" id="D_date6" type="text" required>-->
+                        <!--                            <div class="invalid-feedback">-->
+                        <!--                                請選擇上課日期-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="col-md-6" name="timeContainer">-->
+                        <!--                            <label class="form-label">上課時段</label>-->
+                        <!--                            <select class="form-select" th:field="${form.courseSchedules[3].courseScheduleTime}"-->
+                        <!--                                    id="courseScheduleTime4" required>-->
+                        <!--                                <option value="早">早</option>-->
+                        <!--                                <option value="中">中</option>-->
+                        <!--                                <option value="晚">晚</option>-->
+                        <!--                            </select>-->
+                        <!--                            <div class="invalid-feedback">-->
+                        <!--                                請選擇上課時段-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
+                        <hr class="my-4">
+                        <div class="col-12 text-center">
+                            <button type="button" class="btn btn-dark btn-lg" id="check">確認</button>
                         </div>
                         <hr class="my-4">
                     </form>
@@ -424,53 +411,12 @@
 
 </div>
 
-<div class="content">
-    <iframe id="content" src=""></iframe>
-</div>
 
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const headings = document.querySelectorAll('.sidebar h2');
-
-        headings.forEach((heading) => {
-            heading.addEventListener('click', (event) => {
-                const subMenu = event.target.nextElementSibling;
-                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-    });
-
-    function loadContent(url) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("content").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.open("GET", url, true);
-        xhr.send();
-    }
-
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const links = document.querySelectorAll('.nav-link');
-        links.forEach((link) => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const url = link.getAttribute('href');
-                loadContent(url);
-            });
-        });
-    });
-
-    function loadAddEmpPage() {
-        document.getElementById('content').src = 'addemp.html';
-    }
-</script>
 <!--Jquery-->
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
-<!--&lt;!&ndash; 驗證 &ndash;&gt;-->
-<!--<script th:src="@{/course_44/js/addPeriod-vail.js}"></script>-->
+<!-- 驗證 -->
+<script th:src="@{/course_44/js/addPeriod-vail.js}"></script>
 
 <!-- bootstrap5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -483,11 +429,23 @@
 <script th:src="@{/course_44/js/jquery.datetimepicker.full.js}"></script>
 
 <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    });
+</script>
+
+<script>
     window.onload = function () {
         hideAllContainers();
     };
 
-    // 监听團課堂數输入框的变化
     document.getElementById('courseNumber').addEventListener('input', function () {
         var courseNumber = parseInt(this.value);
         var coachContainers = document.getElementsByName('coachContainer');
@@ -544,13 +502,13 @@
             onShow: function () {
                 this.setOptions({
                     minDate: $('#A_date1').val() ? $('#A_date1').val() : false,
-                    maxDate: $('#C_date3').val() ? $('#C_date3').val() : false
+                    maxDate: $('#D_date3').val() ? $('#D_date3').val() : false
                 })
             },
             timepicker: false
         });
 
-        $('#C_date3').datetimepicker({
+        $('#D_date3').datetimepicker({
             format: 'Y-m-d',
             onShow: function () {
                 this.setOptions({
@@ -565,7 +523,7 @@
             format: 'Y-m-d',
             onShow: function () {
                 this.setOptions({
-                    minDate: $('#C_date3').val() ? $('#C_date3').val() : false
+                    minDate: $('#D_date3').val() ? $('#D_date3').val() : false
                 })
             },
             timepicker: false
@@ -605,68 +563,72 @@
 </script>
 
 
-<!--<script>-->
+<script>
 
-<!--    $(document).ready(function () {-->
-<!--        $("#check").click(function () {-->
-<!--            check();-->
-<!--        });-->
-<!--    });-->
+    $(document).ready(function () {
+        $("#check").click(function () {
+            check();
+        });
+    });
 
-<!--    function check() {-->
-<!--        const courseSchedules = [];-->
+    function check() {
+        const courseSchedules = [];
+        const courseNumber = document.querySelector(`input[id="courseNumber"]`).value;
 
-<!--        const coach1 = document.querySelector('select[id="coach1"]');-->
-<!--        const coach1Value = coach1.value;-->
-<!--        console.log(coach1Value);-->
+        for (let i = 1; i <= parseInt(courseNumber); i++) {
+            const coach = document.querySelector(`select[id="coach${i}"]`);
+            const coachValue = coach.value;
 
-<!--        const date1 = document.querySelector('input[id="C_date3"]');-->
-<!--        const date1Value = date1.value;-->
-<!--        const time1 = document.querySelector('select[id="courseScheduleTime1"]');-->
-<!--        const time1Value = time1.value;-->
-<!--        const schedule1 = {-->
-<!--            coach: coach1Value,-->
-<!--            courseScheduleDate: date1Value,-->
-<!--            courseScheduleTime: time1Value-->
-<!--        };-->
+            const date = document.querySelector(`input[id="D_date${i + 2}"]`);
+            const dateValue = date.value;
+            const time = document.querySelector(`select[id="courseScheduleTime${i}"]`);
+            const timeValue = time.value;
 
-<!--        courseSchedules.push(schedule1);-->
-<!--        console.log(schedule1)-->
+            const schedule = {
+                coach: coachValue,
+                courseScheduleDate: dateValue,
+                courseScheduleTime: timeValue,
+            };
 
-<!--        // const coach2 = document.querySelector('select[id="coach2"]');-->
-<!--        // const coach2Value = coach2.value;-->
-<!--        //-->
-<!--        // const schedule2 = {-->
-<!--        //     coach: "coach2Value",-->
-<!--        //     courseScheduleDate: "Date 1",-->
-<!--        //     courseScheduleTime: "Time 1"-->
-<!--        // };-->
-<!--        // courseSchedules.push(schedule1);-->
+            courseSchedules.push(schedule);
+        }
 
-<!--        $.ajax({-->
-<!--            url: "/frontend_period/checkSchedule",-->
-<!--            method: "POST",-->
-<!--            dataType: "json",-->
-<!--            contentType: "application/json;charset=utf-8",-->
-<!--            data: JSON.stringify({courseSchedule: courseSchedules}),-->
-<!--            success: function (response) {-->
-<!--                console.log(response);-->
-<!--                if (response === false) {-->
-<!--                    alert("新增成功");-->
-<!--                    const coach1 = document.querySelector('#form');-->
-<!--                    coach1.submit();-->
-<!--                } else {-->
-<!--                    alert("已有時段 " + response);-->
-<!--                }-->
-<!--            },-->
-<!--            error: function (error) {-->
-<!--                console.log(error);-->
-<!--            }-->
-<!--        });-->
-<!--    }-->
+        const form = document.querySelector("#form");
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add("was-validated");
+            return;
+        }
 
+        $.ajax({
+            url: "/frontend_period/checkSchedule",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({courseSchedule: courseSchedules}),
+            success: function (response) {
+                if (response === true) {
+                    alert("新增成功");
+                    form.submit();
+                } else if (Array.isArray(response) && response.length > 0) {
+                    let message = "已有時段:\n";
+                    response.forEach(function (schedule) {
+                        const coach = schedule.coach.coachName;
+                        const date = schedule.courseScheduleDate;
+                        const time = schedule.courseScheduleTime;
+                        message += "教練: " + coach + ", 時段: " + time + ", 日期: " + date + "\n";
+                    });
+                    alert(message);
+                } else {
+                    alert("未知錯誤");
+                }
+            },
+        });
+    }
 
-<!--</script>-->
+</script>
+
 
 </body>
 

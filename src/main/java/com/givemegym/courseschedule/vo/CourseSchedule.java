@@ -1,7 +1,11 @@
 package com.givemegym.courseschedule.vo;
 
+import java.sql.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.givemegym.coach.vo.Coach;
 import com.givemegym.period.vo.Period;
@@ -9,8 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.sql.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -44,8 +47,6 @@ public class CourseSchedule {
 
     @Column(name = "COURSE_SCHEDULE_STATE")
     private String courseScheduleState;
-
-
 
 
 }
