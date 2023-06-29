@@ -46,13 +46,13 @@ public class ProclassOrderController {
     }
 
     // 教練新增排假
-    @PostMapping("/addproclassorder")
-    public String addDayoff(@Valid @ModelAttribute("ProclassOrderVo") ProclassOrderVo proclassOrderVo) {
-        Integer coachId = 1;
-        proclassOrderVo.setCoachId(coachId);
-        proclassOrderService.save(proclassOrderVo);
-        return "redirect:/coachDayoff/getAlldayofflist/" + coachId;
-    }
+//    @PostMapping("/addproclassorder")
+//    public String addDayoff(@Valid @ModelAttribute("ProclassOrderVo") ProclassOrderVo proclassOrderVo) {
+//        Integer coachId = 1;
+//        proclassOrderVo.setCoachId(coachId);
+//        proclassOrderService.save(proclassOrderVo);
+//        return "redirect:/coachDayoff/getAlldayofflist/" + coachId;
+//    }
 
     // 依會員找尋
     @GetMapping("/mebproClassorder")
