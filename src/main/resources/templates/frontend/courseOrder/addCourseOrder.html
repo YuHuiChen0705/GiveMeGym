@@ -200,9 +200,6 @@
 </main>
 
 
-
-
-
 <!-- footers 20 -->
 <section class="w3l-footers-20">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -361,10 +358,20 @@
             success: function (response) {
                 console.log(response);
                 if (response !== false) {
-                    alert("已有重複的訂單 " + response);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '你已經報名過了喔~~~~',
+                        html: '訂單編號: ' + response,
+                    }).then(() => {
+                        window.location.href = '/frontend_courseOrder/orderList';
+                    });
                 } else {
-                    alert("下單成功");
-                    $("#form").submit();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '恭喜你下單成功!!要記得來喔!!',
+                    }).then(() => {
+                        $("#form").submit();
+                    });
                 }
             },
             error: function (xhr, status, error) {
@@ -372,8 +379,8 @@
             }
         });
     }
-
 </script>
+
 
 
 <!-- 導覽列及按鈕-->
