@@ -15,7 +15,7 @@ import com.givemegym.coach.vo.Coach;
 
 @Entity
 @Table(name = "coachdayoff")
-public class CoachDayoff {
+public class CoachDayOff {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +32,10 @@ public class CoachDayoff {
 	@Column(name = "COACHDAYOFF_TIME")
 	private char time;
 	
-	public CoachDayoff() {
+	public CoachDayOff() {
 	}
 
-	public CoachDayoff(int id, Coach coach, LocalDate date, char time) {
+	public CoachDayOff(int id, Coach coach, LocalDate date, char time) {
 		this.id = id;
 		this.coach = coach;
 		this.date = date;

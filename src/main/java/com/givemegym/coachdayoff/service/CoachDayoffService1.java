@@ -1,11 +1,12 @@
 package com.givemegym.coachdayoff.service;
 
 import java.util.List;
-import com.givemegym.coachdayoff.vo.CoachDayoff;
+
+import com.givemegym.coachdayoff.vo.CoachDayOff;
 
 public interface CoachDayoffService1 {
 
-	public List<CoachDayoff> findAll();
+	public List<CoachDayOff> findAll();
 	
-	public void addDayoff(CoachDayoff theDayoff); 
+	public void addDayoff(CoachDayOff theDayoff);
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
 import com.givemegym.coachdayoff.service.CoachDayoffService1;
-import com.givemegym.coachdayoff.vo.CoachDayoff;
+import com.givemegym.coachdayoff.vo.CoachDayOff;
 
 @Controller
 @RequestMapping("/coachdayoff")
@@ -36,20 +36,20 @@ public class CoachDayoffController1 {
 	public String allDayoff(Model theModel) {
 
 		// get coaches from db
-		List<CoachDayoff> theDayOff = theCoachDayoffService.findAll();
+		List<CoachDayOff> theDayOff = theCoachDayoffService.findAll();
 		List<Coach> theCoaches = theCoachService.findAll();
 
 		// add to the spring model
 		theModel.addAttribute("coachDayoff", theDayOff);
 		theModel.addAttribute("coaches", theCoaches);
 
-		theModel.addAttribute("newDayoff", new CoachDayoff());
+		theModel.addAttribute("newDayoff", new CoachDayOff());
 
 		return "backend/coachdayoff/addCoachDayoff";
 	}
 
 	@PostMapping("/addCoachDayoff")
-	public String addNewDayoff(@ModelAttribute("newDayoff") CoachDayoff theDayoff, BindingResult result,
+	public String addNewDayoff(@ModelAttribute("newDayoff") CoachDayOff theDayoff, BindingResult result,
 			@RequestParam("offdate") String theDate) {
 
 		LocalDate localDate = LocalDate.parse(theDate);

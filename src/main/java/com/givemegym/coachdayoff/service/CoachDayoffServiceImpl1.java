@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.givemegym.coachdayoff.dao.CoachDayoffDAO1;
-import com.givemegym.coachdayoff.vo.CoachDayoff;
+import com.givemegym.coachdayoff.vo.CoachDayOff;
 
 @Service
 public class CoachDayoffServiceImpl1 implements CoachDayoffService1 {
@@ -19,12 +19,12 @@ public class CoachDayoffServiceImpl1 implements CoachDayoffService1 {
 	}
 	
 	@Override
-	public List<CoachDayoff> findAll(){
+	public List<CoachDayOff> findAll(){
 		return coachDayoffRepo.findAll();
 	}
 
 	@Override
-	public void addDayoff(CoachDayoff theDayoff) {
+	public void addDayoff(CoachDayOff theDayoff) {
 		coachDayoffRepo.save(theDayoff);
 	}
 }
