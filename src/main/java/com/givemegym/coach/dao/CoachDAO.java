@@ -3,6 +3,7 @@ package com.givemegym.coach.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.givemegym.coach.vo.Coach;
@@ -11,5 +12,4 @@ import com.givemegym.coach.vo.Coach;
 public interface CoachDAO extends JpaRepository<Coach, Integer>{
 
 	public List<Coach> findAll();
-
 }

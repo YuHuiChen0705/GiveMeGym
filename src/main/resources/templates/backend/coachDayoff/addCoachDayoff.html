@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>通通給我健起來Give Me Gym CENTER | 技能管理</title>
+<title>通通給我健起來Give Me Gym CENTER | 教練休假管理</title>
 <!-- JQuery連結-->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -220,10 +220,11 @@ table td {
 
 				<h2 class="sidebartitle">教練管理</h2>
 				<ul style="display: none;">
-					<li><a href="/templates/backend/coach/addcoach.html">教練管理</a></li>
-					<li><a href="#">教練休假管理</a></li>
-					<li><a href="/templates/backend/proclass/proclass.html">一對一課程管理</a></li>
-					<li><a href="/templates/backend/skill/addskill.html">技能管理</a></li>
+					<li><a th:href="@{/coach/addCoach}">教練管理</a></li>
+					<li><a th:href="@{/coachdayoff/addcoachDayoff}">教練休假管理</a></li>
+					<li><a th:href="@{/proclass/proclassList}">一對一課程管理</a></li>
+					<li><a th:href="@{/skill/addSkill}">技能管理</a></li>
+
 				</ul>
 
 				<h2>團課管理</h2>
@@ -243,143 +244,106 @@ table td {
 
 		<section class="py-99">
 			<div class="container">
-				<h3 class="text-dark mb-4">技能管理</h3>
+				<h3 class="text-dark mb-4">教練管理</h3>
 
 				<div class="card shadow">
 					<div class="card-header py-2">
-						<div class="d-flex justify-content-between align-items-center ">
-							<p class="text-primary m-0 fw-bold">技能資訊</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<p class="text-primary m-0 fw-bold">教練休假管理</p>
 
-							<button type="button" class="btn btn-primary .float-left"
-								data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-								新增技能</button>
+							<!-- <button type="button" class="btn btn-primary float-left" -->
+							<!-- data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
+							<!-- 新增休假</button> -->
 						</div>
 					</div>
 
 					<div class="card-body py-2">
 						<div class="table-responsive table mt-2" id="dataTable"
 							role="grid" aria-describedby="dataTable_info">
-							<table id="myTable"
-								class="table table-striped table-hover style=width:100%">
+							<table id="myTable" class="table table-striped table-hover"
+								style="width: 100%">
 								<thead>
 									<tr>
 										<!-- 欄位標題 -->
-										<th class="align-middle text-center">技能編號</th>
-										<th class="align-middle text-center">技能名稱</th>
-										<th class="align-middle text-center">操作功能</th>
+										<th class="align-middle text-center">休假編號</th>
+										<th class="align-middle text-center">教練名稱</th>
+										<th class="align-middle text-center">休假日期</th>
+										<th class="align-middle text-center">休假時段</th>
 									</tr>
 
 
 								</thead>
 								<tbody>
-									<!-- 填入表格內容 -->
-									<tr th:each="tempSkill : ${skillList}">
+									<tr class="align-middle text-center"
+										th:each="tempDayoff : ${coachDayoff}">
 										<td class="align-middle text-center"
-											th:text="${tempSkill.skillId}" />
+											th:text="${tempDayoff.id}" />
 										<td class="align-middle text-center"
-											th:text="${tempSkill.skillName}" />
-										<td class="align-middle text-center">
-											<button class="btn btn-success btn-sm" data-bs-toggle="modal"
-												data-bs-target="#editModal"
-												th:attr="data-skill-id=${tempSkill.skillId},
-                         data-skill-name=${tempSkill.skillName}">修改</button>
-											<a
-											th:href="@{/skill/removeSkill(skillId=${tempSkill.skillId})}"
-											th:onclick="if (!(confirm('確認刪除該筆資料?'))) return false">
-												<button class="btn btn-success btn-sm">刪除</button>
-										</a>
-										</td>
+											th:text="${tempDayoff.coach.coachName}" />
+										<td class="align-middle text-center"
+											th:text="${tempDayoff.date}" />
+										<td class="align-middle text-center"
+											th:switch="${tempDayoff.time}"><span th:case="'0'"
+											th:text='早'></span> <span th:case="'1'" th:text='中'></span> <span
+											th:case="'2'" th:text='晚'></span></td>
 									</tr>
-
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</section>
 		<!--insert Modal -->
-		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-			data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable"
-				style="--bs-modal-width: 400px;">
-				<div class="modal-content">
-					<div class="modal-header" style="color: #000;">
-						<h1 class="modal-title fs-5" id="staticBackdropLabel">技能新增</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body" style="color: #000; font-weight: 600;">
-						<form th:action="@{/skill/addSkill}" th:object="${newSkill}"
-							method="post">
-							<div class="form-group">
-								<label for="product-name">技能名稱</label> <input type="text"
-									id="coa_Name" name="coa_Name" th:field="*{skillName}" required>
-							</div>
-
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-secondary"
-									data-bs-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary" id="upload">新增</button>
-							</div>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<!--Update Modal -->
-		<div class="modal fade" id="editModal" data-bs-backdrop="static"
-			data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="editModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable"
-				style="--bs-modal-width: 400px;">
-				<div class="modal-content">
-					<div class="modal-header" style="color: #000;">
-						<h1 class="modal-title fs-5" id="editModalLabel">技能修改</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body" style="color: #000; font-weight: 600;">
-						<form id="edit-product-form" enctype="multipart/form-data"
-							th:action="@{/skill/updateSkill}" method="post">
-							<div class="form-group">
-								<label for="ski_Id_edit" /> <input type="text" id="ski_Id_edit"
-									hidden="hidden" name="skillId" />
-							</div>
-							<div class="form-group">
-								<label for="ski_Name_edit">技能名稱</label> <input type="text"
-									id="ski_Name_edit" class="form-control" name="skillName"
-									required>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary">修改</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+		<!-- 		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" -->
+		<!-- 			data-bs-keyboard="false" tabindex="-1" -->
+		<!-- 			aria-labelledby="staticBackdropLabel" aria-hidden="true"> -->
+		<!-- 			<div class="modal-dialog modal-dialog-scrollable" -->
+		<!-- 				style="--bs-modal-width: 400px;"> -->
+		<!-- 				<div class="modal-content"> -->
+		<!-- 					<div class="modal-header" style="color: #000;"> -->
+		<!-- 						<h1 class="modal-title fs-5" id="staticBackdropLabel">休假申請</h1> -->
+		<!-- 						<button type="button" class="btn-close" data-bs-dismiss="modal" -->
+		<!-- 							aria-label="Close"></button> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="modal-body" style="color: #000; font-weight: 600;"> -->
+		<!-- 						<form id="add-product-form" -->
+		<!-- 							th:action="@{/coachdayoff/addCoachDayoff}" -->
+		<!-- 							th:object="${newDayoff}" method="post"> -->
+		<!-- 							<div class="form-group"> -->
+		<!-- 								<select class="btn btn-primary" th:field="*{coach}"> -->
+		<!-- 									<option value="" selected>請選擇教練</option> -->
+		<!-- 									<option th:each="theCoach : ${coaches}" -->
+		<!-- 										th:value="${theCoach.coachId}" th:text="${theCoach.coachName}"></option> -->
+		<!-- 								</select> -->
+		<!-- 							</div> -->
+		<!-- 							<br> -->
+		<!-- 							<div class="form-group"> -->
+		<!-- 								<label for="start">休假日期:</label> <input type="date" id="start" -->
+		<!-- 									name="offdate" min="2023-01-01" max="2023-12-31" required> -->
+		<!-- 							</div> -->
+		<!-- 							<br> -->
+		<!-- 							<div class="form-group"> -->
+		<!-- 								<label for="product-category">休假時段:</label> <select -->
+		<!-- 									id="product-category" th:field="*{time}" required> -->
+		<!-- 									<option value=" " selected>請選擇時段</option> -->
+		<!-- 									<option th:value="0">早(09:00 - 12:00)</option> -->
+		<!-- 									<option th:value="1">中(13:30 - 16:30)</option> -->
+		<!-- 									<option th:value="2">晚(18:30 - 21:30)</option> -->
+		<!-- 								</select> -->
+		<!-- 							</div> -->
+		<!-- 							<div class="modal-footer"> -->
+		<!-- 								<button type="submit" class="btn btn-secondary" -->
+		<!-- 									data-bs-dismiss="modal">取消</button> -->
+		<!-- 								<button type="submit" class="btn btn-primary" id="upload">新增</button> -->
+		<!-- 							</div> -->
+		<!-- 						</form> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
 
 		<script>
-		$(document).ready(function() {
-	        $('#editModal').on('show.bs.modal', function(event) {
-	            var button = $(event.relatedTarget); // Button that triggered the modal
-	            var skillId = button.data('skill-id');
-	            var skillName = button.data('skill-name');
-
-	            // Update the modal with the data
-	            var modal = $(this);
-	            modal.find('#ski_Id_edit').val(skillId);
-	            modal.find('#ski_Name_edit').val(skillName);
-	        });
-	    });
-		 
         $(document).ready(function () {
             $('#myTable').DataTable({
                 "language": {
@@ -462,9 +426,7 @@ table td {
                 }
 
             });
-        }); 
-        </script>
-
+        }); </script>
 		<!-- JS -->
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

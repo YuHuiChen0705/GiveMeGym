@@ -24,32 +24,44 @@ public class SkillController {
 	public SkillController(SkillServiceImpl skillserviceImpl) {
 		this.skillserviceImpl = skillserviceImpl;
 	}
-	
-	@GetMapping("/list")
+
+	@GetMapping("/adm/list")
 	public String showTheSkillPage(Model theModel) {
-		
+
 		List<Skill> theSkills = skillserviceImpl.showTheSkillList();
-		
+
 		theModel.addAttribute("skillList", theSkills);
-		
+
 		theModel.addAttribute("newSkill", new Skill());
-		
+
 		return "backend/skill/addskill";
 	}
-	
+
 	@PostMapping("/addSkill")
 	public String addNewSkill(@ModelAttribute("newSkill") Skill theSkill) {
 
 		skillserviceImpl.save(theSkill);
 
-		return "redirect:/skill/list";
+		return "redirect:/skill/adm/list";
 	}
-	
+
 	@GetMapping("/removeSkill")
 	public String deleteSkill(@RequestParam("skillId") int theId) {
 
 		skillserviceImpl.deleteById(theId);
 
-		return "redirect:/skill/list";
+		return "redirect:/skill/adm/list";
+	}
+
+	@PostMapping("/updateSkill")
+	public String updateSkillData(@RequestParam("skillId") int skillId, @RequestParam("skillName") String skillName) {
+
+		Skill theSkill = skillserviceImpl.findById(skillId);
+
+		theSkill.setSkillName(skillName);
+
+		skillserviceImpl.save(theSkill);
+
+		return "redirect:/skill/adm/list";
 	}
 }
