@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +30,7 @@ public class ProclassController {
 	}
 
 	// add mapping for "/list"
-	@GetMapping("/list")
+	@GetMapping("/adm/list")
 	public String listCoach(Model theModel) {
 
 		// 取出所有一對一課程
@@ -54,15 +53,29 @@ public class ProclassController {
 
 		proclassService.save(theClass);
 
-		return "redirect:/proclass/list";
+		return "redirect:/proclass/adm/list";
 	}
 
 	@GetMapping("/removeClass")
 	public String removeProclass(@RequestParam("proclassId") int theId) {
 
-		System.out.println("Proclass Id:" + theId);
 		proclassService.deleteById(theId);
 
-		return "redirect:/proclass/list";
+		return "redirect:/proclass/adm/list";
+	}
+
+	@PostMapping("/updateProclass")
+	public String updateSkillData(@RequestParam("proclassId") int proclassId, @RequestParam("skillId") int skillId,
+			@RequestParam("proclassName") String proclassName) {
+
+		Proclass theProclass = proclassService.findById(proclassId);
+		Skill theSkill = theSkillService.findById(skillId);
+
+		theProclass.setSkillId(theSkill);
+		theProclass.setProclassName(proclassName);
+
+		proclassService.save(theProclass);
+
+		return "redirect:/proclass/adm/list";
 	}
 }

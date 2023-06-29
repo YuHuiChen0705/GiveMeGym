@@ -1,6 +1,7 @@
 package com.givemegym.coach.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
+import com.givemegym.coachskill.service.CoachSkillService;
 import com.givemegym.coachskill.vo.CoachSkill;
 import com.givemegym.skill.service.SkillService;
 import com.givemegym.skill.vo.Skill;
@@ -28,11 +30,14 @@ public class CoachController {
 
 	private CoachService theCoachService;
 	private SkillService theSkillService;
+	private CoachSkillService theCoachSkillService;
 
 	@Autowired
-	public CoachController(CoachService theCoachService, SkillService theSkillService) {
+	public CoachController(CoachService theCoachService, SkillService theSkillService,
+			CoachSkillService theCoachSkillService) {
 		this.theCoachService = theCoachService;
 		this.theSkillService = theSkillService;
+		this.theCoachSkillService = theCoachSkillService;
 	}
 
 	// add mapping for "/list"
@@ -74,30 +79,35 @@ public class CoachController {
 		theModel.addAttribute("skillList", theSkills);
 
 		theModel.addAttribute("newCoach", new Coach());
-		theModel.addAttribute("newCoachSkill", new CoachSkill());
 
 		return "backend/coach/addcoach";
 	}
 
 	@PostMapping("/addCoach")
-	public String addNewCoach(@ModelAttribute("newCoach") Coach theCoach, BindingResult result,
-			@RequestParam("coachPic") MultipartFile[] thePhoto) {
+	public String addNewCoach(@ModelAttribute("newCoach") Coach newCoach, BindingResult result,
+			@RequestParam("skillId") List<Integer> newSkill, @RequestParam("coachPic") MultipartFile[] thePhoto) {
 
-//		System.out.println("CoachSkill Skill Id:" + theCoachSkill.getSkill().getSkillId());
-
-		result = new BeanPropertyBindingResult(theCoach, "newCoach");
+		System.out.println("Skill Id:" + newSkill);
+		result = new BeanPropertyBindingResult(newCoach, "newCoach");
 		try {
 			if (!thePhoto[0].isEmpty()) {
 				for (MultipartFile multipartFile : thePhoto) {
 					byte[] buf = multipartFile.getBytes();
-					theCoach.setCoachPic(buf);
+					newCoach.setCoachPic(buf);
 				}
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		theCoachService.save(theCoach);
+		theCoachService.save(newCoach);
+
+		List<CoachSkill> prefessions = new ArrayList<>();
+		for (Integer theSkillId : newSkill) {
+			prefessions.add(new CoachSkill(newCoach, theSkillService.findById(theSkillId)));
+		}
+
+		theCoachSkillService.save(prefessions);
 
 		return "redirect:/coach/adm/list";
 	}

@@ -1,6 +1,7 @@
 package com.givemegym.coach.service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +9,11 @@ import org.springframework.stereotype.Service;
 import com.givemegym.coach.dao.CoachDAO;
 import com.givemegym.coach.vo.Coach;
 
-
 @Service
 public class CoachServiceImpl implements CoachService {
 
 	private CoachDAO coachRepo;
-	
+
 	@Autowired
 	public CoachServiceImpl(CoachDAO coachRepo) {
 		this.coachRepo = coachRepo;
