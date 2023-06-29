@@ -130,8 +130,9 @@ public class CourseOrderController {
 
 
     // 會員查看團課課表
-    @GetMapping("/frontend_courseOrder/orderList/{memberId}")
-    public String orderListAll(@PathVariable Integer memberId, Model model) {
+    @GetMapping("/frontend_courseOrder/orderList")
+    public String orderListAll(HttpSession session, Model model) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
         List<CourseOrder> orders = courseOrderService.findByMemberId(memberId);
         model.addAttribute("orders", orders);
 

@@ -61,11 +61,9 @@ public class ProductControllerBackend {
     @PostMapping("/UpdateProduct")
     public String updateProduct(@Valid Product product,
                                 @RequestParam("productImage") List<MultipartFile> productImages) {
-        productService.update(product,productImages);
+        productService.update(product, productImages);
         return "redirect:/getAllProduct";
     }
-
-
 
 
 //    =====================前台功能=============================
@@ -74,8 +72,12 @@ public class ProductControllerBackend {
     // 商城首頁/全商品瀏覽
     @GetMapping("/shopAllProduct")
     public String allProduct(Model model) {
-        List<Product> productList = productService.findOnProducts();
+        System.out.println("call all product");
+//        List<Product> productList = productService.findOnProducts();
+
+        List<Product> productList = productService.findAll();
         model.addAttribute("productList", productList);
+
         return "frontend/product/shop_index";
     }
 
