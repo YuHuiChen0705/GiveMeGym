@@ -158,6 +158,26 @@ public class CourseOrderController {
         return "frontend/courseOrder/course_order_detail";
     }
 
+    // 會員取消訂單
+    @ResponseBody
+    @PostMapping("frontend_courseOrder/cancel/{orderId}")
+    public boolean cancelOrder(HttpSession session, @PathVariable Integer orderId) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        CourseOrder order = courseOrderService.findById(orderId).orElse(null);
+
+        if (memberId != null && order != null) {
+            if (order.getMember().getMemberId().equals(memberId)) {
+                order.setCourseOrderState("已取消");
+                courseOrderService.saveOrUpdate(order);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
 
 
 

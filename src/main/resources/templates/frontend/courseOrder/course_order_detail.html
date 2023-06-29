@@ -15,6 +15,10 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="/shop_19/assets/css/style-starter.css">
+
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -130,15 +134,20 @@
                         <th class="shop-order-th" style="text-align: center">訂單狀態</th>
                         <th class="shop-order-th" style="text-align: center">課程名稱</th>
                         <th class="shop-order-th" style="text-align: center">課程時段</th>
+                        <th class="shop-order-th" style="text-align: center">取消</th>
                     </tr>
                     </thead>
                     <tbody class="shop-order" id="shopOrder">
                     <tr class="shop-order" th:each="courseOrder, orderIndex : ${orders}">
-                        <td class="shop-order orderId" th:text="${courseOrder.courseOrderId}" style="text-align: center"></td>
+                        <td class="shop-order orderId" th:text="${courseOrder.courseOrderId}"
+                            style="text-align: center"></td>
                         <td class="shop-order" style="text-align: center" th:text="${courseOrder.courseOrderDate}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="'$' + ${courseOrder.courseOrderTotalPrice}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="${courseOrder.courseOrderState}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="${courseOrder.period.course.courseName}"></td>
+                        <td class="shop-order" style="text-align: center"
+                            th:text="'$' + ${courseOrder.courseOrderTotalPrice}"></td>
+                        <td class="shop-order" style="text-align: center"
+                            th:text="${courseOrder.courseOrderState}"></td>
+                        <td class="shop-order" style="text-align: center"
+                            th:text="${courseOrder.period.course.courseName}"></td>
                         <td class="shop-order" style="text-align: center">
                             <ul>
                                 <li th:each="timeSlots : ${timeSlotsList[orderIndex.index]}">
@@ -147,9 +156,14 @@
                                 </li>
                             </ul>
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" id="cancel"
+                                    th:id="${courseOrder.courseOrderId}"
+                                    onclick="toCancel(this.id)">取消訂單
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
-
 
 
                 </table>
@@ -553,56 +567,54 @@
 
 
 <script>
-    // 開啟 Modal 彈跳視窗
-    $("button.btn_modal").on("click", function () {
-        $("div.overlay").fadeIn(function () {
-            $(window).scrollTop($("div.overlay").offset().top);
+    $(document).ready(function () {
+        $("#cancel").click(function () {
+            toCancel();
         });
     });
 
-
-    // 關閉 Modal
-    $("button.btn_modal_close, div.overlay").on("click", function (e) {
-        $("div.overlay").fadeOut();
-        topFunction();
-    });
-
-
-    $("div.overlay > article").on("click", function (e) {
-        e.stopPropagation();
-    });
-
+    function toCancel(orderId) {
+        Swal.fire({
+            title: '看看你的肚子?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '確認',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: '好吧!再給你最後一次機會!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: '確認',
+                    cancelButtonText: '取消'
+                }).then((secondResult) => {
+                    if (secondResult.isConfirmed) {
+                        $.ajax({
+                            url:'/frontend_courseOrder/cancel/'+orderId,
+                            type: 'POST',
+                            success: function (response) {
+                                Swal.fire({
+                                    title: '已取消',
+                                    icon: 'success'
+                                }).then(() => {
+                                    var baseUrl = window.location.protocol + "//" + window.location.host;
+                                    var redirectUrl = baseUrl + "/frontend_courseOrder/orderList";
+                                    window.location.href = redirectUrl;
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("AJAX Error: " + error);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 </script>
 
-<script>
-    $(document).ready(function () {
 
-        $('#viewDetails').click(function () {
-            const courseOrderId = $('#courseOrderId').text();
-            console.log(courseOrderId);
-            $.ajax({
-                url: '/orders/' + courseOrderId + '/details',
-                type: 'GET',
-                success: function (details) {
-                    var tableBody = $('#courseDetailsTable tbody');
-
-                    details.forEach(function (detail) {
-                        var row = '<tr>' +
-                            '<td>' + detail.productId + '</td>' +
-                            '<td>' + detail.productName + '</td>' +
-                            '<td>' + detail.quantity + '</td>' +
-                            '</tr>';
-
-                        tableBody.innerHTML = row;
-                    });
-                },
-                error: function () {
-                    console.log('Error occurred during AJAX request.');
-                }
-            });
-        })
-    });
-</script>
 
 </body>
 
