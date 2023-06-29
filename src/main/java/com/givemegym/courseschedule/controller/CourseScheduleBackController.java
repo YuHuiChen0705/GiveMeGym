@@ -1,5 +1,6 @@
 package com.givemegym.courseschedule.controller;
 
+import java.sql.Date;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
 import com.givemegym.course.service.CourseService;
@@ -18,7 +19,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
 @Controller
 @RequestMapping("/backend_courseSchedule")
 public class CourseScheduleBackController {
@@ -35,8 +35,7 @@ public class CourseScheduleBackController {
     @Autowired
     private PeriodService periodService;
 
-
-    // 查詢團課上課時段列表
+    // 查詢上課時段列表
     @GetMapping("/listAll")
     public String findAllCourseSchedule(Model model) {
         List<CourseSchedule> courseScheduleList = courseScheduleService.findAll();
@@ -44,27 +43,12 @@ public class CourseScheduleBackController {
         return "backend/courseSchedule/courseScheduleList";
     }
 
-    // 根据PK查詢一筆時段
-//    @GetMapping("/findOne/{courseScheduleId}")
-//    public String findCourseScheduleById(@PathVariable Integer courseScheduleId, Model model) {
-//
-//        CourseSchedule courseSchedule = courseScheduleService.findById(courseScheduleId).orElseThrow();
-//        model.addAttribute("courseScheduleVO", courseSchedule);
-//
-//        return "backend/courseSchedule/courseScheduleList";
-//    }
-
+    // 根據報名時段查詢上課時段列表
     @GetMapping("/findByPeriod/{period}")
     public String findCourseScheduleByPeriod(@PathVariable Period period, Model model) {
         List<CourseSchedule> courseScheduleByPeriod = courseScheduleService.findCourseScheduleByPeriod(period);
         model.addAttribute("courseScheduleByPeriod", courseScheduleByPeriod);
         return "backend/courseSchedule/courseScheduleList";
-    }
-
-    // 導入新增上課時段的頁面
-    @GetMapping("/add")
-    public String toAdd() {
-        return "backend/courseSchedule/addCourseSchedule";
     }
 
     // 導入修改上課時段的頁面
@@ -73,14 +57,17 @@ public class CourseScheduleBackController {
         Optional<CourseSchedule> findCourseSchedule = courseScheduleService.findById(courseScheduleId);
         model.addAttribute("CourseSchedule", findCourseSchedule.orElseThrow());
         // 查詢完成後轉交修改團課時段的頁面
-        return "backend/courseSchedule/updateCourseSchedule";
+        return "backend/courseSchedule/updateSchedule";
     }
 
 
-    @PostMapping("/saveOrUpdate")
-    public String saveOrUpdate(@Valid CourseSchedule courseSchedule) {
-           courseScheduleService.saveOrUpdate(courseSchedule);
-        return "redirect:/backend_courseSchedule/listAll";
+    // 修改上課時段
+    @PostMapping("/update")
+    public String update(@Valid CourseSchedule courseSchedule) {
+        courseScheduleService.update(courseSchedule);
+        Period period = courseSchedule.getPeriod();
+        Integer periodId = period.getPeriodId();
+        return "redirect:/backend_courseSchedule/findByPeriod/" + periodId;
     }
 
 
@@ -99,20 +86,31 @@ public class CourseScheduleBackController {
 
     @ModelAttribute("coachListData")
     protected List<Coach> referenceListData() {
-//		DeptService deptSvc = new DeptService();
         return coachService.findAll();
     }
 
     @ModelAttribute("courseListData")
     protected List<Course> ListData() {
-//		DeptService deptSvc = new DeptService();
         return courseService.findAll();
     }
 
-//    @ModelAttribute("periodListData")
-//    protected List<Period> ListData() {
-////		DeptService deptSvc = new DeptService();
-//        return periodService.findAll();
+
+
+//    Specification<ScheduleInfoDto> spec = new Specification<LinkMan>() {
+//        public Predicate toPredicate(Root<LinkMan> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//            //Join代表链接查询，通过root对象获取
+//            //创建的过程中，第一个参数为关联对象的属性名称，第二个参数为连接查询的方式（left，inner，right）
+//            //JoinType.LEFT : 左外连接,JoinType.INNER：内连接,JoinType.RIGHT：右外连接
+//            Join<LinkMan, Customer> join = root.join("customer", JoinType.INNER);
+//            return cb.like(join.get("custName").as(String.class), "传智播客1");
+//        }
+//    };
+//    List<LinkMan> list = linkManDao.findAll(spec);
+//        for(
+//    LinkMan linkMan :list)
+//
+//    {
+//        System.out.println(linkMan);
 //    }
 
 

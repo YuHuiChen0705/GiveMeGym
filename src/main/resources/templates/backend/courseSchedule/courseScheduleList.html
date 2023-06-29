@@ -155,19 +155,6 @@
         border: none;
     }
 </style>
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const headings = document.querySelectorAll('.sidebar h2');
-
-        headings.forEach((heading) => {
-            heading.addEventListener('click', (event) => {
-                const subMenu = event.target.nextElementSibling;
-                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-    });
-</script>
-
 </head>
 
 <body>
@@ -183,53 +170,36 @@
 </header>
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h2>首頁</h2>
+        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-        <h2>員工管理</h2>
-        <ul>
-            <li><a href="#">新增員工</a></li>
-            <li><a href="#">查詢員工</a></li>
-            <li><a href="#">員工權限</a></li>
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
         </ul>
 
-        <h2>會員管理</h2>
-        <ul>
-            <li><a href="#">新增會員</a></li>
-            <li><a href="#">查詢會員</a></li>
-            <li><a href="#">會員權限</a></li>
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
         </ul>
 
-        <h2>商城管理</h2>
-        <ul>
-            <li><a href="#">商品管理</a></li>
-            <li><a href="#">訂單管理</a></li>
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
         </ul>
 
-        <h2>教練管理</h2>
-        <ul>
-            <li><a href="#">新增教練</a></li>
-            <li><a href="#">查詢教練</a></li>
-            <li><a href="#">教練排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/coach/adm/list">教練管理</a></h2>
 
-        <h2>團課管理</h2>
-        <ul>
-            <li><a href="#">新增團課</a></li>
-            <li><a href="#">查詢團課</a></li>
-            <li><a href="#">團課排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-        <h2>客服管理</h2>
-        <ul>
-            <li><a href="#">客戶查詢</a></li>
-            <li><a href="#">訂單查詢</a></li>
-            <li><a href="#">FAQ管理</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
     </div>
 
     <section class="py-5" style="flex: 1;">
         <div class="container">
-            <h3 class="text-white mb-4">團課管理</h3>
+            <h3 class="text-black mb-4">團課上課時段管理</h3>
             <div class="card shadow">
 
                 <div class="card-body">
@@ -238,29 +208,57 @@
                         <table id="myTable" class="table table-striped table-hover">
                             <thead>
                             <tr>
-                                <!-- 欄位標題 -->
                                 <th>編號</th>
                                 <th>教練</th>
                                 <th>上課日期</th>
                                 <th>上課時段</th>
+                                <th>狀態</th>
+                                <th>修改</th>
                             </tr>
                             </thead>
                             <tbody>
                             <!-- 動態生成表格內容 -->
                             <tr th:each="courseSchedule:${courseScheduleByPeriod}">
                                 <td th:text="${courseSchedule.courseScheduleId}"></td>
-                                <td th:text="${courseSchedule.coach.name}"></td>
+                                <td th:text="${courseSchedule.coach.coachName}"></td>
                                 <td th:text="${courseSchedule.courseScheduleDate}"></td>
                                 <td th:text="${courseSchedule.courseScheduleTime}"></td>
+                                <td th:text="${courseSchedule.courseScheduleState}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-dark"
+                                            th:onclick="'window.location.href=\'/backend_courseSchedule/update/' + ${courseSchedule.courseScheduleId} + '\''">
+                                        修改
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div class="card-footer py-3">
+                    <button type="button" class="btn btn-primary"
+                            onclick="window.location.href = '/backend_period/listAll'">
+                        返回報名時段清單
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 </div>
+
+<!-- 側邊欄的js -->
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    });
+</script>
 
 
 <script>
@@ -451,24 +449,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
         crossorigin="anonymous"></script>
-
-
-<script>
-    $('[name="done"]').click(function () {
-
-        Swal.fire({
-            title: 'Success!',
-            text: 'Your form has been submitted successfully.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        })
-            .then(function () {
-                // 按下確認按鈕後回到首頁
-                window.location.href = 'Mcourse.html';
-            });
-    })
-</script>
-
 
 <script>
     function navigateToAddSchedule() {

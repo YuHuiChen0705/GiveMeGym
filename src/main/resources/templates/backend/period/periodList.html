@@ -235,61 +235,47 @@
         <button>登出</button>
     </div>
 </header>
+
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h2>首頁</h2>
+        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-        <h2>員工管理</h2>
-        <ul>
-            <li><a href="#">新增員工</a></li>
-            <li><a href="#">查詢員工</a></li>
-            <li><a href="#">員工權限</a></li>
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
         </ul>
 
-        <h2>會員管理</h2>
-        <ul>
-            <li><a href="#">新增會員</a></li>
-            <li><a href="#">查詢會員</a></li>
-            <li><a href="#">會員權限</a></li>
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
         </ul>
 
-        <h2>商城管理</h2>
-        <ul>
-            <li><a href="#">商品管理</a></li>
-            <li><a href="#">訂單管理</a></li>
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
         </ul>
 
-        <h2>教練管理</h2>
-        <ul>
-            <li><a href="#">新增教練</a></li>
-            <li><a href="#">查詢教練</a></li>
-            <li><a href="#">教練排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/coach/adm/list">教練管理</a></h2>
 
-        <h2>團課管理</h2>
-        <ul>
-            <li><a href="#">新增團課</a></li>
-            <li><a href="#">查詢團課</a></li>
-            <li><a href="#">團課排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-        <h2>客服管理</h2>
-        <ul>
-            <li><a href="#">客戶查詢</a></li>
-            <li><a href="#">訂單查詢</a></li>
-            <li><a href="#">FAQ管理</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
     </div>
 
     <section class="py-5" style="flex: 1;">
         <div class="container">
-            <h3 class="text-white mb-4">團課管理</h3>
+            <h3 class="text-black mb-4">團課報名時段管理</h3>
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <button type="button" class="btn btn-dark" onclick="navigateToAddPeriod()">
+                    <button type="button" class="btn btn-dark"
+                            onclick="window.location.href = '/backend_period/addPeriod'">
                         新增團課
                     </button>
                 </div>
+
 
                 <div class="card-body">
                     <div class="table-responsive table mt-2" id="dataTable" role="grid"
@@ -309,46 +295,48 @@
                                 <th>價格</th>
                                 <th>狀態</th>
                                 <th>修改</th>
-                                <th>時段</th>
+                                <th>上課時段</th>
                                 <th>報名清單</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- 動態生成表格內容 -->
-                            <tr th:each="period:${periodList}">
-                                <td th:text="${period.periodId}"></td>
+                            <tr th:each="periodOrder : ${periodOrderList}">
+                                <td th:text="${periodOrder.period.periodId}"></td>
                                 <td>
-                                    <span th:text="${period.course.courseName}"></span>
+                                    <span th:text="${periodOrder.period.course.courseName}"></span>
                                 </td>
-                                <td th:text="${period.courseNumber}"></td>
-                                <td th:text="${period.peopleUpper + '人'}"></td>
-                                <td th:text="${period.peopleLower + '人'}"></td>
-                                <td th:text="${period.orders.size() + '人'}"></td>
-                                <td th:text="${period.courseOrderBe}"></td>
-                                <td th:text="${period.courseOrderEn}"></td>
-                                <td th:text="${period.coursePrice}"></td>
-                                <td th:text="${period.courseState}"></td>
+                                <td th:text="${periodOrder.period.courseNumber}"></td>
+                                <td th:text="${periodOrder.period.peopleUpper + '人'}"></td>
+                                <td th:text="${periodOrder.period.peopleLower + '人'}"></td>
+                                <td>
+                                    <span th:text="${#lists.size(periodOrder.orderList)}"></span>
+                                </td>
+
+                                <td th:text="${periodOrder.period.courseOrderBe}"></td>
+                                <td th:text="${periodOrder.period.courseOrderEn}"></td>
+                                <td th:text="${periodOrder.period.coursePrice}"></td>
+                                <td th:text="${periodOrder.period.courseState}"></td>
                                 <td>
                                     <button type="button" class="btn btn-dark"
-                                            th:onclick="'window.location.href=\'/backend_period/updatePeriod/' + ${period.periodId} + '\''">
+                                            th:onclick="'window.location.href=\'/backend_period/updatePeriod/' + ${periodOrder.period.periodId} + '\''">
                                         修改
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-dark"
-                                            th:onclick="'window.location.href=\'/backend_courseSchedule/findByPeriod/' + ${period.periodId} + '\''">
+                                    <button type="button" class="btn btn-primary"
+                                            th:onclick="'window.location.href=\'/backend_courseSchedule/findByPeriod/' + ${periodOrder.period.periodId} + '\''">
                                         查詢
                                     </button>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-dark"
-                                            th:onclick="'window.location.href=\'/backend_courseOrder/findByPeriod/' + ${period.periodId} + '\''">
+                                            th:onclick="'window.location.href=\'/backend_courseOrder/findByPeriod/' + ${periodOrder.period.periodId} + '\''">
                                         查詢
                                     </button>
                                 </td>
                             </tr>
-
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -358,186 +346,7 @@
 </div>
 
 
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable({
-
-            "language": {
-                "processing": "處理中...",
-                "loadingRecords": "載入中...",
-                "paginate": {
-                    "first": "第一頁"
-                    , "previous": "上一頁", "next": "下一頁", "last": "最後一頁"
-                },
-                "emptyTable": "目前沒有資料",
-                "datetime": {
-                    "previous": "上一頁",
-                    "next": "下一頁",
-                    "hours": "時",
-                    "minutes": "分",
-                    "seconds": "秒",
-                    "amPm": ["上午", "下午"],
-                    "unknown": "未知",
-                    "weekdays": ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
-                    "months": ["一月", "二月", "三月", "四月"
-                        , "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
-                },
-                "searchBuilder": {
-                    "add": "新增條件",
-                    "condition": "條件",
-                    "deleteTitle": "刪除過濾條件",
-                    "button": {"_": "複合查詢 (%d)", "0": "複合查詢"},
-                    "clearAll": "清空"
-                    ,
-                    "conditions": {
-                        "array": {
-                            "contains": "含有",
-                            "equals": "等於",
-                            "empty": "空值",
-                            "not": "不等於",
-                            "notEmpty": "非空值",
-                            "without": "不含"
-                        }, "date": {
-                            "after": "大於", "before": "小於", "between": "在其中", "empty": "為空"
-                            , "equals": "等於", "not": "不為", "notBetween": "不在其中", "notEmpty": "不為空"
-                        }, "number": {
-                            "between": "在其中"
-                            ,
-                            "empty": "為空",
-                            "equals": "等於",
-                            "gt": "大於",
-                            "gte": "大於等於",
-                            "lt": "小於",
-                            "lte": "小於等於",
-                            "not": "不為"
-                            ,
-                            "notBetween": "不在其中",
-                            "notEmpty": "不為空"
-                        }, "string": {
-                            "contains": "含有",
-                            "empty": "為空",
-                            "endsWith": "字尾為",
-                            "equals": "等於",
-                            "not": "不為",
-                            "notEmpty": "不為空",
-                            "startsWith": "字首為",
-                            "notContains": "不含"
-                            ,
-                            "notStartsWith": "開頭不是",
-                            "notEndsWith": "結尾不是"
-                        }
-                    },
-                    "data": "欄位",
-                    "leftTitle": "群組條件",
-                    "logicAnd": "且"
-                    ,
-                    "logicOr": "或",
-                    "rightTitle": "取消群組",
-                    "title": {"_": "複合查詢 (%d)", "0": "複合查詢"},
-                    "value": "內容"
-                },
-                "editor": {
-                    "close": "關閉", "create": {"button": "新增", "title": "新增資料", "submit": "送出新增"}, "remove":
-                        {
-                            "button": "刪除", "title": "刪除資料", "submit": "送出刪除", "confirm": {
-                                "_": "您確定要刪除您所選取的 %d 筆資料嗎？", "1": "您確定要刪除您所選取的 1 筆資料嗎？"
-                            }
-                        }, "error": {"system": "系統發生錯誤(更多資訊)"}, "edit": {
-                        "button": "修改", "title": "修改資料", "submit": "送出修改"
-                    }, "multi": {
-                        "title": "多重值",
-                        "info": "您所選擇的多筆資料中，此欄位包含了不同的值。若您想要將它們都改為同一個值，可以在此輸入，要不然它們會保留各自原本的值。",
-                        "restore": "復原",
-                        "noMulti": "此輸入欄需單獨輸入，不容許多筆資料一起修改"
-                    }
-                },
-                "autoFill": {"cancel": "取消"},
-                "buttons": {
-                    "copySuccess": {
-                        "_": "複製了 %d 筆資料", "1": "複製了 1 筆資料"
-                    },
-                    "copyTitle": "已經複製到剪貼簿",
-                    "excel": "Excel",
-                    "pdf": "PDF",
-                    "print": "列印",
-                    "copy": "複製",
-                    "colvis": "欄位顯示",
-                    "colvisRestore": "重置欄位顯示",
-                    "csv": "CSV",
-                    "pageLength": {
-                        "-1": "顯示全部", "_": "顯示 %d 筆"
-                    },
-                    "createState": "建立狀態",
-                    "removeAllStates": "移除所有狀態",
-                    "removeState": "移除"
-                    ,
-                    "renameState": "重新命名",
-                    "savedStates": "儲存狀態",
-                    "stateRestore": "狀態 %d",
-                    "updateState": "更新"
-                },
-                "searchPanes": {
-                    "collapse": {"_": "搜尋面版 (%d)", "0": "搜尋面版"},
-                    "emptyPanes": "沒搜尋面版",
-                    "loadMessage": "載入搜尋面版中...",
-                    "clearMessage": "清空",
-                    "count": "{total}",
-                    "countFiltered": "{shown} ({total})",
-                    "title": "過濾條件 - %d",
-                    "showMessage": "顯示全部",
-                    "collapseMessage": "摺疊全部"
-                },
-                "stateRestore": {
-                    "emptyError": "名稱不能空白。"
-                    ,
-                    "creationModal": {
-                        "button": "建立",
-                        "columns": {"search": "欄位搜尋", "visible": "欄位顯示"},
-                        "name": "名稱："
-                        ,
-                        "order": "排序",
-                        "paging": "分頁",
-                        "scroller": "卷軸位置",
-                        "search": "搜尋",
-                        "searchBuilder": "複合查詢",
-                        "select": "選擇",
-                        "title": "建立新狀態",
-                        "toggleLabel": "包含："
-                    },
-                    "duplicateError": "此狀態名稱已經存在。",
-                    "emptyStates": "名稱不可空白。"
-                    ,
-                    "removeConfirm": "確定要移除 %s 嗎？",
-                    "removeError": "移除狀態失敗。",
-                    "removeJoiner": "和",
-                    "removeSubmit": "移除"
-                    ,
-                    "removeTitle": "移除狀態",
-                    "renameButton": "重新命名",
-                    "renameLabel": "%s 的新名稱：",
-                    "renameTitle": "重新命名狀態"
-                },
-                "select": {
-                    "columns": {"_": "選擇了 %d 欄資料", "1": "選擇了 1 欄資料"}, "rows": {
-                        "1": "選擇了 1 筆資料", "_": "選擇了 %d 筆資料"
-                    }, "cells": {"1": "選擇了 1 格資料", "_": "選擇了 %d 格資料"}
-                },
-                "zeroRecords": "沒有符合的資料",
-                "aria":
-                    {"sortAscending": "：升冪排列", "sortDescending": "：降冪排列"},
-                "info": "顯示第 _START_ 至 _END_ 筆結果，共 _TOTAL_ 筆"
-                ,
-                "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-                "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-                "infoThousands": ",",
-                "lengthMenu": "顯示 _MENU_ 筆結果",
-                "search": "搜尋：",
-                "searchPlaceholder": "請輸入關鍵字",
-                "thousands": ","
-            }
-
-        });
-    }); </script>
+<script th:src="@{/course_44/js/datatablelanguage.js}"></script>
 
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -549,25 +358,16 @@
 
 
 <script>
-    $('[name="done"]').click(function () {
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
-        Swal.fire({
-            title: 'Success!',
-            text: 'Your form has been submitted successfully.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        })
-            .then(function () {
-                // 按下確認按鈕後回到首頁
-                window.location.href = 'Mcourse.html';
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
             });
-    })
-</script>
-
-<script>
-    function navigateToAddPeriod() {
-        window.location.href = "/backend_period/addPeriod";
-    }
+        });
+    });
 </script>
 
 

@@ -150,49 +150,31 @@
 
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h1>首頁</h1>
+        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-        <h2>員工管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="addemp.html">新增員工</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢員工</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">員工權限</a></li>
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
         </ul>
 
-        <h2>會員管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增會員</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢會員</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">會員權限</a></li>
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
         </ul>
 
-        <h2>商城管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">商品管理</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">訂單管理</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">庫存管理</a></li>
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
         </ul>
 
-        <h2>教練管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">教練名單</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增教練</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">班表查看</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/coach/adm/list">教練管理</a></h2>
 
-        <h2>團課管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">新增團課</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">查詢團課</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">團課排班</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-        <h2>客服管理</h2>
-        <ul>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">客戶查詢</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">訂單查詢</a></li>
-            <li class="nav-item @@about__active"><a class="nav-link" href="#">FAQ管理</a></li>
-        </ul>
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
     </div>
 
 
@@ -206,7 +188,7 @@
                         <h4 class="rounded-pill border border-5 text-dark">修改報名資訊</h4>
                     </div>
                     <!--修改團課表單-->
-                    <form th:action="@{/backend_period/saveOrUpdate}" method="post"
+                    <form th:action="@{/backend_period/update}" method="post"
                           enctype="multipart/form-data" id="form" class="needs-validation row text-dark"
                           novalidate>
 
@@ -315,41 +297,12 @@
                                 <option value="下架" th:selected="${Period.courseState eq '下架'}">下架</option>
                             </select>
                         </div>
-
-                        <hr class="my-4">
-
-                        <div class="text-center mb-5">
-                            <h4 class="rounded-pill border border-5 text-dark">修改上課時段</h4>
-                        </div>
-
-                        <div th:each="schedule : ${courseSchedule}">
-                            <div class="col-md-6">
-                                <label for="end" class="form-label">上課日期</label>
-                                <div class="input-group">
-                                    <input type="date" name="courseScheduleDate" id="courseScheduleDate"
-                                           class="form-control"
-                                           th:value="${schedule.courseScheduleDate}" required>
-                                </div>
-                                <div class="invalid-feedback">
-                                    請設定報名截止日期
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="courseScheduleTime" class="form-label">上課日期</label>
-                                <select class="form-select" name="courseScheduleTime" id="courseScheduleTime" required>
-                                    <option value="早" th:selected="${schedule.courseScheduleTime eq '早'}">早</option>
-                                    <option value="中" th:selected="${schedule.courseScheduleTime eq '中'}">中</option>
-                                    <option value="晚" th:selected="${schedule.courseScheduleTime eq '晚'}">晚</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    請設定上課時段
-                                </div>
-                            </div>
-                        </div>
                         <hr class="my-4">
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-dark btn-lg" id="check">確認</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    onclick="window.location.href = '/backend_period/listAll'">放棄
+                            </button>
+                            <button type="submit" class="btn btn-primary">儲存</button>
                         </div>
                         <div>
                             <input type="hidden" id="periodId" name="periodId" th:value="${Period.periodId}"/>
@@ -367,7 +320,7 @@
 
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        const headings = document.querySelectorAll('.sidebar h2');
+        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
         headings.forEach((heading) => {
             heading.addEventListener('click', (event) => {
@@ -376,34 +329,7 @@
             });
         });
     });
-
-    function loadContent(url) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById("content").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.open("GET", url, true);
-        xhr.send();
-    }
-
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const links = document.querySelectorAll('.nav-link');
-        links.forEach((link) => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const url = link.getAttribute('href');
-                loadContent(url);
-            });
-        });
-    });
-
-    function loadAddEmpPage() {
-        document.getElementById('content').src = 'addemp.html';
-    }
 </script>
-
 <script>
     function updateCourseOptions(selectedCategory) {
         var courseSelect = document.getElementById('course');
@@ -416,7 +342,7 @@
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- 驗證 -->
-<script src="js/addPeriod-vail.js"></script>
+<script th:src="@{/course_44/js/addPeriod-vail.js}"></script>
 
 <!-- BootStrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

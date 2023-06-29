@@ -1,14 +1,11 @@
 package com.givemegym.courseorder.vo;
 
-//import com.givemegym.member.MemberVO;
+import com.givemegym.mem.vo.MemberVO;
 import com.givemegym.period.vo.Period;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -26,6 +23,7 @@ public class CourseOrder {
     @Column(name = "COURSE_ORDER_ID")
     private Integer courseOrderId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "COURSE_ORDER_DATE")
     private Date courseOrderDate;
 
@@ -39,8 +37,9 @@ public class CourseOrder {
     @JoinColumn(name = "PERIOD_ID")
     private Period period;
 
-//    @ManyToOne()
-//    @JoinColumn(name = "MEMBER_ID")
-//    private MemberVO memberVO;
+    @ManyToOne()
+    @JoinColumn(name = "MEMBER_ID")
+    private MemberVO member;
+
 
 }
