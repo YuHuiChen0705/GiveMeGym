@@ -147,7 +147,8 @@ body {
 .btn-primary {
 	color: #fff;
 	background-color: #ff0000;
-	border-color: #ff0000;
+	border-color: #fff;
+	 border-radius: 25px;
 }
 
 .m-4 {
@@ -182,6 +183,7 @@ table td {
 }
 
 .btn:hover {
+	border-color: #fff;
 	background-color: orange;
 }
 
@@ -200,10 +202,6 @@ table td {
 <body>
 	<header class="header">
 		<div class="logo">Give Me Gym</div>
-		<div class="user">
-			<div class="name">User Name</div>
-			<a class="btn btn-style btn-primary  mt-4">登出</a>
-		</div>
 	</header>
 
 	<div class="body-Content" style="display: flex;">
@@ -279,7 +277,7 @@ table td {
 
 		<section class="py-5" style="flex: 1;">
 			<div class="container">
-				<h3 class="text-white mb-4">員工管理</h3>
+				<h3 class="text-black mb-4">員工管理</h3>
 				<div class="card shadow">
 					<div class="card-body">
 						<div class="table-responsive table mt-2" id="dataTable"
@@ -289,6 +287,10 @@ table td {
 								class=" needs-validation row text-dark" th:object="${employee}"
 								novalidate>
 								<div class="form-group">
+									<div class="col-md-6">
+										<button th:href="@{/backend_employee/listAll}"
+											class="btn btn-primary">回員工列表</button>
+									</div>
 									<label>員工部門</label>
 									<!--這裡的name是department.id，因為傳入的參數為id-->
 									<select class="form-control" name="department.departmentId">
@@ -327,10 +329,12 @@ table td {
 										<option value="1" th:selected="${employee.employeeState == 1}">離職</option>
 									</select>
 								</div>
-								<input type="hidden" name="employeeId"
-									th:value="${employee.employeeId}"> <a
-									th:href="@{/backend_employee/listAll}" class="btn btn-primary">回員工列表</a>
-								<button type="submit" class="btn btn-primary">確認修改</button>
+
+								<div class="row">
+									<div class="col-md-6">
+										<button type="submit" class="btn btn-primary" style=" justify-content: right;">確認修改</button>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>

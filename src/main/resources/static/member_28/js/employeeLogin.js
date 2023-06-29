@@ -18,10 +18,10 @@ $(document).ready(function() {
 				// 根據伺服器的回應進行處理
 				if (response > 0) {
 					console.log('請求正確');
-					var memberId = response; // 接收後端傳回的memberId
+					var empolyeeId = response; // 接收後端傳回的empolyeeId
 					alert("登入成功");
 					// 登入成功後，將會員 ID 存儲到 session
-					sessionStorage.setItem("memberId", memberId)
+					sessionStorage.setItem("empolyeeId", empolyeeId)
 					// 登入成功，進入後台首頁
 					window.location.href = '/GiveMeGym/backend/index';
 				} else {
