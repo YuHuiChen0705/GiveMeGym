@@ -31,11 +31,7 @@ $(document).ready(function() {
 			},
 			error: function() {
 				// 處理請求錯誤
-				Swal.fire({
-					text: "登入失敗，請確認信箱與密碼是否正確。",
-					icon: "error",
-					confirmButtonText: "確定",
-				});
+				alert("登入失敗，請確認信箱與密碼是否正確");
 				console.log('請求錯誤');
 			}
 		});

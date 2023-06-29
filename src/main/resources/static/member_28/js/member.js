@@ -1,6 +1,7 @@
 rel = "stylesheet"
 href = "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
 src = "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"
+src="https://cdn.jsdelivr.net/npm/sweetalert2@latest"
 //// 登入頁面驗證
 //var mail = document.getElementById("mail");
 //var password = document.getElementById("password");
@@ -70,9 +71,6 @@ submit2.addEventListener("click", function(event) {
 	if (!validateRegistrationForm()) {
 		event.preventDefault(); // 阻止表单提交的默认行为
 	}
-
-
-
 	function validateRegistrationForm() {
 		var nameValue2 = memberName.value.trim();
 		var mailValue2 = memberMail.value.trim();
@@ -86,7 +84,7 @@ submit2.addEventListener("click", function(event) {
 		errorAllValues.innerHTML = "";
 
 		// 驗證姓名
-		if (nameValue2.length <= 2) {
+		if (nameValue2.length < 2) {
 			memberName.value = "";
 			nameError2.innerHTML = "請輸入姓名。";
 			Swal.fire({
@@ -213,6 +211,7 @@ submit2.addEventListener("click", function(event) {
 			Swal.fire({
 				text: "地址不能為英文",
 				icon: "error",
+				timer: 1000,
 				confirmButtonText: "確定",
 			});
 			memberDetail.value = "";

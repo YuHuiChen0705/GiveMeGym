@@ -36,4 +36,5 @@ public interface MemberDao extends JpaRepository<MemberVO, Integer> {
 	@Modifying
 	@Query("UPDATE MemberVO m SET m.memberViolations = :memberViolations WHERE m.memberId = :memberId")
 	void saveMemberViolations(@Param("memberId") Integer memberId, @Param("memberViolations") Integer memberViolations);
+
 }

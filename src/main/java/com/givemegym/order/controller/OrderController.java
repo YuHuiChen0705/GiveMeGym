@@ -11,11 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class OrderController {
@@ -53,8 +51,9 @@ public class OrderController {
 
 // ======================================================================
 
-    @GetMapping("/orderList/{memberId}")
-    public String orderListAll(@PathVariable Integer memberId,ModelMap model){
+    @GetMapping("/memberOrderList")
+    public String orderListAll(ModelMap model, HttpSession session){
+        Integer memberId = (Integer)session.getAttribute("memberId");
         List<Order> orders = orderService.findByMemberId(memberId);
         model.addAttribute("orders",orders);
         return "frontend/order/shop_order_detail";
@@ -78,6 +77,19 @@ public class OrderController {
         }
 
         return detailDTOList;
+    }
+
+    @ResponseBody
+    @GetMapping("/orders/{orderId}")
+    public Map<String,String> getOneOrder(@PathVariable Integer orderId) {
+        Map<String,String> orderMap = new HashMap<>();
+        Order order = orderService.findById(orderId).get();
+
+        orderMap.put("note",order.getNote());
+        orderMap.put("address",order.getAddress());
+        orderMap.put("phone",order.getPhone().toString());
+        orderMap.put("name",order.getName());
+        return orderMap;
     }
 
 

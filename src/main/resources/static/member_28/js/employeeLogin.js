@@ -18,12 +18,12 @@ $(document).ready(function() {
 				// 根據伺服器的回應進行處理
 				if (response > 0) {
 					console.log('請求正確');
-					var memberId = response; // 接收後端傳回的memberId
+					var empolyeeId = response; // 接收後端傳回的empolyeeId
 					alert("登入成功");
 					// 登入成功後，將會員 ID 存儲到 session
-					sessionStorage.setItem("memberId", memberId)
-					// 登入成功，執行相應的操作
-					window.location.href = '/front_Employee/memberData';
+					sessionStorage.setItem("empolyeeId", empolyeeId)
+					// 登入成功，進入後台首頁
+					window.location.href = '/GiveMeGym/backend/index';
 				} else {
 					// 登入成功，執行相應的操作
 					alert("登入失敗，請確認信箱與密碼是否正確");

@@ -23,7 +23,43 @@ public class MemberServiceImpl implements MemberService {
 	/* 新增或修改問題 */
 	@Override
 	public MemberVO saveOrUpdate(MemberVO memberVO) {
-		return memberDao.save(memberVO);
+			return memberDao.save(memberVO);			
+	}
+
+	// 會員修改資料
+	public MemberVO modifyMemberData(Integer memberId, MemberVO memberVO) {
+		MemberVO existingMember = memberDao.findById(memberId).orElse(null);
+		if (existingMember != null) {
+			existingMember.setMemberName(memberVO.getMemberName());
+			existingMember.setMemberMail(memberVO.getMemberMail());
+			existingMember.setMemberPhoneNumber(memberVO.getMemberPhoneNumber());
+			existingMember.setMemberBirthYear(memberVO.getMemberBirthYear());
+			existingMember.setMemberBirthMonth(memberVO.getMemberBirthMonth());
+			existingMember.setMemberBirthDay(memberVO.getMemberBirthDay());
+			existingMember.setMemberRegion(memberVO.getMemberRegion());
+			existingMember.setMemberDistrict(memberVO.getMemberDistrict());
+			existingMember.setMemberDetail(memberVO.getMemberDetail());
+			System.out.println("Service找到memberId:" + memberId);
+			return memberDao.save(existingMember);
+
+		} else {
+			return null;
+		}
+	}
+
+	// 會員修改密碼
+	@Override
+	public MemberVO modifyPassword(String memberMail,String memberPassword,String newPassword) {
+		MemberVO correctMail= memberDao.findByMemberMail(memberMail);
+		if (correctMail!= null && correctMail.getMemberPassword().equals(memberPassword)) {
+			correctMail.setMemberPassword(newPassword);
+			System.out.println("哪個信箱要修改密碼:"+correctMail);
+			System.out.println("新密碼:"+newPassword);
+			return memberDao.save(correctMail);
+		}
+		else {
+			return null;
+		}
 	}
 
 	/* 刪除 根據ID刪除單一問題 */
@@ -82,5 +118,7 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.saveMemberViolations(memberId, memberViolations);
 
 	}
+
+	
 
 }
