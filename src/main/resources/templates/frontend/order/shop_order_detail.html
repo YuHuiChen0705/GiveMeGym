@@ -15,6 +15,8 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="/shop_19/assets/css/style-starter.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -99,7 +101,7 @@
                         <a class="btn-outline-secondary" href="/frontend_courseOrder/orderList">團課課表</a>
                     </li>
                     <li>
-                        <a class="btn-outline-secondary" href="/mebproClassorder">私人課表</a>
+                        <a class="btn-outline-secondary" href="/proclassorder/mebproClassorder">私人課表</a>
                     </li>
                 </ul>
             </div>
@@ -357,8 +359,9 @@
     <button onclick="topFunction()" id="movetop" title="Go to top">
         &#10548;
     </button>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function () {
+        jQuery(document).ready(function () {
             $('#memberCenterLink').click(function (event) {
                 event.preventDefault(); // 防止點擊連結導致頁面跳轉
 
