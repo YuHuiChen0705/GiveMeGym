@@ -60,7 +60,7 @@ $(document).ready(function() {
         },
         error: function() {
           // 處理請求錯誤
-          alert("你新增個雞毛資料啊!")
+          alert("請確認您的個仁資料是否正確!")
           // Swal.fire({
           //   text: "你新增個雞毛資料啊!",
           //   icon: "error",
