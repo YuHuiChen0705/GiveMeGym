@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
+<!-- sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <head>
     <title>員工後台</title>
     <style>
@@ -148,10 +151,6 @@
 <body>
 <header class="header">
     <div class="logo">Give Me Gym</div>
-    <div class="user">
-        <div class="name">User Name</div>
-        <button>登出</button>
-    </div>
 </header>
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
@@ -609,8 +608,12 @@
             data: JSON.stringify({courseSchedule: courseSchedules}),
             success: function (response) {
                 if (response === true) {
-                    alert("新增成功");
-                    form.submit();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '新增成功',
+                    }).then(() => {
+                        form.submit();
+                    });
                 } else if (Array.isArray(response) && response.length > 0) {
                     let message = "已有時段:\n";
                     response.forEach(function (schedule) {
@@ -619,12 +622,20 @@
                         const time = schedule.courseScheduleTime;
                         message += "教練: " + coach + ", 時段: " + time + ", 日期: " + date + "\n";
                     });
-                    alert(message);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '不要讓教練太累了!',
+                        text: message,
+                    });
                 } else {
-                    alert("未知錯誤");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '未知錯誤',
+                    });
                 }
             },
         });
+
     }
 
 </script>

@@ -71,18 +71,6 @@ public class CourseScheduleBackController {
     }
 
 
-    //ajax (jquery)檢查上課日期及時間是否重複，並回傳JSON物件給前端，顯示上課時段編號幾號與之重複
-//    @PostMapping(path = "/checkDateTime", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public ResponseEntity<CourseSchedule> findByCourseName(@RequestBody CourseSchedule courseSchedule) {
-//        CourseSchedule bean = courseScheduleService.findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(courseSchedule.getCourseScheduleDate(), courseSchedule.getCourseScheduleTime());
-//        if (bean != null) {
-//            return ResponseEntity.status(HttpStatus.OK).body(bean);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//        }
-//    }
-
 
     @ModelAttribute("coachListData")
     protected List<Coach> referenceListData() {
@@ -94,24 +82,6 @@ public class CourseScheduleBackController {
         return courseService.findAll();
     }
 
-
-
-//    Specification<ScheduleInfoDto> spec = new Specification<LinkMan>() {
-//        public Predicate toPredicate(Root<LinkMan> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-//            //Join代表链接查询，通过root对象获取
-//            //创建的过程中，第一个参数为关联对象的属性名称，第二个参数为连接查询的方式（left，inner，right）
-//            //JoinType.LEFT : 左外连接,JoinType.INNER：内连接,JoinType.RIGHT：右外连接
-//            Join<LinkMan, Customer> join = root.join("customer", JoinType.INNER);
-//            return cb.like(join.get("custName").as(String.class), "传智播客1");
-//        }
-//    };
-//    List<LinkMan> list = linkManDao.findAll(spec);
-//        for(
-//    LinkMan linkMan :list)
-//
-//    {
-//        System.out.println(linkMan);
-//    }
 
 
 }

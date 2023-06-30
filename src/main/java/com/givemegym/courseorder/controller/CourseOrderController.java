@@ -112,7 +112,7 @@ public class CourseOrderController {
         Integer memberId = (Integer) session.getAttribute("memberId");
         MemberVO memberVO = memberService.findByMemberId(memberId);
         courseOrderService.saveOrder(periodId, memberVO);
-        return "redirect:/frontend_courseOrder/orderList/" + memberId;
+        return "redirect:/frontend_courseOrder/orderList/";
     }
 
 
@@ -130,10 +130,14 @@ public class CourseOrderController {
 
 
     // 會員查看團課課表
-    @GetMapping("/frontend_courseOrder/orderList/{memberId}")
-    public String orderListAll(@PathVariable Integer memberId, Model model) {
+    @GetMapping("/frontend_courseOrder/orderList")
+    public String orderListAll(HttpSession session, Model model) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
         List<CourseOrder> orders = courseOrderService.findByMemberId(memberId);
         model.addAttribute("orders", orders);
+
+        List<List<String>> timeSlotsList = new ArrayList<>();
+        List<String> courseNameList = new ArrayList<>();
 
         for (CourseOrder order : orders) {
             Set<CourseSchedule> schedules = order.getPeriod().getSchedules();
@@ -144,11 +148,37 @@ public class CourseOrderController {
 
             String courseName = order.getPeriod().getCourse().getCourseName();
 
-            model.addAttribute("timeSlots", timeSlots);
-            model.addAttribute("courseName", courseName);
+            timeSlotsList.add(timeSlots);
+            courseNameList.add(courseName);
         }
+
+        model.addAttribute("timeSlotsList", timeSlotsList);
+        model.addAttribute("courseNameList", courseNameList);
+
         return "frontend/courseOrder/course_order_detail";
     }
+
+    // 會員取消訂單
+    @ResponseBody
+    @PostMapping("frontend_courseOrder/cancel/{orderId}")
+    public boolean cancelOrder(HttpSession session, @PathVariable Integer orderId) {
+        Integer memberId = (Integer) session.getAttribute("memberId");
+        CourseOrder order = courseOrderService.findById(orderId).orElse(null);
+
+        if (memberId != null && order != null) {
+            if (order.getMember().getMemberId().equals(memberId)) {
+                order.setCourseOrderState("已取消");
+                courseOrderService.saveOrUpdate(order);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
+
 
 
 }

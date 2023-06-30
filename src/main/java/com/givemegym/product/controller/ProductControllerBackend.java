@@ -61,11 +61,9 @@ public class ProductControllerBackend {
     @PostMapping("/UpdateProduct")
     public String updateProduct(@Valid Product product,
                                 @RequestParam("productImage") List<MultipartFile> productImages) {
-        productService.update(product,productImages);
+        productService.update(product, productImages);
         return "redirect:/getAllProduct";
     }
-
-
 
 
 //    =====================前台功能=============================
