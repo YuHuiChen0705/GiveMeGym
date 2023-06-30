@@ -34,7 +34,7 @@ public class SkillController {
 
 		theModel.addAttribute("newSkill", new Skill());
 
-		return "backend/skill/addskill";
+		return "backend/skill/addSkill";
 	}
 
 	@PostMapping("/addSkill")

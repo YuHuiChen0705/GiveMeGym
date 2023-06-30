@@ -45,7 +45,7 @@ public class CoachDayoffController1 {
 
 		theModel.addAttribute("newDayoff", new CoachDayOff());
 
-		return "backend/coachdayoff/addCoachDayoff";
+		return "backend/coachDayoff/addCoachDayoff";
 	}
 
 	@PostMapping("/addCoachDayoff")

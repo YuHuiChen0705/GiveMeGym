@@ -37,8 +37,9 @@ public class CoachDayoffController {
 //        return "backend/coachDayoff/coachcenter_dayoff";
 //    }
     //根據教練列舉所有請假
-    @GetMapping("/getAlldayofflist/{coachId}")
-    public String findByCoachId(@PathVariable Integer coachId, Model model) {
+    @GetMapping("/getAlldayofflist")
+    public String findByCoachId(Model model) {
+        Integer coachId = 1;
         List<CoachDayoffVo> dayoffList = coachDayoffService.findByCoachId(coachId);
         model.addAttribute("dayoffList", dayoffList);
         return "backend/coachDayoff/coachcenter_dayoff";
@@ -85,7 +86,7 @@ public class CoachDayoffController {
         return "redirect:/coachDayoff/getAlldayofflist/" + coachId;
     }
 
-	//=============================================================
+    //=============================================================
 
 
 }
