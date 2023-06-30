@@ -219,7 +219,7 @@ submit2.addEventListener("click", function(event) {
 		} else {
 			addressError2.innerHTML = "";
 		};
-		alert("註冊成功");
+		alert("註冊成功，並且已發送本月優惠資訊至您的信箱");
 		return true;
 
 	};
