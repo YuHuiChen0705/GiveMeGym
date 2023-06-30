@@ -15,6 +15,7 @@ public class MemberConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		//範例:路徑參考
 		registry.addInterceptor(memberInterceptor).addPathPatterns("/front_Member/memberData");
+		registry.addInterceptor(memberInterceptor).addPathPatterns("/frontend_courseOrder/addOrders/{periodId}");
 	}
 
 }

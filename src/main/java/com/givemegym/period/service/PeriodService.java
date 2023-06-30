@@ -1,41 +1,34 @@
 package com.givemegym.period.service;
 
-
 import com.givemegym.course.vo.Course;
-import com.givemegym.courseschedule.vo.CourseSchedule;
 import com.givemegym.period.vo.Period;
-import org.springframework.data.repository.query.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface PeriodService {
 
-    /*根據Id檢查是否重複*/
-    boolean isDup(Integer periodId);
+    // 新增報名時段
+    Period save(Period period);
 
-    /*新增或修改問題*/
-    Period saveOrUpdate(Period period);
+    // 修改報名時段
+    Period update(Period period);
 
-    /*刪除 根據ID刪除單一問題*/
-    void deleteById(Integer periodId);
-
-    /*查詢 根據ID查單一問題 Optional避免空值例外*/
+    // 查詢 根據ID查單一報名時段 Optional避免空值例外
     Optional<Period> findById(Integer periodId);
 
-    /*查詢所有問題*/
+    // 查詢所有報名時段
     List<Period> findAll();
 
-    /*根據問題類別(四種類別)查問題*/
+    // 根據課程查報名時段
     List<Period> findByCourse(Course course);
 
-
+    // 選擇課程狀態為XXX(上架or下架)的時段
     List<Period> findPeriodsByCourseState(String courseState);
 
-
+    // 將報名時段狀態改為"下架"
     void updateCourseStateToOffByPeriodId(Integer periodId);
 
-//    void addPeriodWithSchedules(Period period, Set<CourseSchedule> schedules);
 }
 

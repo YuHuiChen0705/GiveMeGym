@@ -15,8 +15,10 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="/shop_19/assets/css/style-starter.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -89,7 +91,7 @@
                         <a class="btn-outline-secondary" href="/front_Member/memberDataModify">資料修改</a>
                     </li>
                     <li>
-                        <a class="btn-outline-secondary" href="/front_Member/modifyPassword">密碼修改</a>
+                        <a class="btn-outline-secondary" href="">密碼修改</a>
                     </li>
                 </ul>
             </div>
@@ -98,10 +100,10 @@
                 <h3 class="agileits-sear-head">預定課程</h3>
                 <ul>
                     <li>
-                        <a class="btn-outline-secondary" href="/frontend_courseOrder/orderList">團課課表</a>
+                        <a class="btn-outline-secondary" href="">團課課表</a>
                     </li>
                     <li>
-                        <a class="btn-outline-secondary" href="/proclassorder/mebproClassorder">私人課表</a>
+                        <a class="btn-outline-secondary" href="">私人課表</a>
                     </li>
                 </ul>
             </div>
@@ -109,9 +111,6 @@
             <div class="left-side">
                 <h3 class="agileits-sear-head">商城專區</h3>
                 <ul>
-                    <li>
-                        <a class="btn-outline-secondary" href="/shopCart">購物車</a>
-                    </li>
                     <li>
                         <a class="btn-outline-secondary" href="/memberOrderList">商城訂單查詢</a>
                     </li>
@@ -133,73 +132,43 @@
                         <th class="shop-order-th" style="text-align: center">訂單成立時間</th>
                         <th class="shop-order-th" style="text-align: center">訂單總金額</th>
                         <th class="shop-order-th" style="text-align: center">訂單狀態</th>
-                        <th class="shop-order-th" style="text-align: center">訂單詳情</th>
+                        <th class="shop-order-th" style="text-align: center">課程名稱</th>
+                        <th class="shop-order-th" style="text-align: center">課程時段</th>
+                        <th class="shop-order-th" style="text-align: center">取消</th>
                     </tr>
                     </thead>
                     <tbody class="shop-order" id="shopOrder">
-                    <tr class="shop-order" th:each="order:${orders}">
-                        <td class="shop-order orderId" th:text="${order.id}" style="text-align: center"></td>
+                    <tr class="shop-order" th:each="courseOrder, orderIndex : ${orders}">
+                        <td class="shop-order orderId" th:text="${courseOrder.courseOrderId}"
+                            style="text-align: center"></td>
+                        <td class="shop-order" style="text-align: center" th:text="${courseOrder.courseOrderDate}"></td>
                         <td class="shop-order" style="text-align: center"
-                            th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td class="shop-order" style="text-align: center" th:text="'$'+${order.totalPrice}"></td>
+                            th:text="'$' + ${courseOrder.courseOrderTotalPrice}"></td>
+                        <td class="shop-order" style="text-align: center"
+                            th:text="${courseOrder.courseOrderState}"></td>
+                        <td class="shop-order" style="text-align: center"
+                            th:text="${courseOrder.period.course.courseName}"></td>
                         <td class="shop-order" style="text-align: center">
-                              <span th:switch="${order.status}">
-                                <span th:case="0">已取消</span>
-                                <span th:case="1">已成立</span>
-                                <span th:case="2">已退款</span>
-                                <span th:case="3">已完成</span>
-                                <span th:case="*" th:text="'狀態'"></span> <!-- 默認情況下不匹配任何選項，可以自定義默認值 -->
-                              </span>
+                            <ul>
+                                <li th:each="timeSlots : ${timeSlotsList[orderIndex.index]}">
+                                    <span th:text="${timeSlots}"></span>
+                                    <span th:unless="${timeSlots == timeSlotsList[orderIndex.index][#arrays.length(timeSlotsList[orderIndex.index])-1]}">, </span>
+                                </li>
+                            </ul>
                         </td>
-                        <td class="shop-order" style="text-align: center">
-                            <button type="button" class="btn_modal viewDetails"
-                                    th:onclick="'viewDetails(\'' + ${order.id} + '\')'">查看
+                        <td>
+                            <button type="button" class="btn btn-primary" id="cancel"
+                                    th:id="${courseOrder.courseOrderId}"
+                                    onclick="toCancel(this.id)">取消訂單
                             </button>
                         </td>
                     </tr>
                     </tbody>
 
+
                 </table>
             </div>
         </section>
-
-        <div class="overlay">
-            <article>
-                <div class="detail-container">
-                    <h2>訂單詳情</h2>
-                    <br>
-                    <table id="productDetailsTable">
-                        <thead>
-                        <tr>
-                            <th>商品編號</th>
-                            <th>商品名稱</th>
-                            <th>數量</th>
-                            <th>價格</th>
-                            <th>商品總價</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-
-                    <table id="orderDetailsTable" style="margin: 20px 0 20px 0">
-                        <thead>
-                        <tr>
-                            <th>收件人</th>
-                            <th>連絡電話</th>
-                            <th>配送地址</th>
-                            <th>訂單備註</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn_modal_close">關閉</button>
-            </article>
-        </div>
     </div>
 </div>
 
@@ -296,7 +265,7 @@
                             <p> 常見問題</p>
                         </a>
                         <a href="/front_Employee/login">
-                            <p>員工中心</p>
+                            <p> 員工中心</p>
                         </a>
                     </div>
                     <div class="column">
@@ -359,9 +328,8 @@
     <button onclick="topFunction()" id="movetop" title="Go to top">
         &#10548;
     </button>
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script>
-        jQuery(document).ready(function () {
+        $(document).ready(function () {
             $('#memberCenterLink').click(function (event) {
                 event.preventDefault(); // 防止點擊連結導致頁面跳轉
 
@@ -414,68 +382,7 @@
     <!-- /move top -->
 </section>
 
-
 <script src="/shop_19/assets/js/jquery-3.3.1.min.js"></script>
-
-<script th:inline="javascript">
-    function viewDetails(orderId) {
-        $.get('/orders/' + orderId + '/details', function (orderDetails) {
-            // 清空表格内容
-            $('#productDetailsTable tbody').empty();
-
-            // 迭代处理订单详情列表
-            $.each(orderDetails, function (index, detail) {
-                // 创建新的行
-                var row = $('<tr>');
-
-                // 创建并添加每个单元格
-                $('<td>').text(detail.productId).appendTo(row);
-                $('<td>').text(detail.productName).appendTo(row);
-                $('<td>').text(detail.quantity).appendTo(row);
-                $('<td>').text(detail.price).appendTo(row);
-                $('<td>').text(detail.quantity * detail.price).appendTo(row);
-
-                // 将新行添加到表格
-                row.appendTo('#productDetailsTable tbody');
-            });
-        }).fail(function (error) {
-            console.error('Error:', error);
-        });
-
-        $.get('/orders/' + orderId, function (order) {
-            // 清空表格内容
-            $('#orderDetailsTable tbody').empty();
-
-            var tbody = document.querySelector('#orderDetailsTable tbody');
-            tbody.innerHTML = '';
-
-            // Define the order of keys
-            var keyOrder = ['name', 'phone', 'address', 'note'];
-
-            // Create a new row
-            var row = document.createElement('tr');
-
-            // Iterate through the keyOrder array and add the corresponding values as cells in the row
-            keyOrder.forEach(function (key) {
-                var value = order[key];
-
-                var cell = document.createElement('td');
-                cell.textContent = value;
-
-                row.appendChild(cell);
-            });
-
-            // Append the row to the table body
-            tbody.appendChild(row);
-
-
-        }).fail(function (error) {
-            console.error('Error:', error);
-        });
-
-
-    }
-</script>
 <!-- libhtbox -->
 <script src="/shop_19/assets/js/lightbox-plus-jquery.min.js"></script>
 
@@ -660,59 +567,54 @@
 
 
 <script>
-    // 開啟 Modal 彈跳視窗
-    $("button.btn_modal").on("click", function () {
-        $("div.overlay").fadeIn(function () {
-            $(window).scrollTop($("div.overlay").offset().top);
+    $(document).ready(function () {
+        $("#cancel").click(function () {
+            toCancel();
         });
     });
 
-
-    // 關閉 Modal
-    $("button.btn_modal_close, div.overlay").on("click", function (e) {
-        $("div.overlay").fadeOut();
-        topFunction();
-    });
-
-
-    $("div.overlay > article").on("click", function (e) {
-        e.stopPropagation();
-    });
-
+    function toCancel(orderId) {
+        Swal.fire({
+            title: '看看你的肚子?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '確認',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: '好吧!再給你最後一次機會!',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: '確認',
+                    cancelButtonText: '取消'
+                }).then((secondResult) => {
+                    if (secondResult.isConfirmed) {
+                        $.ajax({
+                            url:'/frontend_courseOrder/cancel/'+orderId,
+                            type: 'POST',
+                            success: function (response) {
+                                Swal.fire({
+                                    title: '已取消',
+                                    icon: 'success'
+                                }).then(() => {
+                                    var baseUrl = window.location.protocol + "//" + window.location.host;
+                                    var redirectUrl = baseUrl + "/frontend_courseOrder/orderList";
+                                    window.location.href = redirectUrl;
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("AJAX Error: " + error);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 </script>
 
-<script>
-    $(document).ready(function () {
 
-        $('#viewDetails').click(function () {
-            var orderId = $('#orderId').text();
-            console.log(orderId);
-            $.ajax({
-                url: '/orders/' + orderId + '/details',
-                type: 'GET',
-                success: function (details) {
-                    var tableBody = $('#productDetailsTable tbody');
-
-                    details.forEach(function (detail) {
-                        var priceSum = detail.price * detail.quantity;
-                        var row = '<tr>' +
-                            '<td>' + detail.productId + '</td>' +
-                            '<td>' + detail.productName + '</td>' +
-                            '<td>' + detail.quantity + '</td>' +
-                            '<td>' + detail.price + '</td>' +
-                            '<td>' + priceSum + '</td>' +
-                            '</tr>';
-
-                        tableBody.innerHTML = row;
-                    });
-                },
-                error: function () {
-                    console.log('Error occurred during AJAX request.');
-                }
-            });
-        })
-    });
-</script>
 
 </body>
 

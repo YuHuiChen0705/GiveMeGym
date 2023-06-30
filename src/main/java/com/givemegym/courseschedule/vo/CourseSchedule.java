@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "Courseschedule", schema = "no7")
+@Table(name = "Course_schedule", schema = "no7")
 public class CourseSchedule {
 
     @Id
@@ -38,12 +39,9 @@ public class CourseSchedule {
     @JoinColumn(name = "COACH_ID")
     private Coach coach;
 
-    @NotNull(message = "請輸入上課日期")
-    @Future(message = "別活在過去")
     @Column(name = "COURSE_SCHEDULE_DATE")
     private Date courseScheduleDate;
 
-    @NotBlank(message = "請輸入上課時段")
     @Column(name = "COURSE_SCHEDULE_TIME")
     private String courseScheduleTime;
 

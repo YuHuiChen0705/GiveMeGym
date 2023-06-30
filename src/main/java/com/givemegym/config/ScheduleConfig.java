@@ -31,7 +31,7 @@ public class ScheduleConfig {
     CourseScheduleService courseScheduleService;
 
     @Transactional
-    @Scheduled(cron = "0 05 16 * * *") // 每天0點執行
+    @Scheduled(cron = "0 0 0 * * *") // 每天0點執行
     public void checkLessons() {
         logger.info("已建立排程!");
 
