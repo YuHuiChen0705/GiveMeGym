@@ -174,18 +174,7 @@ table td {
 	outline-style: solid;
 }
 </style>
-<script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2');
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
