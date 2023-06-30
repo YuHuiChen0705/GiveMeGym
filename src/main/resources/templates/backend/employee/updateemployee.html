@@ -206,74 +206,54 @@ table td {
 
 	<div class="body-Content" style="display: flex;">
 		<div class="sidebar">
-			<h1 id="back-idex">首頁</h1>
+			<h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
 			<h2 class="sidebartitle">員工管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">新增員工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢員工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">員工權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
 			</ul>
 
 			<h2 class="sidebartitle">會員管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">新增會員</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢會員</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">會員權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
 			</ul>
 
 			<h2 class="sidebartitle">商城管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">商品管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訂單管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
 			</ul>
 
 			<h2 class="sidebartitle">教練管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">新增教練</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢教練</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">教練排班</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">所有休假查詢</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachDayoff/getAlldayofflist">教練休假申請</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclassorder/proclassOrderList">教練訂單管理</a></li>
 			</ul>
 
-			<h2 class="sidebartitle">團課管理</h2>
-			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢團課</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">團課排班</a></li>
-			</ul>
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-			<h2 class="sidebartitle">客服管理</h2>
-			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">客戶查詢</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訂單查詢</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">FAQ管理</a></li>
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
 			</ul>
 		</div>
 		<!-- 側邊欄的js -->
 		<script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+			window.addEventListener('DOMContentLoaded', (event) => {
+				const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach((link) => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const url = link.getAttribute('href');
-                    loadContent(url);
-                });
-            });
-        });
-
-    </script>
+				headings.forEach((heading) => {
+					heading.addEventListener('click', (event) => {
+						const subMenu = event.target.nextElementSibling;
+						subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+					});
+				});
+			});
+		</script>
 
 		<section class="py-5" style="flex: 1;">
 			<div class="container">

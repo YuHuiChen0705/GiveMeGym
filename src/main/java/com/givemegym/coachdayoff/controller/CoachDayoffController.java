@@ -57,7 +57,7 @@ public class CoachDayoffController {
         Integer coachId = 1;
         coachDayoffVo.setCoachId(coachId);
         coachDayoffService.save(coachDayoffVo);
-        return "redirect:/coachDayoff/getAlldayofflist/" + coachId;
+        return "redirect:/coachDayoff/getAlldayofflist";
     }
 
 
@@ -83,7 +83,7 @@ public class CoachDayoffController {
         Integer coachId = 1;
         coachDayoffVo.setCoachId(coachId);
         coachDayoffService.update(coachDayoffVo);
-        return "redirect:/coachDayoff/getAlldayofflist/" + coachId;
+        return "redirect:/coachDayoff/getAlldayofflist";
     }
 
     //=============================================================

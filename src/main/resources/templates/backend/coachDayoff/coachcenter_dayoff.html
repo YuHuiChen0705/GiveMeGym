@@ -352,10 +352,7 @@ table {
 				contentType: false,
 				cache: false,
 				success: function(response) {
-					// Handle the success response
-// 					console.log(response);
-					const coachId = 1;
-					window.location.href = "/coachDayoff/getAlldayofflist/"+coachId;
+					window.location.href = "/coachDayoff/getAlldayofflist";
 				},
 				error: function(xhr, status, error) {
 					// Handle the error response
