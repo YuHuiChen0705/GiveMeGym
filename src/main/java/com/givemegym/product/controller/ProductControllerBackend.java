@@ -72,12 +72,8 @@ public class ProductControllerBackend {
     // 商城首頁/全商品瀏覽
     @GetMapping("/shopAllProduct")
     public String allProduct(Model model) {
-        System.out.println("call all product");
-//        List<Product> productList = productService.findOnProducts();
-
-        List<Product> productList = productService.findAll();
+        List<Product> productList = productService.findOnProducts();
         model.addAttribute("productList", productList);
-
         return "frontend/product/shop_index";
     }
 
