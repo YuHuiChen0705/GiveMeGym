@@ -231,14 +231,10 @@
 
 <header class="header">
     <div class="logo">Give Me Gym</div>
-    <div class="user">
-        <div class="name">User Name</div>
-        <button>登出</button>
-    </div>
 </header>
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
+        <h1 id="back-idex"><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
         <h2 class="sidebartitle">員工管理</h2>
         <ul style="display: none;">
@@ -471,8 +467,12 @@
             data: JSON.stringify(newFaq),
             contentType: "application/json",
             success: function (response) {
-                alert("已新增")
-                window.location.href = "/backend_faq/listAll";
+                Swal.fire({
+                    title: "已新增",
+                    icon: "success",
+                }).then(() => {
+                    window.location.href = "/backend_faq/listAll";
+                });
             },
             error: function (xhr, status, error) {
                 console.log("AJAX Error: " + error);
@@ -517,8 +517,22 @@
                 data: JSON.stringify(updatedFaq),
                 contentType: "application/json",
                 success: function (response) {
-                    alert("確認修改?")
-                    window.location.href = "/backend_faq/listAll";
+                    Swal.fire({
+                        title: "確認修改?",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonText: "確認",
+                        cancelButtonText: "取消"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "修改成功",
+                                icon: "success"
+                            }).then(() => {
+                                window.location.href = "/backend_faq/listAll";
+                            });
+                        }
+                    });
                 },
                 error: function (xhr, status, error) {
                     console.log("AJAX Error: " + error);
