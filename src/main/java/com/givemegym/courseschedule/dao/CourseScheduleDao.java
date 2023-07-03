@@ -14,6 +14,8 @@ import java.util.Set;
 @Repository
 public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer> {
 
+
+
     // 查詢報名時段為XXX的上課時段
     List<CourseSchedule> findCourseScheduleByPeriod(Period period);
 
@@ -35,4 +37,6 @@ public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer
     @Query("SELECT cs FROM CourseSchedule cs WHERE cs.courseScheduleDate = :courseScheduleDate AND cs.courseScheduleTime = :courseScheduleTime AND cs.coach.coachId = :coachId")
     List<CourseSchedule> findCourseScheduleByCourseScheduleDateAndCourseScheduleTimeAndCoachId(Date courseScheduleDate, String courseScheduleTime, int coachId);
 
+
+    List<CourseSchedule> findCourseScheduleByCourseScheduleDate(Date courseScheduleDate);
 }

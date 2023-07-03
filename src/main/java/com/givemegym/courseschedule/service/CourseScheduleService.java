@@ -42,5 +42,8 @@ public interface CourseScheduleService {
     void updateCourseScheduleStateToOnByPeriod(Period period);
 
     List<CourseSchedule> findSchedules(Date courseScheduleDate, String CourseScheduleTime, int coachId);
+
+    List<CourseSchedule> findCourseScheduleByCourseScheduleDate(Date courseScheduleDate);
 }
+
 
