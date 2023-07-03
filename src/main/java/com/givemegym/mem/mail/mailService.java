@@ -19,8 +19,8 @@ public class mailService {
 		message.setTo(memberVO.getMemberMail());
 		message.setSubject("GiveMeGym___【註冊成功通知】");
 		message.setText("Hello,親愛的" + "\t" + memberVO.getMemberName() + "您好~" + "\n" + "恭喜成為GiveMeGym的一員，" + "\n" + "\n"
-				+ "以下為2023年7月的優惠商品，點擊連結就能迅速瀏覽，" + "\n" + "http://localhost:8080/shopAllProduct" + "\n" + "\n"
-				+ "以下為2023年7月的團體課程資訊，點擊連結就能迅速瀏覽，" + "\n" + "http://localhost:8080/frontend_course/listAll" + "\n" + "\n"
+				+ "以下為2023年7月的優惠商品，點擊連結就能迅速瀏覽，" + "\n" + "http://35.234.13.32:8080/shopAllProduct" + "\n" + "\n"
+				+ "以下為2023年7月的團體課程資訊，點擊連結就能迅速瀏覽，" + "\n" + "http://35.234.13.32:8080/frontend_course/listAll" + "\n" + "\n"
 				+ "\n" + "此為系統自動發信請勿直接回覆，謝謝。");
 		mailSender.send(message);
 		return "frontend/member/login";
