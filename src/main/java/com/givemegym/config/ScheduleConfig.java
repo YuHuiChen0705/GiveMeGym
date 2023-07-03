@@ -31,7 +31,7 @@ public class ScheduleConfig {
     CourseScheduleService courseScheduleService;
 
     @Transactional
-    @Scheduled(cron = "0 0 0 * * *") // 每天0點執行
+    @Scheduled(cron = "0 14 01 * * *") // 每天0點執行
     public void checkLessons() {
         logger.info("已建立排程!");
 
@@ -43,7 +43,6 @@ public class ScheduleConfig {
         List<CourseOrder> courseOrders = courseOrderService.findAll();
         // 取得當下時間
         LocalDate today = LocalDate.now();
-
         logger.info("開始檢查課程狀態");
 
 
@@ -61,7 +60,6 @@ public class ScheduleConfig {
                     // 將狀態改為下架
                     periodService.updateCourseStateToOffByPeriodId(period.getPeriodId());
                 }
-
                 logger.info("課程狀態檢查完成.");
             }
         }

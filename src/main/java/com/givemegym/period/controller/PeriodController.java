@@ -176,8 +176,8 @@ public class PeriodController {
         // 如果報名時段的狀態為"下架"
         if (Objects.equals(period.getCourseState(), "下架")) {
             // 則將上課時段改為"已取消"
-            courseScheduleService.updateCourseScheduleStateToOffByPeriod(period);
-            courseOrderService.updateCourseOrderStateToOffByPeriod(period);
+            Integer periodId = period.getPeriodId();
+            periodService.updateCourseStateToOffByPeriodId(periodId);
 
         } else {
             // 則將上課時段改為"已成立"
