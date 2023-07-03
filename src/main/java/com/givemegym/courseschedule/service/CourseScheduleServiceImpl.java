@@ -121,5 +121,10 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
     public List<CourseSchedule> findSchedules(Date courseScheduleDate, String courseScheduleTime, int coachId) {
         return coursescheduleDao.findCourseScheduleByCourseScheduleDateAndCourseScheduleTimeAndCoachId(courseScheduleDate, courseScheduleTime,coachId);
     }
+
+    @Override
+    public List<CourseSchedule> findCourseScheduleByCourseScheduleDate(Date courseScheduleDate) {
+        return coursescheduleDao.findCourseScheduleByCourseScheduleDate(courseScheduleDate);
+    }
 }
 

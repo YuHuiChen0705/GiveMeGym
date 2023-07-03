@@ -1,6 +1,5 @@
 package com.givemegym.courseschedule.controller;
 
-import java.sql.Date;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
 import com.givemegym.course.service.CourseService;
@@ -16,6 +15,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +74,6 @@ public class CourseScheduleBackController {
     }
 
 
-
     @ModelAttribute("coachListData")
     protected List<Coach> referenceListData() {
         return coachService.findAll();
@@ -83,5 +85,55 @@ public class CourseScheduleBackController {
     }
 
 
+    @GetMapping("/Month")
+    public String findAllMSchedule(Model model) {
+        List<CourseSchedule> courseScheduleList = courseScheduleService.findAll();
+
+        // 用來放月曆課表
+        List<List<String>> calendarData = new ArrayList<>();
+        // 獲得當前月份
+        int currentMonth = LocalDate.now().getMonthValue();
+        model.addAttribute("currentMonth", currentMonth);
+
+        // 初始化月曆課表
+        final int daysInWeek = 7;
+        int daysInMonth = YearMonth.now().lengthOfMonth();
+        int weeksInMonth = (daysInMonth + daysInWeek - 1) / daysInWeek;
+
+        for (int i = 0; i < weeksInMonth; i++) {
+            List<String> row = new ArrayList<>();
+            for (int j = 0; j < daysInWeek; j++) {
+                row.add("");
+            }
+            calendarData.add(row);
+        }
+
+        // 把課程資料放在月曆裡
+        for (CourseSchedule courseSchedule : courseScheduleList) {
+            LocalDate scheduleDate = courseSchedule.getCourseScheduleDate().toLocalDate();
+            // 獲取該日期的月份中的第幾天
+            int dayOfMonth = scheduleDate.getDayOfMonth();
+            // 獲取該日期的星期幾
+            int dayOfWeek = scheduleDate.getDayOfWeek().getValue();
+            // 獲取課程的時段
+            String timeOfDay = courseSchedule.getCourseScheduleTime();
+            // 獲取課程的課程名稱
+            String courseName = courseSchedule.getPeriod().getCourse().getCourseName();
+            // 獲取課程的教練名稱
+            String coachName = getCoach(courseSchedule.getCoach().getCoachName());
+            String combinedData = dayOfMonth + " - " + timeOfDay + " - " + courseName + " (" + coachName + ")" ;
+            // 獲取指定日期在月份中所在的周数
+            int weekOfMonth = scheduleDate.get(WeekFields.ISO.weekOfMonth());
+            calendarData.get(weekOfMonth - 1).set(dayOfWeek - 1, combinedData);
+        }
+
+
+        model.addAttribute("calendarData", calendarData);
+        return "frontend/course/schedule";
+    }
+
+    private String getCoach(String coachName) {
+        return "教練" + coachName;
+    }
 
 }
