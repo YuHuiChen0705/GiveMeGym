@@ -98,7 +98,6 @@ body {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
-	display: none;
 }
 
 .sidebar li {
@@ -124,7 +123,6 @@ body {
 	padding-left: 20px;
 	background-color: #fff;
 	color: #000;
-	display: none;
 }
 
 .submenu li {
@@ -178,16 +176,6 @@ table td {
 }
 </style>
 <script th:inline="javascript">
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2');
-
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
 
 		function showAlert(){
 			event.preventDefault();
@@ -250,10 +238,11 @@ table td {
 			<h2 class="sidebartitle">教練管理</h2>
 			<ul style="display: none;">
 				<li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">一對一課程</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
 				<li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">所有休假查詢</a></li>
 				<li class="nav-item"><a class="nav-link" href="/coachDayoff/getAlldayofflist">教練休假申請</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclassorder/proclassOrderList">教練訂單管理</a></li>
 			</ul>
 
 			<h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
@@ -269,7 +258,9 @@ table td {
 				headings.forEach((heading) => {
 					heading.addEventListener('click', (event) => {
 						const subMenu = event.target.nextElementSibling;
+						console.log(subMenu.style.display);
 						subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+						console.log(subMenu.style.display);
 					});
 				});
 			});
@@ -316,9 +307,9 @@ table td {
 											<button class="btn btn-success btn-sm" data-bs-toggle="modal"
 												data-bs-target="#editModal"
 												th:attr="data-proclass-id=${tempProclass.proclassId},
-                    data-skill-id=${tempProclass.skillId.skillId},
-                    data-skill-name=${tempProclass.skillId.skillName},
-                    data-proclass-name=${tempProclass.proclassName}">修改</button>
+												data-skill-id=${tempProclass.skillId.skillId},
+												data-skill-name=${tempProclass.skillId.skillName},
+												data-proclass-name=${tempProclass.proclassName}">修改</button>
 											<a
 											th:href="@{/proclass/removeClass(proclassId=${tempProclass.proclassId})}"
 											th:onclick="if (!(confirm('確認刪除該筆資料?'))) return false">
@@ -354,11 +345,11 @@ table td {
 						<form id="add-product-form" th:action="@{/proclass/addProclass}"
 							th:object="${newProclass}" method="post">
 							<div class="form-group">
-								<label for="product-name">課程名稱</label> <input type="text"
+								<label>課程名稱</label> <input type="text"
 									id="coa_Name" name="coa_Name" th:field="*{proclassName}"
 									required>
 							</div>
-							<br> <label for="product-category">教練技能</label>
+							<br> <label>教練技能</label>
 							<div class="row">
 								<select id="skill" name="skill" class="form-control"
 									th:field="*{skillId}">
@@ -395,17 +386,17 @@ table td {
 						<form id="edit-product-form" enctype="multipart/form-data"
 							th:action="@{/proclass/updateProclass}" method="post">
 							<div class="form-group">
-								<label for="" /> <input type="text" id="pro_Id_edit"
+								<label/> <input type="text" id="pro_Id_edit"
 									hidden="hidden" name="proclassId" />
 							</div>
 							<div class="form-group">
 								<label>技能名稱</label> <input type="text" id="ski_Id_edit"
 									name="skillId" hidden="hidden">
-								<output type="text" id="ski_Name_edit" class="form-control">
+								<output type="text" id="ski_Name_edit" class="form-control"></output>
 							</div>
 							<br>
 							<div class="form-group">
-								<label for="">一對一課程名稱</label> <input type="text"
+								<label>一對一課程名稱</label> <input type="text"
 									id="pro_Name_edit" class="form-control" name="proclassName"
 									required>
 							</div>
@@ -537,6 +528,7 @@ table td {
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
 			integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
 			crossorigin="anonymous"></script>
+	</div>
 </body>
 
 </html>
