@@ -283,7 +283,6 @@ table td {
 										<th>員工密碼</th>
 										<th>員工狀態</th>
 										<th>修改查詢</th>
-										<th>刪除</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -299,9 +298,7 @@ table td {
 											<button type="button" class="btn" data-bs-toggle="modal"
 												data-bs-target="#staticUpdate"
 												th:onclick="'window.location.href=\'/backend_employee/updateEmployee/' + ${employee.employeeId} + '\''">
-												修改/查詢</button>
-										<td class=" align-middle"><a href="Oemployee.html"
-											class="btn">刪除</a>
+												修改/查詢</button></td>
 									</tr>
 								</tbody>
 							</table>
