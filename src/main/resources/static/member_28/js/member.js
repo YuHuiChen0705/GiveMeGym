@@ -1,6 +1,7 @@
 rel = "stylesheet"
 href = "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
 src = "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"
+src="https://cdn.jsdelivr.net/npm/sweetalert2@latest"
 //// 登入頁面驗證
 //var mail = document.getElementById("mail");
 //var password = document.getElementById("password");
@@ -70,9 +71,6 @@ submit2.addEventListener("click", function(event) {
 	if (!validateRegistrationForm()) {
 		event.preventDefault(); // 阻止表单提交的默认行为
 	}
-
-
-
 	function validateRegistrationForm() {
 		var nameValue2 = memberName.value.trim();
 		var mailValue2 = memberMail.value.trim();
@@ -86,7 +84,7 @@ submit2.addEventListener("click", function(event) {
 		errorAllValues.innerHTML = "";
 
 		// 驗證姓名
-		if (nameValue2.length <= 2) {
+		if (nameValue2.length < 2) {
 			memberName.value = "";
 			nameError2.innerHTML = "請輸入姓名。";
 			Swal.fire({
@@ -118,7 +116,7 @@ submit2.addEventListener("click", function(event) {
 				confirmButtonText: "確定",
 			});
 			return false;
-		} else if (!mailValue2.match(/^\w{6,20}@\w{2,8}\.com$/)) {
+		} else if (!mailValue2.match( /^[a-z0-9]+@[a-z]+\.[a-z]{2,20}$/)) {
 			memberMail.value = "";
 			mailError2.innerHTML = "請輸入正確的電子信箱。";
 			Swal.fire({
@@ -208,11 +206,12 @@ submit2.addEventListener("click", function(event) {
 				confirmButtonText: "確定",
 			});
 			return false;
-		} else if (addressValue3.match(/^[a-zA-Z]+\w*/g)) {
+		} else if (addressValue3.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)) {
 			addressError2.innerHTML = "地址不能為英文。";
 			Swal.fire({
 				text: "地址不能為英文",
 				icon: "error",
+				timer: 1000,
 				confirmButtonText: "確定",
 			});
 			memberDetail.value = "";
@@ -220,7 +219,7 @@ submit2.addEventListener("click", function(event) {
 		} else {
 			addressError2.innerHTML = "";
 		};
-		alert("註冊成功");
+		alert("註冊結果已發送至您的信箱，成功註冊將有本月優惠資訊至您的信箱");
 		return true;
 
 	};

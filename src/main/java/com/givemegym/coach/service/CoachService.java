@@ -1,6 +1,7 @@
 package com.givemegym.coach.service;
 
-import java.util.*;
+import java.util.List;
+
 import com.givemegym.coach.vo.Coach;
 
 public interface CoachService {

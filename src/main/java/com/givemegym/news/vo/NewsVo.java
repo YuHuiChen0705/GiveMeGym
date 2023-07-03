@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.sql.Date;
 
 @Getter
@@ -32,7 +31,7 @@ public class NewsVo implements java.io.Serializable {
 	public Integer getNewsId() {
 	return this.newsId;
 }
-public void setNewsId(Integer newsId){
+    public void setNewsId(Integer newsId){
     this.newsId = newsId;
 }
 
@@ -49,7 +48,11 @@ public void setNewsId(Integer newsId){
 	}
 
 
-	//圖片
+
+
+
+
+
 @Column(name ="NEWS_TIME")
 	public Date getNewsTime(){
 	return this.newsTime;

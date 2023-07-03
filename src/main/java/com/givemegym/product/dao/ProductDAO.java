@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ProductDAO extends JpaRepository<Product,Integer> {
-    @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId")
+    @Query("SELECT p FROM Product p WHERE p.productStatus = 1 AND p.category.categoryId = :categoryId")
     List<Product> findByCategoryId(Integer categoryId);
 
     @Query("SELECT pdImage.productImage FROM Product pd JOIN pd.pdImages pdImage WHERE pd.productId = :productId ORDER BY pdImage.product.productId DESC")

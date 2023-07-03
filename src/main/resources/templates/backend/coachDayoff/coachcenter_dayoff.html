@@ -1,175 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- JQuery連結-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- JQuery連結-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
-    <!-- Datatable連結-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-    <!-- RWD JS連結 -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- RWD CSS連結 -->
-    <link rel="stylesheet" href=" https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+<!-- Datatable連結-->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-    <!-- CSS連結 -->
-    <link rel="stylesheet" href="/assets/css/dataTable.css">
+<!-- RWD JS連結 -->
+<script
+	src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- RWD CSS連結 -->
+<link rel="stylesheet"
+	href=" https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 
-    <!-- bootstrap5 CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
+<!-- CSS連結 -->
+<link rel="stylesheet" href="/assets/css/dataTable.css">
 
-    <title>教練中心_請假申請</title>
-    <style>
-        body {
-            background-color: #fef8f0f9;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
+<!-- bootstrap5 CSS -->
 
-        tr {
-            display: table-row;
-            vertical-align: inherit;
-            border-color: inherit;
-        }
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 
-        td {
-            display: table-cell;
-            vertical-align: inherit;
-        }
+<title>教練中心_請假申請</title>
+<style>
+body {
+	background-color: #fef8f0f9;
+	color: #fff;
+	font-family: Arial, sans-serif;
+}
 
-        table {
-            border-collapse: separate;
-            text-indent: initial;
-            border-spacing: 2px;
-        }
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-        }
+td {
+	display: table-cell;
+	vertical-align: inherit;
+}
 
-        .logo {
-            font-size: 36px;
-            font-weight: bold;
-            color: #ff0000;
-            padding: 0px 10px;
+table {
+	border-collapse: separate;
+	text-indent: initial;
+	border-spacing: 2px;
+}
 
-        }
+.header {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
 
-        .user {
-            display: flex;
-            align-items: center;
-        }
+.logo {
+	font-size: 36px;
+	font-weight: bold;
+	color: #ff0000;
+	padding: 0px 10px;
+}
 
-        .user .name {
-            margin-right: 10px;
-            color: #5f5d5d;
-        }
+.user {
+	display: flex;
+	align-items: center;
+}
 
-        .sidebar {
-            width: 130px;
-            background-color: #5f5d5d;
-            opacity: 0.8;
-            padding: 10px 15px;
-            margin: 0px 20px;
-        }
+.user .name {
+	margin-right: 10px;
+	color: #5f5d5d;
+}
 
-        .sidebar h1 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #fef8f0f9;
-            cursor: pointer;
-            text-align: left;
-        }
+.sidebar {
+	width: 130px;
+	background-color: #5f5d5d;
+	opacity: 0.8;
+	padding: 10px 15px;
+	margin: 0px 20px;
+}
 
-        .sidebar h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #fef8f0f9;
-            cursor: pointer;
-            text-align: left;
-        }
+.sidebar h1 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #fef8f0f9;
+	cursor: pointer;
+	text-align: left;
+}
 
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: none;
-        }
+.sidebar h2 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #fef8f0f9;
+	cursor: pointer;
+	text-align: left;
+}
 
-        .sidebar li {
-            margin-bottom: 5px;
-            text-align: center;
-        }
+.sidebar ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: none;
+}
 
-        .sidebar li a {
-            font-size: 16px;
-            color: #fff;
-            text-decoration: none;
-        }
+.sidebar li {
+	margin-bottom: 5px;
+	text-align: center;
+}
 
-        .sidebar li a:hover {
-            color: #aaa;
-        }
+.sidebar li a {
+	font-size: 16px;
+	color: #fff;
+	text-decoration: none;
+}
 
-        .submenu {
-            margin-left: 10px;
-        }
+.sidebar li a:hover {
+	color: #aaa;
+}
 
-        .submenu ul {
-            margin-top: 10px;
-            padding-left: 20px;
-            background-color: #fff;
-            color: #000;
-            display: none;
-        }
+.submenu {
+	margin-left: 10px;
+}
 
-        .submenu li {
-            margin-bottom: 5px;
-        }
+.submenu ul {
+	margin-top: 10px;
+	padding-left: 20px;
+	background-color: #fff;
+	color: #000;
+	display: none;
+}
 
-        .btn-style {
-            padding: 10px 32px;
-            font-size: 16px;
-            line-height: 26px;
-            font-weight: 600;
-            transition: 0.3s ease-in;
-            border-radius: 6px;
-        }
+.submenu li {
+	margin-bottom: 5px;
+}
 
-        .btn-primary {
-            color: #fff;
-            background-color: #ff0000;
-            border-color: #ff0000;
-        }
+.btn-style {
+	padding: 10px 32px;
+	font-size: 16px;
+	line-height: 26px;
+	font-weight: 600;
+	transition: 0.3s ease-in;
+	border-radius: 6px;
+}
 
-        .m-4 {
-            margin: 1.5rem !important;
-        }
-    </style>
-    <script>
+.btn-primary {
+	color: #fff;
+	background-color: #ff0000;
+	border-color: #ff0000;
+}
+
+.m-4 {
+	margin: 1.5rem !important;
+}
+</style>
+<script>
         window.addEventListener('DOMContentLoaded', (event) => {
             const headings = document.querySelectorAll('.sidebar h2', '.add-product-form');
             headings.forEach((heading) => {
@@ -183,127 +192,175 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="logo">Give Me Gym</div>
-        <div class="user">
-            <div class="name">User Name </div>
-            <a class="btn btn-style btn-primary">登出</a>
-        </div>
-    </header>
-    <div class="body-Content" style="display: flex;">
-        <div class="sidebar">
-            <h1>首頁</h1>
-            <h2>教練專區</h2>
-            <ul>
-                <li><a href="coachcenter_schedule.html">班表查詢</a></li> <!--月曆形式:可增刪查改 -->
-                <li><a href="#">私人課程訂單</a></li> <!--列表形式:可增刪查改 -->
-                <li><a href="coachcenter_dayoff.html">休假申請</a></li><!--列表形式:可增刪 -->
-                <li><a href="#">課程點名</a></li> <!--月曆形式:可增刪查改 -->
-            </ul>
-        </div>
-        <section class="py-1" style="flex: 1;">
-            <div class="container mr-md-n1 pl-md-2 ">
-                <h3 class="text-dark mb-4">休假列表</h3>
-                <div class="card shadow">
-                    <div class="card-header py-2">
-                        <div class="d-flex justify-content-between align-items-center ">
-                            <p class="text-primary m-0 fw-bold">休假紀錄</p>
-                            <button type="button" class="btn btn-primary .float-left" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">
-                                新增排假
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body py-2">
-                        <div class="table-responsive table mt-2" id="dataTable" role="grid"
-                            aria-describedby="dataTable_info">
-                            <table id="myTable" class="table table-striped table-hover style=width:80%">
-                                <thead>
-                                    <tr>
-                                        <!-- 欄位標題 -->
-                                        <th class="align-left">休假申請編號</th>
-                                        <th class="align-left">休假日期</th>
-                                        <th class="align-left">休假時段</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- 填充資料 -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	<header class="header">
+		<div class="logo">Give Me Gym</div>
+		<div class="user">
+			<div class="name">User Name</div>
+			<a class="btn btn-style btn-primary">登出</a>
+		</div>
+	</header>
+	<div class="body-Content" style="display: flex;">
+		<div class="sidebar">
+			<h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-        </section>
-        <!--insert Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog " style="--bs-modal-width: 400px;">
-                <div class="modal-content">
-                    <div class="modal-header" style="color: #000;">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">休假申請</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="color: #000;">
-                        <form id="add-product-form">
-                            <label for="start">休假日期:</label>
-                            <input type="date" id="start" name="trip-start" min="2023-01-01" max="2023-12-31" required>
+			<h2 class="sidebartitle">員工管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
+			</ul>
 
-                            <label for="product-category">休假時段</label>
-                            <select id="product-category" required>
-                                <li class="col-md-5">
-                                    <option class="span" name="time" id="0" value="上午" required>上午</option>
-                                    <option class="span" name="time" id="1" value="中午" required>中午</option>
-                                    <option class="span" name="time" id="2" value="晚上" required>晚上</option>
-                                </li>
-                            </select>
-                            <br><br>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">放棄</button>
-                                <button type="submit" class="btn btn-primary " data-bs-dismiss="modal">新增</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<h2 class="sidebartitle">會員管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
+			</ul>
 
-    <script>  $(document).ready(function () {
-            // 當表單提交時
-            $('#add-product-form').submit(function (event) {
-                event.preventDefault();
-                var dayoffCount=0;
-                var coa_Name=null;
-                // 從表單中取得教練資訊
-                
-                var dayoff_Date = $('#start').val();
-                var dayoff_Time = $('#product-category').val();
+			<h2 class="sidebartitle">商城管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
+			</ul>
 
-                // 生成新的休假申請編號
-                dayoffCount++;
-                var dayoffID = dayoffCount.toString().padStart(3, "0");
+			<h2 class="sidebartitle">教練管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">一對一課程</a></li>
+				<li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachDayoff/getAlldayofflist">教練休假申請</a></li>
+			</ul>
 
-                // 動態新增資料到表格
-                var newRow = "<tr>" +
-                    "<td>" + dayoffID + "</td>" +
-                    "<td>" + dayoff_Date + "</td>" +
-                    "<td>" + dayoff_Time + "</td>" +
-                    "</tr>";
-                $("#myTable tbody").append(newRow);
-                // 重置表單
-                $("#add-product-form")[0].reset();
-            });
-        });
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
+
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
+			</ul>
+		</div>
+		<!-- 側邊欄的js -->
+		<script>
+			window.addEventListener('DOMContentLoaded', (event) => {
+				const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+				headings.forEach((heading) => {
+					heading.addEventListener('click', (event) => {
+						const subMenu = event.target.nextElementSibling;
+						subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+					});
+				});
+			});
+		</script>
+		<section class="py-1" style="flex: 1;">
+			<div class="container mr-md-n1 pl-md-2 ">
+				<h3 class="text-dark mb-4">休假列表</h3>
+				<div class="card shadow">
+					<div class="card-header py-2">
+						<div class="d-flex justify-content-between align-items-center ">
+							<p class="text-primary m-0 fw-bold">休假紀錄</p>
+
+							<button type="button" class="btn btn-primary .float-left"
+								data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+								新增排假</button>
+						</div>
+					</div>
+					<div class="card-body py-2">
+						<div class="table-responsive table mt-2" id="dataTable"
+							role="grid" aria-describedby="dataTable_info">
+							<table id="myTable"
+								class="table table-striped table-hover style=width:80%">
+								<thead>
+									<tr>
+										<!-- 欄位標題 -->
+										<th class="align-left">休假申請編號</th>
+										<th class="align-left">休假日期</th>
+										<th class="align-left">休假時段</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 填充資料 -->
+									<tr th:each="coachDayoffVo : ${dayoffList}">
+										<td class="align-middle"
+											th:text="${coachDayoffVo. coachDayoffId}"></td>
+										<td class="align-middle"
+											th:text="${coachDayoffVo.coachDayoffDate}"></td>
+										<td class="align-middle"><span
+											th:switch="${coachDayoffVo.coachDayoffTime}"> <span
+												th:case="0">早</span> <span th:case="1">中</span> <span
+												th:case="2">晚</span>
+										</span></td>
+										<td>
+											<button type="button" class="btn btn-success btn-sm"
+												data-bs-toggle="modal" data-bs-target="#staticUpdate"
+												th:onclick="'window.location.href=\'/coachDayoff/updatecoachDayoff/' + ${coachDayoffVo.coachDayoffId} + '\''">
+												修改</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<!--insert Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog " style="--bs-modal-width: 400px;">
+				<div class="modal-content">
+					<div class="modal-header" style="color: #000;">
+						<h1 class="modal-title fs-5" id="staticBackdropLabel">休假申請</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<form id="add-dayoff-form" action="/coachDayoff/addDayoff"
+						method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="start">休假日期:</label> <input type="date"
+								id="coachDayoffDate" name="coachDayoffDate" min="2023-01-01"
+								max="2023-12-31" required> <label>休假時段</label> <select
+								id="coachDayoffTime" name="coachDayoffTime" required>
+								<option class="span" name="time" id="0" value="0" required>早</option>
+								<option class="span" name="time" id="1" value="1" required>中</option>
+								<option class="span" name="time" id="2" value="2" required>晚</option>
+							</select>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">放棄</button>
+							<button type="button" class="btn btn-primary" id="add-dayoff-btn">新增</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>  
+	$(document).ready(function() {
+		$("#add-dayoff-btn").click(function() {
+			var formData = new FormData($("#add-dayoff-form")[0]);
+
+			$.ajax({
+				url: $("#add-dayoff-form").attr("action"),
+				type: $("#add-dayoff-form").attr("method"),
+				data: formData,
+				enctype: 'multipart/form-data',
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function(response) {
+					window.location.href = "/coachDayoff/getAlldayofflist";
+				},
+				error: function(xhr, status, error) {
+					// Handle the error response
+					console.log(xhr.responseText);
+				}
+			});
+		});
+	});
     </script>
-
-
-
 </body>
 </html>

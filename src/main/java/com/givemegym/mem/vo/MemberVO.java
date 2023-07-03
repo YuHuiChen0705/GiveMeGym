@@ -77,5 +77,15 @@ public class MemberVO {
 	@Column(name = "MEMBER_STATE",insertable = false)
 	private boolean memberState;
 
+//	private String newPassword;
+//
+//	  public String getNewPassword() {
+//	        return newPassword;
+//	    }
+//
+//	    public void setNewPassword(String newPassword) {
+//	        this.newPassword = newPassword;
+//	    }
+	
 }
 	

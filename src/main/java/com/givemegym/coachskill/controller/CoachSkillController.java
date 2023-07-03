@@ -1,5 +1,4 @@
-package com.givemegym.coachSkill.controller;
-
+package com.givemegym.coachskill.controller;
 
 public class CoachSkillController {
 

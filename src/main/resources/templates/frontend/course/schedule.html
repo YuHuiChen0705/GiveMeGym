@@ -1,0 +1,277 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>通通給我健起來Give Me Gym Center</title>
+
+    <!-- 字體樣式 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" th:href="@{/course_44/assets/css/style-starter.css}">
+    <!-- bootstrap5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/course_44/css/bootStrap5.css}">
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        table {
+            width: 100%; /* 調整表格的寬度 */
+            border-collapse: collapse; /* 合併單元格邊框 */
+        }
+
+        th, td {
+            padding: 10px; /* 調整單元格內的內邊距 */
+            text-align: center; /* 文字置中 */
+            border: 1px solid black; /* 設定單元格邊框 */
+        }
+    </style>
+
+</head>
+
+<body>
+<!--header-->
+<header id="site-header" class="fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg stroke">
+            <h1><a class="navbar-brand" href="/GiveMeGym/index">
+                <span class="lnr lnr-bicycle"></span> Give Me Gym
+            </a></h1>
+            <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+                    data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/GiveMeGym/index">首頁<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item @@about__active">
+                        <a class="nav-link" href="/coach/list">私人教練</a>
+                    </li>
+                    <li class="nav-item @@classes__active">
+                        <a class="nav-link" href="/frontend_course/listAll">團課課程</a>
+                    </li>
+                    <li class="nav-item @@contact__active">
+                        <a class="nav-link" href="/shopAllProduct">線上商城</a>
+                    </li>
+                    <li class="nav-item @@contact__active">
+                        <a class="nav-link" href="/frontend_faq/listAll">常見問題</a>
+                    </li>
+                    <li class="nav-item @@contact__active">
+                        <a class="nav-link" id="memberCenterLink" href="/front_Member/memberData">會員中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shopCart" id="toShopCart">
+                            <span class="lnr lnr-cart"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!--/header-->
+<section class="w3l-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-classes py-5"
+         style="background-image: url('/course_44/image/banner5.jpg');">
+        <div class="container py-lg-5 py-md-3">
+            <h3 class="title-big text-center">團課課程</h3>
+            <p class="mt-3">線上報名團課</p>
+        </div>
+    </div>
+</section>
+<!-- ====================================================================== -->
+
+
+<div id="cldFrame">
+    <div id="cldBody">
+        <h1 th:text="${'當月課表-' + currentMonth + '月'}" style="text-align: center;" ></h1>
+        <div style="text-align: center;">
+        </div>
+        <table>
+            <tr>
+                <th>週數</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
+                <th>星期六</th>
+                <th>星期日</th>
+            </tr>
+            <tr th:each="row, rowStat : ${calendarData}">
+                <td th:text="${rowStat.index + 1}"></td>
+                <td th:each="course : ${row}">
+                    <span th:if="${course != ''}" th:text="${course}"></span>
+                    <span th:if="${course == ''}" th:text="''"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- footers 20 -->
+<section class="w3l-footers-20">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <div class="footers20">
+        <div class="container">
+            <div class="footers20-content">
+                <div class="d-grid grid-col-4 grids-content">
+                    <div class="column">
+                        <h4>客服專區</h4>
+                        <a>
+                            <p>聯絡我們</p>
+                            <p class="contact-mail mt-1"><span
+                                    class="lnr lnr-envelope"></span>service_business@tibame.com</p>
+                        </a>
+                        <a href="tel:+1-2345-678-11">
+                            <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span>
+                                +1-2345-678-11
+                            </p>
+                        </a>
+                        <a href="/frontend_faq/listAll">
+                            <p> 常見問題</p>
+                        </a>
+                        <a href="/front_Employee/login">
+                            <p> 員工中心</p>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <h4>師資團隊</h4>
+                        <a href="/coach/list">
+                            <p class="coach-list mt-2"><span class="lnr lnr-coach-handset"></span> 教練介紹
+                            </p>
+                        </a>
+                        <a href="/frontend_course/listAll">
+                            <p class="classes-list mt-2"><span class="lnr lnr-classes-handset"></span> 團課介紹
+                            </p>
+                        </a>
+                    </div>
+
+                    <div class="column">
+                        <h4>商城</h4>
+                        <a href="/shopAllProduct">
+                            <p>瀏覽商品</p>
+                        </a>
+
+                    </div>
+                    <div class="column">
+                        <h4>營業時間</h4>
+                        <p>We are working on</p>
+                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> : 7am
+                            to 9pm
+                        </p>
+                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> : 10
+                            am to 8
+                            pm
+                        </p>
+                        <p class="contact-map mt-2"><span class="lnr lnr-map-marker"></span>場館位置</p>
+
+                        <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444073!2d121.22244777443302!3d24.957640341363774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1684388144187!5m2!1szh-TW!2stw"
+                                width="280" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    </div>
+                </div>
+                <div class="d-grid grid-col-3 grids-content1 bottom-border">
+                    <div class="columns copyright-grid align-self">
+                        <p class="copy-footer-29">© 2023 Workout | Designed by no.7 team</p>
+                    </div>
+                    <div class="columns text-lg-right social-grid">
+                        <ul class="social">
+                            <li><span class="fa fa-facebook" aria-hidden="true"></span></a>
+                            </li>
+                            <li><span class="fa fa-instagram" aria-hidden="true"></span></a>
+                            </li>
+                            <li><span class="fa fa-twitter" aria-hidden="true"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+        &#10548;
+    </button>
+    <script>
+        $(document).ready(function () {
+            $('#memberCenterLink').click(function (event) {
+                event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+                // 檢查Session中是否有值
+                if (sessionStorage.getItem('memberId')) {
+                    // 如果有值，執行頁面跳轉
+                    window.location.href = $(this).attr('href');
+                } else {
+                    // 如果沒有值，執行其他操作或顯示警告訊息
+                    alert('請先登入會員');
+                    window.location.href = '/front_Member/login';
+                }
+            });
+
+            $('#toShopCart').click(function (event) {
+                event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+                // 檢查Session中是否有值
+                if (sessionStorage.getItem('memberId')) {
+                    // 如果有值，執行頁面跳轉
+                    window.location.href = $(this).attr('href');
+                } else {
+                    // 如果沒有值，執行其他操作或顯示警告訊息
+                    alert('請先登入會員');
+                    window.location.href = '/front_Member/login';
+                }
+            });
+        });
+    </script>
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- /move top -->
+</section>
+
+<!-- 導覽列及按鈕-->
+<script th:src="@{/course_44/js/nav.js}"></script>
+
+
+</body>
+
+</html>

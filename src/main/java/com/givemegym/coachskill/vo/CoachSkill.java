@@ -1,6 +1,5 @@
-package com.givemegym.coachSkill.vo;
+package com.givemegym.coachskill.vo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,15 +22,20 @@ public class CoachSkill {
 	@Column(name = "COACHSKILL_ID")
 	private int coachSkillId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "COACH_ID", referencedColumnName="COACH_ID")
+	@ManyToOne
+	@JoinColumn(name = "COACH_ID", referencedColumnName = "COACH_ID")
 	private Coach coach;
-	
+
 	@OneToOne
-	@JoinColumn(name = "SKILL_ID", referencedColumnName="SKILL_ID")
+	@JoinColumn(name = "SKILL_ID", referencedColumnName = "SKILL_ID")
 	private Skill skill;
-	
+
 	public CoachSkill() {
+	}
+
+	public CoachSkill(Coach coach, Skill skill) {
+		this.coach = coach;
+		this.skill = skill;
 	}
 
 	public CoachSkill(int coachSkillId, Coach coach, Skill skill) {
@@ -56,11 +60,11 @@ public class CoachSkill {
 		this.coach = coach;
 	}
 
-	public Skill getSkill() {
+	public Skill getSkills() {
 		return skill;
 	}
 
-	public void setSkill(Skill skill) {
+	public void setSkills(Skill skill) {
 		this.skill = skill;
 	}
 }

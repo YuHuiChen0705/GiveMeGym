@@ -15,9 +15,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @Controller
 @RequestMapping("/backend_courseSchedule")
@@ -35,8 +38,7 @@ public class CourseScheduleBackController {
     @Autowired
     private PeriodService periodService;
 
-
-    // 查詢團課上課時段列表
+    // 查詢上課時段列表
     @GetMapping("/listAll")
     public String findAllCourseSchedule(Model model) {
         List<CourseSchedule> courseScheduleList = courseScheduleService.findAll();
@@ -44,27 +46,12 @@ public class CourseScheduleBackController {
         return "backend/courseSchedule/courseScheduleList";
     }
 
-    // 根据PK查詢一筆時段
-//    @GetMapping("/findOne/{courseScheduleId}")
-//    public String findCourseScheduleById(@PathVariable Integer courseScheduleId, Model model) {
-//
-//        CourseSchedule courseSchedule = courseScheduleService.findById(courseScheduleId).orElseThrow();
-//        model.addAttribute("courseScheduleVO", courseSchedule);
-//
-//        return "backend/courseSchedule/courseScheduleList";
-//    }
-
+    // 根據報名時段查詢上課時段列表
     @GetMapping("/findByPeriod/{period}")
     public String findCourseScheduleByPeriod(@PathVariable Period period, Model model) {
         List<CourseSchedule> courseScheduleByPeriod = courseScheduleService.findCourseScheduleByPeriod(period);
         model.addAttribute("courseScheduleByPeriod", courseScheduleByPeriod);
         return "backend/courseSchedule/courseScheduleList";
-    }
-
-    // 導入新增上課時段的頁面
-    @GetMapping("/add")
-    public String toAdd() {
-        return "backend/courseSchedule/addCourseSchedule";
     }
 
     // 導入修改上課時段的頁面
@@ -73,47 +60,80 @@ public class CourseScheduleBackController {
         Optional<CourseSchedule> findCourseSchedule = courseScheduleService.findById(courseScheduleId);
         model.addAttribute("CourseSchedule", findCourseSchedule.orElseThrow());
         // 查詢完成後轉交修改團課時段的頁面
-        return "backend/courseSchedule/updateCourseSchedule";
+        return "backend/courseSchedule/updateSchedule";
     }
 
 
-    @PostMapping("/saveOrUpdate")
-    public String saveOrUpdate(@Valid CourseSchedule courseSchedule) {
-           courseScheduleService.saveOrUpdate(courseSchedule);
-        return "redirect:/backend_courseSchedule/listAll";
+    // 修改上課時段
+    @PostMapping("/update")
+    public String update(@Valid CourseSchedule courseSchedule) {
+        courseScheduleService.update(courseSchedule);
+        Period period = courseSchedule.getPeriod();
+        Integer periodId = period.getPeriodId();
+        return "redirect:/backend_courseSchedule/findByPeriod/" + periodId;
     }
-
-
-    //ajax (jquery)檢查上課日期及時間是否重複，並回傳JSON物件給前端，顯示上課時段編號幾號與之重複
-//    @PostMapping(path = "/checkDateTime", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public ResponseEntity<CourseSchedule> findByCourseName(@RequestBody CourseSchedule courseSchedule) {
-//        CourseSchedule bean = courseScheduleService.findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(courseSchedule.getCourseScheduleDate(), courseSchedule.getCourseScheduleTime());
-//        if (bean != null) {
-//            return ResponseEntity.status(HttpStatus.OK).body(bean);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//        }
-//    }
 
 
     @ModelAttribute("coachListData")
     protected List<Coach> referenceListData() {
-//		DeptService deptSvc = new DeptService();
         return coachService.findAll();
     }
 
     @ModelAttribute("courseListData")
     protected List<Course> ListData() {
-//		DeptService deptSvc = new DeptService();
         return courseService.findAll();
     }
 
-//    @ModelAttribute("periodListData")
-//    protected List<Period> ListData() {
-////		DeptService deptSvc = new DeptService();
-//        return periodService.findAll();
-//    }
 
+    @GetMapping("/Month")
+    public String findAllMSchedule(Model model) {
+        List<CourseSchedule> courseScheduleList = courseScheduleService.findAll();
+
+        // 用來放月曆課表
+        List<List<String>> calendarData = new ArrayList<>();
+        // 獲得當前月份
+        int currentMonth = LocalDate.now().getMonthValue();
+        model.addAttribute("currentMonth", currentMonth);
+
+        // 初始化月曆課表
+        final int daysInWeek = 7;
+        int daysInMonth = YearMonth.now().lengthOfMonth();
+        int weeksInMonth = (daysInMonth + daysInWeek - 1) / daysInWeek;
+
+        for (int i = 0; i < weeksInMonth; i++) {
+            List<String> row = new ArrayList<>();
+            for (int j = 0; j < daysInWeek; j++) {
+                row.add("");
+            }
+            calendarData.add(row);
+        }
+
+        // 把課程資料放在月曆裡
+        for (CourseSchedule courseSchedule : courseScheduleList) {
+            LocalDate scheduleDate = courseSchedule.getCourseScheduleDate().toLocalDate();
+            // 獲取該日期的月份中的第幾天
+            int dayOfMonth = scheduleDate.getDayOfMonth();
+            // 獲取該日期的星期幾
+            int dayOfWeek = scheduleDate.getDayOfWeek().getValue();
+            // 獲取課程的時段
+            String timeOfDay = courseSchedule.getCourseScheduleTime();
+            // 獲取課程的課程名稱
+            String courseName = courseSchedule.getPeriod().getCourse().getCourseName();
+            // 獲取課程的教練名稱
+            String coachName = getCoach(courseSchedule.getCoach().getCoachName());
+            String combinedData = dayOfMonth + " - " + timeOfDay + " - " + courseName + " (" + coachName + ")" ;
+            // 獲取指定日期在月份中所在的周数
+            int weekOfMonth = scheduleDate.get(WeekFields.ISO.weekOfMonth());
+            calendarData.get(weekOfMonth - 1).set(dayOfWeek - 1, combinedData);
+        }
+
+
+        model.addAttribute("calendarData", calendarData);
+        return "frontend/course/schedule";
+    }
+
+    private String getCoach(String coachName) {
+        return "教練" + coachName;
+    }
 
 }

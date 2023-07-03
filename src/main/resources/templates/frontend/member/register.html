@@ -9,7 +9,7 @@
 
 <title>通通給我健起來Give Me Gym Center</title>
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"/>
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css" />
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
@@ -30,14 +30,10 @@
 		<div class="container">
 			<nav class="navbar navbar-expand-lg stroke">
 				<h1>
-					<a class="navbar-brand" href="index.html"> <span
+					<a class="navbar-brand" href="/GiveMeGym/index"> <span
 						class="lnr lnr-bicycle"></span> Give Me Gym
 					</a>
 				</h1>
-				<!-- if logo is image enable this   
-  <a class="navbar-brand" href="#index.html">
-      <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-  </a> -->
 				<button class="navbar-toggler  collapsed bg-gradient" type="button"
 					data-toggle="collapse" data-target="#navbarTogglerDemo02"
 					aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -49,58 +45,28 @@
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active"><a class="nav-link"
-							href="index.html">首頁<span class="sr-only">(current)</span></a></li>
+							href="/GiveMeGym/index">首頁<span class="sr-only">(current)</span></a>
+						</li>
 						<li class="nav-item @@about__active"><a class="nav-link"
-							href="coach.html">私人教練</a></li>
+							href="/coach/list">私人教練</a></li>
 						<li class="nav-item @@classes__active"><a class="nav-link"
-							href="classes.html">團課課程</a></li>
+							href="/frontend_course/listAll">團課課程</a></li>
 						<li class="nav-item @@contact__active"><a class="nav-link"
-							href="contact.html">線上商城</a></li>
+							href="/shopAllProduct">線上商城</a></li>
 						<li class="nav-item @@contact__active"><a class="nav-link"
-							href="contact.html">常見問題</a></li>
+							href="/frontend_faq/listAll">常見問題</a></li>
 						<li class="nav-item @@contact__active"><a class="nav-link"
-							href="contact.html">會員中心</a></li>
-						<!--/search-right-->
-						<div class="search-right">
-							<a href="#search" title="search"><span class="fa fa-search"
-								aria-hidden="true"></span></a>
-							<!-- search popup -->
-							<div id="search" class="pop-overlay">
-								<div class="popup">
-
-									<form action="#" method="GET" class="search-box">
-										<input type="search" placeholder="Enter Keyword" name="search"
-											required="required" autofocus="">
-										<button type="submit" class="btn">
-											<span class="fa fa-search" aria-hidden="true"></span>
-										</button>
-									</form>
-
-								</div>
-								<a class="close" href="#close">×</a>
-							</div>
-							<!-- /search popup -->
-						</div>
-						<!--//search-right-->
+							id="memberCenterLink" href="/front_Member/memberData">會員中心</a></li>
+						<li class="nav-item"><a class="nav-link" href="/shopCart"
+							id="toShopCart"> <span class="lnr lnr-cart"></span>
+						</a></li>
 					</ul>
 				</div>
-				<!-- toggle switch for light and dark theme -->
-				<div class="mobile-position">
-					<nav class="navigation">
-						<div class="theme-switch-wrapper">
-							<label class="theme-switch" for="checkbox"> <input
-								type="checkbox" id="checkbox">
-								<div class="mode-container">
-									<i class="gg-sun"></i> <i class="gg-moon"></i>
-								</div>
-							</label>
-						</div>
-					</nav>
-				</div>
-				<!-- //toggle switch for light and dark theme -->
 			</nav>
 		</div>
 	</header>
+	<!--/header-->
+	
 	<section class="w3l-breadcrumb">
 		<div class="breadcrumb-bg breadcrumb-bg-contact py-5">
 			<div class="container py-lg-5 py-md-3">
@@ -113,40 +79,30 @@
 
 	<div class="allform">
 		<div class="form">
-			<div class="tab-group">
-				<button class="tab active2"
-					style="border: none; background-color: antiquewhite; border-radius: 0.5ch;">
-					<a href="login.html">登入</a>
-				</button>
-				<button class="tab active1"
-					style="border: none; background-color: antiquewhite; border-radius: 0.5ch;">
-					<a href="#signup">註冊</a>
-				</button>
-			</div>
-			</ul>
 			<div class="tab-content">
 				<div id="signup">
-					<h1>免費註冊</h1>
+					<h1>會員註冊</h1>
 					<div class="top-row">
-						<form id="register" th:action="@{/front_Member/loginMemer}"
+						<form id="register" th:action="@{/front_Member/loginMember}"
 							method="post" enctype="multipart/form-data"
 							class=" needs-validation row text-dark" th:object="${MemberVO}"
 							novalidate onsubmit="return validateRegistrationForm()">
 					</div>
-					<div class="field-wrap1">
-						中文姓名<span class="req">*</span><input type="name" id="memberName"
+					<a href="login">已經有會員帳號?</a>
+					<div class="field-wrap">
+						中文姓名<span class="req">*</span><input type="text" id="memberName"
 							name="memberName" required autocomplete="off" class="input11" />
 					</div>
-					<div class="field-wrap1">
+					<div class="field-wrap">
 						電子信箱<span class="req">*</span> <input type="email" id="memberMail"
 							name="memberMail" required autocomplete="off" class="input11" />
 					</div>
-					<div class="field-wrap1">
+					<div class="field-wrap">
 						設定密碼<span class="req">*</span><input type="password"
 							id="memberPassword" name="memberPassword" required
 							autocomplete="off" class="input11" />
 					</div>
-					<div class="field-wrap1">
+					<div class="field-wrap">
 						手機號碼<span class="req">*</span> <input type="text"
 							id="memberPhoneNumber" name="memberPhoneNumber" required
 							autocomplete="off" class="input11" />
@@ -155,90 +111,78 @@
 						<div id="birthselect2" class="fixTitle" style="float: left">
 							出生日期<span class="req">*</span>
 						</div>
-						<!--選擇年份-->
-						<select name="memberBirthYear" id="memberBirthYear">
-							<option selected disabled value="">選擇年份</option>
-							<!-- 使用 Thymeleaf 迭代選項 -->
-							<option th:each="year : ${birthYears}" th:value="${year}"
-								th:text="${year}"></option>
-						</select>
-						<!--選擇月份-->
-						<select id="memberBirthMonth" name="memberBirthMonth">
-							<option selected disabled value="0">選擇月份</option>
-							<option th:each="month : ${birthMonths}" th:value="${month}"
-								th:text="${month}"></option>
-						</select>
-						<!--選擇日期-->
-						<select id="memberBirthDay" name="memberBirthDay">
-							<option selected disabled value="0">選擇日期</option>
-							<option th:each="day : ${birthDays}" th:value="${day}"
-								th:text="${day}"></option>
-						</select>
-
+						<div class="select-container">
+							<!--選擇年份-->
+							<select name="memberBirthYear" id="memberBirthYear">
+								<option selected disabled value="">選擇年份</option>
+								<!-- 使用 Thymeleaf 迭代選項 -->
+								<option th:each="year : ${birthYears}" th:value="${year}"
+									th:text="${year}"></option>
+							</select>
+							<!--選擇月份-->
+							<select id="memberBirthMonth" name="memberBirthMonth">
+								<option selected disabled value="0">選擇月份</option>
+								<option th:each="month : ${birthMonths}" th:value="${month}"
+									th:text="${month}"></option>
+							</select>
+							<!--選擇日期-->
+							<select id="memberBirthDay" name="memberBirthDay">
+								<option selected disabled value="0">選擇日期</option>
+								<option th:each="day : ${birthDays}" th:value="${day}"
+									th:text="${day}"></option>
+							</select>
+						</div>
 					</div>
 
 					<div class="field-wrap">
 						<div id="address2" class="fixTitle" style="float: left">
 							通訊地址<span class="req">*</span>
 						</div>
-						<select id="memberRegion" name="memberRegion">
-							<option selected disabled value="">選擇縣市</option>
-							<option id='臺北市'>臺北市</option>
-							<option id='新北市'>新北市</option>
-							<option id='桃園市'>桃園市</option>
-							<option id='臺中市'>臺中市</option>
-							<option id='臺南市'>臺南市</option>
-							<option id='高雄市'>高雄市</option>
-							<option id='基隆市'>基隆市</option>
-							<option id='新竹市'>新竹市</option>
-							<option id='嘉義市'>嘉義市</option>
-							<option id='新竹縣'>新竹縣</option>
-							<option id='苗栗縣'>苗栗縣</option>
-							<option id='彰化縣'>彰化縣</option>
-							<option id='南投縣'>南投縣</option>
-							<option id='雲林縣'>雲林縣</option>
-							<option id='嘉義縣'>嘉義縣</option>
-							<option id='屏東縣'>屏東縣</option>
-							<option id='宜蘭縣'>宜蘭縣</option>
-							<option id='花蓮縣'>花蓮縣</option>
-							<option id='臺東縣'>臺東縣</option>
-							<option id='澎湖縣'>澎湖縣</option>
-							<option id='金門縣'>金門縣</option>
-							<option id='連江縣'>連江縣</option>
-						</select> <select id="memberDistrict" name="memberDistrict">
-							<option selected disabled value="0">鄉鎮市區</option>
-						</select> <input type="text" id="memberDetail" name="memberDetail" required
-							autocomplete="off" />
+						<div class="select-container">
+							<select id="memberRegion" name="memberRegion">
+								<option selected disabled value="">選擇縣市</option>
+								<option id='臺北市'>臺北市</option>
+								<option id='新北市'>新北市</option>
+								<option id='桃園市'>桃園市</option>
+								<option id='臺中市'>臺中市</option>
+								<option id='臺南市'>臺南市</option>
+								<option id='高雄市'>高雄市</option>
+								<option id='基隆市'>基隆市</option>
+								<option id='新竹市'>新竹市</option>
+								<option id='嘉義市'>嘉義市</option>
+								<option id='新竹縣'>新竹縣</option>
+								<option id='苗栗縣'>苗栗縣</option>
+								<option id='彰化縣'>彰化縣</option>
+								<option id='南投縣'>南投縣</option>
+								<option id='雲林縣'>雲林縣</option>
+								<option id='嘉義縣'>嘉義縣</option>
+								<option id='屏東縣'>屏東縣</option>
+								<option id='宜蘭縣'>宜蘭縣</option>
+								<option id='花蓮縣'>花蓮縣</option>
+								<option id='臺東縣'>臺東縣</option>
+								<option id='澎湖縣'>澎湖縣</option>
+								<option id='金門縣'>金門縣</option>
+								<option id='連江縣'>連江縣</option>
+
+							</select> <select id="memberDistrict" name="memberDistrict">
+								<option selected disabled value="0">鄉鎮市區</option>
+							</select>
+						</div>
+						<input type="text" id="memberDetail" name="memberDetail"
+							placeholder="街道巷弄" required autocomplete="off" />
 					</div>
-					<a href="login">已經有會員帳號?</a>
+
 					<div class="error" id="name-error2"></div>
 					<div class="error" id="mail-error2"></div>
 					<div class="error" id="password-error2"></div>
 					<div class="error" id="phonenumber-error2"></div>
 					<div class="error" id="birthselect-error2"></div>
 					<div class="error" id="address-error2"></div>
+
 					<button type="submit" id="submit2" class="button button-block">確認，下一步</button>
 					</form>
 				</div>
-				<div id="login">
-					<h1>歡迎健起來!</h1>
-					<form action="/login.html" method="post">
-						<div class="field-wrap">
-							<label>電子信箱<span class="req"></span></label> <input type="email"
-								id="mail" required autocomplete="off" />
-						</div>
-						<div class="field-wrap">
-							<label> 輸入密碼<span class="req">*</span>
-							</label> <input type="password" id="password" required autocomplete="off" />
-						</div>
-						<p class="forgot">
-							<a href="forgetpw.html">忘記密碼?</a>
-						</p>
-						<div class="error" id="mail-error"></div>
-						<div class="error" id="password-error"></div>
-						<button class="button button-block" id="submit1">登入</button>
-					</form>
-				</div>
+				<div id="login"></div>
 			</div>
 			<!-- tab-content -->
 		</div>
@@ -246,93 +190,145 @@
 	</div>
 	<!-- /所有表格 -->
 	<!-- //contact form -->
-	<!-- footers 20 -->
-	<section class="w3l-footers-20">
-		<div class="footers20">
-			<div class="container">
-				<div class="footers20-content">
-					<div class="d-grid grid-col-4 grids-content">
-						<div class="column">
-							<h4>客服專區</h4>
-							<a href="mailto:mail@example.com">
-								<p>聯絡我們</p>
-								<p class="contact-mail mt-1">
-									<span class="lnr lnr-envelope"></span>service_business@tibame.com
-								</p>
-							</a> <a href="tel:+1-2345-678-11">
-								<p class="contact-phone mt-2">
-									<span class="lnr lnr-phone-handset"></span> +1-2345-678-11
-								</p>
-							</a> <a href="contact.html">
-								<p>常見問題</p>
-							</a>
-						</div>
-						<div class="column">
-							<h4>師資團隊</h4>
-							<a href="coach.html">
-								<p class="coach-list mt-2">
-									<span class="lnr lnr-coach-handset"></span> 教練介紹
-								</p>
-							</a> <a href="classes.html">
-								<p class="classes-list mt-2">
-									<span class="lnr lnr-classes-handset"></span> 團課介紹
-								</p>
-							</a> <a href="classes.html">
-								<p class="classes-list mt-2">
-									<span class="lnr lnr-classes-mounth"></span> 當月課表
-								</p>
-							</a>
-						</div>
+<!-- footers 20 -->
+<section class="w3l-footers-20">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <div class="footers20">
+        <div class="container">
+            <div class="footers20-content">
+                <div class="d-grid grid-col-4 grids-content">
+                    <div class="column">
+                        <h4>客服專區</h4>
+                        <a>
+                            <p>聯絡我們</p>
+                            <p class="contact-mail mt-1"><span
+                                    class="lnr lnr-envelope"></span>service_business@tibame.com</p>
+                        </a>
+                        <a href="tel:+1-2345-678-11">
+                            <p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span>
+                                +1-2345-678-11
+                            </p>
+                        </a>
+                        <a href="/frontend_faq/listAll">
+                            <p> 常見問題</p>
+                        </a>
+ <a href="/front_Employee/login">
+                            <p>員工中心</p>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <h4>師資團隊</h4>
+                        <a href="/coach/list">
+                            <p class="coach-list mt-2"><span class="lnr lnr-coach-handset"></span> 教練介紹
+                            </p>
+                        </a>
+                        <a href="/frontend_course/listAll">
+                            <p class="classes-list mt-2"><span class="lnr lnr-classes-handset"></span> 團課介紹
+                            </p>
+                        </a>
+                    </div>
 
-						<div class="column">
-							<h4>商城</h4>
-							<a href="優惠活動列表">
-								<p>優惠活動</p>
-							</a>
+                    <div class="column">
+                        <h4>商城</h4>
+                        <a href="/shopAllProduct">
+                            <p>瀏覽商品</p>
+                        </a>
 
-						</div>
-						<div class="column">
-							<h4>營業時間</h4>
-							<p>We are working on</p>
-							<p class="mt-1">
-								<span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> :
-								7am to 9pm
-							</p>
-							<p class="mt-1">
-								<span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> :
-								10 am to 8 pm
-							</p>
-							<p class="contact-map mt-2">
-								<span class="lnr lnr-map-marker"></span>場館位置
-							</p>
+                    </div>
+                    <div class="column">
+                        <h4>營業時間</h4>
+                        <p>We are working on</p>
+                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> : 7am
+                            to 9pm
+                        </p>
+                        <p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> : 10
+                            am to 8
+                            pm
+                        </p>
+                        <p class="contact-map mt-2"><span class="lnr lnr-map-marker"></span>場館位置</p>
 
-							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444073!2d121.22244777443302!3d24.957640341363774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1684388144187!5m2!1szh-TW!2stw"
-								width="280" height="200" style="border: 0;" allowfullscreen=""
-								loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444073!2d121.22244777443302!3d24.957640341363774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1684388144187!5m2!1szh-TW!2stw"
+                                width="280" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-						</div>
-					</div>
-					<div class="d-grid grid-col-3 grids-content1 bottom-border">
-						<div class="columns copyright-grid align-self">
-							<p class="copy-footer-29">© 2023 Workout | Designed by no.7
-								team</p>
-						</div>
-						<div class="columns text-lg-right social-grid">
-							<ul class="social">
-								<li><a href="#url"><span class="fa fa-facebook"
-										aria-hidden="true"></span></a></li>
-								<li><a href="#url"><span class="fa fa-instagram"
-										aria-hidden="true"></span></a></li>
-								<li><a href="#url"><span class="fa fa-twitter"
-										aria-hidden="true"></span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- move top -->
+                    </div>
+                </div>
+                <div class="d-grid grid-col-3 grids-content1 bottom-border">
+                    <div class="columns copyright-grid align-self">
+                        <p class="copy-footer-29">© 2023 Workout | Designed by no.7 team</p>
+                    </div>
+                    <div class="columns text-lg-right social-grid">
+                        <ul class="social">
+                            <li><span class="fa fa-facebook" aria-hidden="true"></span></a>
+                            </li>
+                            <li><span class="fa fa-instagram" aria-hidden="true"></span></a>
+                            </li>
+                            <li><span class="fa fa-twitter" aria-hidden="true"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+        &#10548;
+    </button>
+    <script>
+        $(document).ready(function () {
+            $('#memberCenterLink').click(function (event) {
+                event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+                // 檢查Session中是否有值
+                if (sessionStorage.getItem('memberId')) {
+                    // 如果有值，執行頁面跳轉
+                    window.location.href = $(this).attr('href');
+                } else {
+                    // 如果沒有值，執行其他操作或顯示警告訊息
+                    alert('請先登入會員');
+                    window.location.href = '/front_Member/login';
+                }
+            });
+
+            $('#toShopCart').click(function (event) {
+                event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+                // 檢查Session中是否有值
+                if (sessionStorage.getItem('memberId')) {
+                    // 如果有值，執行頁面跳轉
+                    window.location.href = $(this).attr('href');
+                } else {
+                    // 如果沒有值，執行其他操作或顯示警告訊息
+                    alert('請先登入會員');
+                    window.location.href = '/front_Member/login';
+                }
+            });
+        });
+    </script>
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- /move top -->
+</section>
 		<button onclick="topFunction()" id="movetop" title="Go to top">
 			&#10548;</button>
 		<script>
@@ -626,7 +622,7 @@
     });
   </script>
 	<script th:src="@{/member_28/js/member.js}"></script>
-<!-- 	<script th:src="@{/member/js/login.js}"></script> -->
+	<!-- 	<script th:src="@{/member/js/login.js}"></script> -->
 </body>
 
 </html>

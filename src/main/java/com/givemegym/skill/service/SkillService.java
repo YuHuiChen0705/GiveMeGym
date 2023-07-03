@@ -12,5 +12,7 @@ public interface SkillService {
 	
 	public void save(Skill theSkill);
 	
+	public Skill findById(int theId);
+	
 	public void deleteById(int theId);
 }
