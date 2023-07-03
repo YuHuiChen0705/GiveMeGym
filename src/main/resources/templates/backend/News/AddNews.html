@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>員工後台</title>
@@ -18,121 +19,172 @@
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 
-    <!-- CSS連結 -->
-    <link rel="stylesheet" href="/assets/css/dataTable.css">
 
     <!-- bootstrap5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-        }
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+<style>
+    body {
+        background-color: #fef8f0f9;
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
 
-        .user {
-            display: flex;
-            align-items: center;
-        }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
 
-        .user .name {
-            margin-right: 10px;
-        }
+    .logo {
+        font-size: 36px;
+        font-weight: bold;
+        color: #ff0000;
+        padding: 0px 10px;
 
-        .sidebar {
-            width: 200px;
-            background-color: #333;
-            padding: 20px;
-        }
+    }
 
-        .sidebar h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            cursor: pointer;
-            text-align: left;
-        }
+    .user {
+        display: flex;
+        align-items: center;
+    }
 
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: none;
-        }
+    .user .name {
+        margin-right: 10px;
+        color: #5f5d5d;
+    }
 
-        .sidebar li {
-            margin-bottom: 10px;
-            text-align: center;
-        }
+    .sidebar {
+        width: 130px;
+        background-color: #5f5d5d;
+        opacity: 0.8;
+        padding: 10px 15px;
+        margin: 0px 20px;
+        float: left;
+    }
 
-        .sidebar li a {
-            color: #fff;
-            text-decoration: none;
-        }
+    .sidebar h1 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fef8f0f9;
+        cursor: pointer;
+        text-align: left;
+    }
 
-        .sidebar li a:hover {
-            color: #aaa;
-        }
+    .sidebar h2 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fef8f0f9;
+        cursor: pointer;
+        text-align: left;
+    }
 
-        .submenu {
-            margin-left: 10px;
-        }
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
 
-        .submenu ul {
-            margin-top: 10px;
-            padding-left: 20px;
-            background-color: #fff;
-            color: #000;
-            display: none;
-        }
+    .sidebar li {
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-        .submenu li {
-            margin-bottom: 5px;
-        }
+    .sidebar li a {
+        color: #fff;
+        text-decoration: none;
+    }
 
-        table {
-            table-layout: fixed;
-            width: 100%;
-        }
+    .sidebar li a:hover {
+        color: #aaa;
+    }
 
-        table td {
-            width: 14.28%;
-            /* 每個欄位佔表格的 1/7 寬度 */
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
+    .submenu {
+        margin-left: 10px;
+    }
 
-        .truncate {
-            max-width: 0;
-        }
-    </style>
-    <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2');
+    .submenu ul {
+        margin-top: 10px;
+        padding-left: 20px;
+        background-color: #fff;
+        color: #000;
+        display: none;
+    }
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
-    </script>
+    .submenu li {
+        margin-bottom: 5px;
+    }
+
+    .btn-style {
+        padding: 10px 32px;
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 600;
+        transition: 0.3s ease-in;
+        border-radius: 6px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #ff0000;
+        border-color: #ff0000;
+    }
+
+    .m-4 {
+        margin: 1.5rem !important;
+    }
+
+    .content {
+        margin-left: 320px;
+    }
+
+    .content iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
+
+
+
+<!--預覽圖片-->
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.querySelector('.image-preview');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+
+</script>
+
 </head>
 
 
@@ -149,94 +201,95 @@
 <aside style="float: left; margin-right: 5%">
     <div class="body-Content" style="display: flex;">
         <div class="sidebar">
-            <h2>首頁</h2>
+            <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-            <h2>員工管理</h2>
-            <ul>
-                <li><a href="#">新增員工</a></li>
-                <li><a href="#">查詢員工</a></li>
-                <li><a href="#">員工權限</a></li>
+            <h2 class="sidebartitle">員工管理</h2>
+            <ul style="display: none;">
+                <li class="nav-item"><a class="nav-link" href="/backend_department/listAll">部門</a></li>
+                <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">員工</a></li>
+                <li class="nav-item"><a class="nav-link" href="/backend_access/listAll">權限</a></li>
+                <li class="nav-item"><a class="nav-link" href="/backend_employeeaccess/listAll">員工權限</a></li>
             </ul>
 
-            <h2>會員管理</h2>
-            <ul>
-                <li><a href="#">新增會員</a></li>
-                <li><a href="#">查詢會員</a></li>
-                <li><a href="#">會員權限</a></li>
+            <h2 class="sidebartitle">會員管理</h2>
+            <ul style="display: none;">
+                <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+                <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
             </ul>
 
-            <h2>商城管理</h2>
-            <ul>
-                <li><a href="#">商品管理</a></li>
-                <li><a href="#">訂單管理</a></li>
+            <h2 class="sidebartitle">商城管理</h2>
+            <ul style="display: none;">
+                <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+                <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
             </ul>
 
-            <h2>教練管理</h2>
-            <ul>
-                <li><a href="#">新增教練</a></li>
-                <li><a href="#">查詢教練</a></li>
-                <li><a href="#">教練排班</a></li>
+            <h2 class="sidebartitle">教練管理</h2>
+            <ul style="display: none;">
+                <li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+                <li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+                <li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+                <li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
             </ul>
 
-            <h2>團課管理</h2>
-            <ul>
-                <li><a href="#">新增團課</a></li>
-                <li><a href="#">查詢團課</a></li>
-                <li><a href="#">團課排班</a></li>
-            </ul>
+            <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-            <h2>客服管理</h2>
-            <ul>
-                <li><a href="#">客戶查詢</a></li>
-                <li><a href="#">訂單查詢</a></li>
-                <li><a href="#">FAQ管理</a></li>
-                <li><a href="newsmangement.html">活動資訊管理</a></li>
+            <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
             </ul>
         </div>
+        <!-- 側邊欄的js -->
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+                headings.forEach((heading) => {
+                    heading.addEventListener('click', (event) => {
+                        const subMenu = event.target.nextElementSibling;
+                        subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+                    });
+                });
+            });
+        </script>
     </div>
 </aside>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" style="--bs-modal-width: 800px;">
-        <div class="modal-content">
-            <div class="modal-header" style="color: #000;">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">新增消息</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="color: #000; font-weight: 600;">
-                <form id="add-product-form">
-                    <div class="form-group">
-                        <label for="product-name">活動消息名稱</label>
-                        <input type="text"  name="product-name" required>
-                    </div>
-                    <div class="form-group">
-                    </div>
-                    <div class="form-group" style="display: flex; flex-direction: column;">
-                        <label  style="flex:99;">消息圖片</label>
-                        <div style="margin:3% 0px">
-                            <input type="file"  name="product-image" accept="image/*" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="product-name">上架時間</label>
-                        <input type="text" id="product-name" name="product-name" required>
-                    </div>
-                </form>
+<div class="text-black-50 border-bottom border-end rounded-start border-4 border-gray"
+     style="width:75%;height:600px; margin-left: 200px; ; background-color:white;">
+    <h1 class="border-bottom border-3 border-dark display-4">最新消息</h1>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">放棄</button>
-                <button type="button" class="btn btn-primary">新增</button>
-            </div>
+    <form id="imageForm" th:action="@{/AddNews}" method="post" enctype="multipart/form-data" th:object="${newsVo}">
+        <button class="btn btn-primary btn-lg rounded-start" th:type="submit" id="submit">新增</button>
+        <!-- 時間 -->
+        <div class="form-field">
+            <label for="uploadTime">上傳時間：</label>
+            <input type="date" id="uploadTime"th:field="*{newsTime}"readonly required>
         </div>
-    </div>
+
+
+        <!-- 圖片 -->
+        <div class="form-field">
+            <label for="imageFile">圖片：</label>
+            <input type="file" id="imageFile" th:field="*{newsImg}" name="newsImg" accept="image/*" onchange="previewImage(event)" required>
+        </div>
+
+        <!-- 圖片預覽 -->
+        <div class="form-field">
+            <img class="image-preview rounded-3" style="height: 400px;" alt="圖片">
+        </div>
+    </form>
 </div>
 
 
 <!-- JS -->
+<script>
 
+        // 獲得日期
+        let currentDate = new Date().toISOString().slice(0, 10);
+
+        // 輸入初始
+        document.getElementById("uploadTime").value = currentDate;
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
@@ -244,4 +297,5 @@
         integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

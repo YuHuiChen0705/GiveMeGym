@@ -45,7 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template CSS -->
-<link rel="stylesheet" href="/coach_16/assets/css/style-starter.css">
+<link rel="stylesheet" href="/shop_19/assets/css/style-starter.css">
 <style>
 .container1 {
 	display: flex;
@@ -204,82 +204,50 @@ div .date {
 </head>
 
 <body>
-	<!--header-->
-	<header id="site-header" class="fixed-top ">
-		<div class="container">
-			<nav class="navbar navbar-expand-lg stroke">
-				<h1>
-					<a class="navbar-brand" href="index.html"> <span
-						class="lnr lnr-bicycle"></span> Give Me Gym
-					</a>
-				</h1>
-				<!-- if logo is image enable this   
-  <a class="navbar-brand" href="#index.html">
-      <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-  </a> -->
-				<button class="navbar-toggler  collapsed bg-gradient" type="button"
-					data-toggle="collapse" data-target="#navbarTogglerDemo02"
-					aria-controls="navbarTogglerDemo02" aria-expanded="false"
+<header id="site-header" class="fixed-top">
+	<div class="container">
+		<nav class="navbar navbar-expand-lg stroke">
+			<h1><a class="navbar-brand" href="/GiveMeGym/index">
+				<span class="lnr lnr-bicycle"></span> Give Me Gym
+			</a></h1>
+			<button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+					data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
 					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon fa icon-expand fa-bars"></span> <span
-						class="navbar-toggler-icon fa icon-close fa-times"></span>
-				</button>
+				<span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+				<span class="navbar-toggler-icon fa icon-close fa-times"></span>
+			</button>
 
-				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link"
-							href="index.html">首頁<span class="sr-only">(current)</span></a></li>
-						<li class="nav-item @@about__active"><a class="nav-link"
-							href="coach.html">私人教練</a></li>
-						<li class="nav-item @@classes__active"><a class="nav-link"
-							href="classes.html">團課課程</a></li>
-						<li class="nav-item @@contact__active"><a class="nav-link"
-							href="contact.html">線上商城</a></li>
-						<li class="nav-item @@contact__active"><a class="nav-link"
-							href="contact.html">常見問題</a></li>
-						<li class="nav-item @@contact__active"><a class="nav-link"
-							href="membercenter.html">會員中心</a></li>
-						<!--/search-right-->
-						<div class="search-right">
-							<a href="#search" title="search"><span class="fa fa-search"
-								aria-hidden="true"></span></a>
-							<!-- search popup -->
-							<div id="search" class="pop-overlay">
-								<div class="popup">
-
-									<form action="#" method="GET" class="search-box">
-										<input type="search" placeholder="Enter Keyword" name="search"
-											required="required" autofocus="">
-										<button type="submit" class="btn">
-											<span class="fa fa-search" aria-hidden="true"></span>
-										</button>
-									</form>
-
-								</div>
-								<a class="close" href="#close">×</a>
-							</div>
-							<!-- /search popup -->
-						</div>
-						<!--//search-right-->
-					</ul>
-				</div>
-				<!-- toggle switch for light and dark theme -->
-				<div class="mobile-position">
-					<nav class="navigation">
-						<div class="theme-switch-wrapper">
-							<label class="theme-switch" for="checkbox"> <input
-								type="checkbox" id="checkbox">
-								<div class="mode-container">
-									<i class="gg-sun"></i> <i class="gg-moon"></i>
-								</div>
-							</label>
-						</div>
-					</nav>
-				</div>
-				<!-- //toggle switch for light and dark theme -->
-			</nav>
-		</div>
-	</header>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/GiveMeGym/index">首頁<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item @@about__active">
+						<a class="nav-link" href="/coach/list">私人教練</a>
+					</li>
+					<li class="nav-item @@classes__active">
+						<a class="nav-link" href="/frontend_course/listAll">團課課程</a>
+					</li>
+					<li class="nav-item @@contact__active">
+						<a class="nav-link" href="/shopAllProduct">線上商城</a>
+					</li>
+					<li class="nav-item @@contact__active">
+						<a class="nav-link" href="/frontend_faq/listAll">常見問題</a>
+					</li>
+					<li class="nav-item @@contact__active">
+						<a class="nav-link" id="memberCenterLink" href="/front_Member/memberData">會員中心</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/shopCart" id="toShopCart">
+							<span class="lnr lnr-cart"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</header>
+<!--/header-->
 
 	<section class="w3l-breadcrumb">
 		<div class="breadcrumb-bg breadcrumb-bg-about py-5">
@@ -295,28 +263,43 @@ div .date {
 				<div class="left-side">
 					<h3 class="agileits-sear-head">會員專區</h3>
 					<ul>
-						<li><a class="btn-outline-secondary" href="">個人資料</a></li>
-						<li><a class="btn-outline-secondary" href="">資料修改</a></li>
-						<li><a class="btn-outline-secondary" href="">密碼修改</a></li>
+						<li>
+							<a class="btn-outline-secondary" href="/front_Member/memberData">個人資料</a>
+						</li>
+						<li>
+							<a class="btn-outline-secondary" href="/front_Member/memberDataModify">資料修改</a>
+						</li>
+						<li>
+							<a class="btn-outline-secondary" href="/front_Member/modifyPassword">密碼修改</a>
+						</li>
 					</ul>
 				</div>
 				<br>
 				<div class="left-side">
 					<h3 class="agileits-sear-head">預定課程</h3>
 					<ul>
-						<li><a class="btn-outline-secondary" href="">團課課表</a></li>
-						<li><a class="btn-outline-secondary" href="">私人課表</a></li>
+						<li>
+							<a class="btn-outline-secondary" href="/frontend_courseOrder/orderList">團課課表</a>
+						</li>
+						<li>
+							<a class="btn-outline-secondary" href="/proclassorder/mebproClassorder">私人課表</a>
+						</li>
 					</ul>
 				</div>
 				<br>
 				<div class="left-side">
-					<h3 class="agileits-sear-head">商品專區</h3>
+					<h3 class="agileits-sear-head">商城專區</h3>
 					<ul>
-						<li><a class="btn-outline-secondary" href="">購物車</a></li>
-						<li><a class="btn-outline-secondary" href="">商品訂單</a></li>
+						<li>
+							<a class="btn-outline-secondary" href="/shopCart">購物車</a>
+						</li>
+						<li>
+							<a class="btn-outline-secondary" href="/memberOrderList">商城訂單查詢</a>
+						</li>
 					</ul>
 				</div>
 			</div>
+
 		</aside>
 		<br>
 		<div class="header2 ">
@@ -397,183 +380,144 @@ div .date {
 		</div>
 	</div>
 	</div>
-	<!-- 月曆查詢 -->
-	<div id="calendar"></div>
+<!-- footers 20 -->
+<section class="w3l-footers-20">
+	<div class="footers20">
+		<div class="container">
+			<div class="footers20-content">
+				<div class="d-grid grid-col-4 grids-content">
+					<div class="column">
+						<h4>客服專區</h4>
+						<a>
+							<p>聯絡我們</p>
+							<p class="contact-mail mt-1"><span
+									class="lnr lnr-envelope"></span>service_business@tibame.com</p>
+						</a>
+						<a href="tel:+1-2345-678-11">
+							<p class="contact-phone mt-2"><span class="lnr lnr-phone-handset"></span>
+								+1-2345-678-11
+							</p>
+						</a>
+						<a href="/frontend_faq/listAll">
+							<p> 常見問題</p>
+						</a>
+						<a href="/front_Employee/login">
+							<p>員工中心</p>
+						</a>
+					</div>
+					<div class="column">
+						<h4>師資團隊</h4>
+						<a href="/coach/list">
+							<p class="coach-list mt-2"><span class="lnr lnr-coach-handset"></span> 教練介紹
+							</p>
+						</a>
+						<a href="/frontend_course/listAll">
+							<p class="classes-list mt-2"><span class="lnr lnr-classes-handset"></span> 團課介紹
+							</p>
+						</a>
+					</div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="confirmationModal" tabindex="-1"
-		role="dialog" aria-labelledby="confirmationModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="confirmationModalLabel">Confirm
-						Day Off Request</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
+					<div class="column">
+						<h4>商城</h4>
+						<a href="/shopAllProduct">
+							<p>瀏覽商品</p>
+						</a>
 
-					<p>請選擇欲預約的時段</p>
-					<div class="form-group">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox"
-								id="disableDropdown"> <label class="form-check-label"
-								for="disableDropdown">整天</label>
-						</div>
-						<br /> <select class="form-control" id="reasonDropdown">
-							<option value="option1">早上（09:00-12:00）</option>
-							<option value="option2">中午（13:30-16:30）</option>
-							<option value="option3">晚上（18:30-21:30）</option>
-						</select>
+					</div>
+					<div class="column">
+						<h4>營業時間</h4>
+						<p>We are working on</p>
+						<p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> : 7am
+							to 9pm
+						</p>
+						<p class="mt-1"><span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> : 10
+							am to 8
+							pm
+						</p>
+						<p class="contact-map mt-2"><span class="lnr lnr-map-marker"></span>場館位置</p>
+
+						<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444073!2d121.22244777443302!3d24.957640341363774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1684388144187!5m2!1szh-TW!2stw"
+								width="280" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"></iframe>
+
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary"
-						id="confirmRequestBtn">Confirm</button>
+				<div class="d-grid grid-col-3 grids-content1 bottom-border">
+					<div class="columns copyright-grid align-self">
+						<p class="copy-footer-29">© 2023 Workout | Designed by no.7 team</p>
+					</div>
+					<div class="columns text-lg-right social-grid">
+						<ul class="social">
+							<li><span class="fa fa-facebook" aria-hidden="true"></span></a>
+							</li>
+							<li><span class="fa fa-instagram" aria-hidden="true"></span></a>
+							</li>
+							<li><span class="fa fa-twitter" aria-hidden="true"></span></a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-	<!-- footers 20 -->
-	<section class="w3l-footers-20">
-		<div class="footers20">
-			<div class="container">
-				<div class="footers20-content">
-					<div class="d-grid grid-col-4 grids-content">
-						<div class="column">
-							<h4>客服專區</h4>
-							<a href="mailto:mail@example.com">
-								<p>聯絡我們</p>
-								<p class="contact-mail mt-1">
-									<span class="lnr lnr-envelope"></span>service_business@tibame.com
-								</p>
-							</a> <a href="tel:+1-2345-678-11">
-								<p class="contact-phone mt-2">
-									<span class="lnr lnr-phone-handset"></span> +1-2345-678-11
-								</p>
-							</a> <a href="contact.html">
-								<p>常見問題</p>
-							</a>
-						</div>
-						<div class="column">
-							<h4>師資團隊</h4>
-							<a href="coach.html">
-								<p class="coach-list mt-2">
-									<span class="lnr lnr-coach-handset"></span> 教練介紹
-								</p>
-							</a> <a href="classes.html">
-								<p class="classes-list mt-2">
-									<span class="lnr lnr-classes-handset"></span> 團課介紹
-								</p>
-							</a> <a href="classes.html">
-								<p class="classes-list mt-2">
-									<span class="lnr lnr-classes-mounth"></span> 當月課表
-								</p>
-							</a>
-						</div>
-
-						<div class="column">
-							<h4>商城</h4>
-							<a href="優惠活動列表">
-								<p>優惠活動</p>
-							</a>
-
-						</div>
-						<div class="column">
-							<h4>營業時間</h4>
-							<p>We are working on</p>
-							<p class="mt-1">
-								<span class="lnr lnr-clock"></span> <strong>Mon - Fri</strong> :
-								7am to 9pm
-							</p>
-							<p class="mt-1">
-								<span class="lnr lnr-clock"></span> <strong>Sat - Sun</strong> :
-								10 am to 8 pm
-							</p>
-							<p class="contact-map mt-2">
-								<span class="lnr lnr-map-marker"></span>場館位置
-							</p>
-
-							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.2490359444073!2d121.22244777443302!3d24.957640341363774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823ea50c732a5%3A0x1b5e6ee66e9fec49!2z57ev6IKyVGliYU1l6ZmE6Kit5Lit5aOi6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1684388144187!5m2!1szh-TW!2stw"
-								width="280" height="200" style="border: 0;" allowfullscreen=""
-								loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-						</div>
-					</div>
-					<div class="d-grid grid-col-3 grids-content1 bottom-border">
-						<div class="columns copyright-grid align-self">
-							<p class="copy-footer-29">© 2023 Workout | Designed by no.7
-								team</p>
-						</div>
-						<div class="columns text-lg-right social-grid">
-							<ul class="social">
-								<li><a href="#url"><span class="fa fa-facebook"
-										aria-hidden="true"></span></a></li>
-								<li><a href="#url"><span class="fa fa-instagram"
-										aria-hidden="true"></span></a></li>
-								<li><a href="#url"><span class="fa fa-twitter"
-										aria-hidden="true"></span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- move top -->
-		<button onclick="topFunction()" id="movetop" title="Go to top">
-			&#10548;</button>
-		<script>
-			$(window).on("scroll", function() {
-				var scroll = $(window).scrollTop();
-
-				if (scroll >= 80) {
-					$("#site-header").addClass("nav-fixed");
-				} else {
-					$("#site-header").removeClass("nav-fixed");
-				}
-			});
-			$(".navbar-toggler").on("click", function() {
-				$("header").toggleClass("active");
-			});
-			$(document).on("ready", function() {
-				if ($(window).width() > 991) {
-					$("header").removeClass("active");
-				}
-				$(window).on("resize", function() {
-					if ($(window).width() > 991) {
-						$("header").removeClass("active");
-					}
-				});
-			});
-		</script>
-		<!-- /move top -->
-	</section>
-
-
-	<script src="assets/js/jquery-3.3.1.min.js"></script>
-
-	<script src="assets/js/theme-change.js"></script>
-	<!-- theme switch js (light and dark)-->
-
-	<!-- libhtbox -->
-	<script src="assets/js/lightbox-plus-jquery.min.js"></script>
-
-	<script src="assets/js/owl.carousel.js"></script>
-	<!-- script for banner slider-->
+	<!-- move top -->
+	<button onclick="topFunction()" id="movetop" title="Go to top">
+		&#10548;
+	</button>
 	<script>
-		
+		$(document).ready(function () {
+			$('#memberCenterLink').click(function (event) {
+				event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+				// 檢查Session中是否有值
+				if (sessionStorage.getItem('memberId')) {
+					// 如果有值，執行頁面跳轉
+					window.location.href = $(this).attr('href');
+				} else {
+					// 如果沒有值，執行其他操作或顯示警告訊息
+					alert('請先登入會員');
+					window.location.href = '/front_Member/login';
+				}
+			});
+
+			$('#toShopCart').click(function (event) {
+				event.preventDefault(); // 防止點擊連結導致頁面跳轉
+
+				// 檢查Session中是否有值
+				if (sessionStorage.getItem('memberId')) {
+					// 如果有值，執行頁面跳轉
+					window.location.href = $(this).attr('href');
+				} else {
+					// 如果沒有值，執行其他操作或顯示警告訊息
+					alert('請先登入會員');
+					window.location.href = '/front_Member/login';
+				}
+			});
+		});
 	</script>
+	<script>
+		// When the user scrolls down 20px from the top of the document, show the button
+		window.onscroll = function () {
+			scrollFunction()
+		};
 
+		function scrollFunction() {
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				document.getElementById("movetop").style.display = "block";
+			} else {
+				document.getElementById("movetop").style.display = "none";
+			}
+		}
 
-	<script src="assets/js/bootstrap.min.js"></script>
+		// When the user clicks on the button, scroll to the top of the document
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+	</script>
+	<!-- /move top -->
+</section>
 
 </body>
 

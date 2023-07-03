@@ -174,18 +174,7 @@ table td {
 	outline-style: solid;
 }
 </style>
-<script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2');
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -195,50 +184,54 @@ table td {
 
 	<div class="body-Content" style="display: flex;">
 		<div class="sidebar">
-			<h1>
-				首頁
-				</h1>
-				<h2>員工管理</h2>
-				<ul>
-					<li><a href="#">新增員工</a></li>
-					<li><a href="#">查詢員工</a></li>
-					<li><a href="#">員工權限</a></li>
-				</ul>
+			<h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-				<h2>會員管理</h2>
-				<ul>
-					<li><a href="#">新增會員</a></li>
-					<li><a href="#">查詢會員</a></li>
-					<li><a href="#">會員權限</a></li>
-				</ul>
+			<h2 class="sidebartitle">員工管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/backend_department/listAll">部門</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">員工</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_access/listAll">權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employeeaccess/listAll">員工權限</a></li>
+			</ul>
 
-				<h2>商城管理</h2>
-				<ul>
-					<li><a href="#">商品管理</a></li>
-					<li><a href="#">訂單管理</a></li>
-				</ul>
+			<h2 class="sidebartitle">會員管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
+			</ul>
 
-				<h2>教練管理</h2>
-				<ul>
-					<li><a href="#">新增教練</a></li>
-					<li><a href="#">查詢教練</a></li>
-					<li><a href="#">教練班表</a></li>
-				</ul>
+			<h2 class="sidebartitle">商城管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
+			</ul>
 
-				<h2>團課管理</h2>
-				<ul>
-					<li><a href="#">新增團課</a></li>
-					<li><a href="#">查詢團課</a></li>
-					<li><a href="#">團課排班</a></li>
-				</ul>
+			<h2 class="sidebartitle">教練管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
+			</ul>
 
-				<h2>客服管理</h2>
-				<ul>
-					<li><a href="#">客戶查詢</a></li>
-					<li><a href="#">訂單查詢</a></li>
-					<li><a href="#">FAQ管理</a></li>
-				</ul>
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
+
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
+			</ul>
 		</div>
+		<!-- 側邊欄的js -->
+		<script>
+			window.addEventListener('DOMContentLoaded', (event) => {
+				const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+				headings.forEach((heading) => {
+					heading.addEventListener('click', (event) => {
+						const subMenu = event.target.nextElementSibling;
+						subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+					});
+				});
+			});
+		</script>
 
 		<section class="py-99">
 			<div class="container">

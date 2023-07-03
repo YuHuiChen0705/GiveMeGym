@@ -13,33 +13,55 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private NewsDao newsDao;
-	@Override
-	public boolean isDup(Integer newsID) {
-		return false;
-	}
+
+
 
 	@Override
-	public NewsVo saveOrUpdate(NewsVo newsVo) {
+	public NewsVo save(NewsVo newsVo) {
+		return newsDao.save(newsVo);
+	}
+
+
+	@Override
+	public NewsVo update(NewsVo newsVo) {
 		return newsDao.save(newsVo);
 	}
 
 	@Override
-	public void deleteById(Integer newsId) {
-        newsDao.deleteById(newsId);
+	public void deleteNewsById(Integer newsId) {
+
+		newsDao.deleteById(newsId);
 	}
 
 	@Override
 	public Optional<NewsVo> findById(Integer newsId) {
-		return newsDao.findById(newsId);
+		return Optional.empty();
 	}
+
 
 	@Override
 	public List<NewsVo> findAll() {
 		return newsDao.findAll();
 	}
 
-//	@Override
-//	public List<NewsVo> findByNewsId(Integer NewsId) {
-//		return null;
-//	}
+
+
+	@Override
+	public NewsVo getOne_For_Update(Integer newsId) {
+		Optional<NewsVo> optional = newsDao.findById(newsId);
+		return optional.get();
+	}
+
+	@Override
+	public List<byte[]> findByNewsId(Integer newsId) {
+		return newsDao.findByNewsId(newsId);
+	}
+
+	@Override
+	public NewsVo getOneNews(Integer newsId) {
+		Optional<NewsVo> optional = newsDao.findById(newsId);
+	    return optional.get();}
+
+
 }
+

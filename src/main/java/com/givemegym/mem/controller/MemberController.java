@@ -71,7 +71,6 @@ public class MemberController {
 	// 註冊會員後，轉跳到登入頁面
 	@PostMapping("/loginMember")
 	public String saveOrUpdate(Model model, MemberVO memberVO) {
-		mailService.sendSuccessMail(memberVO);
 		memberService.saveOrUpdate(memberVO);
 		return "frontend/member/login";
 	}
@@ -172,10 +171,6 @@ public class MemberController {
 	@ResponseBody
 	@PutMapping("/memberDataModify/summitPassword")
 	public MemberVO modifyPassword(String memberMail, String memberPassword, String newPassword) {
-		System.out.println("有執行controller");
-		System.out.println(memberMail);
-		System.out.println(memberPassword);
-		System.out.println(newPassword);
 		return memberService.modifyPassword(memberMail, memberPassword, newPassword);
 	}
 }

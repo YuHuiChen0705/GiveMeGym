@@ -13,6 +13,6 @@ import com.givemegym.access.vo.Access;
 @Repository
 public interface AccessDao extends JpaRepository<Access, Integer>{
 	
-	List<Access> findByAccessId(Integer AccessId);
+	List<Access> findByAccessId(Integer accessId);
 
 }

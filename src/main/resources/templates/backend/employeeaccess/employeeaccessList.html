@@ -208,82 +208,64 @@ table td {
 
 	<div class="body-Content" style="display: flex;">
 		<div class="sidebar">
-			<h1 id="back-idex">首頁</h1>
+			<h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
 			<h2 class="sidebartitle">員工管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">新增員工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢員工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">員工權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_department/listAll">部門</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">員工</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_access/listAll">權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employeeaccess/listAll">員工權限</a></li>
 			</ul>
 
 			<h2 class="sidebartitle">會員管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">新增會員</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢會員</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">會員權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
 			</ul>
 
 			<h2 class="sidebartitle">商城管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">商品管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訂單管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
 			</ul>
 
 			<h2 class="sidebartitle">教練管理</h2>
 			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">新增教練</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢教練</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">教練排班</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
 			</ul>
 
-			<h2 class="sidebartitle">團課管理</h2>
-			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-				<li class="nav-item"><a class="nav-link" href="#">查詢團課</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">團課排班</a></li>
-			</ul>
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
-			<h2 class="sidebartitle">客服管理</h2>
-			<ul style="display: none;">
-				<li class="nav-item"><a class="nav-link" href="#">客戶查詢</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訂單查詢</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">FAQ管理</a></li>
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
 			</ul>
 		</div>
 		<!-- 側邊欄的js -->
 		<script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+			window.addEventListener('DOMContentLoaded', (event) => {
+				const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach((link) => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const url = link.getAttribute('href');
-                    loadContent(url);
-                });
-            });
-        });
-
-    </script>
+				headings.forEach((heading) => {
+					heading.addEventListener('click', (event) => {
+						const subMenu = event.target.nextElementSibling;
+						subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+					});
+				});
+			});
+		</script>
 
 		<section class="py-5" style="flex: 1; padding: 0;">
 			<div class="container">
-				<h3 class="text-white mb-4">權限管理</h3>
+				<h3 class="text-white mb-4">員工權限管理</h3>
 				<div class="card shadow">
 					<div class="card-header py-3">
-						<button type="button" class="btn btn-dark"
-							onclick="navigateToAddAccess()">新增權限</button>
+						<h4>
+							<a class="btn btn-sm btn-success"
+								th:href="@{/backend_employeeaccess/addEmployeeaccess}">新增員工權限</a>
+						</h4>
 					</div>
 
 					<div class="card-body">
@@ -295,6 +277,8 @@ table td {
 										<!-- 欄位標題 -->
 										<th>員工編號</th>
 										<th>權限編號</th>
+										<th>修改查詢</th>
+
 									</tr>
 								</thead>
 								<tbody>
@@ -302,8 +286,13 @@ table td {
 									<tr th:each="employeeaccess:${employeeaccessList}">
 										<td th:text="${employeeaccess.employee.employeeName}"></td>
 										<td th:text="${employeeaccess.access.accessName}"></td>
+										<td class="align-middle">
+											<button type="button" class="btn btn-dark"
+												data-bs-toggle="modal" data-bs-target="#staticUpdate"
+												th:onclick="'window.location.href=\'/backend_employeeaccess/updateEmployeeaccess/' + ${employeeaccess.employeeaccessId} + '\''">
+												修改/查詢</button>
+										</td>
 									</tr>
-
 								</tbody>
 							</table>
 						</div>

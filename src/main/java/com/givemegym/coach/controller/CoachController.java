@@ -80,7 +80,7 @@ public class CoachController {
 
 		theModel.addAttribute("newCoach", new Coach());
 
-		return "backend/coach/addcoach";
+		return "backend/coach/addCoach";
 	}
 
 	@PostMapping("/addCoach")

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>員工後台</title>
     <!-- JQuery連結-->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -18,121 +18,154 @@
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 
-    <!-- CSS連結 -->
-    <link rel="stylesheet" href="/assets/css/dataTable.css">
 
     <!-- bootstrap5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-        }
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+<style>
+    body {
+        background-color: #fef8f0f9;
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
 
-        .user {
-            display: flex;
-            align-items: center;
-        }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
 
-        .user .name {
-            margin-right: 10px;
-        }
+    .logo {
+        font-size: 36px;
+        font-weight: bold;
+        color: #ff0000;
+        padding: 0px 10px;
 
-        .sidebar {
-            width: 200px;
-            background-color: #333;
-            padding: 20px;
-        }
+    }
 
-        .sidebar h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            cursor: pointer;
-            text-align: left;
-        }
+    .user {
+        display: flex;
+        align-items: center;
+    }
 
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: none;
-        }
+    .user .name {
+        margin-right: 10px;
+        color: #5f5d5d;
+    }
 
-        .sidebar li {
-            margin-bottom: 10px;
-            text-align: center;
-        }
+    .sidebar {
+        width: 130px;
+        background-color: #5f5d5d;
+        opacity: 0.8;
+        padding: 10px 15px;
+        margin: 0px 20px;
+        float: left;
+    }
 
-        .sidebar li a {
-            color: #fff;
-            text-decoration: none;
-        }
+    .sidebar h1 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fef8f0f9;
+        cursor: pointer;
+        text-align: left;
+    }
 
-        .sidebar li a:hover {
-            color: #aaa;
-        }
+    .sidebar h2 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fef8f0f9;
+        cursor: pointer;
+        text-align: left;
+    }
 
-        .submenu {
-            margin-left: 10px;
-        }
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
 
-        .submenu ul {
-            margin-top: 10px;
-            padding-left: 20px;
-            background-color: #fff;
-            color: #000;
-            display: none;
-        }
+    .sidebar li {
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-        .submenu li {
-            margin-bottom: 5px;
-        }
+    .sidebar li a {
+        color: #fff;
+        text-decoration: none;
+    }
 
-        table {
-            table-layout: fixed;
-            width: 100%;
-        }
+    .sidebar li a:hover {
+        color: #aaa;
+    }
 
-        table td {
-            width: 14.28%;
-            /* 每個欄位佔表格的 1/7 寬度 */
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
+    .submenu {
+        margin-left: 10px;
+    }
 
-        .truncate {
-            max-width: 0;
-        }
-    </style>
-    <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2');
+    .submenu ul {
+        margin-top: 10px;
+        padding-left: 20px;
+        background-color: #fff;
+        color: #000;
+        display: none;
+    }
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
+    .submenu li {
+        margin-bottom: 5px;
+    }
+
+    .btn-style {
+        padding: 10px 32px;
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 600;
+        transition: 0.3s ease-in;
+        border-radius: 6px;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #ff0000;
+        border-color: #ff0000;
+    }
+
+    .m-4 {
+        margin: 1.5rem !important;
+    }
+
+    .content {
+        margin-left: 320px;
+    }
+
+    .content iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const headings = document.querySelectorAll('.sidebar h2');
+
+        headings.forEach((heading) => {
+            heading.addEventListener('click', (event) => {
+                const subMenu = event.target.nextElementSibling;
+                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
             });
         });
-    </script>
+    });
+</script>
+
 </head>
 
 
@@ -195,14 +228,15 @@
         </div>
     </div>
 </aside>
+
 <section class="py-5" style="flex: 1;">
     <div class="container">
-        <h3 class="text-white mb-4">消息管理</h3>
+        <h3 class="text-white mb-4" style="color: black">消息管理</h3>
         <div class="card shadow">
             <div class="card-header py-3">
-                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><a herf="AddNews.html"></a>
+                <a href="AddNews"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     新增消息
-                </button>
+                </button></a>
             </div>
 
             <div class="card-body">
@@ -210,25 +244,38 @@
                      aria-describedby="dataTable_info">
                     <table id="myTable" class="table table-striped table-hover" style=" width:100% ">
                         <thead>
-                        <tr>
+                           <tr>
 <!--標題-->
                             <th class="align-middle">編號</th>
                             <th class="align-middle">圖片</th>
                             <th class="align-middle">上架時間</th>
-                            <th class="align-middle">修改</th>
-                        </tr>
+                            <th class="align-middle">修改和刪除</th>
+                           </tr>
                         </thead>
                         <tbody>
  <!-- 資料 -->
                         <tr th:each="NewsVo:${newsList}">
                             <td class="align-middle" th:text="${NewsVo.newsId}"></td>
-                            <td class="align-middle" th:text="${NewsVo.newsImg}"></td>
+                            <td><img th:src="@{/reader/NewsReader(__${'newsId=' + NewsVo.newsId}__)}" width="100px"></td>
                             <td class="align-middle" th:text="${NewsVo.newsTime}"></td>
                             <td class="align-middle">
-                                <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                        data-bs-target="#staticUpdate">
-                                    修改
-                                </button>
+                                <a method="post" th:href="@{/getOne_For_Update/{newsId}(newsId=${NewsVo.newsId})}"  class="btn btn-warning" >
+                                    修改</a>
+<!--                                <a th:method="post" th:action="@{/getOne_For_Update}"  class="btn btn-danger">-->
+<!--                                    <input type ="hidden" name ="newsId" th:value="${newsVo.newsId}">-->
+<!--                                   修改-->
+<!--                                </a>-->
+
+
+
+
+<!--                                <a th:href="@{/newsList}"  class="btn btn-danger">-->
+<!--                                   刪除-->
+<!--                                </a>-->
+                                <a th:href="@{/newsList/{newsId}(newsId=${NewsVo.newsId})}"  class="btn btn-danger">
+                                    刪除
+                                </a>
+
                             </td>
                         </tr>
 
@@ -239,6 +286,7 @@
         </div>
     </div>
 </section>
+
 
 
 

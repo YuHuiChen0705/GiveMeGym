@@ -35,15 +35,15 @@ public class ProclassOrderController {
         this.proclassOrderService = proclassOrderService;
     }
 
-    // 新增一對一訂單
-    @PostMapping("/addproclassorder")
-    public String addProclassOrder(@Valid ProclassOrderVo request) {
-        int coachId = 1;
-        request.setCoachId(coachId);
-        request.setProClassOrderState(1); // 假设1表示已下单状态
-        proclassOrderService.addProclassOrder(request);
-        return "redirect:/frontend/proclassOrder/getAlldayofflist/" + coachId;
-    }
+//    // 新增一對一訂單
+//    @PostMapping("/addproclassorder")
+//    public String addProclassOrder(@Valid ProclassOrderVo request) {
+//        int coachId = 1;
+//        request.setCoachId(coachId);
+//        request.setProClassOrderState(1); // 假设1表示已下单状态
+//        proclassOrderService.addProclassOrder(request);
+//        return "redirect:/frontend/proclassOrder/getAlldayofflist/" + coachId;
+//    }
 
     // 教練新增排假
 //    @PostMapping("/addproclassorder")
@@ -76,16 +76,16 @@ public class ProclassOrderController {
     public String updatemebProclassOrder(@Valid @ModelAttribute("ProclassOrderVo") ProclassOrderVo ProclassOrderVo) {
         proclassOrderService.updatemebProclassOrder(ProclassOrderVo);
         Integer memberId = ProclassOrderVo.getMemberId();
-        return "redirect:/proclassorder/mebproClassorder/" + memberId;
+        return "redirect:/proclassorder/mebproClassorder";
     }
 
     //依教練找尋
     @GetMapping("/proclassOrderList")
-    public String findByCoachId(@PathVariable Integer coachId, Model model) {
-
+    public String findByCoachId( Model model) {
+        Integer coachId =1;
         List<ProclassOrderVo> proclassOrderList = proclassOrderService.findByCoachId(coachId);
         model.addAttribute("proclassOrderList", proclassOrderList);
-        return "backend/proclassOrder/coachcenter_proclassOrder";
+        return "backend/proclass/coachcenter_proclassOrder";
     }
 
     // 教練導入訂單修改
@@ -93,7 +93,7 @@ public class ProclassOrderController {
     public String toUpdate(@PathVariable Integer proClassOrderId, ModelMap model) throws IOException {
         Optional<ProclassOrderVo> findProclassorder = proclassOrderService.findByOrderId(proClassOrderId);
         model.addAttribute("ProclassOrderVo", findProclassorder.orElseThrow());
-        return "backend/proclassOrder/coachcenter_proclassOrderupdate";
+        return "backend/proclass/coachcenter_proclassOrderupdate";
     }
 
     // 教練修改訂單
@@ -101,7 +101,7 @@ public class ProclassOrderController {
     public String updateProclassOrder(@Valid @ModelAttribute("proclassOrderVo") ProclassOrderVo proclassOrderVo) {
         proclassOrderService.updateProclassOrder(proclassOrderVo);
         Integer coachId = proclassOrderVo.getCoachId();
-        return "redirect:/proclassorder/proclassOrderList/" + coachId;
+        return "redirect:/proclassorder/proclassOrderList";
     }
 
 

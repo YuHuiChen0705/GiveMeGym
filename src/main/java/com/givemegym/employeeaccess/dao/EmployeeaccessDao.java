@@ -10,6 +10,7 @@ import com.givemegym.employeeaccess.vo.Employeeaccess;
 
 
 
+
 @Repository
 public interface EmployeeaccessDao extends JpaRepository<Employeeaccess, Integer>{
 	
