@@ -279,11 +279,13 @@ table td {
 
 		<section class="py-5" style="flex: 1; padding: 0;">
 			<div class="container">
-				<h3 class="text-white mb-4">權限管理</h3>
+				<h3 class="text-white mb-4">員工權限管理</h3>
 				<div class="card shadow">
 					<div class="card-header py-3">
-						<button type="button" class="btn btn-dark"
-							onclick="navigateToAddAccess()">新增權限</button>
+						<h4>
+							<a class="btn btn-sm btn-success"
+								th:href="@{/backend_employeeaccess/addEmployeeaccess}">新增員工權限</a>
+						</h4>
 					</div>
 
 					<div class="card-body">
@@ -295,6 +297,8 @@ table td {
 										<!-- 欄位標題 -->
 										<th>員工編號</th>
 										<th>權限編號</th>
+										<th>修改查詢</th>
+
 									</tr>
 								</thead>
 								<tbody>
@@ -302,8 +306,14 @@ table td {
 									<tr th:each="employeeaccess:${employeeaccessList}">
 										<td th:text="${employeeaccess.employee.employeeName}"></td>
 										<td th:text="${employeeaccess.access.accessName}"></td>
+										<td class="align-middle">
+											<button type="button" class="btn btn-dark"
+												data-bs-toggle="modal" data-bs-target="#staticUpdate"
+												th:onclick="'window.location.href=\'/backend_employeeaccess/updateEmployeeaccess/' + ${employeeaccess.employeeaccessId} + '\''">
+												修改/查詢</button>
+										<td class=" align-middle"><a href="Oemployeeaccess.html"
+											class="btn btn-dark">刪除</a>
 									</tr>
-
 								</tbody>
 							</table>
 						</div>

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -18,6 +20,8 @@ import javax.persistence.*;
 public class Department {
 	@Id
     private int departmentId;
+	@NotNull
+	@Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$", message = "部門名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間")
     private String departmentName;
 
     public int getDepartmentId() {
