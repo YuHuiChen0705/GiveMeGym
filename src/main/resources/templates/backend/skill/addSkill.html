@@ -276,11 +276,6 @@ table td {
 												data-bs-target="#editModal"
 												th:attr="data-skill-id=${tempSkill.skillId},
                          data-skill-name=${tempSkill.skillName}">修改</button>
-											<a
-											th:href="@{/skill/removeSkill(skillId=${tempSkill.skillId})}"
-											th:onclick="if (!(confirm('確認刪除該筆資料?'))) return false">
-												<button class="btn btn-success btn-sm">刪除</button>
-										</a>
 										</td>
 									</tr>
 
@@ -308,7 +303,7 @@ table td {
 						<form th:action="@{/skill/addSkill}" th:object="${newSkill}"
 							method="post">
 							<div class="form-group">
-								<label for="product-name">技能名稱</label> <input type="text"
+								<label>技能名稱</label> <input type="text"
 									id="coa_Name" name="coa_Name" th:field="*{skillName}" required>
 							</div>
 
@@ -467,6 +462,7 @@ table td {
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
 			integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
 			crossorigin="anonymous"></script>
+	</div>
 </body>
 
 </html>

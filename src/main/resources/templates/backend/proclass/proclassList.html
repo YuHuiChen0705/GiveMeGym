@@ -305,11 +305,6 @@ table td {
 												data-skill-id=${tempProclass.skillId.skillId},
 												data-skill-name=${tempProclass.skillId.skillName},
 												data-proclass-name=${tempProclass.proclassName}">修改</button>
-											<a
-											th:href="@{/proclass/removeClass(proclassId=${tempProclass.proclassId})}"
-											th:onclick="if (!(confirm('確認刪除該筆資料?'))) return false">
-												<button class="btn btn-success btn-sm">刪除</button>
-										</a>
 										</td>
 
 									</tr>
