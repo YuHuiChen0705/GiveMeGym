@@ -5,6 +5,7 @@ import com.givemegym.courseorder.dao.CourseOrderDao;
 import com.givemegym.courseschedule.dao.CourseScheduleDao;
 import com.givemegym.courseschedule.service.CourseScheduleService;
 import com.givemegym.courseschedule.vo.CourseSchedule;
+import com.givemegym.mem.mail.mailService;
 import com.givemegym.period.dao.PeriodDao;
 import com.givemegym.period.vo.Period;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class PeriodServiceImpl implements PeriodService {
 
     @Autowired
     private CourseOrderDao courseOrderDao;
+
+    @Autowired
+    private mailService mail;
 
     @Override
     public Period save(Period period) {
@@ -85,6 +89,9 @@ public class PeriodServiceImpl implements PeriodService {
     public void updateCourseStateToOffByPeriodId(Integer periodId) {
         // 先將報名時段狀態改為下架
         periodDao.updateCourseStateToOffByPeriodId(periodId);
+        Period periodOptional = periodDao.findById(periodId).orElse(null);
+        assert periodOptional != null;
+        mail.sendCancelMail(periodOptional);
         // 選擇課程狀態為(下架)的時段
         List<Period> periodList = periodDao.findPeriodsByCourseState("下架");
         System.out.println("periodList.size()=" + periodList.size());
