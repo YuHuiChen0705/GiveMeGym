@@ -196,21 +196,18 @@ table td {
 <body>
 	<header class="header">
 		<div class="logo">Give Me Gym</div>
-		<div class="user">
-			<div class="name">User Name</div>
-			<button class="btn">登出</button>
-		</div>
 	</header>
 
 	<div class="body-Content" style="display: flex;">
 		<div class="sidebar">
-			<h1>首頁</h1>
-			<h2>教練專區</h2>
-			<ul>
-				<li><a href="coachcenter_schedule.html">班表查詢</a></li>
-				<li><a href="coachcenter_proclassOrder.html">一對一課程訂單</a></li>
-				<li><a href="coachcenter_dayoff.html">休假申請</a></li>
-				<li><a href="#">課程點名</a></li>
+			<h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
+
+			<h2 class="sidebartitle">教練專區</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/proclassorder/proclassOrderList">專業訂單查詢</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachDayoff/getAlldayofflist">休假申請查詢</a></li>
+			</ul>
+
 			</ul>
 		</div>
 
@@ -232,7 +229,6 @@ table td {
 										<th class="align-middle ">訂單編號</th>
 										<th class="align-middle ">課程名稱</th>
 										<th class="align-middle ">會員名稱</th>
-										<th class="align-middle ">出缺席</th>
 										<th class="align-middle ">上課日期</th>
 										<th class="align-middle ">上課時段</th>
 										<th class="align-middle ">訂單狀態</th>
@@ -262,10 +258,6 @@ table td {
 												th:case="3">呂珊寶</span><span th:case="4">曾濤彥</span><span
 												th:case="5">連玫璽</span><span th:case="6">魏川長</span><span
 												th:case="7">楊眉</span></span></td>
-
-										<td><span th:switch="${proclassOrderVo.proClassAttend}">
-												<span th:case="0">出席</span> <span th:case="1">缺席</span>
-										</span></td>
 
 										<td><span
 											th:text="${#dates.format(proclassOrderVo.proClassDate, 'yyyy-MM-dd')}"></span></td>

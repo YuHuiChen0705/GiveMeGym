@@ -187,24 +187,17 @@
 <body>
     <header class="header">
         <div class="logo">Give Me Gym</div>
-        <div class="user">
-            <div class="name">User Name</div>
-            <a class="btn btn-style btn-primary">登出</a>
-        </div>
     </header>
     <div class="body-Content" style="display: flex;">
         <div class="sidebar">
-            <h1>首頁</h1>
-            <h2>教練專區</h2>
-            <ul>
-                <li><a href="coachcenter_schedule.html">當月班表</a></li>
-                <!--月曆形式:可增刪查改 -->
-                <li><a href="coachcenter_proclassOrder.html">私人課程訂單</a></li>
-                <!--列表形式:可刪查改 -->
-                <li><a href="coachcenter_dayoff.html">休假申請</a></li>
-                <!--列表形式:可增刪改 -->
-                <li><a href="#">課程點名</a></li>
-                <!--月曆形式:可增刪查改 -->
+            <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
+
+            <h2 class="sidebartitle">教練專區</h2>
+            <ul style="display: none;">
+                <li class="nav-item"><a class="nav-link" href="/proclassorder/proclassOrderList">專業訂單查詢</a></li>
+                <li class="nav-item"><a class="nav-link" href="/coachDayoff/getAlldayofflist">休假申請查詢</a></li>
+            </ul>
+
             </ul>
         </div>
         <section class="py-1" style="flex: 1; color: #000;">
@@ -245,5 +238,6 @@
         </section>
         <script>
         </script>
+    </div>
 </body>
 </html>
