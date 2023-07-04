@@ -15,23 +15,30 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ACCESS")
 public class Access {
+
+	@Override
+	public String toString() {
+		return "Access [accessId=" + accessId + ", accessName=" + accessName + "]";
+	}
+
 	@Id
-    private int accessId;
-    private String accessName;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int accessId;
+	public int getAccessId() {
+		return this.accessId;
+	}
 
-    public int getAccessId() {
-        return this.accessId;
-    }
+	public void setAccessId(int accessId) {
+		this.accessId = accessId;
+	}
 
-    public void setAccessId(int accessId) {
-        this.accessId = accessId;
-    }
+	private String accessName;
+	
+	public String getAccessName() {
+		return accessName;
+	}
 
-    public String getAccessName() {
-        return this.accessName;
-    }
-
-    public void setAccessName(String accessName) {
-        this.accessName = accessName;
-    }
+	public void setAccessName(String accessName) {
+		this.accessName = accessName;
+	}
 }

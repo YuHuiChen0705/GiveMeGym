@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -72,17 +71,7 @@ public class EmployeeController {
         return "redirect:/backend_employee/listAll";
     }
     
-    // 刪除
-    @DeleteMapping("/delete/{employeeId}")
-    public String delete(@PathVariable Integer employeeId, ModelMap model) {
-        // 開始刪除
-        employeeService.deleteById(Integer.valueOf(employeeId));
-        // 刪除完成,準備轉交(Send the Success view)
-        List<Employee> list = employeeService.findAll();
-        model.addAttribute("employeeListData", list);
-        model.addAttribute("success", "- (刪除成功)");
-        return "redirect:/employee/listAll";
-    }
+  
     
     
     //
@@ -109,5 +98,17 @@ public class EmployeeController {
 //
 //        return "backend/employee/search1employee";
 //    }
-
+	
+	  // 刪除
+    @DeleteMapping("/delete/{employeeId}")
+    public String delete(@PathVariable Integer employeeId, ModelMap model) {
+        // 開始刪除
+        employeeService.deleteById(Integer.valueOf(employeeId));
+        // 刪除完成,準備轉交(Send the Success view)
+        List<Employee> list = employeeService.findAll();
+        model.addAttribute("employeeListData", list);
+        model.addAttribute("success", "- (刪除成功)");
+        return "redirect:/employee/listAll";
+    }
+ 
 }

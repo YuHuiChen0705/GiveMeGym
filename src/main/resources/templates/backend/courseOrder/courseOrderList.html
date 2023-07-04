@@ -31,6 +31,60 @@
 </head>
 
 <style>
+    #myTable {
+        text-align: center;
+        font-size: 14px
+    }
+
+    #myTable thead th {
+        text-align: center;
+        font-size: 14px
+    }
+
+    td {
+        text-align: center;
+    }
+
+    .table-loader {
+        visibility: hidden;
+        font-size: 10px;
+    }
+
+    .table-loader:before {
+        visibility: visible;
+        display: table-caption;
+        content: " ";
+        width: 100%;
+        height: 600px;
+        background-image: linear-gradient(rgba(235, 235, 235, 1) 1px, transparent 0),
+        linear-gradient(90deg, rgba(235, 235, 235, 1) 1px, transparent 0),
+        linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0) 30%),
+        linear-gradient(rgba(240, 240, 242, 1) 35px, transparent 0);
+
+        background-repeat: repeat;
+
+        background-size: 1px 35px,
+        calc(100% * 0.1666666666) 1px,
+        30% 100%,
+        2px 70px;
+
+        background-position: 0 0,
+        0 0,
+        0 0,
+        0 0;
+
+        animation: shine 0.5s infinite;
+    }
+
+    @keyframes shine {
+        to {
+            background-position: 0 0,
+            0 0,
+            40% 0,
+            0 0;
+        }
+    }
+
     body {
         background-color: #fef8f0f9;
         color: #fff;
@@ -154,9 +208,159 @@
         border: none;
     }
 </style>
+</head>
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<header class="header">
+    <div class="logo">Give Me Gym</div>
+</header>
+
+<div class="body-Content" style="display: flex;">
+    <div class="sidebar">
+        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
+
+        <h2 class="sidebartitle">員工管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_department/listAll">部門</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_access/listAll">權限</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employeeaccess/listAll">員工權限</a></li>
+        </ul>
+
+        <h2 class="sidebartitle">會員管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
+        </ul>
+
+        <h2 class="sidebartitle">商城管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
+        </ul>
+
+        <h2 class="sidebartitle">教練管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
+        </ul>
+
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
+
+        <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
+        </ul>
+    </div>
+    <!-- 側邊欄的js -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+            headings.forEach((heading) => {
+                heading.addEventListener('click', (event) => {
+                    const subMenu = event.target.nextElementSibling;
+                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+
+    <section class="py-5" style="flex: 1;">
+        <div class="container">
+            <h3 class="text-black mb-4">團課訂單管理</h3>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive table mt-2" id="dataTable" role="grid"
+                         aria-describedby="dataTable_info">
+                        <table id="myTable" class="table table-striped table-hover" style="width:100%">
+                            <thead>
+                            <tr>
+                                <!-- 欄位標題 -->
+                                <th>會員姓名</th>
+                                <th>團課名稱</th>
+                                <th>訂單建立日期</th>
+                                <th>訂單狀態</th>
+                                <th>訂單價格</th>
+                                <th>修改</th>
+                                <th>查詢該會員其他訂單</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 動態生成表格內容 -->
+                            <tr th:each="courseOrder:${courseOrderByPeriod}">
+                                <td>
+                                    <span th:text="${courseOrder.member.memberName}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${courseOrder.period.course.courseName}"></span>
+                                </td>
+                                <td th:text="${courseOrder.courseOrderDate}"></td>
+                                <td th:text="${courseOrder.courseOrderState}"></td>
+                                <td th:text="${courseOrder.courseOrderTotalPrice}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"
+                                            th:onclick="'window.location.href=\'/backend_courseOrder/update/' + ${courseOrder.courseOrderId} + '\''">
+                                        修改
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                            data-bs-target="#staticShow" th:id="${courseOrder.member.memberId}"
+                                            onclick="toShow(this.id)">查詢
+                                    </button>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer py-3">
+                    <button type="button" class="btn btn-primary"
+                            onclick="window.location.href = '/backend_period/listAll'">
+                        返回報名時段清單
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="staticShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" style="--bs-modal-width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header" style="color: #000;">
+                    <h1 class="modal-title fs-5" id="staticBackUpdateLabel">修改團課</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="color: #000; font-weight: 600;">
+                    <table class="table table-striped table-hover" style="width:100%">
+                        <thead>
+                        <tr>
+                            <!-- 欄位標題 -->
+                            <th style="text-align: center">訂單編號</th>
+                            <th style="text-align: center">訂單日期</th>
+                            <th style="text-align: center">訂單狀態</th>
+                            <th style="text-align: center">訂單價格</th>
+                        </tr>
+                        </thead>
+                        <tbody id="courseOrderTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 側邊欄的js -->
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        const headings = document.querySelectorAll('.sidebar h2');
+        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
 
         headings.forEach((heading) => {
             heading.addEventListener('click', (event) => {
@@ -166,286 +370,7 @@
         });
     });
 </script>
-
-</head>
-
-<body>
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-<header class="header">
-    <div class="logo">Give Me Gym</div>
-    <div class="user">
-        <div class="name">User Name</div>
-        <button>登出</button>
-    </div>
-</header>
-<div class="body-Content" style="display: flex;">
-    <div class="sidebar">
-        <h2>首頁</h2>
-
-        <h2>員工管理</h2>
-        <ul>
-            <li><a href="#">新增員工</a></li>
-            <li><a href="#">查詢員工</a></li>
-            <li><a href="#">員工權限</a></li>
-        </ul>
-
-        <h2>會員管理</h2>
-        <ul>
-            <li><a href="#">新增會員</a></li>
-            <li><a href="#">查詢會員</a></li>
-            <li><a href="#">會員權限</a></li>
-        </ul>
-
-        <h2>商城管理</h2>
-        <ul>
-            <li><a href="#">商品管理</a></li>
-            <li><a href="#">訂單管理</a></li>
-        </ul>
-
-        <h2>教練管理</h2>
-        <ul>
-            <li><a href="#">新增教練</a></li>
-            <li><a href="#">查詢教練</a></li>
-            <li><a href="#">教練排班</a></li>
-        </ul>
-
-        <h2>團課管理</h2>
-        <ul>
-            <li><a href="#">新增團課</a></li>
-            <li><a href="#">查詢團課</a></li>
-            <li><a href="#">團課排班</a></li>
-        </ul>
-
-        <h2>客服管理</h2>
-        <ul>
-            <li><a href="#">客戶查詢</a></li>
-            <li><a href="#">訂單查詢</a></li>
-            <li><a href="#">FAQ管理</a></li>
-        </ul>
-    </div>
-
-    <section class="py-5" style="flex: 1;">
-        <div class="container">
-            <h3 class="text-white mb-4">團課管理</h3>
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="table-responsive table mt-2" id="dataTable" role="grid"
-                         aria-describedby="dataTable_info">
-                        <table id="myTable" class="table table-striped table-hover" style="width:100%">
-                            <thead>
-                            <tr>
-                                <!-- 欄位標題 -->
-                                <th>編號</th>
-                                <th>會員姓名</th>
-                                <th>訂單建立日期</th>
-                                <th>訂單狀態</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- 動態生成表格內容 -->
-                            <tr th:each="courseOrder:${courseOrderByPeriod}">
-                                <td th:text="${courseOrder.courseOrderId}">編號</td>
-                                <td>
-                                    <span th:text="${courseOrder.memberVO.memberName}"></span>
-                                </td>
-                                <td th:text="${courseOrder.courseOrderDate}">編號</td>
-                                <td th:text="${courseOrder.courseOrderState}">編號</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<style>
-    .form-group {
-        margin: 20px 0 20px 0;
-    }
-</style>
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable({
-            "language": {
-                "processing": "處理中...",
-                "loadingRecords": "載入中...",
-                "paginate": {
-                    "first": "第一頁"
-                    , "previous": "上一頁", "next": "下一頁", "last": "最後一頁"
-                },
-                "emptyTable": "目前沒有資料",
-                "datetime": {
-                    "previous": "上一頁",
-                    "next": "下一頁",
-                    "hours": "時",
-                    "minutes": "分",
-                    "seconds": "秒",
-                    "amPm": ["上午", "下午"],
-                    "unknown": "未知",
-                    "weekdays": ["週日", "週一", "週二", "週三", "週四", "週五", "週六"],
-                    "months": ["一月", "二月", "三月", "四月"
-                        , "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
-                },
-                "searchBuilder": {
-                    "add": "新增條件",
-                    "condition": "條件",
-                    "deleteTitle": "刪除過濾條件",
-                    "button": {"_": "複合查詢 (%d)", "0": "複合查詢"},
-                    "clearAll": "清空"
-                    ,
-                    "conditions": {
-                        "array": {
-                            "contains": "含有",
-                            "equals": "等於",
-                            "empty": "空值",
-                            "not": "不等於",
-                            "notEmpty": "非空值",
-                            "without": "不含"
-                        }, "date": {
-                            "after": "大於", "before": "小於", "between": "在其中", "empty": "為空"
-                            , "equals": "等於", "not": "不為", "notBetween": "不在其中", "notEmpty": "不為空"
-                        }, "number": {
-                            "between": "在其中"
-                            ,
-                            "empty": "為空",
-                            "equals": "等於",
-                            "gt": "大於",
-                            "gte": "大於等於",
-                            "lt": "小於",
-                            "lte": "小於等於",
-                            "not": "不為"
-                            ,
-                            "notBetween": "不在其中",
-                            "notEmpty": "不為空"
-                        }, "string": {
-                            "contains": "含有",
-                            "empty": "為空",
-                            "endsWith": "字尾為",
-                            "equals": "等於",
-                            "not": "不為",
-                            "notEmpty": "不為空",
-                            "startsWith": "字首為",
-                            "notContains": "不含"
-                            ,
-                            "notStartsWith": "開頭不是",
-                            "notEndsWith": "結尾不是"
-                        }
-                    },
-                    "data": "欄位",
-                    "leftTitle": "群組條件",
-                    "logicAnd": "且"
-                    ,
-                    "logicOr": "或",
-                    "rightTitle": "取消群組",
-                    "title": {"_": "複合查詢 (%d)", "0": "複合查詢"},
-                    "value": "內容"
-                },
-                "editor": {
-                    "close": "關閉", "create": {"button": "新增", "title": "新增資料", "submit": "送出新增"}, "remove":
-                        {
-                            "button": "刪除", "title": "刪除資料", "submit": "送出刪除", "confirm": {
-                                "_": "您確定要刪除您所選取的 %d 筆資料嗎？", "1": "您確定要刪除您所選取的 1 筆資料嗎？"
-                            }
-                        }, "error": {"system": "系統發生錯誤(更多資訊)"}, "edit": {
-                        "button": "修改", "title": "修改資料", "submit": "送出修改"
-                    }, "multi": {
-                        "title": "多重值",
-                        "info": "您所選擇的多筆資料中，此欄位包含了不同的值。若您想要將它們都改為同一個值，可以在此輸入，要不然它們會保留各自原本的值。",
-                        "restore": "復原",
-                        "noMulti": "此輸入欄需單獨輸入，不容許多筆資料一起修改"
-                    }
-                },
-                "autoFill": {"cancel": "取消"},
-                "buttons": {
-                    "copySuccess": {
-                        "_": "複製了 %d 筆資料", "1": "複製了 1 筆資料"
-                    },
-                    "copyTitle": "已經複製到剪貼簿",
-                    "excel": "Excel",
-                    "pdf": "PDF",
-                    "print": "列印",
-                    "copy": "複製",
-                    "colvis": "欄位顯示",
-                    "colvisRestore": "重置欄位顯示",
-                    "csv": "CSV",
-                    "pageLength": {
-                        "-1": "顯示全部", "_": "顯示 %d 筆"
-                    },
-                    "createState": "建立狀態",
-                    "removeAllStates": "移除所有狀態",
-                    "removeState": "移除"
-                    ,
-                    "renameState": "重新命名",
-                    "savedStates": "儲存狀態",
-                    "stateRestore": "狀態 %d",
-                    "updateState": "更新"
-                },
-                "searchPanes": {
-                    "collapse": {"_": "搜尋面版 (%d)", "0": "搜尋面版"},
-                    "emptyPanes": "沒搜尋面版",
-                    "loadMessage": "載入搜尋面版中...",
-                    "clearMessage": "清空",
-                    "count": "{total}",
-                    "countFiltered": "{shown} ({total})",
-                    "title": "過濾條件 - %d",
-                    "showMessage": "顯示全部",
-                    "collapseMessage": "摺疊全部"
-                },
-                "stateRestore": {
-                    "emptyError": "名稱不能空白。"
-                    ,
-                    "creationModal": {
-                        "button": "建立",
-                        "columns": {"search": "欄位搜尋", "visible": "欄位顯示"},
-                        "name": "名稱："
-                        ,
-                        "order": "排序",
-                        "paging": "分頁",
-                        "scroller": "卷軸位置",
-                        "search": "搜尋",
-                        "searchBuilder": "複合查詢",
-                        "select": "選擇",
-                        "title": "建立新狀態",
-                        "toggleLabel": "包含："
-                    },
-                    "duplicateError": "此狀態名稱已經存在。",
-                    "emptyStates": "名稱不可空白。"
-                    ,
-                    "removeConfirm": "確定要移除 %s 嗎？",
-                    "removeError": "移除狀態失敗。",
-                    "removeJoiner": "和",
-                    "removeSubmit": "移除"
-                    ,
-                    "removeTitle": "移除狀態",
-                    "renameButton": "重新命名",
-                    "renameLabel": "%s 的新名稱：",
-                    "renameTitle": "重新命名狀態"
-                },
-                "select": {
-                    "columns": {"_": "選擇了 %d 欄資料", "1": "選擇了 1 欄資料"}, "rows": {
-                        "1": "選擇了 1 筆資料", "_": "選擇了 %d 筆資料"
-                    }, "cells": {"1": "選擇了 1 格資料", "_": "選擇了 %d 格資料"}
-                },
-                "zeroRecords": "沒有符合的資料",
-                "aria":
-                    {"sortAscending": "：升冪排列", "sortDescending": "：降冪排列"},
-                "info": "顯示第 _START_ 至 _END_ 筆結果，共 _TOTAL_ 筆"
-                ,
-                "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-                "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-                "infoThousands": ",",
-                "lengthMenu": "顯示 _MENU_ 筆結果",
-                "search": "搜尋：",
-                "searchPlaceholder": "請輸入關鍵字",
-                "thousands": ","
-            }
-
-        });
-    }); </script>
+<script th:src="@{/course_44/js/datatablelanguage.js}"></script>
 
 
 <!-- JS -->
@@ -455,6 +380,71 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
         crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.viewDetails').click(function () {
+            $('.overlay').addClass('active');
+        });
+
+        $('.btn_modal_close').click(function () {
+            $('.overlay').removeClass('active');
+        });
+    });
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function toShow(memberId) {
+        $.ajax({
+            url: '/backend_courseOrder/orders/' + memberId,
+            type: 'GET',
+            success: function (details) {
+                var tableBody = $('#courseOrderTableBody');
+
+                tableBody.empty();
+
+                details.forEach(function (detail) {
+                    let date = new Date(detail.courseOrderDate);
+                    let formattedDate = formatDate(date);
+
+                    var row = '<tr>' +
+                        '<td>' + detail.courseOrderId + '</td>' +
+                        '<td>' + formattedDate + '</td>' +
+                        '<td>' + detail.courseOrderState + '</td>' +
+                        '<td>$' + detail.courseOrderTotalPrice + '</td>' +
+                        '</tr>';
+
+                    tableBody.append(row);
+                });
+
+                $('#staticShow').modal('show');
+            },
+            error: function () {
+                console.log('Error occurred during AJAX request.');
+            }
+        });
+    }
+
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var day = String(date.getDate()).padStart(2, '0');
+        var hours = String(date.getHours()).padStart(2, '0');
+        var minutes = String(date.getMinutes()).padStart(2, '0');
+        var seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
+
+
+</script>
+
 
 </body>
 

@@ -5,12 +5,14 @@
 <title>Insert title here</title>
 </head>
 <body>
- <form th:action="@{/backend_courseshowoff/saveOrUpdate}" method="post" enctype="multipart/form-data" //新增表單的部分要新增的網址
-                          id="form" class=" needs-validation row text-dark" th:object="${courseshowoffVo}" novalidate>  //根據VO上方新增的位置
+<!--//新增表單的部分要新增的網址-->
+ <form th:action="@{/backend_courseshowoff/saveOrUpdate}" method="post" enctype="multipart/form-data"
+                          id="form" class=" needs-validation row text-dark" th:object="${courseshowoffVo}" novalidate>
+<!--     //根據VO上方新增的位置-->
                         <div class="col-md-6">
                             <label class="form-label text-dark">團課類別</label>
-                            <select class="form-select" id="CourseShowOffId" name="CourseShowOffId" required //ID的部分要根據VO的變數ID去做更改，          
-                                    onchange="updateCourseOptions(this.value)">
+                            <select class="form-select" id="CourseShowOffId" name="CourseShowOffId" required  onchange="updateCourseOptions(this.value)">
+<!--                            //ID的部分要根據VO的變數ID去做更改，          -->
                                 <option selected disabled value="">--團課類別--</option>
                                 <option value="aerobic">有氧課程</option>
                                 <option value="yoga">瑜珈課程</option>
@@ -26,8 +28,10 @@
                             <label class="form-label">團課課程</label>
                             <select class="form-select" name="course.courseId" id="course" required>
                                 <option selected disabled value="">--請選擇團課課程--</option>
-                                <option th:each="course : ${courseListData}" th:value="${course.courseId}"//跳到前端後顯示ID客戶會看沒有，於是要顯示NAME
-                                        th:text="${course.courseName}"/>//外在是使用courseName，但實質是ID
+                                <option th:each="course : ${courseListData}" th:value="${course.courseId}"
+                                        th:text="${course.courseName}"/>
+<!--                                //跳到前端後顯示ID客戶會看沒有，於是要顯示NAME-->
+<!--                                //外在是使用courseName，但實質是ID-->
                             </select>
                             <div class="invalid-feedback">
                                 請選擇課程

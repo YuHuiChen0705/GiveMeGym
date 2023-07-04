@@ -1,5 +1,7 @@
 package com.givemegym.mem.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +17,8 @@ public interface MemberDao extends JpaRepository<MemberVO, Integer> {
 //	List<MemberVO> findByMemberId(Integer memberId);
 
 //	MemberVO selectForLogin(String memberMail, String memberPassword);
-
+	
+	
 	public MemberVO findByMemberMail(String memberMail);
 
 	public MemberVO findByMemberPassword(String memberPassword);

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!-- Required meta tags -->
@@ -13,6 +13,128 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/style-starter.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <!-- 輪播圖的CSS -->
+    <style>
+        .outer {
+            width: 100%;
+            height: 700px;
+
+            /*border-radius: 16px;*/
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .outer .inner {
+            height: 100%;
+            width: 100%;
+
+
+            position: relative;
+            left: 0px;
+
+            /* 將圖片水平排列 */
+            display: flex;
+
+
+            /* 設置切換盪下一張圖的時間為一秒 */
+            transition: all 1s;
+        }
+
+        /* 圖片處理 */
+        .outer .inner img {
+            width: 100%;
+            height: 100%;
+
+            /* 防止圖片被壓縮 */
+            flex-shrink: 0;
+
+            /* 防止圖片寬高比例被改變 */
+            object-fit: cover;
+        }
+
+        /* 左右切換按鈕 */
+        .outer .shift .btn {
+            /* 絕對定位且置中 */
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+
+            background-color: gray;
+            color: white;
+
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+
+            font-size: 40px;
+            font-weight: bold;
+
+            /* 水平垂直置中 */
+            line-height: 50px;
+            text-align: center;
+
+            cursor: pointer;
+
+            /* 預防被反白 */
+            user-select: none;
+
+
+            /* 按鈕透明度設為 */
+            opacity: 0.5;
+        }
+
+        .outer .shift .left {
+            left: 20px;
+        }
+
+        .outer .shift .right {
+            right: 20px;
+        }
+
+        .outer .bottom {
+            position: absolute;
+
+            bottom: 20px;
+
+            /* 絕對位置 */
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+
+            width: max-content;
+
+
+            display: flex;
+            /* 間距 */
+            gap: 10px;
+        }
+
+        .outer .bottom .indicator {
+            height: 5px;
+            width: 40px;
+
+            background-color: gray;
+
+            opacity: 0.5;
+
+            cursor: pointer;
+        }
+
+        .outer:hover .bottom .indicator {
+            opacity: 1;
+        }
+
+        .outer:hover .shift .btn {
+            opacity: 1;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -61,6 +183,8 @@
     </div>
 </header>
 <!--/header-->
+
+<<<<<<< HEAD
 <!-- main-slider -->
 <section class="w3l-main-slider position-relative" id="home">
     <div class="companies20-content">
@@ -123,8 +247,35 @@
                 </li>
             </div>
         </div>
+=======
+
+<!-- 輪播圖 -->
+<div class="outer">
+
+    <!-- 內部圖片 -->
+    <div class="inner">
+<!--        <img src="/assets/images/banner5.jpg">-->
+<!--        <img src="/assets/images/banner2.jpg">-->
+<!--        <img src="/assets/images/banner4.jpg">-->
+<!--        <img th:each="newsVo:${newsList}" th:src="@{'/reader/NewsReader?newsId=' + ${newsVo.newsId}}">-->
+        <img th:each="newsVo : ${newsList}" th:src="@{/reader/NewsReader(newsId=${newsVo.newsId})}" />
+>>>>>>> yuhui
     </div>
-</section>
+
+
+
+    <!-- 做右切換的按鈕 -->
+    <div class="shift">
+        <div class="btn left" onclick="leftShift()">&lt;</div>
+        <div class="btn right" onclick="rightShift()">&gt;</div>
+    </div>
+    <!-- 下方的按鈕 -->
+    <div class="bottom">
+        <!-- js生成下方的按鈕 -->
+
+    </div>
+</div>
+
 <!-- //banner-slider-->
 <section class="w3l-homeblock1 py-5">
     <div class="container py-lg-5 py-md-4">
@@ -139,7 +290,7 @@
                 </p>
             </div>
             <div class="col-lg-6">
-                <img src="/assets/images/class.jpg" alt="" class="img-fluid radius-image"/>
+                <img src="/assets/images/class.jpg" alt="" class="img-fluid radius-image" />
             </div>
         </div>
     </div>
@@ -236,7 +387,8 @@
                 <div class="card">
                     <div class="card-header p-0 position-relative">
                         <a>
-                            <img class="card-img-bottom d-block" src="/assets/images/blog1.jpg" alt="Card image cap">
+                            <img class="card-img-bottom d-block" src="/assets/images/blog1.jpg"
+                                 alt="Card image cap">
                         </a>
                         <ul class="location-top">
                             <li class="new">Fitness</li>
@@ -261,7 +413,8 @@
                 <div class="card">
                     <div class="card-header p-0 position-relative">
                         <a>
-                            <img class="card-img-bottom d-block" src="/assets/images/blog2.jpg" alt="Card image cap">
+                            <img class="card-img-bottom d-block" src="/assets/images/blog2.jpg"
+                                 alt="Card image cap">
                         </a>
                         <ul class="location-top">
                             <li class="tip">Fitness</li>
@@ -288,7 +441,8 @@
                 <div class="card">
                     <div class="card-header p-0 position-relative">
                         <a>
-                            <img class="card-img-bottom d-block" src="/assets/images/blog4.jpg" alt="Card image cap">
+                            <img class="card-img-bottom d-block" src="/assets/images/blog4.jpg"
+                                 alt="Card image cap">
                         </a>
                         <ul class="location-top">
                             <li class="design">Fitness</li>
@@ -633,6 +787,87 @@
 <!--//MENU-JS-->
 
 <script src="/assets/js/bootstrap.min.js"></script>
+
+
+<!-- 輪播圖的JS -->
+<script>
+    let move = 0;
+
+    // 圖片的數量
+    let imageCount = document.querySelectorAll(".outer .inner img").length;
+
+    const bottom = document.querySelector(".outer .bottom");
+    for (let i = 0; i < imageCount; i++) {
+        // 創建底部的按鈕
+        const indicator = document.createElement("div");
+        indicator.classList.add("indicator");
+        indicator.onclick = () => setMove(i);
+        bottom.append(indicator);
+    }
+
+    // 自動播放
+    let autoTimer = setInterval(() => {
+        move++;
+        refresh();
+    }, 5000); // 五秒一次
+
+    function refresh() {
+        if (move < 0) {
+            // 下方切換小於0時，設置最右的照片
+            move = imageCount - 1;
+        } else if (move >= imageCount) {
+            // 下方切換超過上限時，設置為最左的圖片
+            move = 0;
+        }
+
+        // 獲取輪播框的元素
+        let outer = document.querySelector(".outer");
+
+        // 獲取輪播框的寬度
+        let width = getComputedStyle(outer).width;
+        width = Number(width.slice(0, -2));
+
+        // 透過 left 的質改變來實施輪播
+        let inner = outer.querySelector(".inner");
+        console.log(inner)
+        inner.style.left = move * width * -1 + "px";
+    }
+
+    let refreshWrapper = (func) => {
+        // refresh 裝飾器
+        return function (...args) {
+            let result = func(...args);
+            refresh();
+
+            // 預防點擊同時還在計算自動播放，重置自動播放
+            clearInterval(autoTimer);
+            autoTimer = setInterval(() => {
+                move++;
+                refresh();
+            }, 5000);
+
+            return result;
+        };
+    };
+
+    // 切換下一張圖的按鈕
+    let leftShift = refreshWrapper(() => {
+        move--;
+    });
+
+    // 切換上一張的按鈕
+    let rightShift = refreshWrapper(() => {
+        move++;
+    });
+
+    // 下方直接切換的按鈕
+    let setMove = refreshWrapper((idx) => {
+        move = idx;
+    });
+
+    refresh();
+</script>
+
 
 </body>
 

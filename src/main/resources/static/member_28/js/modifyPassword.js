@@ -19,35 +19,37 @@ $(document).ready(function() {
 			// 發送AJAX請求
 			$.ajax({
 				url: '/front_Member/memberDataModify/summitPassword',
-//				headers: { "Content-Type": "application/json;charset=UTF-8" },
+				//				headers: { "Content-Type": "application/json;charset=UTF-8" },
 				type: 'PUT',
 				dataType: 'text',
 				data: {
 					memberId: memberId,
 					memberMail: memberMail,
 					memberPassword: memberPassword,
-					newPassword:newPassword				
+					newPassword: newPassword
 				},
-				success: function(data) {
+
+				success: function(response) {
+					var str =JSON.stringify(response)
 					// 根據伺服器的回應進行處理
-					console.log('請求正確');
-					alert("不錯嘛~資料修改成功了");
-					// Swal.fire({
-					//   text: "你很牛逼麻，資料居然給你新增成功了XDD",
-					//   icon: "success",
-					//   confirmButtonText: "確定",
-					// });
-					// 登入成功，執行相應的操作
-					window.location.href = '/front_Member/login';
+					if (str.length === 2) {
+						console.log(str.length);
+						console.log("印出response" + response);
+						console.log('請求錯誤');
+						alert("請確保新密碼不大於10個字元，並確認原密碼是否有誤!?")
+					}
+					else {
+						console.log(str.length);
+						console.log("str的長度"+str.length);
+						console.log("印出response" + response);
+						console.log('請求正確');
+						alert("不錯嘛~資料修改成功了");
+						window.location.href = '/front_Member/login';
+					}
 				},
 				error: function() {
 					// 處理請求錯誤
-					alert("請確認原密碼是否有誤!?")
-					// Swal.fire({
-					//   text: "你新增個雞毛資料啊!",
-					//   icon: "error",
-					//   confirmButtonText: "確定",
-					// });
+					alert("請確保新密碼不大於10個字元，並確認原密碼是否有誤!?")
 					console.log('請求錯誤');
 				}
 			});

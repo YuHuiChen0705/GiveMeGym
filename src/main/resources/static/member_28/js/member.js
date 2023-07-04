@@ -116,7 +116,7 @@ submit2.addEventListener("click", function(event) {
 				confirmButtonText: "確定",
 			});
 			return false;
-		} else if (!mailValue2.match(/^\w{6,20}@\w{2,8}\.com$/)) {
+		} else if (!mailValue2.match( /^[a-z0-9]+@[a-z]+\.[a-z]{2,20}$/)) {
 			memberMail.value = "";
 			mailError2.innerHTML = "請輸入正確的電子信箱。";
 			Swal.fire({
@@ -206,7 +206,7 @@ submit2.addEventListener("click", function(event) {
 				confirmButtonText: "確定",
 			});
 			return false;
-		} else if (addressValue3.match(/^[a-zA-Z]+\w*/g)) {
+		} else if (addressValue3.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)) {
 			addressError2.innerHTML = "地址不能為英文。";
 			Swal.fire({
 				text: "地址不能為英文",
@@ -219,7 +219,7 @@ submit2.addEventListener("click", function(event) {
 		} else {
 			addressError2.innerHTML = "";
 		};
-		alert("註冊成功");
+		alert("註冊結果已發送至您的信箱，成功註冊將有本月優惠資訊至您的信箱");
 		return true;
 
 	};

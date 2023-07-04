@@ -174,18 +174,7 @@ table td {
 	outline-style: solid;
 }
 </style>
-<script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const headings = document.querySelectorAll('.sidebar h2');
 
-            headings.forEach((heading) => {
-                heading.addEventListener('click', (event) => {
-                    const subMenu = event.target.nextElementSibling;
-                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -195,50 +184,54 @@ table td {
 
 	<div class="body-Content" style="display: flex;">
 		<div class="sidebar">
-			<h1>
-				首頁
-				</h2>
-				<h2>員工管理</h2>
-				<ul>
-					<li><a href="#">新增員工</a></li>
-					<li><a href="#">查詢員工</a></li>
-					<li><a href="#">員工權限</a></li>
-				</ul>
+			<h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
-				<h2>會員管理</h2>
-				<ul>
-					<li><a href="#">新增會員</a></li>
-					<li><a href="#">查詢會員</a></li>
-					<li><a href="#">會員權限</a></li>
-				</ul>
+			<h2 class="sidebartitle">員工管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/backend_department/listAll">部門</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">員工</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_access/listAll">權限</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_employeeaccess/listAll">員工權限</a></li>
+			</ul>
 
-				<h2>商城管理</h2>
-				<ul>
-					<li><a href="#">商品管理</a></li>
-					<li><a href="#">訂單管理</a></li>
-				</ul>
+			<h2 class="sidebartitle">會員管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMember">查詢會員</a></li>
+				<li class="nav-item"><a class="nav-link" href="/backend_Member/listAllMemberStatus">會員權限</a></li>
+			</ul>
 
-				<h2>教練管理</h2>
-				<ul>
-					<li><a href="#">新增教練</a></li>
-					<li><a href="#">查詢教練</a></li>
-					<li><a href="#">教練班表</a></li>
-				</ul>
+			<h2 class="sidebartitle">商城管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/getAllProduct">商品管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
+			</ul>
 
-				<h2>團課管理</h2>
-				<ul>
-					<li><a href="#">新增團課</a></li>
-					<li><a href="#">查詢團課</a></li>
-					<li><a href="#">團課排班</a></li>
-				</ul>
+			<h2 class="sidebartitle">教練管理</h2>
+			<ul style="display: none;">
+				<li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
+			</ul>
 
-				<h2>客服管理</h2>
-				<ul>
-					<li><a href="#">客戶查詢</a></li>
-					<li><a href="#">訂單查詢</a></li>
-					<li><a href="#">FAQ管理</a></li>
-				</ul>
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
+
+			<h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
+			</ul>
 		</div>
+		<!-- 側邊欄的js -->
+		<script>
+			window.addEventListener('DOMContentLoaded', (event) => {
+				const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+				headings.forEach((heading) => {
+					heading.addEventListener('click', (event) => {
+						const subMenu = event.target.nextElementSibling;
+						subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+					});
+				});
+			});
+		</script>
 
 		<section class="py-99">
 			<div class="container">
@@ -284,7 +277,7 @@ table td {
 										<td class="align-middle text-center"
 											th:text="${allCoaches.coachGender} == '0' ? '男' : '女'"></td>
 										<td class="align-middle text-center"><img id="coachImg"
-											th:src="@{/coachlist/avatar} + '?coachId=' + ${allCoaches.coachId}"
+											th:src="'/coachlist/avatar' + '?coachId=' + ${allCoaches.coachId}"
 											alt="" style="width: 100%;" /></td>
 										<td class="align-middle text-center">
 											<button class="btn btn-success btn-sm" data-bs-toggle="modal"
@@ -321,9 +314,9 @@ table td {
 							th:action="@{/coach/addCoach}" th:object="${newCoach}"
 							method="post">
 							<div class="form-group">
-								<label for="product-name">姓名</label> <input type="text"
+								<label>姓名</label> <input type="text"
 									id="coa_Name" name="coa_Name" th:field="*{coachName}" required>
-								<label for="product-name">性別</label> <input type="radio"
+								<label>性別</label> <input type="radio"
 									class="" id="male" name="gender" th:value="0"
 									th:field="*{coachGender}" required> <span class="span">男</span>
 								<input type="radio" class="" id="female" name="gender"
@@ -332,7 +325,7 @@ table td {
 							</div>
 							<br>
 							<div class="form-group">
-								<label for="product-category">教練技能</label>
+								<label>教練技能</label>
 								<div class="row" style="list-style-type: none">
 									<li class="col-md-3" th:each="theSkill : ${skillList}"><input
 										type="checkbox" class="checked" name="skillId"
@@ -345,7 +338,7 @@ table td {
 								<br>
 								<div class="form-group"
 									style="display: flex; flex-direction: column;">
-									<label for="product-name">照片</label>
+									<label>照片</label>
 									<div>
 										<input type="file" id="coa_Pic" name="coa_Pic"
 											accept="image/*" onchange="loadFile(event)"
@@ -353,10 +346,9 @@ table td {
 											style="width: 30%; margin-left: 10%;" />
 									</div>
 								</div>
-								<label for="product-name">教練簡介</label>
+								<label>教練簡介</label>
 								<div class="form-group">
-									<label for="product-description"
-										style="display: flex; align-items: center;"></label>
+									<label style="display: flex; align-items: center;"></label>
 									<textarea style="width: 600px;" id="coa_Detial"
 										name="coa_Detial" rows="4" th:field="*{coachDetail}" required></textarea>
 								</div>
@@ -529,5 +521,6 @@ table td {
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
 			integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
 			crossorigin="anonymous"></script>
+	</div>
 </body>
 </html>

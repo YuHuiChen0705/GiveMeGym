@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.givemegym.mem.mail.mailService;
 import com.givemegym.mem.service.MemberService;
 import com.givemegym.mem.vo.MemberVO;
 import com.google.gson.Gson;
@@ -29,7 +29,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
+	@Autowired
+	private mailService mailService;
 	// 使用者註冊會員，使用thymeleaf呈現
 	@GetMapping("/register")
 	public String registerMember(Model model) {
@@ -64,11 +66,13 @@ public class MemberController {
 		return "frontend/member/register";
 	}
 
+
+
 	// 註冊會員後，轉跳到登入頁面
-	@PostMapping("/loginMemer")
-	public String saveOrUpdate(@Valid MemberVO membervo) {
-		memberService.saveOrUpdate(membervo);
-		return "redirect:/front_Member/login";
+	@PostMapping("/loginMember")
+	public String saveOrUpdate(Model model, MemberVO memberVO) {
+		memberService.saveOrUpdate(memberVO);
+		return "frontend/member/login";
 	}
 
 	// 會員登入用ajax呈現
@@ -167,10 +171,6 @@ public class MemberController {
 	@ResponseBody
 	@PutMapping("/memberDataModify/summitPassword")
 	public MemberVO modifyPassword(String memberMail, String memberPassword, String newPassword) {
-		System.out.println("有執行controller");
-		System.out.println(memberMail);
-		System.out.println(memberPassword);
-		System.out.println(newPassword);
 		return memberService.modifyPassword(memberMail, memberPassword, newPassword);
 	}
 }
