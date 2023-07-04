@@ -184,82 +184,12 @@
 </header>
 <!--/header-->
 
-<<<<<<< HEAD
-<!-- main-slider -->
-<section class="w3l-main-slider position-relative" id="home">
-    <div class="companies20-content">
-        <div class="owl-one owl-carousel owl-theme">
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view bg bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg">
-                                    <h5>私人教練指導</h5>
-                                    <a class="btn btn-style btn-primary mt-md-5 mt-4" href="/coach/list">找教練</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info  banner-view banner-top1 bg bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg">
-                                    <h5>專業老師帶團</h5>
-                                    <a class="btn btn-style btn-primary mt-md-5 mt-4" href="/frontend_course/listAll">看課程</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view banner-top2 bg bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg">
-                                    <h5>健身相關產品</h5>
-                                    <a class="btn btn-style btn-primary mt-md-5 mt-4" href="/shopAllProduct">看商城</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view banner-top3 bg bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg">
-                                    <h5>常見問題</h5>
-                                    <a class="btn btn-style btn-primary mt-md-5 mt-4"
-                                       href="/frontend_faq/listAll">疑難雜症</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-        </div>
-=======
-
 <!-- 輪播圖 -->
 <div class="outer">
 
     <!-- 內部圖片 -->
     <div class="inner">
-<!--        <img src="/assets/images/banner5.jpg">-->
-<!--        <img src="/assets/images/banner2.jpg">-->
-<!--        <img src="/assets/images/banner4.jpg">-->
-<!--        <img th:each="newsVo:${newsList}" th:src="@{'/reader/NewsReader?newsId=' + ${newsVo.newsId}}">-->
-        <img th:each="newsVo : ${newsList}" th:src="@{/reader/NewsReader(newsId=${newsVo.newsId})}" />
->>>>>>> yuhui
+     <img th:each="newsVo : ${newsList}" th:src="@{/reader/NewsReader(newsId=${newsVo.newsId})}" />
     </div>
 
 

@@ -3,7 +3,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="assets/css/style-starter.css">
+<link rel="stylesheet" href="/course_44/assets/css/style-starter.css">
 
 <!-- bootstrap5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -154,12 +154,14 @@
 </header>
 <div class="body-Content" style="display: flex;">
     <div class="sidebar">
-        <h1 id="back-idex"><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
+        <h1 id="back-idex" ><a class="nav-link" href="/GiveMeGym/backend/index">首頁</a></h1>
 
         <h2 class="sidebartitle">員工管理</h2>
         <ul style="display: none;">
-            <li class="nav-item"><a class="nav-link" href="/backend_employee/addEmployee">新增員工</a></li>
-            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">查詢員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_department/listAll">部門</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employee/listAll">員工</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_access/listAll">權限</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend_employeeaccess/listAll">員工權限</a></li>
         </ul>
 
         <h2 class="sidebartitle">會員管理</h2>
@@ -174,12 +176,33 @@
             <li class="nav-item"><a class="nav-link" href="/getAllOrder">訂單管理</a></li>
         </ul>
 
-        <h2 class="sidebartitle"><a class="nav-link" href="/coach/adm/list">教練管理</a></h2>
+        <h2 class="sidebartitle">教練管理</h2>
+        <ul style="display: none;">
+            <li class="nav-item"><a class="nav-link" href="/coach/adm/list">教練管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/proclass/adm/list">專業課程管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/skill/adm/list">技能管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="/coachdayoff/adm/list">教練休假查詢</a></li>
+        </ul>
 
         <h2 class="sidebartitle"><a class="nav-link" href="/backend_period/listAll">團課管理</a></h2>
 
         <h2 class="sidebartitle"><a class="nav-link" href="/backend_faq/listAll">FAQ管理</a></h2>
+        <h2 class="sidebartitle"><a class="nav-link" href="/FindNewsList">輪播圖管理</a></h2>
+        </ul>
     </div>
+    <!-- 側邊欄的js -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+            headings.forEach((heading) => {
+                heading.addEventListener('click', (event) => {
+                    const subMenu = event.target.nextElementSibling;
+                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
 
 
     <div class="container py-5">
@@ -427,18 +450,6 @@
 <link rel="stylesheet" type="text/css" th:href="@{/course_44/css/jquery.datetimepicker.css}"/>
 <script th:src="@{/course_44/js/jquery.datetimepicker.full.js}"></script>
 
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
-
-        headings.forEach((heading) => {
-            heading.addEventListener('click', (event) => {
-                const subMenu = event.target.nextElementSibling;
-                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-    });
-</script>
 
 <script>
     window.onload = function () {
@@ -547,19 +558,7 @@
         });
     });
 </script>
-<!-- 後台 -->
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const headings = document.querySelectorAll('.sidebar h2');
 
-        headings.forEach((heading) => {
-            heading.addEventListener('click', (event) => {
-                const subMenu = event.target.nextElementSibling;
-                subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
-            });
-        });
-    });
-</script>
 
 
 <script>
