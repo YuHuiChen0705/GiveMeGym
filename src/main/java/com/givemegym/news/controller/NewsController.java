@@ -38,7 +38,7 @@ public class NewsController {
 	public String findAll(Model model) {
 		List<NewsVo> newsList = newsService.findAll();
 		model.addAttribute("newsList", newsList);
-		return "/backend/News/FindNewsList";
+		return "/backend/news/FindNewsList";
 	}
 //	===========================================================================
 
@@ -49,7 +49,7 @@ public class NewsController {
 		LocalDate currentDate = LocalDate.now();
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("newsVo", newsVo);
-		return "/backend/News/AddNews";
+		return "/backend/news/AddNews";
 	}
 
 	@PostMapping("/AddNews")
@@ -68,7 +68,7 @@ public class NewsController {
 		}
 		if (result.hasErrors()) {
 			model.addAttribute("newsVo", newsVo);
-			return "/backend/News/AddNews";
+			return "/backend/news/AddNews";
 		}
 		byte[] image = newsImg.getBytes();
 		newsVo.setNewsImg(image);
@@ -89,7 +89,7 @@ public class NewsController {
 
 		NewsVo newsVo = newsService.getOne_For_Update(Integer.valueOf(newsId));
 		model.addAttribute("newsVo", newsVo);
-		return "backend/News/UpdateNews";
+		return "backend/news/UpdateNews";
 	}
 
 	@PostMapping("/UpdateNews")
@@ -115,7 +115,7 @@ public class NewsController {
 		}
 		if (result.hasErrors()) {
 			System.out.println("here");
-			return "backend/News/UpdateNews";
+			return "backend/news/UpdateNews";
 		}
 		newsService.update(newsVo);
 		model.addAttribute("success", "修改成功");
@@ -155,7 +155,7 @@ public class NewsController {
 	public String AllNewsList(ModelMap model) {
         List<NewsVo> newsList = newsService.findAll();
         model.addAttribute("newsList", newsList);
-        return "/frontend/FrontTest";
+        return "/frontend/index";
     }
 
 
