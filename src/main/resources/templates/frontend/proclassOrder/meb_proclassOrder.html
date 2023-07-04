@@ -323,7 +323,6 @@ div .date {
 										<th class="align-middle">教練</th>
 										<th class="align-middle">課程時間</th>
 										<th class="align-middle">上課時段</th>
-										<th class="align-middle">出缺席</th>
 										<th class="align-middle">訂單狀態</th>
 										<th class="align-middle">修改</th>
 									</tr>
@@ -354,10 +353,6 @@ div .date {
 												<span th:case="0">早</span> <span th:case="1">中</span> <span
 													th:case="2">晚</span>
 											</span> </td>
-										<td>
-											<span th:switch="${ProclassOrderVo.proClassAttend}">
-												<span th:case="0">出席</span><span th:case="1">缺席</span></span>
-										</td>
 										<td><span th:switch="${ProclassOrderVo.proClassOrderState}"><span
 													th:case="0">完成報名</span><span th:case="1">取消報名</span><span
 													th:case="2">課程結束</span> </span></td>
