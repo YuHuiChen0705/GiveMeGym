@@ -1,11 +1,15 @@
 package com.givemegym.mem.mail;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import com.givemegym.courseorder.vo.CourseOrder;
 import com.givemegym.mem.vo.MemberVO;
+import com.givemegym.period.vo.Period;
 
 @Component
 public class mailService {
@@ -39,5 +43,26 @@ public class mailService {
 		mailSender.send(message);
 		return "frontend/member/login";
 	}
+	  public void sendCancelMail(Period period) {
+        Set<CourseOrder> orders = period.getOrders();
+        for (CourseOrder order : orders) {
+            String memberMail = order.getMember().getMemberMail();
+            String memberName = order.getMember().getMemberName();
+            SimpleMailMessage message = new SimpleMailMessage();
+            String courseName = order.getPeriod().getCourse().getCourseName();
+            message.setFrom("givemegymservice@gmail.com");
+            message.setTo(memberMail);
+            message.setSubject("GiveMeGym___團課未成團信件");
+            message.setText("Hello," + memberName
+                            + "\n" + "很抱歉，要告知您所報名的" + courseName + "未成團"
+                            + "\n" + "我們將於7-10天進行退款!請您不用擔心，我們會儘快處理您的退款事宜。"
+                            + "\n" + "若您有任何問題或需要進一步協助，請隨時與我們聯繫。"
+                            + "\n" + "再次感謝您對GiveMeGym的支持，我們期待能為您提供更多優質的服務！");
+                    mailSender.send(message);
+        }
+    }
+	
+	
+	
 
 }
