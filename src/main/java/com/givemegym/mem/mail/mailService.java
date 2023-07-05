@@ -45,7 +45,6 @@ public class mailService {
         return "frontend/member/login";
     }
 
-
     public void sendCancelMail(Period period) {
         Set<CourseOrder> orders = period.getOrders();
         for (CourseOrder order : orders) {
