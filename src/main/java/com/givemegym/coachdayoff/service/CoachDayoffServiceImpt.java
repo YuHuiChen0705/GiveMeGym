@@ -29,13 +29,11 @@ public class CoachDayoffServiceImpt implements CoachDayoffService {
 	    public void update(CoachDayoffVo coachDayoffVo) {
 	        coachDayoffDao.save(coachDayoffVo);
 	    }
+	    
 
-		@Override
-		public void deleteById(Integer coachDayoffId) {
-			// TODO Auto-generated method stub
-			
-		}
-
+	    public void addDayoff(CoachDayoffVo coachDayoffVo) {
+	        coachDayoffDao.save(coachDayoffVo);
+	    }
 
 		@Override
 		public List<CoachDayoffVo> findAll() {
@@ -43,25 +41,23 @@ public class CoachDayoffServiceImpt implements CoachDayoffService {
 			return coachDayoffDao.findAll();
 		}
 
-//
-//		@Override
-//		public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
-//			// TODO Auto-generated method stub
-//			return null;
-//		}
-
 		@Override
 		public List<CoachDayoffVo> findByCoachId(Integer coachId) {
 			// TODO Auto-generated method stub
-			return coachDayoffDao.findByCoachId(coachId);
-		
+			return coachDayoffDao.findByCoachId(coachId);		
 		}
+
+		@Override
+		public Optional<CoachDayoffVo> finByDayoffld(Integer coachDayoffId) {
+			// TODO Auto-generated method stub
+			return coachDayoffDao.findByDayoffId(coachDayoffId);
 		}
 
 
-//	 public List<CoachDayoffVo> getAllCoachDayoffRecordsOrderByTime() {
-//	        return (List<CoachDayoffVo>) coachDayoffDao.findAllOrderByCoachDayoffTime();
-//	    }
+		}
+
+
+
 
 
 

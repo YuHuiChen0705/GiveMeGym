@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一對一課程訂單</title>
+<!-- JQuery連結-->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Datatable連結-->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+<!-- RWD JS連結 -->
+<script
+	src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+<!-- RWD CSS連結 -->
+<link rel="stylesheet"
+	href=" https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+<!-- bootstrap5 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+<style>
+body {
+	background-color: #fef8f0f9;
+	color: #fff;
+	font-family: Arial, sans-serif;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.logo {
+	font-size: 36px;
+	font-weight: bold;
+	color: #ff0000;
+	padding: 0px 10px;
+}
+
+.user {
+	display: flex;
+	align-items: center;
+}
+
+.user .name {
+	margin-right: 10px;
+	color: #5f5d5d;
+}
+
+.sidebar {
+	width: 160px;
+	background-color: #5f5d5d;
+	padding: 20px;
+}
+
+.sidebar h1 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #fef8f0f9;
+	cursor: pointer;
+	text-align: left;
+}
+
+.sidebar h2 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #fef8f0f9;
+	cursor: pointer;
+	text-align: left;
+}
+
+.sidebar ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: none;
+}
+
+.sidebar li {
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.sidebar li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.sidebar li a:hover {
+	color: #aaa;
+}
+
+.submenu {
+	margin-left: 10px;
+}
+
+.submenu ul {
+	margin-top: 10px;
+	padding-left: 20px;
+	background-color: #fff;
+	color: #000;
+	display: none;
+}
+
+.submenu li {
+	margin-bottom: 5px;
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+}
+
+table td {
+	width: 14.28%;
+	/* 每個欄位佔表格的 1/7 寬度 */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.truncate {
+	max-width: 0;
+}
+
+.btn {
+	padding: 8px 12px;
+	font-size: 16px;
+	line-height: 26px;
+	font-weight: 600;
+	transition: 0.3s ease-in;
+	border-radius: 6px;
+}
+
+.btn {
+	color: #fff;
+	background-color: #ff0000;
+	border-color: #ff0000;
+}
+
+.btn:hover {
+	background-color: orange;
+}
+
+.btn.active {
+	background-color: orange;
+}
+
+.btn:focus {
+	background-color: orange;
+	outline-color: transparent;
+	outline-style: solid;
+}
+
+.form-group {
+	margin: 20px 0 20px 0;
+}
+</style>
+<script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const headings = document.querySelectorAll('.sidebar h2');
+
+            headings.forEach((heading) => {
+                heading.addEventListener('click', (event) => {
+                    const subMenu = event.target.nextElementSibling;
+                    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+	<header class="header">
+		<div class="logo">Give Me Gym</div>
+		<div class="user">
+			<div class="name">User Name</div>
+			<button class="btn">登出</button>
+		</div>
+	</header>
+
+	<div class="body-Content" style="display: flex;">
+		<div class="sidebar">
+			<h1>首頁</h1>
+			<h2>教練專區</h2>
+			<ul>
+				<li><a href="coachcenter_schedule.html">班表查詢</a></li>
+				<li><a href="coachcenter_proclassOrder.html">一對一課程訂單</a></li>
+				<li><a href="coachcenter_dayoff.html">休假申請</a></li>
+				<li><a href="#">課程點名</a></li>
+			</ul>
+		</div>
+		<!-- 側邊欄的js -->
+		<script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                const headings = document.querySelectorAll('.sidebar h2.sidebartitle');
+
+                headings.forEach((heading) => {
+                    heading.addEventListener('click', (event) => {
+                        const subMenu = event.target.nextElementSibling;
+                        subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+                    });
+                });
+            });
+
+            window.addEventListener('DOMContentLoaded', (event) => {
+                const links = document.querySelectorAll('.nav-link');
+                links.forEach((link) => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const url = link.getAttribute('href');
+                        loadContent(url);
+                    });
+                });
+            });
+
+        </script>
+		<section class="py-1" style="flex: 1; color: #000;">
+			<div class="container mr-md-n1 pl-md-2  ">
+				<h3 class="text mb-4">修改私人課程訂單</h3>
+				<table id="myTable" class="table table-striped table-hover"
+					style="width: 80%">
+					<div class="modal-body  align-middle"
+						style="color: #000; font-weight: 600; width: 350px">
+						<form id="add-product-form"
+							th:action="@{/proclassorder/updateproclassOrder}"
+							th:object="${ProclassOrderVo}" method="post"
+							enctype="multipart/form-data">
+							<div class="form-group">
+								<p>
+									訂單編號: <span th:text="${ProclassOrderVo.proClassOrderId}"></span>
+									<input type="hidden" id="proClassOrderId"
+										name="proClassOrderId"
+										th:value="${ProclassOrderVo.proClassOrderId}" />
+								</p>
+								<p>
+									下單時間: <span th:text="${ProclassOrderVo.proClassOrderDate}"></span>
+									<input type="hidden" id="proClassOrderDate"
+										name="proClassOrderDate"
+										th:value="${ProclassOrderVo.proClassOrderDate}" />
+								</p>
+							</div>
+							<p>
+								<input type="hidden" id="coachId" name="coachId"
+									th:value="${ProclassOrderVo.coachId}" /> <input type="hidden"
+									id="proClass" name="proClass"
+									th:value="${ProclassOrderVo.proClass.proclassId}" />
+
+							</p>
+							<p>
+								會員名稱: <span th:switch="${ProclassOrderVo.memberId}"><span
+									th:case="1">李晃興</span> <span th:case="2">梅理茂</span> <span
+									th:case="3">呂珊寶</span><span th:case="4">曾濤彥</span><span
+									th:case="5">連玫璽</span><span th:case="6">魏川長</span><span
+									th:case="7">楊眉</span></span> <input type="hidden" id="memberId"
+									name="memberId" th:value="${ProclassOrderVo.memberId}" />
+							</p>
+							<p>
+								課程時間: <span th:text="${ProclassOrderVo.proClassDate}"></span> <input
+									type="hidden" id="proClassDate" name="proClassDate"
+									th:value="${ProclassOrderVo.proClassDate}" />
+							</p>
+							<p>
+								課程時段: <span th:switch="${ProclassOrderVo.proClassTime}">
+												<span th:case="0">早上</span>
+												<span th:case="1">下午</span>
+												<span th:case="2">晚上</span> </span>
+								
+								<input
+									type="hidden" id="proClassTime" name="proClassTime"
+									th:value="${ProclassOrderVo.proClassTime}" />
+							</p>
+							<div class="form-group">
+								<label for="proClassOrderState">課程狀態</label> <select
+									id="proClassOrderState" name="proClassOrderState" required
+									th:disabled="${ProclassOrderVo.proClassOrderState eq 2}">
+									<option value="0"
+										th:selected="${ProclassOrderVo.proClassOrderState == 0}">預約成功
+									</option>
+									<option value="1"
+										th:selected="${ProclassOrderVo.proClassOrderState == 1}">課程取消
+									</option>
+									<option value="2"
+										th:selected="${ProclassOrderVo.proClassOrderState == 2}">完成課程
+									</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+
+								<button type="submit" class="btn btn-primary">送出</button>
+							</div>
+						</form>
+					</div>
+				</table>
+			</div>
+
+		</section>
+
+
+
+	
+</body>
+
+</html>

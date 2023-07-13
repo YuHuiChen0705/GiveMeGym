@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-                                                                                                                                                                                                                                                                                                <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 
 <meta charset="utf-8">
@@ -15,10 +15,7 @@
 <link rel="stylesheet"
 	href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-	integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-	crossorigin="anonymous"></script>
+
 
 <!-- Datatable連結-->
 <link rel="stylesheet"
@@ -42,10 +39,7 @@
 <link rel="stylesheet" href="/assets/css/dataTable.css">
 
 <!-- bootstrap5 CSS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
-	integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
-	crossorigin="anonymous"></script>
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -255,13 +249,15 @@ table {
 										<td class="align-middle"
 											th:text="${coachDayoffVo.coachDayoffDate}"></td>
 										<td class="align-middle"><span
-											th:switch="${coachDayoffVo.coachDayoffTime}">
-											 <span
+											th:switch="${coachDayoffVo.coachDayoffTime}"> <span
 												th:case="0">早</span> <span th:case="1">中</span> <span
 												th:case="2">晚</span>
 										</span></td>
 										<td>
-											<button class="btn btn-success btn-sm">修改</button>
+											<button type="button" class="btn btn-success btn-sm"
+												data-bs-toggle="modal" data-bs-target="#staticUpdate"
+												th:onclick="'window.location.href=\'/coachDayoff/updatecoachDayoff/' + ${coachDayoffVo.coachDayoffId} + '\''">
+												修改</button>
 										</td>
 									</tr>
 								</tbody>
@@ -283,116 +279,57 @@ table {
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body" id ="adddayoff"style="color: #000;">
-						<form id="add-product-form" action="/coachDayoff/savedayofflist"
-							method="post">
-							<select class="btn btn-primary " name="coachId"  required>
-								<option>請選擇教練</option>
-								<option value=1>李昊天</option>
-								<option value=2>許雅婷</option>
-								<option value=3>劉梓涵</option>
-								<option value=4>李雅琪</option>
-								<option value=5>王子軒</option>
-								<option value=6>陳宇軒</option>
-								<option value=7>王建宏</option>
-							</select> <br> <br> <label for="start">休假日期:</label> <input
-								type="date" id="start" name="coachDayoffDate" min="2023-01-01"
-								max="2023-12-31" required>
-								 <label for="product-category">休假時段</label>
-							<<select id="product-category" name="coachDayoffTime" required>>
-								<li class="col-md-5">
-									<option class="span" name="time" id="0" value="上午" required>上午</option>
-									<option class="span" name="time" id="1" value="中午" required>中午</option>
-									<option class="span" name="time" id="2" value="晚上" required>晚上</option>
-							</li>
+					<form id="add-dayoff-form" action="/coachDayoff/addDayoff"
+						method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="start">休假日期:</label> <input type="date"
+								id="coachDayoffDate" name="coachDayoffDate" min="2023-01-01"
+								max="2023-12-31" required> <label>休假時段</label> <select
+								id="coachDayoffTime" name="coachDayoffTime" required>
+								<option class="span" name="time" id="0" value="0" required>早</option>
+								<option class="span" name="time" id="1" value="1" required>中</option>
+								<option class="span" name="time" id="2" value="2" required>晚</option>
 							</select>
-						</form>
-										<div class="modal-footer">
-								<button type="submit" class="btn btn-secondary"
-									data-bs-dismiss="modal">放棄</button>
-								<button type="submit" class="btn btn-primary "
-									 id="submit-btn">新增</button>
-							</div>
-					</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">放棄</button>
+							<button type="button" class="btn btn-primary" id="add-dayoff-btn">新增</button>
+						</div>
+					</form>
+
 				</div>
 			</div>
 		</div>
 	</div>
 
+
 	<script>  
-	$(document).ready(function () {
-            // 當表單提交時
-            $('#add-product-form').submit(function (event) {
-                event.preventDefault();
-                var dayoffCount=0;
-                var coa_Name=null;
-                // 從表單中取得教練資訊
-                
-                var dayoff_Date = $('#start').val();
-                var dayoff_Time = $('#product-category').val();
+	$(document).ready(function() {
+		$("#add-dayoff-btn").click(function() {
+			var formData = new FormData($("#add-dayoff-form")[0]);
 
-                // 生成新的休假申請編號
-                dayoffCount++;
-                var dayoffID = dayoffCount.toString().padStart(3, "0");
-
-                // 動態新增資料到表格
-                var newRow = "<tr>" +
-                    "<td>" + dayoffID + "</td>" +
-                    "<td>" + dayoff_Date + "</td>" +
-                    "<td>" + dayoff_Time + "</td>" +
-
-                    "</tr>";
-                $("#myTable tbody").append(newRow);
-                // 重置表單
-                $("#add-product-form")[0].reset();
-            });
-        });
-	
-	 document.getElementById('add-product-form').addEventListener('submit', function(event) {
-		    event.preventDefault(); // 防止表單默認提交行為
-		    
-		    // 獲取表單數據
-		    var form = document.getElementById('add-product-form');
-		    var formData = new FormData(form);
-		    
-		    // 使用Ajax提交表單數據到後端
-		    var xhr = new XMLHttpRequest();
-		    xhr.open('POST', '/coachDayoff/savedayofflist', true);
-		    xhr.onreadystatechange = function() {
-		      if (xhr.readyState === 4 && xhr.status === 200) {
-		        // 請求成功，處理返回結果
-		        var response = xhr.responseText;
-		        if (response === 'success') {
-		          // 成功處理返回結果，關閉彈出視窗
-		          var modal = document.getElementById('adddayoff"'); // 替換為你的彈出視窗的ID
-		          var bootstrapModal = bootstrap.Modal.getInstance(modal);
-		          bootstrapModal.hide();
-		          
-		          // 可以進行其他操作，例如重新加載數據列表等
-		          // ...
-		        } else {
-		          // 處理返回結果為錯誤情況
-		          // ...
-		        }
-		      }
-		    };
-		    xhr.send(formData);
-		  });
-	 
-	  // 使用Ajax重新請求數據列表
-	 function reloadList() {
-		  var xhr = new XMLHttpRequest();
-		  xhr.open('GET', '/coachDayoff/getAlldayofflist', true);
-		  xhr.onreadystatechange = function() {
-		    if (xhr.readyState === 4 && xhr.status === 200) {
-		      // 請求成功，更新數據列表內容
-		      var dataList = document.getElementById('data-list');
-		      dataList.innerHTML = xhr.responseText;
-		    }
-		  };
-		  xhr.send();
-		}
-	
+			$.ajax({
+				url: $("#add-dayoff-form").attr("action"),
+				type: $("#add-dayoff-form").attr("method"),
+				data: formData,
+				enctype: 'multipart/form-data',
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function(response) {
+					// Handle the success response
+// 					console.log(response);
+					const coachId = 1;
+					window.location.href = "/coachDayoff/getAlldayofflist/"+coachId;
+				},
+				error: function(xhr, status, error) {
+					// Handle the error response
+					console.log(xhr.responseText);
+				}
+			});
+		});
+	});
     </script>
 </body>
 </html>

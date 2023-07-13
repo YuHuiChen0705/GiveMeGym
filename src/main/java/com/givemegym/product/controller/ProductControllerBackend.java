@@ -32,17 +32,17 @@ public class ProductControllerBackend {
     }
 
 //從表單獲得請假資訊,導入資料庫
-    @PostMapping("/SaveProduct")
-    public String saveProduct(@Valid Product product) {
-        productService.update(product);
-        return "redirect:/getAllProduct";
-    }
-    // 新增商品
-    @PostMapping("/SaveProduct")
-    public String saveProduct(@Valid Product product) {
-        productService.save(product);
-        return "redirect:/getAllProduct";
-    }
+//    @PostMapping("/SaveProduct")
+//    public String saveProduct(@Valid Product product) {
+//        productService.update(product, null);
+//        return "redirect:/getAllProduct";
+//    }
+//    // 新增商品
+//    @PostMapping("/SaveProduct")
+//    public String saveProduct(@Valid Product product) {
+//        productService.save(product);
+//        return "redirect:/getAllProduct";
+//    }
 
 
     // 導入修改商品的頁面
@@ -50,10 +50,8 @@ public class ProductControllerBackend {
     public String toUpdate(@PathVariable Integer productId, ModelMap model) throws IOException {
         Optional<Product> findProduct = productService.findById(productId);
         model.addAttribute("product", findProduct.orElseThrow());
-
         List<String> resources = getImageList(productId);
         model.addAttribute("resources", resources);
-
         return "backend/product/backend_pdUpdate";
     }
 

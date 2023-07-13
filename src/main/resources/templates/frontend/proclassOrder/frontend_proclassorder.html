@@ -85,30 +85,43 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#calendar').fullCalendar({
-                events: [
-                    {
-                        title: '有氧',
-                        start: '2023-06-01 09:00:00',
-                        end: '2023-06-01 12:00:00'
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            events: function (fetchInfo, successCallback, failureCallback) {
+                $.ajax({
+                    url: '/coachcenter_schedule/coachschList/{coachid}', // 替换为您的Controller方法的URL路径，将{coachid}替换为实际的教练ID
+                    type: 'GET',
+                    success: function (data) {
+                        var events = [];
+                        data.events.forEach(function (event) { // 假设Controller方法返回的数据中有一个名为events的数组
+                            var calendarEvent = {
+                                title: event.title,
+                                start: event.start
+                            };
+                            events.push(calendarEvent);
+                        });
+                        successCallback(events);
                     },
-                ],
+                    error: function () {
+                        failureCallback();
+                    }
+                });
+            },
 
-                selectable: true,
-                selectHelper: true,
-                select: function (start, end) {
-                    var formattedDate = moment(start).format('YYYY-MM-DD');
-                    $('#selectedDate').val(formattedDate);
-                    $('#confirmationModal').modal('show');
-                }
-            });
-
-            $('#disableDropdown').on('change', function () {
-                var isDisabled = $(this).is(':checked');
-                $('#reasonDropdown').prop('disabled', isDisabled);
-            });
+            selectable: true,
+            selectHelper: true,
+            select: function (start, end) {
+                var formattedDate = moment(start).format('YYYY-MM-DD');
+                $('#selectedDate').val(formattedDate);
+                $('#confirmationModal').modal('show');
+            }
         });
+
+        $('#disableDropdown').on('change', function () {
+            var isDisabled = $(this).is(':checked');
+            $('#reasonDropdown').prop('disabled', isDisabled);
+        });
+    });
         
         document.getElementById("confirmRequestBtn").addEventListener("click", function() {
             // 獲取選取的課程和時段
@@ -128,8 +141,10 @@
             xhr.open("POST", "/addproclassorder", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function() {
-            	window.location.href = "rontend/proclassOrder/mebproClassorder/{memberId}";
-            }
+            	if (xhr.readyState === 4 && xhr.status === 200) {
+            		$('#myModal').modal('hide');
+            	window.location.href = "/backend/coachDayoff/getAlldayofflist/{coachId}";
+            	 } }
         });
     </script>
 </body>

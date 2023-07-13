@@ -2,8 +2,7 @@ package com.givemegym.coachskill.service;
 
 import com.givemegym.coachskill.vo.CoachSkillVo;
 
-import net.bytebuddy.asm.Advice.Return;
-
+import com.givemegym.coachskill.dao.CoachSkillDAO;
 import com.givemegym.coachskill.service.CoachSkillService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,8 @@ import java.util.List;
 
 @Service
 public class CoachSkillServiceImpl implements CoachSkillService {
-    private CoachSkillDAO coachSkillDao;
+    @Autowired
+	private CoachSkillDAO coachSkillDao;
 
     @Autowired
     public CoachSkillServiceImpl(CoachSkillDAO coachSkillDao) {

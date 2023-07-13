@@ -1,6 +1,7 @@
 package com.givemegym.proclassorder.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,8 +25,12 @@ public interface ProclassOrderDao extends JpaRepository<ProclassOrderVo, Integer
 
 	@Query("SELECT cd FROM ProclassOrderVo cd WHERE cd.coachId = :coachId")
 	List<ProclassOrderVo> findByCoachId(@Param("coachId") Integer coachId);
-	
-//@Query(value = "SELECT * FROM ProclassOrder WHERE coach_Id = :coachId", nativeQuery = true)
-//	List<Object[]> findByCoachId(@Param("coachId") Integer coachId);
+
+	@Query("SELECT cd FROM ProclassOrderVo cd WHERE cd.proClassOrderId = :proClassOrderId")
+	Optional<ProclassOrderVo> findByOrderId(@Param("proClassOrderId") Integer proClassOrderId);
+
+
+
+
 	
 }

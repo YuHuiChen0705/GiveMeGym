@@ -36,7 +36,7 @@ public class CourseSchedule {
     // 關聯1方(教練)
     @ManyToOne()
     @JoinColumn(name = "COACH_ID")
-    private Coach coach;
+    private Coach coachId;
 
     @NotNull(message = "請輸入上課日期")
     @Future(message = "別活在過去")
@@ -50,5 +50,16 @@ public class CourseSchedule {
     @Column(name = "COURSE_SCHEDULE_STATE")
     private String courseScheduleState;
 
+	public String getCourseScheduleTime() {
+	    if (courseScheduleTime.equals("0")) {
+	        return "早上";
+	    } else if (courseScheduleTime.equals("1")) {
+	        return "中午";
+	    } else if (courseScheduleTime.equals("2")) {
+	        return "晚上";
+	    } else {
+	        return "未知";
+	    }
+	}
 
 }

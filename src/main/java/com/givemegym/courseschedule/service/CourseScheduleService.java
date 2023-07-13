@@ -32,8 +32,9 @@ public interface CourseScheduleService {
 
     //  當報名時段為XXX時即更新上課狀態為'已取消'
     void updateCourseScheduleStateToOffByPeriod(Period period);
-
-
+//  查詢教練為XXX的上課時段
+    List<CourseSchedule> findByCoachId(Integer coachId);
+    
     CourseSchedule findCourseScheduleByCourseScheduleDateAndCourseScheduleTime(Date courseScheduleDate, String CourseScheduleTime);
 }
 

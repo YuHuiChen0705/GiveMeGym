@@ -15,8 +15,11 @@ public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer
 
     //   查詢報名時段為XXX的上課時段
     List<CourseSchedule> findCourseScheduleByPeriod(Period period);
-
-
+//查詢教練為xxx的時段
+    @Query("SELECT p FROM CourseSchedule p WHERE p.coachId = :coachId")
+    List<CourseSchedule> findByCoachId(Integer coachId);
+    
+    
     //  查詢狀態為XXX的上課時段
     @Query("SELECT p FROM CourseSchedule p WHERE p.courseScheduleState = :courseScheduleState")
     List<CourseSchedule> findCourseSchedulesByCourseScheduleState(String courseScheduleState);

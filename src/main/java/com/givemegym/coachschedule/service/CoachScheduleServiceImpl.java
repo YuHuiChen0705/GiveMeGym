@@ -14,10 +14,11 @@ public class CoachScheduleServiceImpl implements CoachScheduleService {
 	private CoachScheduleDao coachSchedulDao;
 
 	@Override
-	public List<CoachScheduleVo> findByCoachId(Integer coachSchedulId) {
-
+	public List<CoachScheduleVo> findByCoachId(Integer coachId) {
+//	return coachSchedulDao.findByCoachId(coachId);
 		return null;
 	}
+	
 
 
 }

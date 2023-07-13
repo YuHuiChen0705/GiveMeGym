@@ -1,6 +1,7 @@
 package com.givemegym.proclassorder.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +19,33 @@ public class ProclassOrderServiceImpt implements ProclassOrderService {
 
 	    @Override
 	    public void addProclassOrder(ProclassOrderVo proclassOrder) {
-//	        proclassOrderDao.addProclassOrder(proclassOrder);
+	        proclassOrderDao.addProclassOrder(proclassOrder);
 	    }
 
 	    @Override
 	    public List<ProclassOrderVo> findByMemberId(Integer memberId) {
-			
          return proclassOrderDao.findByMemberId(memberId);
 	    }
 
-	    @Override
-	    public void cancelProclassOrder(Integer proClassOrderId) {
-//	        proclassOrderDao.cancelProclassOrder(proClassOrderId);
-	    }
-
-	    @Override
 	    public List<ProclassOrderVo> findByCoachId(Integer coachId) {
 	        return proclassOrderDao.findByCoachId(coachId);
 	    }
+
+		public ProclassOrderVo updateProclassOrder(ProclassOrderVo proClassOrdervo) {
+			  return proclassOrderDao.save(proClassOrdervo);
+		}
+		public ProclassOrderVo updatemebProclassOrder(ProclassOrderVo proClassOrdervo) {
+			  return proclassOrderDao.save(proClassOrdervo);
+		}
+
+		@Override
+		public Optional<ProclassOrderVo> findByOrderId(Integer proClassOrderId) {
+			return proclassOrderDao.findByOrderId(proClassOrderId);
+		}
+
+		@Override
+		public void save(ProclassOrderVo proClassOrdervo) {
+			proclassOrderDao.save(proClassOrdervo);
+			
+		}
 }

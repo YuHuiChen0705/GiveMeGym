@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.givemegym.coachskill.vo.CoachSkillVo;
 import com.givemegym.coach.service.CoachService;
 import com.givemegym.coach.vo.Coach;
-import com.givemegym.coachSkill.vo.CoachSkill;
+
 import com.givemegym.skill.service.SkillService;
 import com.givemegym.skill.vo.Skill;
 
@@ -74,7 +74,7 @@ public class CoachController {
 		theModel.addAttribute("skillList", theSkills);
 
 		theModel.addAttribute("newCoach", new Coach());
-		theModel.addAttribute("newCoachSkill", new CoachSkill());
+		theModel.addAttribute("newCoachSkill", new CoachSkillVo());
 
 		return "backend/coach/addcoach";
 	}
