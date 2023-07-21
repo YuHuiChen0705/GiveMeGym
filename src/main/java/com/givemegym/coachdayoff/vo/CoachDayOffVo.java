@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class CoachDayoffVo {
 	@Column(name ="COACHDAYOFF_ID")
 	private Integer coachDayoffId;
 	
-	@Column(name ="COACH_ID")
+	@JoinColumn(name ="COACH_ID")
 	private Integer coachId;
 	
 	public Integer getCoachId() {
@@ -59,9 +60,17 @@ public class CoachDayoffVo {
 		this.coachDayoffDate = coachDayoffDate;
 	}
 
-	public String getCoachDayoffTime() {
-		return coachDayoffTime;
-	}
+//	public String getCoachDayoffTime() {
+//	    if (coachDayoffTime.equals("0")) {
+//	        return "早上";
+//	    } else if (coachDayoffTime.equals("1")) {
+//	        return "中午";
+//	    } else if (coachDayoffTime.equals("2")) {
+//	        return "晚上";
+//	    } else {
+//	        return "未知";
+//	    }
+//	}
 
 	public void setCoachDayoffTime(String coachDayoffTime) {
 		this.coachDayoffTime = coachDayoffTime;
